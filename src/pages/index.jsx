@@ -9,11 +9,18 @@ import config from "../../data/SiteConfig";
 class Index extends React.Component {
   render() {
     const postEdges = this.props.data.allMarkdownRemark.edges;
+    const title = config.siteTitleShort;
+    const description = config.siteDescription;
     return (
       <Layout>
         <div className="index-container">
           <Helmet title={config.siteTitle} />
+          <div className="siteTitle">{title}</div>
           <SEO />
+          <div className="description">
+            <img src="/rowlandEkemezie.jpg" alt="rowland" height="70px" width="70px"/>
+            {description}
+          </div>
           <PostListing postEdges={postEdges} />
         </div>
       </Layout>
