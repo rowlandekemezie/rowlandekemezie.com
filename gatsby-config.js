@@ -1,5 +1,5 @@
 const urljoin = require("url-join");
-const config = require("./data/SiteConfig");
+const config = require("./data/siteConfig");
 
 module.exports = {
   pathPrefix: config.pathPrefix === "" ? "/" : config.pathPrefix,

@@ -7,7 +7,7 @@ import Disqus from "../components/Disqus/Disqus";
 import PostTags from "../components/PostTags/PostTags";
 import SocialLinks from "../components/SocialLinks/SocialLinks";
 import SEO from "../components/SEO/SEO";
-import config from "../../data/SiteConfig";
+import config from "../../data/siteConfig";
 import "./b16-tomorrow-dark.css";
 import "./post.css";
 
