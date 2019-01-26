@@ -9,25 +9,4 @@ html {
 body {
     margin: 0;
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    font-family: 'Montserrat, sans-serif'
-}
-
-.siteTitle {
-    font-size: 30px;
-    padding: 10px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
-}
-
-.description {
-    margin: 40px 0px 40px 0px;
-    padding: 5px;
-    font-size: 18px;
-    display: flex;
-}
-
-img {
-    border-radius: 50%;
-    margin-right: 15px;
 }
