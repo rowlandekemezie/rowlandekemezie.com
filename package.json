@@ -1,5 +1,5 @@
 {
-  "name": "Rowland-Ekemezie-Blog",
+  "name": "rowland-ekemezie",
   "description": "A blog by Rowland Ekemezie. Automated system enthusiast, software engineer.",
   "version": "1.1.0",
   "author": "Rowland Ekemezie <rowland.ekemezie@gmail.com>",
@@ -88,8 +88,15 @@
     }
   },
   "lint-staged": {
-    "**/*.{js,jsx,css,json,md}": [
-      "npm run prettier && npm run lint",
+    "**/*.{js,jsx,css,md}": [
+      "npm run prettier"
+    ],
+    "**/*.{js,jsx}": [
+      "npm run lint:js",
+      "git add"
+    ],
+    "**/*.{css}": [
+      "npm run lint:css",
       "git add"
     ]
   }

@@ -12,6 +12,7 @@ export default class TagTemplate extends React.Component {
       pageContext: { tag },
     } = this.props
     const postEdges = data.allMarkdownRemark.edges
+
     return (
       <Layout>
         <div className="tag-container">
