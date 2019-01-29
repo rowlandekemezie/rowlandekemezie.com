@@ -16,7 +16,7 @@ export default class PostTemplate extends React.Component {
     const {
       data,
       pageContext: { slug },
-    } = pageContext
+    } = this.props
     const postNode = data.markdownRemark
     const post = postNode.frontmatter
     if (!post.id) {
