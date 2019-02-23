@@ -1,7 +1,7 @@
 ---
 template: post
 title: Testing with Oliver
-slug: 23-02-2018
+slug: posts/testing-with-oliver
 draft: true
 date: 2019-02-23T08:06:46.204Z
 description: 'Testing to see who CMS works '
