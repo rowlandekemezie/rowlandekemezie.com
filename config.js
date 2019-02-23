@@ -1,11 +1,11 @@
 'use strict';
 
 module.exports = {
-  url: 'https://lumen.netlify.com',
-  title: 'Blog by John Doe',
-  subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+  url: 'https://rowlandbits.netlify.com',
+  title: 'Blog by Rowland Ekemezie',
+  subtitle: 'I love automated systems, I develop human capital. Code speaks for me',
   copyright: '© All rights reserved.',
-  disqusShortname: '',
+  disqusShortname: 'test-rowlandbits',
   postsPerPage: 4,
   googleAnalyticsId: 'UA-73379983-2',
   menu: [
@@ -23,14 +23,14 @@ module.exports = {
     }
   ],
   author: {
-    name: 'John Doe',
-    photo: '/photo.jpg',
-    bio: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    name: 'Rowland Ekemezie',
+    photo: '/rowland.jpeg',
+    bio: 'Automated system enthusiast | Human capital development advocate | Addictive learner | Writer | Software Engineer',
     contacts: {
-      email: '#',
+      email: 'rowland.ekemezie@gmail.com',
       telegram: '#',
-      twitter: '#',
-      github: '#',
+      twitter: 'rowlandekemezie',
+      github: 'rowlandekemezie',
       rss: '#',
       vkontakte: '#'
     }
