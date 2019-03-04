@@ -5,13 +5,14 @@ import Comments from './Comments';
 import Content from './Content';
 import Meta from './Meta';
 import Tags from './Tags';
+import Share from '../Share'
 import styles from './Post.module.scss';
 
-const Post = ({ post }) => {
+const Post = ({ post, timeToRead, twitterHandle, url }) => {
   const {
     tags,
     title,
-    date
+    date,
   } = post.frontmatter;
 
   const { html } = post;
@@ -22,13 +23,25 @@ const Post = ({ post }) => {
       <Link className={styles['post__home-button']} to="/">All Articles</Link>
 
       <div className={styles['post__content']}>
-        <Content body={html} title={title} />
+        <Content body={html} title={title} date={date} timeToRead={timeToRead} />
       </div>
 
       <div className={styles['post__footer']}>
-        <Meta date={date} />
         <Tags tags={tags} tagSlugs={tagSlugs} />
-        <Author />
+      </div>
+
+      <div className={styles['post__share']}>
+        <Share
+          url={url}
+          title={title}
+          twitterHandle={twitterHandle}
+        />
+      </div>
+
+      <div className={styles['post__edit']}>
+        <Link
+          to="#"
+        />
       </div>
 
       <div className={styles['post__comments']}>

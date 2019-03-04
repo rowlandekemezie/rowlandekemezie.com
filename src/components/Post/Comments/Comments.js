@@ -2,11 +2,12 @@ import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import ReactDisqusComments from 'react-disqus-comments';
 
-export const PureComments = ({ data, postTitle, postSlug }) => {
+export const PureComments = ({ data: { site, markdownRemark } }) => {
   const {
-    siteUrl,
+    url,
+    title,
     disqusShortname
-  } = data.site.siteMetadata;
+  } = site.siteMetadata;
 
   if (!disqusShortname) {
     return null;
@@ -15,9 +16,9 @@ export const PureComments = ({ data, postTitle, postSlug }) => {
   return (
     <ReactDisqusComments
       shortname={disqusShortname}
-      identifier={postTitle}
-      title={postTitle}
-      url={siteUrl + postSlug}
+      identifier={title}
+      title={title}
+      url={`${url}${markdownRemark.fields.slug}`}
     />
   );
 };
@@ -30,6 +31,12 @@ export const Comments = (props) => (
           siteMetadata {
             disqusShortname
             url
+            title
+          }
+        }
+        markdownRemark {
+          fields {
+            slug
           }
         }
       }

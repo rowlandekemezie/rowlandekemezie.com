@@ -59,6 +59,7 @@ export const query = graphql`
             slug
             categorySlug
           }
+          timeToRead
           frontmatter {
             title
             date
