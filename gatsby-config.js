@@ -72,6 +72,7 @@ module.exports = {
                       fields {
                         slug
                       }
+                      timeToRead
                       frontmatter {
                         title
                         date

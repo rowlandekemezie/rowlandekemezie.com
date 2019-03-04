@@ -3,22 +3,21 @@ import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
 import Post from '../components/Post';
 
-const PostTemplate = ({ data }) => {
+const PostTemplate = ({ data: { site, markdownRemark } }) => {
   const {
     title: siteTitle,
     subtitle: siteSubtitle
-  } = data.site.siteMetadata;
+  } = site.siteMetadata;
 
   const {
     title: postTitle,
-    description: postDescription
-  } = data.markdownRemark.frontmatter;
+    description: postDescription,
+  } = markdownRemark.frontmatter;
 
   const metaDescription = postDescription !== null ? postDescription : siteSubtitle;
-
   return (
     <Layout title={`${postTitle} - ${siteTitle}`} description={metaDescription}>
-      <Post post={data.markdownRemark} />
+      <Post post={markdownRemark} timeToRead={markdownRemark.timeToRead} twitterHandle={site.siteMetadata.author.contacts.twitter} url={`${site.siteMetadata.url}${markdownRemark.fields.slug}`}/>
     </Layout>
   );
 };
@@ -44,7 +43,9 @@ export const query = graphql`
       html
       fields {
         tagSlugs
+        slug
       }
+      timeToRead
       frontmatter {
         date
         description
