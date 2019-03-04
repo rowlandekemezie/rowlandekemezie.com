@@ -3,6 +3,7 @@
 const siteConfig = require('./config.js');
 const postCssPlugins = require('./postcss-config.js');
 
+const stripSlash = slug => slug.startsWith('/') ? slug.slice(1) : slug
 module.exports = {
   siteMetadata: {
     url: siteConfig.url,
@@ -54,8 +55,8 @@ module.exports = {
             allMarkdownRemark.edges.map((edge) => Object.assign({}, edge.node.frontmatter, {
               description: edge.node.frontmatter.description,
               date: edge.node.frontmatter.date,
-              url: site.siteMetadata.site_url + edge.node.fields.slug,
-              guid: site.siteMetadata.site_url + edge.node.fields.slug,
+              url: `${site.siteMetadata.site_url}${stripSlash(edge.node.fields.slug)}`,
+              guid: `${site.siteMetadata.site_url}${stripSlash(edge.node.fields.slug)}`,
               custom_elements: [{ 'content:encoded': edge.node.html }]
             }))
           ),
