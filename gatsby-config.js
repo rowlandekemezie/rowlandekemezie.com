@@ -4,6 +4,7 @@ const siteConfig = require('./config.js');
 const postCssPlugins = require('./postcss-config.js');
 
 const stripSlash = slug => slug.startsWith('/') ? slug.slice(1) : slug
+
 module.exports = {
   siteMetadata: {
     url: siteConfig.url,
@@ -76,7 +77,7 @@ module.exports = {
                       timeToRead
                       frontmatter {
                         title
-                        date
+                        date(formatString: "MMMM DD, YYYY")
                         template
                         draft
                         description
@@ -168,7 +169,7 @@ module.exports = {
         background_color: '#FFF',
         theme_color: '#F7A046',
         display: 'standalone',
-        icon: 'static/rowland.jpeg'
+        icon: 'static/favico.png',
       },
     },
     'gatsby-plugin-offline',

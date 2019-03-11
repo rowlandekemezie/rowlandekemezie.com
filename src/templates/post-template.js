@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
 import Post from '../components/Post';
+import SEO from '../components/Seo';
 
 const PostTemplate = ({ data: { site, markdownRemark } }) => {
   const {
@@ -17,6 +18,11 @@ const PostTemplate = ({ data: { site, markdownRemark } }) => {
   const metaDescription = postDescription !== null ? postDescription : siteSubtitle;
   return (
     <Layout title={`${postTitle} - ${siteTitle}`} description={metaDescription}>
+      <SEO 
+        title={markdownRemark.frontmatter.title}
+        description={markdownRemark.frontmatter.description}
+        slug={markdownRemark.fields.slug}
+      />
       <Post post={markdownRemark} timeToRead={markdownRemark.timeToRead} twitterHandle={site.siteMetadata.author.contacts.twitter} url={`${site.siteMetadata.url}${markdownRemark.fields.slug}`}/>
     </Layout>
   );
@@ -47,7 +53,7 @@ export const query = graphql`
       }
       timeToRead
       frontmatter {
-        date
+        date(formatString: "MMMM DD, YYYY")
         description
         tags
         title
