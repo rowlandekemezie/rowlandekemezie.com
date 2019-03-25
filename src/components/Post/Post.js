@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import Author from './Author';
 import Comments from './Comments';
 import Content from './Content';
-import Meta from './Meta';
 import Tags from './Tags';
-import Share from '../Share'
+import Share from '../Share';
 import styles from './Post.module.scss';
 
-const Post = ({ post, timeToRead, twitterHandle, url }) => {
+const Post = ({
+  post, timeToRead, twitterHandle, url
+}) => {
   const {
     tags,
     title,

@@ -11,6 +11,7 @@ const PageTemplate = ({ data }) => {
   } = data.site.siteMetadata;
 
   const {
+    tags: keywords,
     title: pageTitle,
     description: pageDescription
   } = data.markdownRemark.frontmatter;
@@ -20,7 +21,7 @@ const PageTemplate = ({ data }) => {
   const metaDescription = pageDescription !== null ? pageDescription : siteSubtitle;
 
   return (
-    <Layout title={`${pageTitle} - ${siteTitle}`} description={metaDescription}>
+    <Layout title={`${pageTitle} - ${siteTitle}`} description={metaDescription} keywords={keywords}>
       <Sidebar />
       <Page title={pageTitle}>
         <div dangerouslySetInnerHTML={{ __html: pageBody }} />
@@ -44,6 +45,7 @@ export const query = graphql`
         title
         date
         description
+        tags
       }
     }
   }

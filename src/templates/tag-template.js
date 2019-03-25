@@ -8,6 +8,7 @@ import Pagination from '../components/Pagination';
 
 const TagTemplate = ({ data, pageContext }) => {
   const {
+    tags: keywords,
     title: siteTitle,
     subtitle: siteSubtitle
   } = data.site.siteMetadata;
@@ -25,7 +26,7 @@ const TagTemplate = ({ data, pageContext }) => {
   const pageTitle = currentPage > 0 ? `All Posts tagged as "${tag}" - Page ${currentPage} - ${siteTitle}` : `All Posts tagged as "${tag}" - ${siteTitle}`;
 
   return (
-    <Layout title={pageTitle} description={siteSubtitle}>
+    <Layout title={pageTitle} description={siteSubtitle} keywords={keywords}>
       <Sidebar />
       <Page title={tag}>
         <Feed edges={edges} />

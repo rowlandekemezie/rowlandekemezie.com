@@ -20,11 +20,13 @@ const query = graphql`
   }
 `;
 
-function SEO({ meta, image, title, description, slug, lang = 'en' }) {
+function SEO({
+  meta, image, title, description, slug, lang = 'en'
+}) {
   return (
     <StaticQuery
       query={query}
-      render={data => {
+      render={(data) => {
         const { siteMetadata } = data.site;
         const metaDescription = description || siteMetadata.title;
         const metaImage = image ? `${siteMetadata.url}/${image}` : null;
@@ -34,12 +36,12 @@ function SEO({ meta, image, title, description, slug, lang = 'en' }) {
             htmlAttributes={{ lang }}
             {...(title
               ? {
-                  titleTemplate: `%s — ${siteMetadata.title}`,
-                  title,
-                }
+                titleTemplate: `%s — ${siteMetadata.title}`,
+                title,
+              }
               : {
-                  title: `${siteMetadata.title}`,
-                })}
+                title: `${siteMetadata.title}`,
+              })}
             meta={[
               {
                 name: 'description',
@@ -77,15 +79,15 @@ function SEO({ meta, image, title, description, slug, lang = 'en' }) {
               .concat(
                 metaImage
                   ? [
-                      {
-                        property: 'og:image',
-                        content: metaImage,
-                      },
-                      {
-                        name: 'twitter:image',
-                        content: metaImage,
-                      },
-                    ]
+                    {
+                      property: 'og:image',
+                      content: metaImage,
+                    },
+                    {
+                      name: 'twitter:image',
+                      content: metaImage,
+                    },
+                  ]
                   : []
               )
               .concat(meta)}

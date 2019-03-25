@@ -8,7 +8,7 @@
     "build": "yarn run clean && gatsby build",
     "deploy": "yarn run clean && gatsby build --prefix-paths && gh-pages -d public",
     "clean": "rimraf .cache public",
-    "lint:js": "eslint --cache --ext .js,.jsx --ignore-pattern public .",
+    "lint:js": "eslint --fix --cache --ext .js,.jsx --ignore-pattern public .",
     "lint:scss": "stylelint \"src/**/*.scss\"",
     "lint": "concurrently \"yarn run lint:js\" \"yarn run lint:scss\"",
     "test": "jest --config ./tests/jest-config.js",
@@ -37,7 +37,7 @@
     "disqus"
   ],
   "dependencies": {
-    "bluebird": "^3.5.2",
+    "@weknow/gatsby-remark-codepen": "^0.1.0",
     "classnames": "^2.2.6",
     "codecov": "^3.1.0",
     "gatsby": "^2.0.116",
@@ -68,13 +68,14 @@
     "katex": "^0.10.0",
     "lodash": "^4.17.11",
     "moment": "^2.23.0",
-    "netlify-cms": "^2.4.2",
+    "netlify-cms": "^2.8.0",
     "node-sass": "^4.11.0",
     "normalize-scss": "^7.0.1",
     "prismjs": "^1.15.0",
-    "react": "^16.8.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.5",
     "react-disqus-comments": "^1.4.0",
-    "react-dom": "^16.8.1",
+    "react-dom": "^16.8.5",
     "react-helmet": "^5.2.0",
     "react-share": "^2.4.0"
   },
@@ -98,15 +99,33 @@
     "eslint-plugin-react": "7.12.4",
     "eslint-watch": "4.0.2",
     "gh-pages": "2.0.1",
+    "husky": "^1.3.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
     "jest-cli": "23.6.0",
+    "lint-staged": "^8.1.5",
     "lost": "8.3.1",
     "postcss-pxtorem": "4.0.1",
+    "prettier": "^1.16.4",
     "react-test-renderer": "16.8.3",
     "rimraf": "2.6.3",
     "stylelint": "9.10.1",
     "stylelint-config-recommended-scss": "3.2.0",
     "stylelint-scss": "3.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,scss}": [
+      "yarn lint",
+      "git add"
+    ],
+    "**/*.{js,json,scss,md}": [
+      "prettier --semi=true --single-quote ---write",
+      "git add"
+    ]
   }
 }

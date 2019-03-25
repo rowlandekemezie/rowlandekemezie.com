@@ -25,7 +25,6 @@ module.exports = {
     contacts: {
       twitter: 'rowlandekemezie',
       github: 'rowlandekemezie',
-      linkedin: 'rowlandekemezie',
       rss: '/rss.xml'
     }
   }
