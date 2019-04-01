@@ -1,10 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import Sidebar from '../components/Sidebar';
-import Feed from '../components/Feed';
-import Page from '../components/Page';
-import Pagination from '../components/Pagination';
+import Layout from 'components/Layout';
+import Sidebar from 'components/Sidebar';
+import Feed from 'components/Feed';
+import Page from 'components/Page';
+import Pagination from 'components/Pagination';
 
 const TagTemplate = ({ data, pageContext }) => {
   const {
@@ -62,7 +62,7 @@ export const query = graphql`
           }
           frontmatter {
             title
-            date
+            date(formatString: "MMMM DD, YYYY")
             category
             description
           }

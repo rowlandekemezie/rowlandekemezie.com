@@ -1,14 +1,19 @@
 import React from 'react';
+import { MdCreate } from 'react-icons/md';
 import { Link } from 'gatsby';
-import Author from './Author';
 import Comments from './Comments';
 import Content from './Content';
-import Meta from './Meta';
 import Tags from './Tags';
-import Share from '../Share'
+import Share from '../Share';
 import styles from './Post.module.scss';
 
-const Post = ({ post, timeToRead, twitterHandle, url }) => {
+const Post = ({
+  url,
+  post,
+  editLink,
+  timeToRead,
+  twitterHandle,
+}) => {
   const {
     tags,
     title,
@@ -37,11 +42,26 @@ const Post = ({ post, timeToRead, twitterHandle, url }) => {
           twitterHandle={twitterHandle}
         />
       </div>
-
       <div className={styles['post__edit']}>
-        <Link
-          to="#"
-        />
+        <a
+          href={`https://mobile.twitter.com/search?q=${encodeURIComponent(
+            url
+          )}`}
+          target="__blank"
+          rel="noopener noreferrer"
+          >
+          Discuss on Twitter
+        </a>
+        {' • '}
+        <a
+          href={`https://github.com/rowlandekemezie/rowlandbits/edit/master/${editLink}`}
+          target="__blank"
+          rel="noopener noreferrer"
+        >
+          <MdCreate style={{ marginRight: '4px' }} />
+          Edit post on Github
+        </a>
+
       </div>
 
       <div className={styles['post__comments']}>

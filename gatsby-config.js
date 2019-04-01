@@ -1,7 +1,10 @@
 'use strict';
 
+const path = require('path');
 const siteConfig = require('./config.js');
 const postCssPlugins = require('./postcss-config.js');
+
+const stripSlash = (slug) => (slug.startsWith('/') ? slug.slice(1) : slug);
 
 module.exports = {
   siteMetadata: {
@@ -54,8 +57,8 @@ module.exports = {
             allMarkdownRemark.edges.map((edge) => Object.assign({}, edge.node.frontmatter, {
               description: edge.node.frontmatter.description,
               date: edge.node.frontmatter.date,
-              url: site.siteMetadata.site_url + edge.node.fields.slug,
-              guid: site.siteMetadata.site_url + edge.node.fields.slug,
+              url: `${site.siteMetadata.site_url}${stripSlash(edge.node.fields.slug)}`,
+              guid: `${site.siteMetadata.site_url}${stripSlash(edge.node.fields.slug)}`,
               custom_elements: [{ 'content:encoded': edge.node.html }]
             }))
           ),
@@ -75,7 +78,7 @@ module.exports = {
                       timeToRead
                       frontmatter {
                         title
-                        date
+                        date(formatString: "MMMM DD, YYYY")
                         template
                         draft
                         description
@@ -107,10 +110,17 @@ module.exports = {
             resolve: 'gatsby-remark-responsive-iframe',
             options: { wrapperStyle: 'margin-bottom: 1.0725rem' }
           },
+          {
+            resolve: '@weknow/gatsby-remark-codepen',
+            options: {
+              theme: 'dark',
+              height: 400
+            }
+          },
           'gatsby-remark-autolink-headers',
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
-          'gatsby-remark-smartypants'
+          'gatsby-remark-smartypants',
         ]
       }
     },
@@ -167,12 +177,13 @@ module.exports = {
         background_color: '#FFF',
         theme_color: '#F7A046',
         display: 'standalone',
-        icon: 'static/rowland.jpeg'
+        icon: 'static/favico.png',
       },
     },
     'gatsby-plugin-offline',
     'gatsby-plugin-catch-links',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-twitter',
     {
       resolve: 'gatsby-plugin-sass',
       options: {
@@ -180,6 +191,18 @@ module.exports = {
         cssLoaderOptions: {
           camelCase: false,
         }
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-alias-imports',
+      options: {
+        modules: [path.join(__dirname, 'src'), 'node_modules'],
+        alias: {
+          components: path.resolve(__dirname, 'src/components'),
+          utils: path.resolve(__dirname, 'src/utils'),
+          templates: path.resolve(__dirname, 'src/templates'),
+          constants: path.resolve(__dirname, 'src/constants')
+        },
       }
     }
   ]

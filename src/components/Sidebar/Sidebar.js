@@ -44,7 +44,6 @@ export const Sidebar = (props) => (
               bio
               contacts {       
                 twitter
-                linkedin
                 github
                 rss
               }

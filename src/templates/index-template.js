@@ -1,13 +1,14 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import Sidebar from '../components/Sidebar';
-import Feed from '../components/Feed';
-import Page from '../components/Page';
-import Pagination from '../components/Pagination';
+import Layout from 'components/Layout';
+import Sidebar from 'components/Sidebar';
+import Feed from 'components/Feed';
+import Page from 'components/Page';
+import Pagination from 'components/Pagination';
 
 const IndexTemplate = ({ data, pageContext }) => {
   const {
+    tags: keywords,
     title: siteTitle,
     subtitle: siteSubtitle
   } = data.site.siteMetadata;
@@ -24,7 +25,7 @@ const IndexTemplate = ({ data, pageContext }) => {
   const pageTitle = currentPage > 0 ? `Posts - Page ${currentPage} - ${siteTitle}` : siteTitle;
 
   return (
-    <Layout title={pageTitle} description={siteSubtitle}>
+    <Layout title={pageTitle} description={siteSubtitle} keywords={keywords}>
       <Sidebar isIndex />
       <Page>
         <Feed edges={edges} />
@@ -65,6 +66,7 @@ export const query = graphql`
             date
             category
             description
+            tags
           }
         }
       }
