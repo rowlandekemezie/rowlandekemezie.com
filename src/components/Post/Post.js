@@ -1,4 +1,5 @@
 import React from 'react';
+import { MdCreate } from 'react-icons/md';
 import { Link } from 'gatsby';
 import Comments from './Comments';
 import Content from './Content';
@@ -43,9 +44,22 @@ const Post = ({
       </div>
       <div className={styles['post__edit']}>
         <a
-          href={`https://github.com/rowlandekemezie/rowlandbits/improve-rss/edit/${editLink}`}
+          href={`https://mobile.twitter.com/search?q=${encodeURIComponent(
+            url
+          )}`}
+          target="__blank"
+          rel="noopener noreferrer"
+          >
+          Discuss on Twitter
+        </a>
+        {' • '}
+        <a
+          href={`https://github.com/rowlandekemezie/rowlandbits/edit/master/${editLink}`}
+          target="__blank"
+          rel="noopener noreferrer"
         >
-          Edit on Github
+          <MdCreate style={{ marginRight: '4px' }} />
+          Edit post on Github
         </a>
 
       </div>

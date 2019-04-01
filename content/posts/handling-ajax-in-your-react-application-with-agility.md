@@ -103,13 +103,14 @@ Relay is elegant for building large applications — but it has some overhead. T
 
 *A sample relay flow could look thus:*
 
-![[https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html](https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html)](https://cdn-images-1.medium.com/max/4800/1*hT0LM7tXSQz_gds5pHXQxg.png)*[https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html](https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html)*
+![[https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html](https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html)](/media/relay-workflow.png)[https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html](https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html)*
 
 ## **3. Delegate Redux**
 
 [Redux](http://redux.js.org/) is built off of [Flux architecture](https://facebook.github.io/flux/docs/overview.html) for managing React application’s state. With Redux, you move your application data and AJAX processes away from your components.
 
-![Redux workflow example](https://cdn-images-1.medium.com/max/2000/1*4gwNnEmlPURqr-nMbydtFQ.png)*Redux workflow example*
+![Redux workflow example](/media/redux-github-workflow.png)
+*Redux workflow example*
 
 From the diagram, you can see how the application state and asynchronous processes are moved to the store.
 
@@ -440,5 +441,5 @@ AJAX operations in your React application are better handled with Redux async li
 Check out the source code on [Github](https://github.com/rowlandekemezie/Redux-saga-tutor.git).
 
 
-**Note:** This article was originally published on [Codementor](https://www.codementor.io). You can check it out [here](https://www.codementor.io/reactjs/tutorial/handling-ajax-in-your-react-application-with-agility-0).
+**Note:** This article was originally published on [Codementor](https://www.codementor.io/reactjs/tutorial/handling-ajax-in-your-react-application-with-agility-0).
 > **In case I missed out on anything, drop your feedback, comments and questions in the comment section. *If you find this article useful, recommend it to others by sharing on social media.***

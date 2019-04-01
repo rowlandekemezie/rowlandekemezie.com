@@ -36,15 +36,11 @@
     }
 
   }
-  &__share {
+  &__share, &__edit{
     max-width: $layout-post-width;
     margin: 20px auto;
     padding: 0px 15px;
   }
-  &__edit {
-    text-align: center;
-  }
-
 }
 
 @include breakpoint-md {
@@ -64,7 +60,7 @@
       top: 30px;
       left: 30px
     }
-    &__share {
+    &__share, &__edit {
       padding-top: 20px;
       padding-bottom: 20px;
     }
