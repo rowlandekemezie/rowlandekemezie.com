@@ -200,7 +200,7 @@ module.exports = {
         alias: {
           components: path.resolve(__dirname, 'src/components'),
           utils: path.resolve(__dirname, 'src/utils'),
-          template: path.resolve(__dirname, 'src/templates'),
+          templates: path.resolve(__dirname, 'src/templates'),
           constants: path.resolve(__dirname, 'src/constants')
         },
       }
