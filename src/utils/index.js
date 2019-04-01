@@ -1,3 +1,3 @@
 export { default as getIcon } from './get-icon';
 export { default as getContactHref } from './get-contact-href';
-export { default as formatReadingTime } from './helpers';
+export { default } from './helpers';

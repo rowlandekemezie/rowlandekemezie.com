@@ -1,10 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import Sidebar from '../components/Sidebar';
-import Feed from '../components/Feed';
-import Page from '../components/Page';
-import Pagination from '../components/Pagination';
+import Layout from 'components/Layout';
+import Sidebar from 'components/Sidebar';
+import Feed from 'components/Feed';
+import Page from 'components/Page';
+import Pagination from 'components/Pagination';
 
 const IndexTemplate = ({ data, pageContext }) => {
   const {

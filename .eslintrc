@@ -61,5 +61,14 @@
       "react/jsx-no-undef": 1,
       "react/jsx-uses-react": 1,
       "react/jsx-uses-vars": 1
+    },
+    "settings": {
+      "import/resolver": {
+        "alias": [
+          ["components", "./src/components"],
+          ["utils", "./src/utils"],
+          ["constants", "./src/constants"]
+        ]
+      }
     }
 }

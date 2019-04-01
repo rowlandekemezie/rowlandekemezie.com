@@ -13,11 +13,10 @@ const Layout = ({
       title={title}
       meta={[
         { name: 'description', content: description },
-        { name: 'keywords', content: keywords.join() }
+        { name: 'keywords', content: (keywords || []).join() }
       ]}
     >
       <html lang="en" />
-      <script src="https://js.tito.io/v1" async />
       <noscript>This site runs best with JavaScript enabled.</noscript>
     </Helmet>
     {children}

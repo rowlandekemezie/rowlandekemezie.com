@@ -7,7 +7,11 @@ import Share from '../Share';
 import styles from './Post.module.scss';
 
 const Post = ({
-  post, timeToRead, twitterHandle, url
+  url,
+  post,
+  editLink,
+  timeToRead,
+  twitterHandle,
 }) => {
   const {
     tags,
@@ -37,11 +41,13 @@ const Post = ({
           twitterHandle={twitterHandle}
         />
       </div>
-
       <div className={styles['post__edit']}>
-        <Link
-          to="#"
-        />
+        <a
+          href={`https://github.com/rowlandekemezie/rowlandbits/improve-rss/edit/${editLink}`}
+        >
+          Edit on Github
+        </a>
+
       </div>
 
       <div className={styles['post__comments']}>

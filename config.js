@@ -3,7 +3,7 @@
 module.exports = {
   url: 'https://rowlandbits.netlify.com',
   title: 'Blog by Rowland Ekemezie',
-  subtitle: 'I love automated systems. I develop human capital. I Code!',
+  subtitle: 'Automated systems, human capital development; Software and everything inbetween!',
   copyright: '© All rights reserved.',
   disqusShortname: 'rowlandekemezie',
   postsPerPage: 4,
@@ -21,7 +21,7 @@ module.exports = {
   author: {
     name: 'Rowland Ekemezie',
     photo: '/rowland.jpeg',
-    bio: 'I love automated systems. I develop human capital. I Code!',
+    bio: 'Automated systems, human capital development; Software and everything inbetween!',
     contacts: {
       twitter: 'rowlandekemezie',
       github: 'rowlandekemezie',

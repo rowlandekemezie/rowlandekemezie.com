@@ -1,8 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import Post from '../components/Post';
-import SEO from '../components/Seo';
+import Layout from 'components/Layout';
+import Post from 'components/Post';
+import SEO from 'components/Seo';
 
 const PostTemplate = ({ data: { site, markdownRemark, allMarkdownRemark } }) => {
   const {
@@ -17,6 +17,7 @@ const PostTemplate = ({ data: { site, markdownRemark, allMarkdownRemark } }) => 
   } = markdownRemark.frontmatter;
 
   const metaDescription = postDescription !== null ? postDescription : siteSubtitle;
+
   return (
     <Layout title={`${postTitle} - ${siteTitle}`} description={metaDescription} keywords={keywords}>
       <SEO
@@ -25,7 +26,13 @@ const PostTemplate = ({ data: { site, markdownRemark, allMarkdownRemark } }) => 
         slug={markdownRemark.fields.slug}
         image={allMarkdownRemark.edges[0].node.frontmatter.image}
       />
-      <Post post={markdownRemark} timeToRead={markdownRemark.timeToRead} twitterHandle={site.siteMetadata.author.contacts.twitter} url={`${site.siteMetadata.url}${markdownRemark.fields.slug}`}/>
+      <Post
+        post={markdownRemark}
+        timeToRead={markdownRemark.timeToRead}
+        twitterHandle={site.siteMetadata.author.contacts.twitter}
+        url={`${site.siteMetadata.url}${markdownRemark.fields.slug}`}
+        editLink={`content/${allMarkdownRemark.edges[0].node.parent.relativePath}`}
+      />
     </Layout>
   );
 };
@@ -59,7 +66,6 @@ export const query = graphql`
         description
         tags
         title
-        image
       }
     }
     allMarkdownRemark (
@@ -67,6 +73,11 @@ export const query = graphql`
     ) {
       edges {
         node {
+          parent {
+            ... on File {
+              relativePath
+            }
+          }
           frontmatter {
             image
           }

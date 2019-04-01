@@ -42,6 +42,7 @@
     "codecov": "^3.1.0",
     "gatsby": "^2.0.116",
     "gatsby-link": "^2.0.10",
+    "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-catch-links": "^2.0.10",
     "gatsby-plugin-feed": "^2.0.13",
     "gatsby-plugin-google-analytics": "^2.0.13",
@@ -53,6 +54,7 @@
     "gatsby-plugin-sass": "^2.0.10",
     "gatsby-plugin-sharp": "^2.0.20",
     "gatsby-plugin-sitemap": "^2.0.5",
+    "gatsby-plugin-twitter": "^2.0.13",
     "gatsby-remark-autolink-headers": "^2.0.14",
     "gatsby-remark-copy-linked-files": "^2.0.9",
     "gatsby-remark-images": "^3.0.3",
@@ -93,6 +95,7 @@
     "concurrently": "4.1.0",
     "eslint": "5.14.1",
     "eslint-config-airbnb-base": "13.1.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "2.16.0",
     "eslint-plugin-jest": "22.3.0",
     "eslint-plugin-jsx-a11y": "6.2.1",
@@ -119,8 +122,12 @@
     }
   },
   "lint-staged": {
-    "**/*.{js,scss}": [
-      "yarn lint",
+    "**/*.js": [
+      "yarn lint:js",
+      "git add"
+    ],
+    "**/*.scss": [
+      "yarn lint:scss",
       "git add"
     ],
     "**/*.{js,json,scss,md}": [

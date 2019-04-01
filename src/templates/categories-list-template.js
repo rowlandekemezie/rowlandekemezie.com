@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
-import Sidebar from '../components/Sidebar';
-import Layout from '../components/Layout';
-import Page from '../components/Page';
+import Sidebar from 'components/Sidebar';
+import Layout from 'components/Layout';
+import Page from 'components/Page';
 
 const CategoriesListTemplate = ({ data }) => {
   const {

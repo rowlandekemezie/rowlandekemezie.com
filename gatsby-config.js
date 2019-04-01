@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const siteConfig = require('./config.js');
 const postCssPlugins = require('./postcss-config.js');
 
@@ -182,6 +183,7 @@ module.exports = {
     'gatsby-plugin-offline',
     'gatsby-plugin-catch-links',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-twitter',
     {
       resolve: 'gatsby-plugin-sass',
       options: {
@@ -189,6 +191,18 @@ module.exports = {
         cssLoaderOptions: {
           camelCase: false,
         }
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-alias-imports',
+      options: {
+        modules: [path.join(__dirname, 'src'), 'node_modules'],
+        alias: {
+          components: path.resolve(__dirname, 'src/components'),
+          utils: path.resolve(__dirname, 'src/utils'),
+          template: path.resolve(__dirname, 'src/templates'),
+          constants: path.resolve(__dirname, 'src/constants')
+        },
       }
     }
   ]

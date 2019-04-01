@@ -1,8 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Sidebar from '../components/Sidebar';
-import Layout from '../components/Layout';
-import Page from '../components/Page';
+import Sidebar from 'components/Sidebar';
+import Layout from 'components/Layout';
+import Page from 'components/Page';
 
 const NotFoundTemplate = ({ data }) => {
   const {

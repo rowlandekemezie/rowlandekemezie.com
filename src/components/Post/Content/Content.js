@@ -1,6 +1,6 @@
 import React from 'react';
+import Meta from 'components/Post/Meta';
 import styles from './Content.module.scss';
-import Meta from '../Meta';
 
 const Content = ({
   body, title, date, timeToRead

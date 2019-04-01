@@ -1,5 +1,5 @@
 import React from 'react';
-import formatReadingTime from '../../../utils';
+import formatReadingTime from 'utils';
 import styles from './Meta.module.scss';
 
 const Meta = ({ date, timeToRead }) => (

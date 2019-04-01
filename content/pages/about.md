@@ -1,5 +1,5 @@
 ---
-title: "About Me"
+title: "Meet Rowland Ekemezie"
 template: "page"
 ---
 <center>
@@ -8,7 +8,7 @@ template: "page"
 	</blockquote>
 
 
-![profile](https://avatars2.githubusercontent.com/u/15085641?s=460&v=4)
+![profile](https://avatars2.githubusercontent.com/u/15085641?s=300&v=4)
 
 </center>
 
