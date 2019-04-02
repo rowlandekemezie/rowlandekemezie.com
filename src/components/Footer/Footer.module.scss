@@ -1,0 +1,39 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.footer  {
+  background: darken($color-base, 10%);
+  color: $color-white;
+  margin-top: 70px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+  }
+
+  &__subscribe {
+    margin-top: -40px;
+    @include margin-bottom(2);     
+  }
+
+  &__socials {
+    align-self: center;
+  }
+
+  &__copyright {
+    color: lighten($color-gray, 18%);
+    font-size: $typographic-small-font-size;
+  }
+}
+
+@include breakpoint-sm {
+  .footer {
+    &__wrapper {
+      flex-direction: row;
+      justify-content: space-between;      
+      max-width: $layout-post-width;
+    }
+  }
+}

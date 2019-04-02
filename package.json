@@ -123,16 +123,16 @@
     }
   },
   "lint-staged": {
+    "**/*.{js,json,scss,md}": [
+      "prettier --semi=true --single-quote ---write",
+      "git add"
+    ],
     "**/*.js": [
       "yarn lint:js",
       "git add"
     ],
     "**/*.scss": [
       "yarn lint:scss",
-      "git add"
-    ],
-    "**/*.{js,json,scss,md}": [
-      "prettier --semi=true --single-quote ---write",
       "git add"
     ]
   }
