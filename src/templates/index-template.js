@@ -6,6 +6,7 @@ import Feed from 'components/Feed';
 import Page from 'components/Page';
 import Pagination from 'components/Pagination';
 
+const PAGE_LIMIT = 4;
 const IndexTemplate = ({ data, pageContext }) => {
   const {
     tags: keywords,
@@ -29,12 +30,14 @@ const IndexTemplate = ({ data, pageContext }) => {
       <Sidebar isIndex />
       <Page>
         <Feed edges={edges} />
-        <Pagination
-          prevPagePath={prevPagePath}
-          nextPagePath={nextPagePath}
-          hasPrevPage={hasPrevPage}
-          hasNextPage={hasNextPage}
-        />
+        {edges.length > PAGE_LIMIT
+          ? (<Pagination
+              prevPagePath={prevPagePath}
+              nextPagePath={nextPagePath}
+              hasPrevPage={hasPrevPage}
+              hasNextPage={hasNextPage}
+            />)
+          : null}
       </Page>
     </Layout>
   );
