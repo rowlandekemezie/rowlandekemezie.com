@@ -66,7 +66,7 @@ export const query = graphql`
           timeToRead
           frontmatter {
             title
-            date
+            date(formatString: "MMMM YYYY")
             category
             description
             tags
