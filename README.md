@@ -1,4 +1,4 @@
-# Rowland Ekemezie personal website
+# Rowland I. Ekemezie personal website
 
 This was bootstrapped from [gatsby-starter-lumen](https://github.com/alxshelepenok/gatsby-starter-lumen)
 

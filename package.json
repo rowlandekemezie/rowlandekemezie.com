@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "rowland-bits",
+  "name": "rowland-i-ekemezie",
   "description": "Personal blog for Rowland Ekemezie",
   "main": "n/a",
   "scripts": {
@@ -16,7 +16,7 @@
     "test:watch": "jest --watch --config ./tests/jest-config.js"
   },
   "repository": "https://github.com/rowlandekemezie/rowlandbits",
-  "author": "Rowland Ekemezie <rowlandekemezie@gmail.com>",
+  "author": "Rowland I. Ekemezie <rowlandresource@gmail.com>",
   "license": "MIT",
   "keywords": [
     "gatsby",
