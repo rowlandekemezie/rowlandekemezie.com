@@ -30,14 +30,14 @@ const IndexTemplate = ({ data, pageContext }) => {
       <Sidebar isIndex />
       <Page>
         <Feed edges={edges} />
-        {edges.length > PAGE_LIMIT
-          ? (<Pagination
-              prevPagePath={prevPagePath}
-              nextPagePath={nextPagePath}
-              hasPrevPage={hasPrevPage}
-              hasNextPage={hasNextPage}
-            />)
-          : null}
+        {edges.length > PAGE_LIMIT ? (
+          <Pagination
+            prevPagePath={prevPagePath}
+            nextPagePath={nextPagePath}
+            hasPrevPage={hasPrevPage}
+            hasNextPage={hasNextPage}
+          />
+        ) : null}
       </Page>
     </Layout>
   );
@@ -52,11 +52,11 @@ export const query = graphql`
       }
     }
     allMarkdownRemark(
-        limit: $postsLimit,
-        skip: $postsOffset,
-        filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } },
-        sort: { order: DESC, fields: [frontmatter___date] }
-      ){
+      limit: $postsLimit
+      skip: $postsOffset
+      filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } }
+      sort: { order: DESC, fields: [frontmatter___date] }
+    ) {
       edges {
         node {
           fields {

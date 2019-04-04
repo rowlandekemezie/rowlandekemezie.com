@@ -5,26 +5,26 @@ import { StaticQuery, graphql } from 'gatsby';
 import styles from './Footer.module.scss';
 
 const Footer = () => (
-    <StaticQuery
-      query={graphql`
-        query {  
-          site {
-              siteMetadata {
-                url
-                author {
-                  contacts {
-                    twitter
-                    github
-                    email
-                    rss
-                  }
-                }
+  <StaticQuery
+    query={graphql`
+      query {
+        site {
+          siteMetadata {
+            url
+            author {
+              contacts {
+                twitter
+                github
+                email
+                rss
               }
             }
-          }`
+          }
+        }
       }
-      render={({ site }) => (
-        <footer className={styles['footer']}>
+    `}
+    render={({ site }) => (
+      <footer className={styles['footer']}>
         <div className={styles['footer__wrapper']}>
           <div className={styles['footer__subscribe']}>
             <Subscribe />
@@ -37,10 +37,8 @@ const Footer = () => (
           </div>
         </div>
       </footer>
-      )}
-    />
-
+    )}
+  />
 );
-
 
 export default Footer;

@@ -4,22 +4,25 @@ import Layout from 'components/Layout';
 import Post from 'components/Post';
 import SEO from 'components/Seo';
 
-const PostTemplate = ({ data: { site, markdownRemark, allMarkdownRemark } }) => {
-  const {
-    title: siteTitle,
-    subtitle: siteSubtitle
-  } = site.siteMetadata;
+const PostTemplate = ({
+  data: { site, markdownRemark, allMarkdownRemark }
+}) => {
+  const { title: siteTitle, subtitle: siteSubtitle } = site.siteMetadata;
 
   const {
     tags: keywords,
     title: postTitle,
-    description: postDescription,
+    description: postDescription
   } = markdownRemark.frontmatter;
 
   const metaDescription = postDescription !== null ? postDescription : siteSubtitle;
 
   return (
-    <Layout title={`${postTitle} - ${siteTitle}`} description={metaDescription} keywords={keywords}>
+    <Layout
+      title={`${postTitle} - ${siteTitle}`}
+      description={metaDescription}
+      keywords={keywords}
+    >
       <SEO
         title={markdownRemark.frontmatter.title}
         description={markdownRemark.frontmatter.description}
@@ -31,7 +34,9 @@ const PostTemplate = ({ data: { site, markdownRemark, allMarkdownRemark } }) => 
         timeToRead={markdownRemark.timeToRead}
         twitterHandle={site.siteMetadata.author.contacts.twitter}
         url={`${site.siteMetadata.url}${markdownRemark.fields.slug}`}
-        editLink={`content/${allMarkdownRemark.edges[0].node.parent.relativePath}`}
+        editLink={`content/${
+          allMarkdownRemark.edges[0].node.parent.relativePath
+        }`}
       />
     </Layout>
   );
@@ -68,9 +73,7 @@ export const query = graphql`
         title
       }
     }
-    allMarkdownRemark (
-    filter: { frontmatter: {slug: { eq: $slug}} }
-    ) {
+    allMarkdownRemark(filter: { frontmatter: { slug: { eq: $slug } } }) {
       edges {
         node {
           parent {

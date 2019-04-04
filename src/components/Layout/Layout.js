@@ -4,10 +4,7 @@ import Footer from 'components/Footer';
 import styles from './Layout.module.scss';
 
 const Layout = ({
-  children,
-  title,
-  description,
-  keywords
+  children, title, description, keywords
 }) => (
   <>
     <div className={styles.layout}>
@@ -24,11 +21,17 @@ const Layout = ({
       {children}
     </div>
     <div className={styles['layout__scroll']}>
-      <button className={styles['layout__scroll-button']} onClick={() => window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      })}>Scroll to Top</button>
+      <button
+        className={styles['layout__scroll-button']}
+        onClick={() => window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        })
+        }
+      >
+        Scroll to Top
+      </button>
     </div>
     <Footer />
   </>

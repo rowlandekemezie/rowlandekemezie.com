@@ -34,9 +34,9 @@
     &:focus {
       color: $color-primary;
     }
-
   }
-  &__share, &__edit{
+  &__share,
+  &__edit {
     max-width: $layout-post-width;
     margin: 20px auto;
     padding: 0px 15px;
@@ -58,12 +58,12 @@
       max-width: auto;
       margin: 0;
       top: 30px;
-      left: 30px
+      left: 30px;
     }
-    &__share, &__edit {
+    &__share,
+    &__edit {
       padding-top: 20px;
       padding-bottom: 20px;
     }
   }
-
 }

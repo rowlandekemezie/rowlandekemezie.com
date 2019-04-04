@@ -7,15 +7,14 @@
   transition-duration: 5s;
   transition-delay: 2s;
 
- &__scroll {
+  &__scroll {
     float: right;
     @include margin(0, 1.5, 2);
-
 
     &-button {
       color: $color-white;
       background-color: $color-primary;
-      @include padding(.5, .5);
+      @include padding(0.5, 0.5);
       font-weight: 500;
       border: none;
       border-radius: 20px;
@@ -27,5 +26,5 @@
         box-shadow: 5px 5px 15px 0 lighten($color-gray, 20%);
       }
     }
- }
+  }
 }

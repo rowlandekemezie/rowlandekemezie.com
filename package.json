@@ -123,7 +123,7 @@
   },
   "lint-staged": {
     "**/*.{js,json,scss,md}": [
-      "prettier --semi=true --single-quote ---write",
+      "prettier --semi=true --single-quote ---write **/*.{js,json,scss,md",
       "git add"
     ],
     "**/*.js": [

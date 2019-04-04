@@ -8,27 +8,26 @@ import Share from '../Share';
 import styles from './Post.module.scss';
 
 const Post = ({
-  url,
-  post,
-  editLink,
-  timeToRead,
-  twitterHandle,
+  url, post, editLink, timeToRead, twitterHandle
 }) => {
-  const {
-    tags,
-    title,
-    date,
-  } = post.frontmatter;
+  const { tags, title, date } = post.frontmatter;
 
   const { html } = post;
   const { tagSlugs } = post.fields;
 
   return (
     <div className={styles['post']}>
-      <Link className={styles['post__home-button']} to="/">All Articles</Link>
+      <Link className={styles['post__home-button']} to="/">
+        All Articles
+      </Link>
 
       <div className={styles['post__content']}>
-        <Content body={html} title={title} date={date} timeToRead={timeToRead} />
+        <Content
+          body={html}
+          title={title}
+          date={date}
+          timeToRead={timeToRead}
+        />
       </div>
 
       <div className={styles['post__footer']}>
@@ -36,11 +35,7 @@ const Post = ({
       </div>
 
       <div className={styles['post__share']}>
-        <Share
-          url={url}
-          title={title}
-          twitterHandle={twitterHandle}
-        />
+        <Share url={url} title={title} twitterHandle={twitterHandle} />
       </div>
       <div className={styles['post__edit']}>
         <a
@@ -49,7 +44,7 @@ const Post = ({
           )}`}
           target="__blank"
           rel="noopener noreferrer"
-          >
+        >
           Discuss on Twitter
         </a>
         {' • '}
@@ -61,11 +56,13 @@ const Post = ({
           <MdCreate style={{ marginRight: '4px' }} />
           Edit post on Github
         </a>
-
       </div>
 
       <div className={styles['post__comments']}>
-        <Comments postSlug={post.fields.slug} postTitle={post.frontmatter.title} />
+        <Comments
+          postSlug={post.fields.slug}
+          postTitle={post.frontmatter.title}
+        />
       </div>
     </div>
   );

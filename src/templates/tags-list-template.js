@@ -6,10 +6,7 @@ import Sidebar from 'components/Sidebar';
 import Page from 'components/Page';
 
 const TagsListTemplate = ({ data }) => {
-  const {
-    title,
-    subtitle
-  } = data.site.siteMetadata;
+  const { title, subtitle } = data.site.siteMetadata;
   const { group } = data.allMarkdownRemark;
 
   return (
@@ -34,7 +31,7 @@ export const query = graphql`
   query TagsListQuery {
     site {
       siteMetadata {
-        title,
+        title
         subtitle
       }
     }
