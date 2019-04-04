@@ -1,29 +1,30 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from 'components/Layout';
-import Sidebar from 'components/Sidebar';
 import Page from 'components/Page';
 
-const PageTemplate = ({ data }) => {
-  const {
-    title: siteTitle,
-    subtitle: siteSubtitle
-  } = data.site.siteMetadata;
+const PageTemplate = ({ data: { site, markdownRemark } }) => {
+  const { title: siteTitle, subtitle: siteSubtitle } = site.siteMetadata;
 
   const {
     tags: keywords,
     title: pageTitle,
     description: pageDescription
-  } = data.markdownRemark.frontmatter;
+  } = markdownRemark.frontmatter;
 
-  const { html: pageBody } = data.markdownRemark;
+  const { html: pageBody } = markdownRemark;
 
   const metaDescription = pageDescription !== null ? pageDescription : siteSubtitle;
 
+  const isAboutPage = pageTitle === 'Meet Rowland I. Ekemezie';
+
   return (
-    <Layout title={`${pageTitle} - ${siteTitle}`} description={metaDescription} keywords={keywords}>
-      <Sidebar />
-      <Page title={pageTitle}>
+    <Layout
+      title={`${pageTitle} - ${siteTitle}`}
+      description={metaDescription}
+      keywords={keywords}
+    >
+      <Page title={pageTitle} isAboutPage={isAboutPage}>
         <div dangerouslySetInnerHTML={{ __html: pageBody }} />
       </Page>
     </Layout>

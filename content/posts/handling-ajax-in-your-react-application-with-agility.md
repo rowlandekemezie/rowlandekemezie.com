@@ -103,7 +103,8 @@ Relay is elegant for building large applications — but it has some overhead. T
 
 *A sample relay flow could look thus:*
 
-![[https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html](https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html)](/media/relay-workflow.png)[https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html](https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html)
+![https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html](/media/relay-workflow.png)
+[facebook news feed with relay](https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html)
 
 ## **3. Delegate Redux**
 

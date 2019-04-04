@@ -1,5 +1,5 @@
 ---
-title: "Meet Rowland Ekemezie"
+title: "Meet Rowland I. Ekemezie"
 template: "page"
 ---
 <center>

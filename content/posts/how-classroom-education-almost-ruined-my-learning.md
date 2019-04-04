@@ -1,6 +1,6 @@
 ---
 template: post
-title: How Classroom Education Almost Runied my Learning
+title: How Classroom Education Almost Ruined my Learning
 slug: /posts/how-classroom-education-almost-ruined-my-learning/
 draft: false
 date: '2017-02-02T22:40:32.169Z'

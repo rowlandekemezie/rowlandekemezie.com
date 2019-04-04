@@ -37,56 +37,56 @@ function SEO({
             {...(title
               ? {
                 titleTemplate: `%s — ${siteMetadata.title}`,
-                title,
+                title
               }
               : {
-                title: `${siteMetadata.title}`,
+                title: `${siteMetadata.title}`
               })}
             meta={[
               {
                 name: 'description',
-                content: metaDescription,
+                content: metaDescription
               },
               {
                 property: 'og:url',
-                content: url,
+                content: url
               },
               {
                 property: 'og:title',
-                content: title || siteMetadata.title,
+                content: title || siteMetadata.title
               },
               {
                 name: 'og:description',
-                content: metaDescription,
+                content: metaDescription
               },
               {
                 name: 'twitter:card',
-                content: 'summary_large_image',
+                content: 'summary_large_image'
               },
               {
                 name: 'twitter:creator',
-                content: `@${siteMetadata.author.contacts.twitter}`,
+                content: `@${siteMetadata.author.contacts.twitter}`
               },
               {
                 name: 'twitter:title',
-                content: title || siteMetadata.title,
+                content: title || siteMetadata.title
               },
               {
                 name: 'twitter:description',
-                content: metaDescription,
-              },
+                content: metaDescription
+              }
             ]
               .concat(
                 metaImage
                   ? [
                     {
                       property: 'og:image',
-                      content: metaImage,
+                      content: metaImage
                     },
                     {
                       name: 'twitter:image',
-                      content: metaImage,
-                    },
+                      content: metaImage
+                    }
                   ]
                   : []
               )
@@ -101,7 +101,7 @@ function SEO({
 SEO.defaultProps = {
   meta: [],
   title: '',
-  slug: '',
+  slug: ''
 };
 
 SEO.propTypes = {
@@ -109,7 +109,7 @@ SEO.propTypes = {
   image: PropTypes.string,
   meta: PropTypes.array,
   slug: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default SEO;

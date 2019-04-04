@@ -1,11 +1,14 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/mixins';
 
-.page {
+.page,
+.page-about {
   @include margin-bottom(2);
 
   &__inner {
     padding: 25px 20px;
+    max-width: $layout-post-width;
+    margin: 0 auto;
   }
 
   &__title {
@@ -14,7 +17,7 @@
     @include line-height(2);
     @include margin-top(0);
     @include margin-bottom(1.45);
-    text-align: center;     
+    text-align: center;
   }
 
   &__body {
@@ -23,6 +26,26 @@
     @include margin(0, 0, 1);
   }
 
+  &__home-button {
+    display: block;
+    max-width: 70px;
+    height: $button-height;
+    padding: 0 20px;
+    line-height: $button-height;
+    text-align: center;
+    color: $color-base;
+    border: 1px solid $color-gray-border;
+    border-radius: $button-border-radius;
+    font-size: $typographic-base-font-size;
+    font-weight: normal;
+    margin-right: auto;
+    @include margin-top(1);
+
+    &:hover,
+    &:focus {
+      color: $color-primary;
+    }
+  }
 }
 
 @include breakpoint-sm {
@@ -32,9 +55,13 @@
     &__inner {
       padding: 30px 20px;
     }
-
   }
-
+  .page-about {
+    margin: 0 auto;
+    &__inner {
+      padding: 30px 20px;
+    }
+  }
 }
 
 @include breakpoint-md {
@@ -44,7 +71,5 @@
     &__inner {
       padding: 40px 35px;
     }
-
   }
-
 }

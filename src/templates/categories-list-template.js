@@ -6,10 +6,7 @@ import Layout from 'components/Layout';
 import Page from 'components/Page';
 
 const CategoriesListTemplate = ({ data }) => {
-  const {
-    title,
-    subtitle
-  } = data.site.siteMetadata;
+  const { title, subtitle } = data.site.siteMetadata;
 
   const { group } = data.allMarkdownRemark;
 
