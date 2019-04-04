@@ -23,6 +23,13 @@ const Layout = ({
       </Helmet>
       {children}
     </div>
+    <div className={styles['layout__scroll']}>
+      <button className={styles['layout__scroll-button']} onClick={() => window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })}>Scroll to Top</button>
+    </div>
     <Footer />
   </>
 );

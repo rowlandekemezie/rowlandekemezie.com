@@ -1,6 +1,6 @@
 import React from 'react';
 import Subscribe from 'components/Form';
-import Contacts from 'components/Sidebar/Contacts';
+import Socials from 'components/Socials';
 import { StaticQuery, graphql } from 'gatsby';
 import styles from './Footer.module.scss';
 
@@ -15,6 +15,7 @@ const Footer = () => (
                   contacts {
                     twitter
                     github
+                    email
                     rss
                   }
                 }
@@ -29,7 +30,7 @@ const Footer = () => (
             <Subscribe />
           </div>
           <div className={styles['footer__socials']}>
-            <Contacts contacts={site.siteMetadata.author.contacts} />
+            <Socials contacts={site.siteMetadata.author.contacts} />
             <p className={styles['footer__copyright']}>
               <span>&copy; 2019 rowlandekemezie</span>
             </p>

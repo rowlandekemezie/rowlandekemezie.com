@@ -3,7 +3,10 @@
 
 .feed {
   &__item {
-    @include margin-bottom(1.25);
+    @include margin-bottom(1);
+    @include padding-equal(1);
+    background-color: $color-white;
+    border-radius: 3px;
 
     &:last-child {
       @include margin-bottom(.5);
@@ -31,7 +34,7 @@
     &-description {
       font-size: $typographic-base-font-size;
       @include line-height(1);
-      @include margin-bottom(.75);
+      @include margin-bottom(0);
     }
 
     &-meta {

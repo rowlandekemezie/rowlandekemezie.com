@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
+import Socials from 'components/Socials';
 import Author from './Author';
-import Contacts from './Contacts';
 import Menu from './Menu';
 import styles from './Sidebar.module.scss';
 
@@ -16,7 +16,7 @@ export const PureSidebar = ({ data, isIndex }) => {
       <div className={styles['sidebar__inner']}>
         <Author author={author} isIndex={isIndex} />
         <Menu menu={menu} />
-        <Contacts contacts={author.contacts} />
+        <Socials contacts={author.contacts} />
       </div>
     </div>
   );
@@ -41,6 +41,7 @@ export const Sidebar = (props) => (
               contacts {       
                 twitter
                 github
+                email
                 rss
               }
             }

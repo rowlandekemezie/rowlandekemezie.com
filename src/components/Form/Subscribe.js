@@ -18,7 +18,7 @@ export const Subscribe = () => (
         }}
       >
         <h5 className={styles['subscribe__header']}>
-          Subscribe for more content
+        Want more articles? Subscribe to my newsletter
         </h5>
         <div className={styles['subscribe__inputwrapper']}>
           <label htmlFor="tlemail" className={styles['subscribe__label']}>Email address:</label>

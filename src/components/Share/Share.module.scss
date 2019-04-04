@@ -1,8 +1,10 @@
+@import '../../assets/scss/mixins';
+@import '../../assets/scss/variables';
 
 .share {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 
   &__text {
     margin-right: 20px;
@@ -14,7 +16,7 @@
 
   &__divider {
     flex-grow: 1;
-    border-top: 1px solid #cccccc;
+    border-top: 1px solid $color-gray;
     margin-right: 20px;
   }
 
@@ -25,8 +27,16 @@
       color: rgb(28, 28, 235);
     }
   }
-  &__social-icon-last {
-    margin-right: 0;
+}
+
+
+@include breakpoint-sm {
+  .share {
+    justify-content: flex-start;
+
+    &__social-icon-last {
+      margin-right: 0;
+    }
   }
 }
 

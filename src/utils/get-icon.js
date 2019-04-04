@@ -1,4 +1,4 @@
-import { ICONS } from '../constants';
+import { ICONS } from 'constants';
 
 const getIcon = (name) => {
   let icon;
@@ -12,6 +12,9 @@ const getIcon = (name) => {
       break;
     case 'rss':
       icon = ICONS.RSS;
+      break;
+    case 'email':
+      icon = ICONS.EMAIL;
       break;
     default:
       icon = {};
