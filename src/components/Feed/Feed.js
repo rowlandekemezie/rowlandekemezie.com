@@ -11,7 +11,6 @@ const Feed = ({ edges }) => (
           <time className={styles['feed__item-meta-time']} dateTime={(edge.node.frontmatter.date)}>
             {edge.node.frontmatter.date}
           </time>
-          {console.log(edge, 'edge')}
           <span className={styles['feed__item-meta-divider']} />
           <span className={styles['feed__item-meta-category']}>
             <Link to={edge.node.fields.categorySlug} className={styles['feed__item-meta-category-link']}>{edge.node.frontmatter.category}</Link>
