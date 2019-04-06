@@ -2,7 +2,6 @@
 @import '../../assets/scss/mixins';
 
 .socials {
-  @include margin-bottom(1);
 
   &__list {
     display: flex;
@@ -12,7 +11,6 @@
     justify-content: center;
     list-style: none;
     padding: 0;
-    margin: 10px -3px;
 
     &-item {
       padding: 0;
@@ -46,6 +44,7 @@
   .socials {
     &__list {
       justify-content: flex-start;
+      margin: 10px -3px;      
     }
   }
 }

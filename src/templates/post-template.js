@@ -6,7 +6,7 @@ import Post from 'components/Post';
 import SEO from 'components/Seo';
 
 const PostTemplate = ({
-  data: { site, markdownRemark, allMarkdownRemark }
+  data: { site, markdownRemark }
 }) => {
   const { title: siteTitle, subtitle: siteSubtitle } = site.siteMetadata;
 
@@ -15,9 +15,6 @@ const PostTemplate = ({
     title: postTitle,
     description: postDescription
   } = markdownRemark.frontmatter;
-  console.log(markdownRemark, 'markdown post');
-
-  console.log(allMarkdownRemark, 'allmarkdownremark');
 
   const metaDescription = postDescription !== null ? postDescription : siteSubtitle;
 
@@ -80,18 +77,6 @@ export const query = graphql`
               src
             }
           }
-        }
-      }
-    }
-    allMarkdownRemark(filter: { frontmatter: { slug: { eq: $slug } } }) {
-      edges {
-        node {
-          parent {
-            ... on File {
-              relativePath
-            }
-          }
-          
         }
       }
     }
