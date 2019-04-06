@@ -7,10 +7,11 @@ date: '2016-11-02T22:40:32.169Z'
 description: ReactJS ecosystem has become huge since Facebook made the API public. More so, great libraries have been built in the declarative style adopted by React. However, real life applications require making AJAX requests to servers. And this can pose a great challenge while using React. You need to know what library to use for your AJAX processes. 
 category: Software
 tags:
-  - React
-  - Redux
-  - Redux-saga
-  - Redux-thunk
+  - react
+  - redux
+  - redux-saga
+  - redux-thunk
+  - ajax
 image: media/handling-ajax.png
 ---
 
@@ -350,7 +351,7 @@ To make the store’s state and functions available to the React component, [Rea
 
 1. **Provider component** — a higher order component to make the store available to all container components in the application without passing it explicitly.
 
-### ***3) Connect React component to Redux store***
+### **3) Connect React component to Redux store**
 
 ```js
 // Dependencies
@@ -443,4 +444,4 @@ Check out the source code on [Github](https://github.com/rowlandekemezie/Redux-s
 
 
 **Note:** This article was originally published on [Codementor](https://www.codementor.io/reactjs/tutorial/handling-ajax-in-your-react-application-with-agility-0).
-> **In case I missed out on anything, drop your feedback, comments and questions in the comment section. *If you find this article useful, recommend it to others by sharing on social media.***
+> In case I missed out on anything, drop your feedback, comments and questions in the comment section. If you find this article useful, recommend it to others by sharing on social media.

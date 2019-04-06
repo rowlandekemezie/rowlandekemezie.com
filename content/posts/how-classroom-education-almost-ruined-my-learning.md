@@ -20,7 +20,7 @@ Learning unarguably is one of the greatest assets in human capital development. 
 
 After my graduation from college, I wanted to stay back in my institution as a lecturer. I’ve always wanted to be a one and that wouldn’t come as a surprise to my friends if I had ended up as one.
 
-## T**he momen**t of truth …
+## The moment of truth …
 
 My applications were not attended to on three separate occasions. So, I scheduled an appointment to meet with the Vice Chancellor via one of the former Senate Council members of the institution.
 
@@ -60,11 +60,11 @@ That’d be quick and pitch me as smart but it’d backfire. It was time to defi
 
 I was ready to get it right. I sacrificed speed this time. I focused on planning my new learning strategy. I crawled the web on a daily basis in search of materials on how to learn.
 
-I found lots of amazing stuff on how to learn. Le[t](http://bigthink.com/neurobonkers/assessing-the-evidence-for-the-one-thing-you-never-get-taught-in-school-how-to-learn) me share a couple of them.
+I found lots of amazing stuff on how to learn. Let me share a couple of them.
 
 1. [Learn anything](https://simpleprogrammer.com/products/learn-anything/).
 
-1. L[earning How to Learn](https://www.coursera.org/learn/learning-how-to-learn).
+1. [Learning How to Learn](https://www.coursera.org/learn/learning-how-to-learn).
 
 1. [You can Learn anything](https://www.khanacademy.org/youcanlearnanything).
 
@@ -76,13 +76,12 @@ I found lots of amazing stuff on how to learn. Le[t](http://bigthink.com/neurobo
 
 ### **1) Take ownership of your learning**
 
-“Freeing yourself was one thing; claiming ownership of that freed self was another.” — [Toni Morrison](https://www.brainyquote.com/quotes/quotes/t/tonimorris398352.html).
+> Freeing yourself was one thing; claiming ownership of that freed self was another. - [Toni Morrison](https://www.brainyquote.com/quotes/quotes/t/tonimorris398352.html).
 
 My major problem was learning just to scale through assessments. Unfortunately, this limits your learning to what perception you have of your instructor/assessor. When you leave your learning for somebody to manage, you loose sense of responsibility and purpose of learning. if you don’t take control of your education, you’d loose the essence thereof. The fastest way to make your learning matter in the real world is to take responsibility for your learning.
 
 ### **2) Avoid passive learning**
-
-“Our obligation is to give meaning to life and in doing so to overcome the passive, indifferent life.” — [Elie Wiesel](https://www.brainyquote.com/quotes/quotes/e/eliewiesel386793.html).
+> Our obligation is to give meaning to life and in doing so to overcome the passive, indifferent life. - [Elie Wiesel](https://www.brainyquote.com/quotes/quotes/e/eliewiesel386793.html).
 
 Every invention came out of curiosity and maybe challenging the current status quo. My approach was to swallow everything I was given in class and that was it. The cons of passive learning outweigh the pros. The result of passive learning is [surface processing](http://www2.rgu.ac.uk/celt/pgcerttlt/how/how5a.htm). It doesn’t engage the use of high-level [cognitive skills](http://sharpbrains.com/blog/2006/12/18/what-are-cognitive-abilities/).
 
@@ -90,9 +89,10 @@ Passive learning is learning without real world application in view. It’s not 
 
 ### **3) Don’t relinquish your creativity**
 
-As explained in [Einstein: The Life and Times](https://www.amazon.com/Einstein-Times-Ronald-W-Clark/dp/0061351849), *“The value of an education in a liberal arts college is not the learning of many facts, but the training of the mind to think something that cannot be learned from textbooks.”*
+As explained in [Einstein: The Life and Times](https://www.amazon.com/Einstein-Times-Ronald-W-Clark/dp/0061351849), 
+> The value of an education in a liberal arts college is not the learning of many facts, but the training of the mind to think something that cannot be learned from textbooks.
 
-Skepticism, keeping faith with the norm, always being realistic, procrastination, etc is killer viruses. They block your mind from endless possibilities and creative insights.
+Skepticism, keeping faith with the norm, always being realistic, procrastination, etc are killer viruses. They block your mind from endless possibilities and creative insights.
 
 Consider some of the habits killing your creativity in [21 Ways to Kill Your Creativity.](http://www.creativitypost.com/create/21_ways_to_kill_your_creativity)
 
@@ -114,8 +114,7 @@ Fortunately, if you stay consistent in your learning, you’d get to your destin
 ![Competing rightly](/media/competing-right.jpeg)
 
 ### 5) Avoid trying to be good before you ever practice
-
-*“Tell me and I forget, teach me and I may remember, involve me and I learn.”* *― [Benjamin Franklin](https://www.goodreads.com/author/show/289513.Benjamin_Franklin).*
+> Tell me and I forget, teach me and I may remember, involve me and I learn.” ― [Benjamin Franklin](https://www.goodreads.com/author/show/289513.Benjamin_Franklin).
 
 The fear of uncertainties and failures compels us to prepare before we ever practice. Practice has no substitute or alternative. Practice is engaging. Disappointment sets in when your brain can not solve what you thought you’ve studied.
 
@@ -127,7 +126,7 @@ I couldn’t agree less with [John Sonmez](https://medium.com/u/56e8cba02b), the
 
 ## **Conclusion:**
 
-*“Develop a passion for learning. If you do, you will never cease to grow.”* — [Anthony J. D’Angelo](https://www.brainyquote.com/quotes/quotes/a/anthonyjd153989.html).
+> Develop a passion for learning. If you do, you will never cease to grow. — [Anthony J. D’Angelo](https://www.brainyquote.com/quotes/quotes/a/anthonyjd153989.html).
 
 Learning is a rewarding experience and should be approached in the context of real world applications.
 
@@ -139,7 +138,6 @@ Remember that knowledge is useless if you don’t apply it.
 
 **Related Articles:**
 
-1. [The Effective Learner: An Introductory Approach](https://rowlandbits.netlify.com/posts/the-effective-learner-an-introductory-approach).
+1. [The Effective Learner: An Introductory Approach](https://rowlandekemezie.com/posts/the-effective-learner-an-introductory-approach).
 
-1. [I’ve Got No Problem With Education](https://rowlandbits.netlify.com/posts/ive-got-no-problem-with-education).
->
+2. [I’ve Got No Problem With Education](https://rowlandekemezie.com/posts/ive-got-no-problem-with-education).

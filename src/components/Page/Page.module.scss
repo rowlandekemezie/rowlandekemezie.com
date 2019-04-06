@@ -39,7 +39,7 @@
     font-size: $typographic-base-font-size;
     font-weight: normal;
     margin-right: auto;
-    @include margin-top(1);
+    @include margin-bottom(1);
 
     &:hover,
     &:focus {
