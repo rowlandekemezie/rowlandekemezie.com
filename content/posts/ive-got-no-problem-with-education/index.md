@@ -11,10 +11,10 @@ tags:
   - life
   - education
   - school
-image: media/ive-got-no-problem-with-education.jpeg
+image: ./images/ive-got-no-problem-with-education.jpeg
 ---
 
-![Frustrated students](/media/ive-got-no-problem-with-education.jpeg)
+![Frustrated students](./images/ive-got-no-problem-with-education.jpeg)
 
 I was inspired by the last post on [The Effective Learner](https://rowlandekemezie.com/posts/the-effective-learner-an-introductory-approach). The responses I got were mind blowing and my response was, I’m not in it alone but more importantly, we can make a difference.
 > Behind every exquisite thing that existed, there was something tragic. ― [Oscar Wilde](https://www.goodreads.com/author/show/3565.Oscar_Wilde)
@@ -34,7 +34,7 @@ The premise of our problem is in comparing and contrasting education and schooli
 
 Can schooling be said to be same as being educated? What could be fundamentally wrong with such thought? I would want to share my thoughts on two counts — the problem as well as recommendations.
 
-![Schooling vs Education](/media/schooling-vs-education.png)
+![Schooling vs Education](./images/schooling-vs-education.png)
 
 [http://www.mrprintables.com/images/printable-quote-twain.jpg](http://www.mrprintables.com/images/printable-quote-twain.jpg)
 
@@ -81,5 +81,11 @@ Carl Rogers once said, <em>The only person who is educated is the one who has le
 Education is a common currency. It trades at the same rate everywhere and every time. It’s a treasure for action at all times. In Herbert Spencers’ words, <em>The great aim of education is not knowledge but action.</em>
 
 Education is powerful; it’s a golden key and weapon for a successful life. Education is the fragment that remains after we’ve left school. What really matters may not be good grades in school, but a different way of looking at the world, problems, and learning. Education is life; learning is a skill; school is meant to serve the process.
+
+**Related Articles:**
+
+1. [The Effective Learner: An Introductory Approach](https://rowlandekemezie.com/posts/the-effective-learner-an-introductory-approach).
+
+2. [How class room education almost ruined my learning](https://rowlandekemezie/posts/how-classroom-education-almost-ruined-my-learning).
 
 **Spread The News…**

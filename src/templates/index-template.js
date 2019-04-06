@@ -5,8 +5,8 @@ import Sidebar from 'components/Sidebar';
 import Feed from 'components/Feed';
 import Page from 'components/Page';
 import Pagination from 'components/Pagination';
+import { PAGINATION } from '../constants';
 
-const PAGE_LIMIT = 4;
 const IndexTemplate = ({ data, pageContext }) => {
   const {
     tags: keywords,
@@ -30,7 +30,7 @@ const IndexTemplate = ({ data, pageContext }) => {
       <Sidebar isIndex />
       <Page>
         <Feed edges={edges} />
-        {edges.length > PAGE_LIMIT ? (
+        {edges.length > PAGINATION.PAGE_LIMIT ? (
           <Pagination
             prevPagePath={prevPagePath}
             nextPagePath={nextPagePath}

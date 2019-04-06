@@ -11,10 +11,10 @@ tags:
   - life
   - education
   - school
-image: media/effective-learning.jpeg
+image: ./images/effective-learner.jpeg
 ---
 
-![Effective learning hero](/media/effective-learner.jpeg)
+![Effective learning hero](./images/effective-learner.jpeg)
 
 > Live as if you were to die tomorrow. Learn as if you were to live forever.
 ― [Mahatma Gandhi](https://www.goodreads.com/author/show/5810891.Mahatma_Gandhi).
@@ -53,7 +53,7 @@ Let’s get down into some of the basic factors for learning.
 
 ### LEARNING: THE WHY FACTOR
 
-![Why factor](/media/learning-why-factor.jpeg)
+![Why factor](./images/learning-why-factor.jpeg)
 > Any fool can know. The point is to understand.
 ― [Albert Einstein](https://www.goodreads.com/author/show/9810.Albert_Einstein)
 
@@ -61,14 +61,14 @@ Making proper connections around the premise of the new material you’re learni
 
 ### LEARNING: THE HABIT FACTOR
 
-![Habit factor](/media/learning-habit-factor.jpeg)
+![Habit factor](./images/learning-habit-factor.jpeg)
 > We are what we repeatedly do. Excellence, then, is not an act, but a habit. -**Aristotle**.
 
 Focus on goals rather than habits might be the easiest way to abort passion and love for a new material you’re learning. Goals are met when habits are formed. Habits connect all resources to meet a goal. Habits help build processes that you can leverage subconsciously to deliver a product. Habit is the operation manager that coordinates and brings every tiny piece together into actualizing a goal. When learning is the reason, setting goals is not a priority.
 
 ### LEARNING: THE COMMUNITY FACTOR
 
-![Community factor](/media/learning-community-factor.jpeg)
+![Community factor](./images/learning-community-factor.jpeg)
 > The parts of me that used to think I was different or smarter or whatever, almost made me die.
 ― [David Foster Wallace](https://www.goodreads.com/author/show/4339.David_Foster_Wallace).
 
@@ -76,7 +76,7 @@ The supposedly intelligent and the so-called geniuses usually think that joining
 
 ### LEARNING: THE PRACTICE FACTOR
 
-![Practice factor](/media/learning-practice-factor.jpeg)
+![Practice factor](./images/learning-practice-factor.jpeg)
 > For the things we have to learn before we can do them, we learn by doing them. ― [Aristotle](https://www.goodreads.com/author/show/2192.Aristotle).
 
 ### **Pros of practice testing**
@@ -91,6 +91,6 @@ Effective learning starts with learning the right strategies to learn. I feel it
 
 **Related articles:**
 
-1. [I’ve got no problem with education](https://rowlandekemezie/ive-got-not-problem-with-education).
+1. [I’ve got no problem with education](https://rowlandekemezie/posts/ive-got-not-problem-with-education).
 
-2. [How class room education almost ruined my learning](https://rowlandekemezie/how-classroom-education-almost-ruined-my-learning).
+2. [How class room education almost ruined my learning](https://rowlandekemezie/posts/how-classroom-education-almost-ruined-my-learning).

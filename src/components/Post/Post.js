@@ -14,7 +14,6 @@ const Post = ({
 
   const { html } = post;
   const { tagSlugs } = post.fields;
-
   return (
     <div className={styles['post']}>
       <Link className={styles['post__home-button']} to="/">

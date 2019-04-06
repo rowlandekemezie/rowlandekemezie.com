@@ -1,12 +1,15 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import Footer from 'components/Footer';
+import ScrollProgress from 'components/ScrollProgress';
 import styles from './Layout.module.scss';
 
 const Layout = ({
-  children, title, description, keywords
-}) => (
-  <>
+  children,
+  title,
+  description,
+  keywords
+}) => (<>
     <div className={styles.layout}>
       <Helmet
         title={title}
@@ -18,7 +21,10 @@ const Layout = ({
         <html lang="en" />
         <noscript>This site runs best with JavaScript enabled.</noscript>
       </Helmet>
+      <>
+      <ScrollProgress />
       {children}
+      </>
     </div>
     <div className={styles['layout__scroll']}>
       <button

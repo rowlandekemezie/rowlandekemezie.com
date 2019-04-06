@@ -5,6 +5,7 @@ import Sidebar from 'components/Sidebar';
 import Feed from 'components/Feed';
 import Page from 'components/Page';
 import Pagination from 'components/Pagination';
+import { PAGINATION } from '../constants';
 
 const CategoryTemplate = ({ data, pageContext }) => {
   const { title: siteTitle, subtitle: siteSubtitle } = data.site.siteMetadata;
@@ -28,12 +29,12 @@ const CategoryTemplate = ({ data, pageContext }) => {
       <Sidebar />
       <Page title={category}>
         <Feed edges={edges} />
-        <Pagination
+        {edges.length > PAGINATION.PAGE_LIMIT && (<Pagination
           prevPagePath={prevPagePath}
           nextPagePath={nextPagePath}
           hasPrevPage={hasPrevPage}
           hasNextPage={hasNextPage}
-        />
+        />)}
       </Page>
     </Layout>
   );
@@ -66,7 +67,7 @@ export const query = graphql`
             slug
           }
           frontmatter {
-            date
+            date(formatString: "MMMM YYYY")
             description
             category
             title
