@@ -12,10 +12,10 @@ tags:
   - redux-saga
   - redux-thunk
   - ajax
-image: media/handling-ajax.png
+image: ./images/handling-ajax.png
 ---
 
-![handling ajax](/media/handling-ajax.png)
+![handling ajax](/images/handling-ajax.png)
 
 
 The [React](https://facebook.github.io/react/) ecosystem has become huge since Facebook made the API public. More so, great libraries have been built in the declarative style adopted by React.
@@ -104,14 +104,14 @@ Relay is elegant for building large applications — but it has some overhead. T
 
 *A sample relay flow could look thus:*
 
-![https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html](/media/relay-workflow.png)
+![https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html](/images/relay-workflow.png)
 [facebook news feed with relay](https://facebook.github.io/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html)
 
 ## **3. Delegate Redux**
 
 [Redux](http://redux.js.org/) is built off of [Flux architecture](https://facebook.github.io/flux/docs/overview.html) for managing React application’s state. With Redux, you move your application data and AJAX processes away from your components.
 
-![Redux workflow example](/media/redux-github-workflow.png)
+![Redux workflow example](/images/redux-github-workflow.png)
 *Redux workflow example*
 
 From the diagram, you can see how the application state and asynchronous processes are moved to the store.

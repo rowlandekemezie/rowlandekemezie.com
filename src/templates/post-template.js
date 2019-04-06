@@ -1,4 +1,5 @@
 import React from 'react';
+import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Layout from 'components/Layout';
 import Post from 'components/Post';
@@ -14,6 +15,9 @@ const PostTemplate = ({
     title: postTitle,
     description: postDescription
   } = markdownRemark.frontmatter;
+  console.log(markdownRemark, 'markdown post');
+
+  console.log(allMarkdownRemark, 'allmarkdownremark');
 
   const metaDescription = postDescription !== null ? postDescription : siteSubtitle;
 
@@ -27,16 +31,15 @@ const PostTemplate = ({
         title={markdownRemark.frontmatter.title}
         description={markdownRemark.frontmatter.description}
         slug={markdownRemark.fields.slug}
-        image={allMarkdownRemark.edges[0].node.frontmatter.image}
+        image={get(markdownRemark, 'frontmatter.image.childImageSharp.fluid.src')}
       />
       <Post
         post={markdownRemark}
         timeToRead={markdownRemark.timeToRead}
         twitterHandle={site.siteMetadata.author.contacts.twitter}
         url={`${site.siteMetadata.url}${markdownRemark.fields.slug}`}
-        editLink={`content/${
-          allMarkdownRemark.edges[0].node.parent.relativePath
-        }`}
+        editLink={`content/${markdownRemark.fields.slug
+        }index.md`}
       />
     </Layout>
   );
@@ -71,6 +74,13 @@ export const query = graphql`
         description
         tags
         title
+        image {
+          childImageSharp {
+            fluid {
+              src
+            }
+          }
+        }
       }
     }
     allMarkdownRemark(filter: { frontmatter: { slug: { eq: $slug } } }) {
@@ -81,9 +91,7 @@ export const query = graphql`
               relativePath
             }
           }
-          frontmatter {
-            image
-          }
+          
         }
       }
     }

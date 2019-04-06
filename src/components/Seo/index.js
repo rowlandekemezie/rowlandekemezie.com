@@ -29,7 +29,7 @@ function SEO({
       render={(data) => {
         const { siteMetadata } = data.site;
         const metaDescription = description || siteMetadata.title;
-        const metaImage = image ? `${siteMetadata.url}/${image}` : null;
+        const metaImage = image ? `${siteMetadata.url}${image}` : null;
         const url = `${siteMetadata.url}${slug}`;
         return (
           <Helmet

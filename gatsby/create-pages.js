@@ -29,23 +29,23 @@ const createPages = async ({ graphql, actions }) => {
 
   // Posts and pages from markdown
   const result = await graphql(`
-    {
-      allMarkdownRemark(
-        filter: { frontmatter: { draft: { ne: true } } }
-      ) {
-        edges {
-          node {
-            frontmatter {
-              template
-            }
-            fields {
-              slug
+      {
+        allMarkdownRemark(
+          filter: { frontmatter: { draft: { ne: true } } }
+        ) {
+          edges {
+            node {
+              frontmatter {
+                template
+              }
+              fields {
+                slug
+              }
             }
           }
         }
       }
-    }
-  `);
+    `);
 
   const { edges } = result.data.allMarkdownRemark;
 

@@ -160,6 +160,7 @@ module.exports = {
           }
         `,
         output: '/sitemap.xml',
+        title: 'Rowland I. Ekemezie\'s Blog RSS Feed',
         serialize: ({ site, allSitePage }) => allSitePage.edges.map((edge) => ({
           url: site.siteMetadata.url + edge.node.path,
           changefreq: 'daily',

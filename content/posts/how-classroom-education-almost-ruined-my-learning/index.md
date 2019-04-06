@@ -11,10 +11,10 @@ tags:
   - life
   - education
   - school
-image: media/classroom-learning.png
+image: ./images/classroom-learning.png
 ---
 
-![Classroom learning](/media/classroom-learning.png)
+![Classroom learning](./images/classroom-learning.png)
 
 Learning unarguably is one of the greatest assets in human capital development. Learning itself can be a rewarding experience. One of the questions I have faced often is how to learn. I don’t have all the answers. But I made some costly mistakes that are avoidable.
 
@@ -56,7 +56,7 @@ Should I follow the old track?
 
 That’d be quick and pitch me as smart but it’d backfire. It was time to define a new strategy.
 
-![21st centuary illitrate](/media/21st-century-illitrates.png)
+![21st centuary illitrate](./images/21st-century-illitrates.png)
 
 I was ready to get it right. I sacrificed speed this time. I focused on planning my new learning strategy. I crawled the web on a daily basis in search of materials on how to learn.
 
@@ -98,7 +98,7 @@ Consider some of the habits killing your creativity in [21 Ways to Kill Your Cre
 
 When it comes to learning, I go with [Clark Terry’s 3 steps to learning improvisation](http://www.jazzadvice.com/clark-terrys-3-steps-to-learning-improvisation/).
 
-![Guiding principle for mastery](/media/learning-improv.png)
+![Guiding principle for mastery](./images/learning-improv.png)
 *Guiding principle for mastery*
 
 ### 4) Don’t compete with those ahead of you
@@ -111,7 +111,7 @@ It’s more blessed to learn from others than compete with them. The danger here
 
 Fortunately, if you stay consistent in your learning, you’d get to your destination. The *process* is more important than the *product* in the school of learning.
 
-![Competing rightly](/media/competing-right.jpeg)
+![Competing rightly](./images/competing-right.jpeg)
 
 ### 5) Avoid trying to be good before you ever practice
 > Tell me and I forget, teach me and I may remember, involve me and I learn.” ― [Benjamin Franklin](https://www.goodreads.com/author/show/289513.Benjamin_Franklin).
