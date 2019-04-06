@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-  url: 'https://rowlandbits.netlify.com',
+  url: 'https://rowlandekemezie.com',
   title: 'Rowland I. Ekemezie',
-  subtitle: 'Hi I\'m Rowland 👋. I\'m an Automated systems enthusiast, human capital development advocate; Software Engineer and everything in between',
+  subtitle: 'Hi I\'m Rowland. I\'m an Automated systems enthusiast, human capital development advocate; Software Engineer and everything in between',
   disqusShortname: 'rowlandekemezie',
   postsPerPage: 4,
   googleAnalyticsId: 'UA-134985180-1',

@@ -16,8 +16,8 @@ image: media/effective-learning.jpeg
 
 ![Effective learning hero](/media/effective-learner.jpeg)
 
-> “Live as if you were to die tomorrow. Learn as if you were to live forever.” 
-― [Mahatma Gandhi](https://www.goodreads.com/author/show/5810891.Mahatma_Gandhi)
+> Live as if you were to die tomorrow. Learn as if you were to live forever.
+― [Mahatma Gandhi](https://www.goodreads.com/author/show/5810891.Mahatma_Gandhi).
 
 It’s said that when one stops learning he starts dying. We all learn but what we learn and how we learn is key to success. The focus should be on behavioral patterns for learning.
 
@@ -54,30 +54,30 @@ Let’s get down into some of the basic factors for learning.
 ### LEARNING: THE WHY FACTOR
 
 ![Why factor](/media/learning-why-factor.jpeg)
-> “Any fool can know. The point is to understand.” 
-― [Albert Einstein](https://www.goodreads.com/author/show/9810.Albert_Einstein)**
+> Any fool can know. The point is to understand.
+― [Albert Einstein](https://www.goodreads.com/author/show/9810.Albert_Einstein)
 
 Making proper connections around the premise of the new material you’re learning and how they interleave with each other involves understanding. It’s usually easy to resort to cookie-cutter, do-as-you-see, and do-as-you-are-told mindless approach when following a worked out tutorial. It’s easy to focus on what worked and mindlessly forgetting the connections they make with the next step. It is the understanding of the interconnectedness between steps that guarantees the creative use of the material and it’s mastery forthwith. Understanding is principal in learning any material or art effectively.
 
 ### LEARNING: THE HABIT FACTOR
 
 ![Habit factor](/media/learning-habit-factor.jpeg)
-> “We are what we repeatedly do. Excellence, then, is not an act, but a habit.” -**Aristotle.**
+> We are what we repeatedly do. Excellence, then, is not an act, but a habit. -**Aristotle**.
 
 Focus on goals rather than habits might be the easiest way to abort passion and love for a new material you’re learning. Goals are met when habits are formed. Habits connect all resources to meet a goal. Habits help build processes that you can leverage subconsciously to deliver a product. Habit is the operation manager that coordinates and brings every tiny piece together into actualizing a goal. When learning is the reason, setting goals is not a priority.
 
 ### LEARNING: THE COMMUNITY FACTOR
 
 ![Community factor](/media/learning-community-factor.jpeg)
-> “The parts of me that used to think I was different or smarter or whatever, almost made me die.” 
-― [David Foster Wallace](https://www.goodreads.com/author/show/4339.David_Foster_Wallace)
+> The parts of me that used to think I was different or smarter or whatever, almost made me die.
+― [David Foster Wallace](https://www.goodreads.com/author/show/4339.David_Foster_Wallace).
 
 The supposedly intelligent and the so-called geniuses usually think that joining a community or building a community to learn with is a waste of time. Isolation from the force of a community is deadly for learning. Most people would usually not reach the zenith of their dreams because of divorce with community factor and unfortunate friendship with isolation. Those that fall into this category quickly grasp materials more than any one else but lack the cutting edge that community forces brings with it. This is usually the separating line between the intelligent and the brilliant.
 
 ### LEARNING: THE PRACTICE FACTOR
 
 ![Practice factor](/media/learning-practice-factor.jpeg)
-> “For the things we have to learn before we can do them, we learn by doing them.” ― [Aristotle](https://www.goodreads.com/author/show/2192.Aristotle)
+> For the things we have to learn before we can do them, we learn by doing them. ― [Aristotle](https://www.goodreads.com/author/show/2192.Aristotle).
 
 ### **Pros of practice testing**
 
@@ -89,5 +89,8 @@ The supposedly intelligent and the so-called geniuses usually think that joining
 
 Effective learning starts with learning the right strategies to learn. I feel it’s more important to learn how to learn than just learning multiple contents without any guarantee of long lasting retention. I would like to keep this article brief and continue in subsequent articles to express strongly how to learn effectively.
 
-**Related article:**
-[I’ve got no problem with education](https://rowlandnetlify.com/ive-got-not-problem-with-education)
+**Related articles:**
+
+1. [I’ve got no problem with education](https://rowlandekemezie/ive-got-not-problem-with-education).
+
+2. [How class room education almost ruined my learning](https://rowlandekemezie/how-classroom-education-almost-ruined-my-learning).

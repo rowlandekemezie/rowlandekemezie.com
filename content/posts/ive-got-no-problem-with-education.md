@@ -16,8 +16,8 @@ image: media/ive-got-no-problem-with-education.jpeg
 
 ![Frustrated students](/media/ive-got-no-problem-with-education.jpeg)
 
-I was inspired by the last post on [The Effective Learner](https://rowlandbits.netlify.com/posts/the-effective-learner-an-introductory-approach). The responses I got were mind blowing and my response was, I’m not in it alone but more importantly, we can make a difference.
-> “Behind every exquisite thing that existed, there was something tragic.” ― [Oscar Wilde](https://www.goodreads.com/author/show/3565.Oscar_Wilde)
+I was inspired by the last post on [The Effective Learner](https://rowlandekemezie.com/posts/the-effective-learner-an-introductory-approach). The responses I got were mind blowing and my response was, I’m not in it alone but more importantly, we can make a difference.
+> Behind every exquisite thing that existed, there was something tragic. ― [Oscar Wilde](https://www.goodreads.com/author/show/3565.Oscar_Wilde)
 
 You might have passed through the college, dropped out, at the brink of dropping out; your expectations might have been trampled and you’re frustrated and bored about the whole idea of schooling. Let’s walk through on why it’s so and how to probably focus on what matters most — *Education and Learning.*
 
@@ -25,10 +25,10 @@ You might have passed through the college, dropped out, at the brink of dropping
 
 A couple of academic seminars I’ve organized and the ones I spoke in gave me a sense of how education has been misunderstood. The focus during such programs was answering some of the questions I receive daily on how I scaled the hurdle of running two courses concurrently and still came out with excellent result. I feel a great sense of respect in the air after such events and some would want to be my friend whereas some bow out with a feeling that I must be extraordinary.
 
-In an attempt to provide genuine guidance having missed the whole essence of education in some aspects, the common question among participants was how to make best grades and maybe come out top of their class. They want a rule to nail it; an Almighty formula to perform the magic for them. I scarcely hear someone asking me how to learn these hard subjects — how to ensure I relate what I’m learning with what is obtainable in real life. This is terrible for our brain, educational system and the world at large. It’s heartbreaking that such has been allowed to almost perpetuate. Rather than ask real questions, people’s thoughts are centered on passing tests probably set by an individual. The truth is, “*learn some tricks about passing exams without interest in the main purpose of learning, you become clueless afterwards.*” This approach is myopic, ineffective, and obtrusive for learning.
+In an attempt to provide genuine guidance having missed the whole essence of education in some aspects, the common question among participants was how to make best grades and maybe come out top of their class. They want a rule to nail it; an Almighty formula to perform the magic for them. I scarcely hear someone asking me how to learn these hard subjects — how to ensure I relate what I’m learning with what is obtainable in real life. This is terrible for our brain, educational system and the world at large. It’s heartbreaking that such has been allowed to almost perpetuate. Rather than ask real questions, people’s thoughts are centered on passing tests probably set by an individual. The truth is, <em>learn some tricks about passing exams without interest in the main purpose of learning, you become clueless afterwards.</em> This approach is myopic, ineffective, and obtrusive for learning.
 
 ### **Understanding the premise of the problem**
-> “We cannot solve our problems with the same thinking we used when we created them.” — [Albert Einstein](http://www.brainyquote.com/quotes/quotes/a/alberteins121993.html?src=t_problems).
+> We cannot solve our problems with the same thinking we used when we created them. — [Albert Einstein](http://www.brainyquote.com/quotes/quotes/a/alberteins121993.html?src=t_problems).
 
 The premise of our problem is in comparing and contrasting education and schooling. Over the past couple of years, the wave of education surged like a tsunami across all nations. Whether we understand what we want and the essence of education is a great concern. Schooling was synonymous with education. If you went to school, you’re certified educated by the society. School system became the de facto standard of grading people’s level of education. The interest of every parent was to see their children go to school. We’ve a clue of what education could make out of any individual but the process was coaxed along the line.
 
@@ -41,7 +41,7 @@ Can schooling be said to be same as being educated? What could be fundamentally 
 **Creativity is the climax of learning**. Creativity is a clear demonstration of foundational knowledge and mastery of a craft. It’s the most crucial factor for future success. Doing something differently should be the learning outcome. The illusion of competence is in its climax if it’s about doing the same thing the same way. What gain is it to the student to give back an examiner the same thing, the same way it’s in a textbook during an examination?
 
 Could it be the reason why some people who attended the supposedly prestigious institutions still drop out, frustrated by a system that is stereotyped?
-> “I failed in some subjects in exam, but my friend passed in all. Now he is an engineer in Microsoft and I am the owner of Microsoft.” — **Bill Gate**.
+> I failed in some subjects in exam, but my friend passed in all. Now he is an engineer in Microsoft and I am the owner of Microsoft. — **Bill Gate**.
 
 **Lack of understanding of behavioral learning:** We judge people by the same standard as if we’re meant to solve the same problem afterwards. We fail to understand that people are peculiar and hence the problems they would solve in life drive their interests. We can’t coax everybody into the same system and expect a better result. Over-reliance on formal models and structure would devalue individual creativity. Insensitivity to contextual nuances makes learning boring.
 
@@ -69,16 +69,16 @@ Arguably, some institutions have better structures to ensure better learning exp
 
 Back then in school, some information is termed academic, connoting some things are in the academic domain and others in real life domain. Sadly, we spend most of our time on the impracticable and ignore the real context. What a deception that lurks in our educational system. Practical standards are more reasonable and undo emphasis on ideal standards as benchmark for effectiveness deters the whole process of learning. To give more context to this, idealistic standards doesn’t allow creativity and intuition to operate. An eye on the ideal encourages learning devoid of practice whereas practical oriented approach to learning enforces inventiveness and creativity.
 
-Prefer “walking the walk” to “talking the walk”. Theories can not get you very far in your learning. Theories could become a [second-order incompetence syndrome](http://www.billthelizard.com/2008/11/on-learning.html) if not checked.
+Prefer <em>walking the walk</em> to <em>talking the walk.</em> Theories can not get you very far in your learning. Theories could become a [second-order incompetence syndrome](http://www.billthelizard.com/2008/11/on-learning.html) if not checked.
 
 ## **Key Takeaways**
-> “The function of education is to teach one to think intensively and to think critically. Intelligence plus character — that is the goal of true education.” —[ ](http://www.brainyquote.com/quotes/quotes/a/alberteins108304.html?src=t_school)[Martin Luther King, Jr](http://www.brainyquote.com/quotes/quotes/m/martinluth402936.html?src=t_education.).
+> The function of education is to teach one to think intensively and to think critically. Intelligence plus character — that is the goal of true education. — [Martin Luther King, Jr](http://www.brainyquote.com/quotes/quotes/m/martinluth402936.html?src=t_education.).
 
 I’ve got no problem with education, neither do you. Learning is part of human existence. Definitely, educational institutions need restructuring but education must be pursued with the right perception.
 
-Carl Rogers once said, “*The only person who is educated is the one who has learned how to learn and change.” *Once you know the essence of education and learning, your focus is shifted to knowing how to learn effectively.
+Carl Rogers once said, <em>The only person who is educated is the one who has learned how to learn and change.</em> Once you know the essence of education and learning, your focus is shifted to knowing how to learn effectively.
 
-Education is a common currency. It trades at the same rate everywhere and every time. It’s a treasure for action at all times. In Herbert Spencers’ words, *“The great aim of education is not knowledge but action.”*
+Education is a common currency. It trades at the same rate everywhere and every time. It’s a treasure for action at all times. In Herbert Spencers’ words, <em>The great aim of education is not knowledge but action.</em>
 
 Education is powerful; it’s a golden key and weapon for a successful life. Education is the fragment that remains after we’ve left school. What really matters may not be good grades in school, but a different way of looking at the world, problems, and learning. Education is life; learning is a skill; school is meant to serve the process.
 
