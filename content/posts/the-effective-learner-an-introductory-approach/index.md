@@ -91,6 +91,6 @@ Effective learning starts with learning the right strategies to learn. I feel it
 
 **Related articles:**
 
-1. [I’ve got no problem with education](https://rowlandekemezie/ive-got-not-problem-with-education).
+1. [I’ve got no problem with education](https://rowlandekemezie/posts/ive-got-not-problem-with-education).
 
-2. [How class room education almost ruined my learning](https://rowlandekemezie/how-classroom-education-almost-ruined-my-learning).
+2. [How class room education almost ruined my learning](https://rowlandekemezie/posts/how-classroom-education-almost-ruined-my-learning).

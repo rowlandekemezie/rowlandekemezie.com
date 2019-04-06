@@ -82,4 +82,10 @@ Education is a common currency. It trades at the same rate everywhere and every 
 
 Education is powerful; it’s a golden key and weapon for a successful life. Education is the fragment that remains after we’ve left school. What really matters may not be good grades in school, but a different way of looking at the world, problems, and learning. Education is life; learning is a skill; school is meant to serve the process.
 
+**Related Articles:**
+
+1. [The Effective Learner: An Introductory Approach](https://rowlandekemezie.com/posts/the-effective-learner-an-introductory-approach).
+
+2. [How class room education almost ruined my learning](https://rowlandekemezie/posts/how-classroom-education-almost-ruined-my-learning).
+
 **Spread The News…**
