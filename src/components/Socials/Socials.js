@@ -13,6 +13,7 @@ const Socials = ({ contacts }) => (
             href={getContactHref(name, contacts[name])}
             rel="noopener noreferrer"
             target="_blank"
+            title={name}
           >
             <Icon icon={getIcon(name)} />
           </a>

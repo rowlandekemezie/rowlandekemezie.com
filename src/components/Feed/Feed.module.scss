@@ -1,7 +1,7 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/mixins';
 
-.feed {
+.feed {  
   &__item {
     @include margin-bottom(1);
     @include padding-equal(1);

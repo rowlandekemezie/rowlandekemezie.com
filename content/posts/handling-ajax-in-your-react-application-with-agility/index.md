@@ -121,7 +121,9 @@ From the diagram, you can see how the application state and asynchronous process
 [Reducers](http://redux.js.org/docs/basics/Reducers.html) are just pure functions that take the previous state and an action and then return the new state. It does not mutate state; it makes a copy of the previous state, transforms it, and returns a new state to the store. The store then updates the view with the new state if there are changes.
 > **Reducers**, given the same arguments, should calculate the next state and return it. No surprises. No side effects. No API calls. No mutations. Reducers are synchronous and passive, thus not the ideal place for async actions.
 
-    (previousState, action) => newState
+```js
+(previousState, action) => newState
+```
 
 **How then should you handle operations with side effects?**
 
@@ -355,7 +357,7 @@ To make the store’s state and functions available to the React component, [Rea
 
 ```js
 // Dependencies
-import { applyMiddleware, createStore } from 'Redux';
+import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { connect, Provider } from 'react-redux';
