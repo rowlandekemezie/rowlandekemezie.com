@@ -4,7 +4,7 @@
 .subscribe {
   color: $color-white;
   max-width: 350px;
-  background: #5e92ff;
+  background: $color-primary;
   background-image: 'linear-gradient(-213deg, #5e31dc 0%, #3155dc 100%), linear-gradient(32deg, rgba(255, 255, 255, 0.25) 33%, rgba(0, 0, 0, 0.25) 100%)';
   border-radius: 5px;
   &__header {

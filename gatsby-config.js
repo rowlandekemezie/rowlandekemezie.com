@@ -173,7 +173,7 @@ module.exports = {
         short_name: siteConfig.title,
         start_url: '/',
         background_color: '#FFF',
-        theme_color: '#F7A046',
+        theme_color: '#b15e09',
         display: 'standalone',
         icon: 'static/favico.png',
       },
