@@ -38,11 +38,14 @@ jobs:
       - restore_cache:
           keys:
             - dependencies-{{ checksum "yarn.lock" }}
-      - run: 
-          name: Run visual test
-          command: |
-            yarn build
-            percy snapshot public
+      - run:
+          name: Install percy
+          command: gem install percy-cli
+      # - run: 
+      #     name: Run visual test
+      #     command: |
+      #       yarn build
+      #       percy snapshot public
     
 workflows:
   version: 2
