@@ -19,6 +19,9 @@
   }
 
   &__body {
+    i {
+      font-size: $typographic-small-font-size;
+    }
     
     & em {
       font-weight: 600;
