@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   docker:
     - image: circleci/node:10.15.1
-  working_directory: ~/gatsby-starter-lumen
+  working_directory: ~/repo
 
 jobs:
   install:
@@ -28,40 +28,21 @@ jobs:
             - dependencies-{{ checksum "yarn.lock" }}
       - run: yarn lint
 
-  test:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - dependencies-{{ checksum "yarn.lock" }}
-      - run: yarn test --runInBand --no-cache
+  visual:
+    docker:
+      - image: circleci/ruby:2.4.1-node-browsers
+    working_directory: ~/repo
 
-  coverage:
-    <<: *defaults
     steps:
       - checkout
       - restore_cache:
           keys:
             - dependencies-{{ checksum "yarn.lock" }}
-      - run: yarn test:coverage --runInBand --no-cache
-      - save_cache:
-          key: coverage-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - coverage
-
-  codecov:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - dependencies-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          keys:
-            - coverage-output-{{ .Environment.CIRCLE_SHA1 }}
-      - run: yarn global add codecov
-      - run: yarn codecov
+      - run: 
+          name: Run visual test
+          command: |
+            yarn build
+            percy snapshot public
     
 workflows:
   version: 2
@@ -71,12 +52,6 @@ workflows:
       - lint:
           requires:
             - install
-      - test:
+      - visual:
           requires:
             - install
-      - coverage:
-          requires:
-            - install
-      - codecov:
-          requires:
-            - coverage
