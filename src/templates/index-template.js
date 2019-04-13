@@ -5,7 +5,6 @@ import Sidebar from 'components/Sidebar';
 import Feed from 'components/Feed';
 import Page from 'components/Page';
 import Pagination from 'components/Pagination';
-import { PAGINATION } from '../constants';
 
 const IndexTemplate = ({ data, pageContext }) => {
   const {
@@ -24,20 +23,17 @@ const IndexTemplate = ({ data, pageContext }) => {
 
   const { edges } = data.allMarkdownRemark;
   const pageTitle = currentPage > 0 ? `Posts - Page ${currentPage} - ${siteTitle}` : siteTitle;
-
   return (
     <Layout title={pageTitle} description={siteSubtitle} keywords={keywords}>
       <Sidebar isIndex />
       <Page>
         <Feed edges={edges} />
-        {edges.length > PAGINATION.PAGE_LIMIT ? (
-          <Pagination
-            prevPagePath={prevPagePath}
-            nextPagePath={nextPagePath}
-            hasPrevPage={hasPrevPage}
-            hasNextPage={hasNextPage}
-          />
-        ) : null}
+        <Pagination
+          prevPagePath={prevPagePath}
+          nextPagePath={nextPagePath}
+          hasPrevPage={hasPrevPage}
+          hasNextPage={hasNextPage}
+        />
       </Page>
     </Layout>
   );
