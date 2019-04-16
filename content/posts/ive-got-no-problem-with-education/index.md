@@ -84,8 +84,8 @@ Education is powerful; it’s a golden key and weapon for a successful life. Edu
 
 **Related Articles:**
 
-1. [The Effective Learner: An Introductory Approach](https://rowlandekemezie.com/posts/the-effective-learner-an-introductory-approach).
+1. [The Effective Learner: An Introductory Approach](../the-effective-learner-an-introductory-approach/).
 
-2. [How class room education almost ruined my learning](https://rowlandekemezie/posts/how-classroom-education-almost-ruined-my-learning).
+2. [How class room education almost ruined my learning](../how-classroom-education-almost-ruined-my-learning/).
 
 **Spread The News…**
