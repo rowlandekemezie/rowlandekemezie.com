@@ -2,10 +2,20 @@
 @import '../../assets/scss/mixins';
 
 .layout {
-  lost-center: $layout-width;
-  min-height: calc(100vh - 275px);
-  transition-duration: 5s;
-  transition-delay: 2s;
+  transition-duration: 0.3s;
+  transition-delay: 0.3s;
+  
+  &__main {
+    lost-center: $layout-width;
+    min-height: calc(100vh - 275px);
+  }
+
+  &__toggle-switch {
+    max-width: $layout-post-width;
+    margin: 20px auto;
+    display: flex;
+    justify-content: flex-end;
+  }
 
   &__scroll {
     float: right;
@@ -27,4 +37,8 @@
       }
     }
   }
+}
+
+.layout__blackbg {
+  background-color: $color-base;
 }

@@ -1,16 +1,14 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'gatsby';
 import styles from './Page.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Page = ({ title, children, isAboutPage }) => {
+const Page = ({
+  title, children, isAboutPage
+}) => {
   const pageRef = useRef();
-
-  useEffect(() => {
-    pageRef.current.scrollIntoView();
-  });
 
   const pageClass = cx({
     page: !isAboutPage,

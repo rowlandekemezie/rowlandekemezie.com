@@ -5,13 +5,15 @@ import Author from './Author';
 import Menu from './Menu';
 import styles from './Sidebar.module.scss';
 
-export const PureSidebar = ({ data, isIndex }) => {
+export const PureSidebar = ({
+  data, isIndex, isDark, toggleTheme
+}) => {
   const { author, menu } = data.site.siteMetadata;
 
   return (
     <div className={styles['sidebar']}>
       <div className={styles['sidebar__inner']}>
-        <Author author={author} isIndex={isIndex} />
+        <Author author={author} isIndex={isIndex} isDark={isDark} toggleTheme={toggleTheme} />
         <Menu menu={menu} />
         <Socials contacts={author.contacts} />
       </div>

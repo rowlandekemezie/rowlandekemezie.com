@@ -13,6 +13,12 @@
     background-clip: padding-box;
   }
 
+  &__toggle-switch {
+    display: flex;
+    justify-content: space-between;
+    line-height: 16px;
+  }
+
   &__title {
     font-size: $typographic-base-font-size * 1.125;
     font-weight: 600;

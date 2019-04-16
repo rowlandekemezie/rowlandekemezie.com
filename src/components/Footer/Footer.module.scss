@@ -2,7 +2,7 @@
 @import '../../assets/scss/mixins';
 
 .footer {
-  background: darken($color-base, 10%);
+  background: $color-base;
   color: $color-white;
   margin-top: 70px;
 

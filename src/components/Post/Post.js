@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdCreate } from 'react-icons/md';
 import { Link } from 'gatsby';
+import ToggleSwitch from 'components/ToggleSwitch';
 import Comments from './Comments';
 import Content from './Content';
 import Tags from './Tags';
@@ -8,7 +9,7 @@ import Share from '../Share';
 import styles from './Post.module.scss';
 
 const Post = ({
-  url, post, editLink, timeToRead, twitterHandle
+  url, post, editLink, timeToRead, twitterHandle, isDark, toggleTheme
 }) => {
   const { tags, title, date } = post.frontmatter;
 
@@ -16,9 +17,13 @@ const Post = ({
   const { tagSlugs } = post.fields;
   return (
     <div className={styles['post']}>
-      <Link className={styles['post__home-button']} to="/">
-        All Articles
-      </Link>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Link className={styles['post__home-button']} to="/">
+          <span>All Articles</span>
+        </Link>
+        <ToggleSwitch isDark={isDark} onChange={toggleTheme} />
+      </div>
+
 
       <div className={styles['post__content']}>
         <Content
