@@ -3,7 +3,7 @@ template: post
 title: Improving your Visual Review with Percy
 slug: /posts/improving-your-visual-review-with-percy/
 draft: false
-date: '2019-04-20T22:40:32.169Z'
+date: '2019-04-17T22:40:32.169Z'
 description: UI review is an integral part of software development cycle especially, mobile and web development. Finding a scalable way of integrating automated visual testing with immediate feedback cycle to improve the whole process and ship with confidence.
 category: Software
 tags:
