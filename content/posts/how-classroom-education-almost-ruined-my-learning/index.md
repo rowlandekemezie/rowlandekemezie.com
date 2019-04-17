@@ -138,6 +138,6 @@ Remember that knowledge is useless if you don’t apply it.
 
 **Related Articles:**
 
-1. [The Effective Learner: An Introductory Approach](https://rowlandekemezie.com/posts/the-effective-learner-an-introductory-approach).
+1. [The Effective Learner: An Introductory Approach](../the-effective-learner-an-introductory-approach/).
 
-2. [I’ve Got No Problem With Education](https://rowlandekemezie.com/posts/ive-got-no-problem-with-education).
+2. [I’ve Got No Problem With Education](../ive-got-no-problem-with-education/).
