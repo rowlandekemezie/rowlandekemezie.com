@@ -257,3 +257,30 @@ pre[class*=language-] {
   color: $color-white;
   font-weight: 400
 }
+
+.gatsby-highlight-code-line {
+  background-color: darken($color-gray, 30%);
+  display: block;
+  margin-right: -1em !important;
+  margin-left: -1em !important;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 3px solid lighten($color-secondary, 10%);
+}
+
+.gatsby-highlight {
+  border-radius: 0.3em;
+  overflow: auto;
+}
+
+
+.gatsby-highlight pre[class*="language-"] {
+  margin: 0;
+  overflow: initial;
+  float: left; 
+  min-width: 100%;
+}
+
+.gatsby-highlight pre[class*="language-"].line-numbers {
+  padding-left: 2.4em;
+}

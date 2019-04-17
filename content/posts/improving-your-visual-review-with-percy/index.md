@@ -174,8 +174,7 @@ Now, let's test everything together. Let's create a test branch and increase the
 .content {
 
   &__title {
-   - font-size: $typographic-base-font-size * 2;
-   + font-size: $typographic-base-font-size * 4;
+    font-size: $typographic-base-font-size * 4; // highlight-line
     max-width: $layout-post-width;
     ......
     ......
