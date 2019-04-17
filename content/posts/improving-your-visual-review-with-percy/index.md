@@ -8,8 +8,9 @@ description: UI review is an integral part of software development cycle especia
 category: Software
 tags:
   - visual testing
-  - test
+  - testing
   - regression testing
+  - QA
 image: ./images/ken-treloar-unsplash.jpg
 ---
 
@@ -69,7 +70,7 @@ Click on the link generated below to review it on Percy platform.
 ![percy-snapshot](./images/local-snapshot-build.png)
 > The left column is blank because there's no snapshot to compare against yet.
 
-### Integrate percy with your CI workflow
+### Integrate Percy with your CI workflow
 We'll love to integrate percy to our CI workflow. It should run on every commit.
 
 Let's use CircleCI for this. However, it works just fine with every other supported [CI platform](https://docs.percy.io/docs/ci-setup).
@@ -181,7 +182,7 @@ Now, let's test everything together. Let's create a test branch and increase the
   }
 ```
 
-This is a fantastic part of it. There are whooping 15 visual changes introduced by the font-size change.
+This is a fantastic part of it. There are a whopping 15 visual changes introduced by the font-size change.
 
 ![visual changes](./images/visual-changes.png)
 
