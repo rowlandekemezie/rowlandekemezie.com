@@ -17,13 +17,13 @@ image: ./images/ken-treloar-unsplash.jpg
 <i>Photo by Ken Treloar on Unsplash.</i>
 
 ### The problem
-Your development team delivers lots of changes to client facing application. For the most part,  developers don't know when they've broken anything on the UI. You ship UI changes with less confidence not knowing if something broke. Whereas there's decent code review, manual QA and test coverage, they are still not enough to catch all UI bugs. One option is to go all out to engage more manual QA personnel. Alternatively,  find a scalable way of integrating automated visual reviews with immediate feedback cycle to improve the whole process and ship with confidence. 
+Your development team delivers lots of changes to client facing application. For the most part,  developers don't know when they've broken anything on the UI. You ship UI changes with less confidence not knowing if something broke. Whereas there are decent code review, manual QA and test coverage, they are still not enough to catch all UI bugs. One option is to go all out to engage more manual QA personnel. Alternatively,  find a scalable way of integrating automated visual reviews with immediate feedback cycle to improve the whole process and ship with confidence. 
 
 ### There're a few reasons for visual reviews:
 - Manual QA is not scalable
 - Visual regression testing is a life saver
 - Automated feedback is a great gain
-- Cross browser compatibility issues still lives
+- Cross browser compatibility issues still live
 
 ### Why Percy
 I think [percy](https://percy.io/) does a great job on the above issues. It integrates with your existing CI workflow, highlights visual diffs across browsers, screens and snapshots. The icing on the cake is the ability to review and approve these changes. Basically, Percy combines visual testings and review platform in one which is pretty cool.
@@ -31,7 +31,7 @@ I think [percy](https://percy.io/) does a great job on the above issues. It inte
 > As, at the time of this writing, Percy is free for up to 5k snapshots monthly.
 
 #### Let's walk through how to use Percy
-I'd be integrating this to the s[repository](https://rowlandekemezie.com) that powers my personal website. It's made with [Gatsby](https://gatsbyjs.com) and deployed to [Netlify](https://netlify.com).
+I'd be integrating this to the [repository](https://github.com/rowlandekemezie/rowlandekemezie.com) that powers my personal website. It's made with [Gatsby](https://gatsbyjs.com) and deployed to [Netlify](https://netlify.com).
 
 So, let's first clone the repository
 
@@ -39,7 +39,7 @@ So, let's first clone the repository
 git clone https://github.com/rowlandekemezie/rowlandekemezie.com.git
 ```
 
-### Run percy locally
+### Run Percy locally
 You can configure percy-cli for testing locally
 ```bash
 $ gem install percy-cli
@@ -47,7 +47,7 @@ $ gem install percy-cli
 
 Before we proceed, we'll need a *PERCY_TOKEN* which is *write-only* API key that only has access to create builds, snapshots, and upload resources to this project. So, signup on [percy](https://percy.io) with your GitHub account.
 
-Next, create an organization name, confirmation email and click *start a new project*.
+Next, create an organization name, confirmation email and click *Start new project*.
 
 ![Create org Percy](./images/percy-create-org.png)
 
@@ -55,7 +55,7 @@ Next up is to add a project to your organization. Probably, a good idea to use t
 
 ![Create project Percy](./images/percy-create-project.png)
 
-All is set. Now, you have your _PERCY_TOKEN_ which will be used for running the test locally and on CI
+All is set. Now, you have your *PERCY_TOKEN* which will be used for running the test locally and on CI.
 
 ![Percy token](./images/percy-token.png)
 
@@ -64,25 +64,25 @@ Let's get back to the terminal to test it out locally with the token
 ![Percy-local-snapshot](./images/percy-local-snapshot.png)
 > Ensure you run _yarn build_ first.
 
-Click on the link to review it on Percy platform.
+Click on the link generated below to review it on Percy platform.
 
 ![percy-snapshot](./images/local-snapshot-build.png)
 > The left column is blank because there's no snapshot to compare against yet.
 
 ### Integrate percy with your CI workflow
-We'll love to integrate percy to our CI workflow. It should run on every commit
+We'll love to integrate percy to our CI workflow. It should run on every commit.
 
 Let's use CircleCI for this. However, it works just fine with every other supported [CI platform](https://docs.percy.io/docs/ci-setup).
 
 First, let's set up the project on CircleCI. login/signup to CircleCI with your GitHub account.
 
-Click on *ADD PROJECTS* to and click on *Setup project* button for the project of choice.
+Click on *ADD PROJECTS* on the sidebar and then click on *Set Up Project* button for the project of choice.
 
 ![CI setup workflow](./images/ci-setup-workflow.png)
 
 We'll keep the default setting on the next page(Linux and Node) and follow other instructions.
 
-Next up, create *.circleci/config.yml* in the wrote directory and populate with
+Next up, create *.circleci/config.yml* in the root directory and populate with
 
 ```bash
 
@@ -134,11 +134,11 @@ The build succeeds but because *PERCY_TOKEN* was not provided, the snapshots won
 
 Let's fix it...
 
-The same way we ran Percy locally with the _PERCY_TOKEN_, we'll add it to the environment variables. So, click on the settings Icon
+The same way we ran Percy locally with the *PERCY_TOKEN*, we'll add it to the environment variables. So, click on the settings Icon
 
 ![Setting icon](./images/setting-icon.png)
 
-Click on `Environment variables` in the sidebar to add your token
+Click on *Environment variables* in the sidebar to add your token
 
 ![Environment Variable Modal](./images/env-variable-modal.png).
 
@@ -147,18 +147,20 @@ Commit your changes and push to master again.
 Now, we can head to percy.io to see the snapshots created by the build.
 
 ![circle ci build](./images/circle-ci-build.png)
-> Percy automatically deters that there's no change hence, "All changes approved automatically on this branch".
+> Percy automatically detects that there's no change hence, "All changes approved automatically on this branch".
 
-### Link up your Percy to your repository
-The final part in this setup is to link Percy to our repository to get immediate feedback after each build
+### Link up Percy to your repository
+The final part of this setup is to link Percy to our repository to get immediate feedback after each build.
 
-In the project setting on Percy, click on _install an integration_ and choose *Github*.
+In the project setting on Percy, click on _install an integration_ and choose *GitHub*.
 ![Link percy to repo](./images/link-to-repository.png)
 
 Here you go...
+Select the repository you want to install Percy and click *install*.
+
 ![Install percy github](./images/install-percy-github.png)
 
-With the source code integration enabled, we can manage our pull/merge request statuses, notifying us when visual changes are detected. It also gives a nice interface to approve those changes with the record of who approved the pull request.
+With the source code integration enabled, we can manage our pull request statuses, notifying us when visual changes are detected. It also gives a nice interface to approve those changes with the record of who approved the pull request.
 
 Now you can select the repository to link to each project
 ![Select project](./images/select-repository.png)
@@ -202,7 +204,7 @@ Percy gives you and your team the power to review and approve UI changes with co
 
 - [Integrating percy visual testing into existing framework](https://docs.percy.io/docs/build-your-own-sdk).
 
-- [Configurating webhook events](https://docs.percy.io/docs/webhooks)
+- [Configuring webhook events](https://docs.percy.io/docs/webhooks)
 
 - [Cross browser visual testing](https://docs.percy.io/docs/cross-browser-visual-testing)
 
