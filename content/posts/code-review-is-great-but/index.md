@@ -129,9 +129,22 @@ Here's a simple implementation with [husky](https://github.com/typicode/husky) a
 }
 ```
 
+Let's run a test...
+I imported unused components into any other file
+
+```js
+.....
+import Icon from 'components/Icon'
+.....
+```
+
+And then I tried committing the changes. _yarn lint:js_ fails with exact location where the problem is. I can fix it and push again. That's safe right?
+
+![Pre commit-hook](./images/pre-commit.png)
+
 #### Automate visual testing
 
-For pull requests requiring UI changes, the QA process is still done minimally as part of a code review process. However, manual QA is expensive and not scalable. Testing for cross-browser compatibility is a nightmare. Automated visual testing will save you a handful amount of time. I wrote on [improving your visual review with percy](../improve-your-visual-review-with-percy) with details walk through on how to integrate it with your existing workflow.
+For pull requests requiring UI changes, the QA process is still done minimally as part of a code review process. However, manual QA is expensive and not scalable. Testing for cross-browser compatibility is a nightmare. Automated visual testing will save you a handful amount of time. I wrote on [improving your visual review with percy](../improve-your-visual-review-with-percy) with detailed walk through on how to integrate it with your existing workflow.
 
 #### Conclusion
 
