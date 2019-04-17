@@ -124,7 +124,7 @@ workflows:
         - visual
 ```
 
-> I commented out few some jobs already existing in the project to help us focus on the scope of this article. When you're done testing, feel free to uncomment them 👌.
+> I commented out some of the jobs already existing in the project to help us focus on the scope of this article. When you're done testing, feel free to uncomment them 👌.
 
 
 Commit and push your code to master. Head over to CircleCI click *Start building*. Hopefully, this is successful 👍
