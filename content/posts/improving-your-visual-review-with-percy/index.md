@@ -52,7 +52,7 @@ You can configure percy-cli for testing locally
 $ gem install percy-cli
 ```
 
-Before we proceed, we'll need a _PERCY_TOKEN_ which is _write-only_ API key that only has access to create builds, snapshots, and upload resources to this project. So, signup on [percy](https://percy.io) with your GitHub account.
+Before we proceed, we'll need a <em>PERCY_TOKEN</em> which is <em>write-only</em> API key that only has access to create builds, snapshots, and upload resources to this project. So, signup on [percy](https://percy.io) with your GitHub account.
 
 Next, create an organization name, confirmation email and click _Start new project_.
 
@@ -62,7 +62,7 @@ Next up is to add a project to your organization. Probably, a good idea to use t
 
 ![Create project Percy](./images/percy-create-project.png)
 
-All is set. Now, you have your _PERCY_TOKEN_ which will be used for running the test locally and on CI.
+All is set. Now, you have your <em>PERCY_TOKEN</em> which will be used for running the test locally and on CI.
 
 ![Percy token](./images/percy-token.png)
 
@@ -137,13 +137,13 @@ workflows:
 
 Commit and push your code to master. Head over to CircleCI click _Start building_. Hopefully, this is successful 👍
 
-The build succeeds but because _PERCY_TOKEN_ was not provided, the snapshots won't be pushed to percy.io for our review.
+The build succeeds but because <em>PERCY_TOKEN</em> was not provided, the snapshots won't be pushed to percy.io for our review.
 
 ![Percy token required](./images/percy-authentication.png)
 
 Let's fix it...
 
-The same way we ran Percy locally with the _PERCY_TOKEN_, we'll add it to the environment variables. So, click on the settings Icon
+The same way we ran Percy locally with the <em>PERCY_TOKEN</em>, we'll add it to the environment variables. So, click on the settings Icon
 
 ![Setting icon](./images/setting-icon.png)
 
