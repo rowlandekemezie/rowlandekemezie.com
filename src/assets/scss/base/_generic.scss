@@ -174,7 +174,8 @@ figcaption {
   }
 }
 
-code[class*=language-],pre[class*=language-] {
+code[class*='language-'],
+pre[class*='language-'] {
   color: $color-white;
   background: none;
   font-size: 16px;
@@ -194,28 +195,29 @@ code[class*=language-],pre[class*=language-] {
   hyphens: none;
 }
 
-pre[class*=language-] {
+pre[class*='language-'] {
   padding: 1em;
   overflow: auto;
-  margin: .5em 0 24px;
-  border-top: 5px solid $color-secondary
+  margin: 0.5em 0 24px;
+  border-top: 5px solid $color-secondary;
 }
 
-:not(pre)>code[class*=language-],pre[class*=language-] {
-  background: #1f1f1f
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+  background: #1f1f1f;
 }
 
-:not(pre)>code[class*=language-] {
-  padding: .1em;
-  border-radius: .3em;
-  white-space: normal
+:not(pre) > code[class*='language-'] {
+  padding: 0.1em;
+  border-radius: 0.3em;
+  white-space: normal;
 }
 
 .gatsby-highlight {
-  position: relative
+  position: relative;
 }
 
-.gatsby-highlight pre[class*=language-]:before {
+.gatsby-highlight pre[class*='language-']:before {
   position: absolute;
   top: 0;
   right: 20px;
@@ -224,36 +226,68 @@ pre[class*=language-] {
   text-align: right;
   color: $color-base;
   font-weight: 700;
-  letter-spacing: .8px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   border-radius: 0 0 5px 5px;
   background: darken($color-gray, 15%);
 }
 
-.gatsby-highlight pre[class=language-css]:before {
-  content: "css";
+.gatsby-highlight pre[class='language-css']:before {
+  content: 'css';
   background: $color-secondary;
   color: $color-white;
-  font-weight: 400
+  font-weight: 400;
 }
 
-.gatsby-highlight pre[class=language-js]:before {
-  content: "js";
+.gatsby-highlight pre[class='language-js']:before {
+  content: 'js';
   background: $color-secondary;
   color: $color-white;
-  font-weight: 400
+  font-weight: 400;
 }
 
-.gatsby-highlight pre[class=language-bash]:before {
-  content: "bash";
+.gatsby-highlight pre[class='language-bash']:before {
+  content: 'bash';
   background: $color-secondary;
   color: $color-white;
-  font-weight: 400
+  font-weight: 400;
 }
 
-.gatsby-highlight pre[class=language-html]:before {
-  content: "html";
+.gatsby-highlight pre[class='language-html']:before {
+  content: 'html';
   background: $color-secondary;
   color: $color-white;
-  font-weight: 400
+  font-weight: 400;
+}
+
+.gatsby-highlight pre[class='language-json']:before {
+  content: 'json';
+  background: $color-secondary;
+  color: $color-white;
+  font-weight: 400;
+}
+.gatsby-highlight-code-line {
+  background-color: darken($color-gray, 30%);
+  display: block;
+  margin-right: -1em !important;
+  margin-left: -1em !important;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 3px solid lighten($color-secondary, 10%);
+}
+
+.gatsby-highlight {
+  border-radius: 0.3em;
+  overflow: auto;
+}
+
+.gatsby-highlight pre[class*='language-'] {
+  margin: 0;
+  overflow: initial;
+  float: left;
+  min-width: 100%;
+}
+
+.gatsby-highlight pre[class*='language-'].line-numbers {
+  padding-left: 2.4em;
 }

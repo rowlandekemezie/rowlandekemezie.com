@@ -8,6 +8,16 @@
     padding: 10px 15px;
   }
 
+  &__nav {
+    max-width: $layout-post-width;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px auto;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
   &__comments {
     max-width: $layout-post-width;
     margin: 0 auto;
@@ -26,8 +36,6 @@
     border-radius: $button-border-radius;
     font-size: $typographic-base-font-size;
     font-weight: normal;
-    margin-left: auto;
-    margin-right: auto;
     @include margin-top(1);
 
     &:hover,
@@ -45,21 +53,12 @@
 
 @include breakpoint-md {
   .post {
-    &__footer {
-      padding: 0;
-    }
-
+    &__footer,
+    &__nav,
     &__comments {
       padding: 0;
     }
 
-    &__home-button {
-      position: fixed;
-      max-width: auto;
-      margin: 0;
-      top: 30px;
-      left: 30px;
-    }
     &__share,
     &__edit {
       padding-top: 20px;

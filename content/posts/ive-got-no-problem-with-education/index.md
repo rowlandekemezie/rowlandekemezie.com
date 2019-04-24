@@ -4,7 +4,7 @@ title: I’ve Got No Problem With Education
 slug: /posts/ive-got-no-problem-with-education/
 draft: false
 date: '2016-07-22T22:40:32.169Z'
-description: I was inspired by the last post on The Effective Learner. The responses I got were mind blowing and my response was, I’m not in it alone but more importantly, we can make a difference. 
+description: I was inspired by the last post on The Effective Learner. The responses I got were mind blowing and my response was, I’m not in it alone but more importantly, we can make a difference.
 category: Education
 tags:
   - learning
@@ -17,9 +17,10 @@ image: ./images/ive-got-no-problem-with-education.jpeg
 ![Frustrated students](./images/ive-got-no-problem-with-education.jpeg)
 
 I was inspired by the last post on [The Effective Learner](https://rowlandekemezie.com/posts/the-effective-learner-an-introductory-approach). The responses I got were mind blowing and my response was, I’m not in it alone but more importantly, we can make a difference.
+
 > Behind every exquisite thing that existed, there was something tragic. ― [Oscar Wilde](https://www.goodreads.com/author/show/3565.Oscar_Wilde)
 
-You might have passed through the college, dropped out, at the brink of dropping out; your expectations might have been trampled and you’re frustrated and bored about the whole idea of schooling. Let’s walk through on why it’s so and how to probably focus on what matters most — *Education and Learning.*
+You might have passed through the college, dropped out, at the brink of dropping out; your expectations might have been trampled and you’re frustrated and bored about the whole idea of schooling. Let’s walk through on why it’s so and how to probably focus on what matters most — _Education and Learning._
 
 ### My experience with Academic seminars and Career talk
 
@@ -28,6 +29,7 @@ A couple of academic seminars I’ve organized and the ones I spoke in gave me a
 In an attempt to provide genuine guidance having missed the whole essence of education in some aspects, the common question among participants was how to make best grades and maybe come out top of their class. They want a rule to nail it; an Almighty formula to perform the magic for them. I scarcely hear someone asking me how to learn these hard subjects — how to ensure I relate what I’m learning with what is obtainable in real life. This is terrible for our brain, educational system and the world at large. It’s heartbreaking that such has been allowed to almost perpetuate. Rather than ask real questions, people’s thoughts are centered on passing tests probably set by an individual. The truth is, <em>learn some tricks about passing exams without interest in the main purpose of learning, you become clueless afterwards.</em> This approach is myopic, ineffective, and obtrusive for learning.
 
 ### **Understanding the premise of the problem**
+
 > We cannot solve our problems with the same thinking we used when we created them. — [Albert Einstein](http://www.brainyquote.com/quotes/quotes/a/alberteins121993.html?src=t_problems).
 
 The premise of our problem is in comparing and contrasting education and schooling. Over the past couple of years, the wave of education surged like a tsunami across all nations. Whether we understand what we want and the essence of education is a great concern. Schooling was synonymous with education. If you went to school, you’re certified educated by the society. School system became the de facto standard of grading people’s level of education. The interest of every parent was to see their children go to school. We’ve a clue of what education could make out of any individual but the process was coaxed along the line.
@@ -41,6 +43,7 @@ Can schooling be said to be same as being educated? What could be fundamentally 
 **Creativity is the climax of learning**. Creativity is a clear demonstration of foundational knowledge and mastery of a craft. It’s the most crucial factor for future success. Doing something differently should be the learning outcome. The illusion of competence is in its climax if it’s about doing the same thing the same way. What gain is it to the student to give back an examiner the same thing, the same way it’s in a textbook during an examination?
 
 Could it be the reason why some people who attended the supposedly prestigious institutions still drop out, frustrated by a system that is stereotyped?
+
 > I failed in some subjects in exam, but my friend passed in all. Now he is an engineer in Microsoft and I am the owner of Microsoft. — **Bill Gate**.
 
 **Lack of understanding of behavioral learning:** We judge people by the same standard as if we’re meant to solve the same problem afterwards. We fail to understand that people are peculiar and hence the problems they would solve in life drive their interests. We can’t coax everybody into the same system and expect a better result. Over-reliance on formal models and structure would devalue individual creativity. Insensitivity to contextual nuances makes learning boring.
@@ -55,7 +58,7 @@ Could it be the reason why some people who attended the supposedly prestigious i
 
 [Thomas Edison](http://www.biography.com/people/thomas-edison-9284349#synopsis), the inventor with the highest number of patents — 1100, had his formal education stopped at the age of 12, but his whole life was consumed by a passion for self-education.
 
-Arguably, the most certified academically are usually not the game changers; one thing is constant, though — *education*. Some resounding impact has been made by some people who dropped out of school or just completed the basic educational curriculum. It’s a clear indication that there’s nothing wrong with education as it remains constant, but the school system needs reformation to meet her goals for learning.
+Arguably, the most certified academically are usually not the game changers; one thing is constant, though — _education_. Some resounding impact has been made by some people who dropped out of school or just completed the basic educational curriculum. It’s a clear indication that there’s nothing wrong with education as it remains constant, but the school system needs reformation to meet her goals for learning.
 
 Several institutions now try to simulate real life scenario for learning. Some move from the classroom paradigm to a classless system of learning; some prefer to call it training all because the school system has always needed a remedial.
 
@@ -72,6 +75,7 @@ Back then in school, some information is termed academic, connoting some things 
 Prefer <em>walking the walk</em> to <em>talking the walk.</em> Theories can not get you very far in your learning. Theories could become a [second-order incompetence syndrome](http://www.billthelizard.com/2008/11/on-learning.html) if not checked.
 
 ## **Key Takeaways**
+
 > The function of education is to teach one to think intensively and to think critically. Intelligence plus character — that is the goal of true education. — [Martin Luther King, Jr](http://www.brainyquote.com/quotes/quotes/m/martinluth402936.html?src=t_education.).
 
 I’ve got no problem with education, neither do you. Learning is part of human existence. Definitely, educational institutions need restructuring but education must be pursued with the right perception.
@@ -84,8 +88,8 @@ Education is powerful; it’s a golden key and weapon for a successful life. Edu
 
 **Related Articles:**
 
-1. [The Effective Learner: An Introductory Approach](https://rowlandekemezie.com/posts/the-effective-learner-an-introductory-approach).
+1. [The Effective Learner: An Introductory Approach](../the-effective-learner-an-introductory-approach/).
 
-2. [How class room education almost ruined my learning](https://rowlandekemezie/posts/how-classroom-education-almost-ruined-my-learning).
+2. [How class room education almost ruined my learning](../how-classroom-education-almost-ruined-my-learning/).
 
 **Spread The News…**
