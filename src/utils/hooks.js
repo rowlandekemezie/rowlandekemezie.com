@@ -1,8 +1,17 @@
-import React, {
-  useState, useEffect
-} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
-const ThemeContext = React.createContext({ isDark: false, toggleTheme: () => {} });
+const ThemeContext = React.createContext({
+  isDark: false,
+  toggleTheme: () => {}
+});
+
+const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('context must be used inside a functional component');
+  }
+  return context;
+};
 
 const useDarkThemeEffect = () => {
   const [themeState, setThemeState] = useState({
@@ -18,9 +27,7 @@ const useDarkThemeEffect = () => {
   return { themeState, setThemeState };
 };
 
-const ThemeProvider = ({
-  children
-}) => {
+const ThemeProvider = ({ children }) => {
   const { themeState, setThemeState } = useDarkThemeEffect();
 
   if (!themeState.hasThemeLoaded) return <div />;
@@ -36,10 +43,11 @@ const ThemeProvider = ({
       value={{
         isDark: themeState.isDark,
         toggleTheme
-      }}>
-        {children}
+      }}
+    >
+      {children}
     </ThemeContext.Provider>
   );
 };
 
-export { ThemeProvider, ThemeContext, useDarkThemeEffect };
+export { ThemeProvider, ThemeContext, useTheme };
