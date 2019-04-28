@@ -12,7 +12,7 @@ $colors: (
 );
 
 $colors-dark: (
-  base: map-get($colors, 'white'),
+  base: map-get($colors, white),
   primary: map-get($colors, secondary),
   secondary: map-get($colors, primary),
   bg: map-get($colors, base),
