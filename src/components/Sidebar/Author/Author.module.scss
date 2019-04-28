@@ -1,5 +1,6 @@
 @import '../../../assets/scss/variables';
 @import '../../../assets/scss/mixins';
+@import '../../../assets/scss/functions';
 
 .author {
   &__link {
@@ -27,17 +28,17 @@
     text-align: center;
 
     &-link {
-      color: $color-base;
+      color: getColor(base);
 
       &:hover,
       &:focus {
-        color: $color-base;
+        color: getColor(base);
       }
     }
   }
 
   &__subtitle {
-    color: darken($color-gray, 15%);
+    color: getColor(base);
     @include line-height(1);
     @include margin-bottom(1);
   }

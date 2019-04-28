@@ -1,10 +1,12 @@
 @import '../../../assets/scss/variables';
 @import '../../../assets/scss/mixins';
+@import '../../../assets/scss/functions';
 
 .content {
   max-width: $layout-post-single-width;
   padding: 0 15px;
   margin: 0 auto;
+  color: getColor(base);
 
   &__title {
     font-size: $typographic-base-font-size * 2;
@@ -29,7 +31,7 @@
 
     & blockquote {
       padding-left: 0.8rem;
-      border-left: 5px solid $color-primary;
+      border-left: 5px solid getColor(primary);
       font-weight: 300;
     }
 

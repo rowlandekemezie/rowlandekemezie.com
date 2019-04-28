@@ -4,7 +4,7 @@
 .layout {
   transition-duration: 0.3s;
   transition-delay: 0.3s;
-  
+
   &__main {
     lost-center: $layout-width;
     min-height: calc(100vh - 275px);
@@ -22,8 +22,8 @@
     @include margin(0, 1.5, 2);
 
     &-button {
-      color: $color-white;
-      background-color: $color-primary;
+      color: map-get($colors, 'white');
+      background-color: map-get($colors, primary);
       @include padding(0.5, 0.5);
       font-weight: 500;
       border: none;
@@ -33,12 +33,8 @@
 
       &:hover,
       &:focus {
-        box-shadow: 5px 5px 15px 0 lighten($color-gray, 20%);
+        box-shadow: 5px 5px 15px 0 $color-gray;
       }
     }
   }
-}
-
-.layout__blackbg {
-  background-color: $color-base;
 }

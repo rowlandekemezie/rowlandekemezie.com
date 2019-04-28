@@ -1,5 +1,6 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/mixins';
+@import '../../assets/scss/functions';
 
 .post {
   &__footer {
@@ -31,7 +32,7 @@
     padding: 0 24px;
     line-height: $button-height;
     text-align: center;
-    color: $color-base;
+    color: map-get($colors, base);
     border: 1px solid $color-gray-border;
     border-radius: $button-border-radius;
     font-size: $typographic-base-font-size;
@@ -40,7 +41,11 @@
 
     &:hover,
     &:focus {
-      color: $color-primary;
+      color: getColor(primary);
+    }
+
+    span {
+      color: getColor(base);
     }
   }
   &__share,

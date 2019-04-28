@@ -3,15 +3,25 @@
  */
 
 // Colors
-$color-base: #222;
-$color-primary: #206aff;
-$color-secondary: #b15e09;
-$color-bg: rgb(250, 250, 250);
+$colors: (
+  base: #222,
+  primary: #206aff,
+  secondary: #b15e09,
+  bg: rgb(250, 250, 250),
+  white: #ffffff
+);
 
-$color-white: #fff;
-$color-gray: lighten($color-base, 40%);
-$color-gray-border: lighten($color-base, 77%);
-$color-gray-bg: lighten($color-base, 79%);
+$colors-dark: (
+  base: map-get($colors, 'white'),
+  primary: map-get($colors, secondary),
+  secondary: map-get($colors, primary),
+  bg: map-get($colors, base),
+  white: map-get($colors, base)
+);
+
+$color-gray: lighten(map-get($colors, base), 40%);
+$color-gray-border: lighten(map-get($colors, base), 77%);
+$color-gray-bg: lighten(map-get($colors, base), 79%);
 
 // Typographic
 $typographic-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -23,9 +33,9 @@ $typographic-small-font-size: 14px;
 
 $typographic-base-line-height: 1.625;
 
-$typographic-base-font-color: $color-base;
-$typographic-link-p-font-color: $color-primary;
-$typographic-link-s-font-color: $color-secondary;
+$typographic-base-font-color: map-get($colors, base);
+$typographic-link-p-font-color: map-get($colors, primary);
+$typographic-link-s-font-color: map-get($colors, secondary);
 
 $typographic-leading: round(
   16 * ($typographic-root-font-size / 100) * $typographic-base-line-height

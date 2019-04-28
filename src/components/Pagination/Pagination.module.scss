@@ -1,5 +1,6 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/mixins';
+@import '../../assets/scss/functions';
 
 .pagination {
   @include margin-top(2);
@@ -10,13 +11,13 @@
     text-align: left;
 
     &-link {
-      color: $color-secondary;
-      font-size: 26px;
+      color: getColor(secondary);
+      font-size: 18px;
       font-weight: bold;
 
       &:hover,
       &:focus {
-        color: $color-primary;
+        color: getColor(primary);
       }
 
       &--disable {
@@ -31,13 +32,13 @@
     text-align: right;
 
     &-link {
-      color: $color-secondary;
-      font-size: 26px;
+      color: getColor(secondary);
+      font-size: 18px;
       font-weight: bold;
 
       &:hover,
       &:focus {
-        color: $color-primary;
+        color: getColor(primary);
       }
 
       &--disable {

@@ -21,6 +21,9 @@ const useDarkThemeEffect = () => {
 
   useEffect(() => {
     const lsDark = localStorage.getItem('isDark') === 'true';
+    if (lsDark) {
+      document.querySelector('body').classList.add('dark');
+    }
     setThemeState({ ...themeState, isDark: lsDark, hasThemeLoaded: true });
   }, []);
 
@@ -35,6 +38,12 @@ const ThemeProvider = ({ children }) => {
   const toggleTheme = () => {
     const isDark = !themeState.isDark;
     localStorage.setItem('isDark', JSON.stringify(isDark));
+    const bodyEl = document.querySelector('body');
+    if (isDark) {
+      bodyEl.classList.add('dark');
+    } else {
+      bodyEl.classList.remove('dark');
+    }
     setThemeState({ ...themeState, isDark });
   };
 
@@ -50,4 +59,4 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-export { ThemeProvider, ThemeContext, useTheme };
+export { ThemeProvider, useTheme };

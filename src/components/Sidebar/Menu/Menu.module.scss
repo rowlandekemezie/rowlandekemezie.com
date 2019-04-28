@@ -1,5 +1,6 @@
 @import '../../../assets/scss/variables';
 @import '../../../assets/scss/mixins';
+@import '../../../assets/scss/functions';
 
 .menu {
   @include margin-bottom(1);
@@ -17,19 +18,19 @@
 
       &-link {
         font-size: $typographic-base-font-size;
-        color: $typographic-base-font-color;
         font-weight: normal;
         border: 0;
+        color: getColor(base);
 
         &:hover,
         &:focus {
-          color: $color-primary;
-          border-bottom: 1px solid $color-primary;
+          color: getColor(primary);
+          border-bottom: 1px solid getColor(primary);
         }
 
         &--active {
-          color: $color-base;
-          border-bottom: 1px solid $color-base;
+          color: getColor(base);
+          border-bottom: 1px solid getColor(base);
         }
       }
     }
