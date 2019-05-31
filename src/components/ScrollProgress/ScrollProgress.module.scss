@@ -5,8 +5,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: 4px;
-  background-color: getColor(primary);
+  height: 2px;
+  background-color: map-get($colors, primary);
   background-repeat: no-repeat;
   width: 100%;
   z-index: 1;

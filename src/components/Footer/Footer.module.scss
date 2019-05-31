@@ -3,7 +3,7 @@
 
 .footer {
   background: map-get($colors, base);
-  color: map-get($colors, 'white');
+  color: map-get($colors, whitish);
   margin-top: 70px;
 
   &__wrapper {

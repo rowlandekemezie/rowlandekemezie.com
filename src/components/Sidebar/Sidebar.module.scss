@@ -21,7 +21,7 @@
           to bottom,
           $color-gray-border 0%,
           $color-gray-border 48%,
-          getColor('white') 100%
+          getColor(whitish) 100%
         );
         position: absolute;
         content: '';

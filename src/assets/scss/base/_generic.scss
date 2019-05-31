@@ -193,7 +193,7 @@ figcaption {
 
 code[class*='language-'],
 pre[class*='language-'] {
-  color: map-get($colors, 'white');
+  color: map-get($colors, whitish);
   background: none;
   font-size: 16px;
   text-align: left;
@@ -216,7 +216,7 @@ pre[class*='language-'] {
   padding: 1em;
   overflow: auto;
   margin: 0.5em 0 24px;
-  border-top: 5px solid getColor(secondary);
+  border-top: 5px solid map-get($colors, secondary);
 }
 
 :not(pre) > code[class*='language-'],
@@ -251,36 +251,36 @@ pre[class*='language-'] {
 
 .gatsby-highlight pre[class='language-css']:before {
   content: 'css';
-  background: getColor(secondary);
-  color: getColor('white');
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 
 .gatsby-highlight pre[class='language-js']:before {
   content: 'js';
-  background: getColor(secondary);
-  color: getColor('white');
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 
 .gatsby-highlight pre[class='language-bash']:before {
   content: 'bash';
-  background: getColor(secondary);
-  color: getColor('white');
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 
 .gatsby-highlight pre[class='language-html']:before {
   content: 'html';
-  background: getColor(secondary);
-  color: getColor('white');
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 
 .gatsby-highlight pre[class='language-json']:before {
   content: 'json';
-  background: getColor(secondary);
-  color: getColor('white');
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 .gatsby-highlight-code-line {
@@ -290,7 +290,7 @@ pre[class*='language-'] {
   margin-left: -1em !important;
   padding-right: 1em;
   padding-left: 0.75em;
-  border-left: 3px solid getColor(secondary);
+  border-left: 3px solid map-get($colors, primary);
 }
 
 .gatsby-highlight {

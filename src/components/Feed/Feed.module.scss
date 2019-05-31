@@ -8,7 +8,7 @@
   &__item {
     @include margin-bottom(1);
     @include padding-equal(1);
-    background-color: getColor('white');
+    background-color: getColor(whitish);
     border-radius: 3px;
 
     &:last-child {

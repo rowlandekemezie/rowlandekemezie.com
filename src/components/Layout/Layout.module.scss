@@ -22,7 +22,7 @@
     @include margin(0, 1.5, 2);
 
     &-button {
-      color: map-get($colors, 'white');
+      color: map-get($colors, whitish);
       background-color: map-get($colors, primary);
       @include padding(0.5, 0.5);
       font-weight: 500;
