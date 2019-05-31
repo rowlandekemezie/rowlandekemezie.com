@@ -1,5 +1,6 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/mixins';
+@import '../../assets/scss/functions';
 
 .page,
 .page-about {
@@ -18,12 +19,20 @@
     @include margin-top(0);
     @include margin-bottom(1.45);
     text-align: center;
+    color: getColor(base);
   }
 
   &__body {
     font-size: $typographic-base-font-size;
+    color: getColor(base);
     @include line-height(1);
     @include margin(0, 0, 1);
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    @include margin-bottom(1);
   }
 
   &__home-button {
@@ -33,17 +42,17 @@
     padding: 0 20px;
     line-height: $button-height;
     text-align: center;
-    color: $color-base;
+    color: getColor(base);
     border: 1px solid $color-gray-border;
     border-radius: $button-border-radius;
     font-size: $typographic-base-font-size;
     font-weight: normal;
     margin-right: auto;
-    @include margin-bottom(1);
+    @include margin-top(1.2);
 
     &:hover,
     &:focus {
-      color: $color-primary;
+      color: getColor(primary);
     }
   }
 }

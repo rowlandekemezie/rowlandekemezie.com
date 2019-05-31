@@ -3,7 +3,7 @@ import Meta from 'components/Post/Meta';
 import styles from './Content.module.scss';
 
 const Content = ({
-  body, title, date, timeToRead
+  date, body, title, timeToRead
 }) => (
   <div className={styles['content']}>
     <h1 className={styles['content__title']}>{title}</h1>

@@ -2,15 +2,15 @@
 @import '../../assets/scss/mixins';
 
 .subscribe {
-  color: $color-white;
+  color: map-get($colors, whitish);
   max-width: 350px;
-  background: $color-primary;
+  background: map-get($colors, primary);
   background-image: 'linear-gradient(-213deg, #5e31dc 0%, #3155dc 100%), linear-gradient(32deg, rgba(255, 255, 255, 0.25) 33%, rgba(0, 0, 0, 0.25) 100%)';
   border-radius: 5px;
   &__header {
     margin-bottom: 1px;
     margin-top: 0;
-    color: $color-white;
+    color: map-get($colors, whitish);
   }
   &__form {
     display: flex;
@@ -44,16 +44,16 @@
     font-size: 16px;
     border-radius: 3px;
     padding: 10px 30px;
-    background-color: $color-secondary;
-    color: $color-white;
+    background-color: map-get($colors, secondary);
+    color: map-get($colors, whitish);
     border: none;
     cursor: pointer;
 
     &:hover,
     &:focus {
-      background-color: $color-white;
-      color: $color-secondary;
-      border: 1px solid $color-secondary;
+      background-color: map-get($colors, whitish);
+      color: map-get($colors, secondary);
+      border: 1px solid map-get($colors, secondary);
     }
   }
 }

@@ -2,8 +2,8 @@
 @import '../../assets/scss/mixins';
 
 .footer {
-  background: darken($color-base, 10%);
-  color: $color-white;
+  background: map-get($colors, base);
+  color: map-get($colors, whitish);
   margin-top: 70px;
 
   &__wrapper {

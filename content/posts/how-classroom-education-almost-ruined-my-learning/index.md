@@ -81,6 +81,7 @@ I found lots of amazing stuff on how to learn. Let me share a couple of them.
 My major problem was learning just to scale through assessments. Unfortunately, this limits your learning to what perception you have of your instructor/assessor. When you leave your learning for somebody to manage, you loose sense of responsibility and purpose of learning. if you don’t take control of your education, you’d loose the essence thereof. The fastest way to make your learning matter in the real world is to take responsibility for your learning.
 
 ### **2) Avoid passive learning**
+
 > Our obligation is to give meaning to life and in doing so to overcome the passive, indifferent life. - [Elie Wiesel](https://www.brainyquote.com/quotes/quotes/e/eliewiesel386793.html).
 
 Every invention came out of curiosity and maybe challenging the current status quo. My approach was to swallow everything I was given in class and that was it. The cons of passive learning outweigh the pros. The result of passive learning is [surface processing](http://www2.rgu.ac.uk/celt/pgcerttlt/how/how5a.htm). It doesn’t engage the use of high-level [cognitive skills](http://sharpbrains.com/blog/2006/12/18/what-are-cognitive-abilities/).
@@ -89,7 +90,8 @@ Passive learning is learning without real world application in view. It’s not 
 
 ### **3) Don’t relinquish your creativity**
 
-As explained in [Einstein: The Life and Times](https://www.amazon.com/Einstein-Times-Ronald-W-Clark/dp/0061351849), 
+As explained in [Einstein: The Life and Times](https://www.amazon.com/Einstein-Times-Ronald-W-Clark/dp/0061351849),
+
 > The value of an education in a liberal arts college is not the learning of many facts, but the training of the mind to think something that cannot be learned from textbooks.
 
 Skepticism, keeping faith with the norm, always being realistic, procrastination, etc are killer viruses. They block your mind from endless possibilities and creative insights.
@@ -99,7 +101,7 @@ Consider some of the habits killing your creativity in [21 Ways to Kill Your Cre
 When it comes to learning, I go with [Clark Terry’s 3 steps to learning improvisation](http://www.jazzadvice.com/clark-terrys-3-steps-to-learning-improvisation/).
 
 ![Guiding principle for mastery](./images/learning-improv.png)
-*Guiding principle for mastery*
+_Guiding principle for mastery_
 
 ### 4) Don’t compete with those ahead of you
 
@@ -109,11 +111,12 @@ Envy only inspires unnecessary competition.
 
 It’s more blessed to learn from others than compete with them. The danger here is self-delusion and being overwhelmed with so much information to learn in other to compete.
 
-Fortunately, if you stay consistent in your learning, you’d get to your destination. The *process* is more important than the *product* in the school of learning.
+Fortunately, if you stay consistent in your learning, you’d get to your destination. The _process_ is more important than the _product_ in the school of learning.
 
 ![Competing rightly](./images/competing-right.jpeg)
 
 ### 5) Avoid trying to be good before you ever practice
+
 > Tell me and I forget, teach me and I may remember, involve me and I learn.” ― [Benjamin Franklin](https://www.goodreads.com/author/show/289513.Benjamin_Franklin).
 
 The fear of uncertainties and failures compels us to prepare before we ever practice. Practice has no substitute or alternative. Practice is engaging. Disappointment sets in when your brain can not solve what you thought you’ve studied.

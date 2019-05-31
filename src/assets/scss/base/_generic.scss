@@ -1,6 +1,17 @@
 /** 
  * Generic
  */
+
+/**
+* global variables
+*/
+
+:root {
+  @each $name, $color in $colors {
+    --color-#{$name}: #{$color};
+  }
+}
+
 html {
   font-size: $typographic-root-font-size;
 }
@@ -8,7 +19,7 @@ html {
 body {
   margin: 0;
   font-family: $typographic-font-family;
-  color: $typographic-base-font-color;
+  color: getColor(base);
   line-height: $typographic-base-line-height;
   font-size: $typographic-base-font-size;
   -ms-text-size-adjust: 100%;
@@ -16,7 +27,13 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: $color-bg;
+  background-color: getColor(bg);
+}
+
+body.dark {
+  @each $name, $color in $colors-dark {
+    --color-#{$name}: #{$color};
+  }
 }
 
 h1,
@@ -82,7 +99,7 @@ hr {
   margin-top: 52px;
   margin-bottom: 52px;
   border: 0;
-  color: $color-base;
+  color: getColor(base);
   display: block;
   height: 26px;
   margin-right: auto;
@@ -92,8 +109,8 @@ hr {
     to bottom,
     transparent 1px,
     transparent 11px,
-    $color-base 11px,
-    $color-base 15px,
+    getColor(base) 11px,
+    getColor(base) 15px,
     transparent 15px,
     transparent 26px
   );
@@ -146,7 +163,7 @@ figure {
 figcaption {
   @include line-height(0.75);
   @include margin-top(0.25);
-  color: $color-base;
+  color: getColor(base);
   font-size: $typographic-small-font-size;
   font-style: italic;
   margin-bottom: 0;
@@ -176,7 +193,7 @@ figcaption {
 
 code[class*='language-'],
 pre[class*='language-'] {
-  color: $color-white;
+  color: map-get($colors, whitish);
   background: none;
   font-size: 16px;
   text-align: left;
@@ -199,7 +216,7 @@ pre[class*='language-'] {
   padding: 1em;
   overflow: auto;
   margin: 0.5em 0 24px;
-  border-top: 5px solid $color-secondary;
+  border-top: 5px solid map-get($colors, secondary);
 }
 
 :not(pre) > code[class*='language-'],
@@ -224,7 +241,7 @@ pre[class*='language-'] {
   padding: 3px 10px;
   font-size: 12px;
   text-align: right;
-  color: $color-base;
+  color: getColor(base);
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
@@ -234,36 +251,36 @@ pre[class*='language-'] {
 
 .gatsby-highlight pre[class='language-css']:before {
   content: 'css';
-  background: $color-secondary;
-  color: $color-white;
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 
 .gatsby-highlight pre[class='language-js']:before {
   content: 'js';
-  background: $color-secondary;
-  color: $color-white;
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 
 .gatsby-highlight pre[class='language-bash']:before {
   content: 'bash';
-  background: $color-secondary;
-  color: $color-white;
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 
 .gatsby-highlight pre[class='language-html']:before {
   content: 'html';
-  background: $color-secondary;
-  color: $color-white;
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 
 .gatsby-highlight pre[class='language-json']:before {
   content: 'json';
-  background: $color-secondary;
-  color: $color-white;
+  background: map-get($colors, secondary);
+  color: getColor(whitish);
   font-weight: 400;
 }
 .gatsby-highlight-code-line {
@@ -273,7 +290,7 @@ pre[class*='language-'] {
   margin-left: -1em !important;
   padding-right: 1em;
   padding-left: 0.75em;
-  border-left: 3px solid lighten($color-secondary, 10%);
+  border-left: 3px solid map-get($colors, primary);
 }
 
 .gatsby-highlight {

@@ -1,11 +1,14 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/mixins';
+@import '../../assets/scss/functions';
 
-.feed {  
+.feed {
+  color: getColor(base);
+
   &__item {
     @include margin-bottom(1);
     @include padding-equal(1);
-    background-color: $color-white;
+    background-color: getColor(whitish);
     border-radius: 3px;
 
     &:last-child {
@@ -19,12 +22,12 @@
       @include margin-bottom(0.5);
 
       &-link {
-        color: $color-base;
+        color: getColor(base);
 
         &:hover,
         &:focus {
-          color: $color-base;
-          border-bottom: 1px solid $color-base;
+          color: getColor(base);
+          border-bottom: 1px solid getColor(base);
         }
       }
     }
@@ -38,7 +41,7 @@
     &-meta {
       &-time {
         font-size: $typographic-small-font-size;
-        color: $color-base;
+        color: getColor(base);
         font-weight: 600;
         text-transform: uppercase;
       }
@@ -50,13 +53,13 @@
       &-category {
         &-link {
           font-size: $typographic-small-font-size;
-          color: $color-secondary;
+          color: getColor(secondary);
           font-weight: 600;
           text-transform: uppercase;
 
           &:hover,
           &:focus {
-            color: $color-primary;
+            color: getColor(primary);
           }
         }
       }
@@ -64,12 +67,12 @@
 
     &-readmore {
       font-size: $typographic-base-font-size;
-      color: $color-primary;
+      color: getColor(primary);
 
       &:hover,
       &:focus {
-        color: $color-primary;
-        border-bottom: 1px solid $color-primary;
+        color: getColor(primary);
+        border-bottom: 1px solid getColor(primary);
       }
     }
   }
