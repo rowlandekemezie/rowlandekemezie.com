@@ -106,9 +106,9 @@ const ThemeProvider = ({ children }) => {
 export { ThemeProvider, useTheme };
 ```
 
-I'm basically using [createContext](https://reactjs.org/docs/context.html#reactcreatecontext) and [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext) to provide access to _isDark_ and _toggleTheme_ function. I just need to wrap the [Layout component](../../../src/components/Layout/Layout.js) with the context provider. Then, with useContext I can access _isDark_ and _toggleTheme_ on every child component. This is pretty much the same way you'd use [Provider](https://react-redux.js.org/api/provider) and [Connect](https://react-redux.js.org/api/connect) functions in [redux](https://redux.js.org/). Also, I'm adding _dark_ CSS class if the mode is dark and also persisting user mode to the localStorage. Finally, we export _ThemeProvider_ and _useTheme_.
+I'm basically using [createContext](https://reactjs.org/docs/context.html#reactcreatecontext) and [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext) to provide access to _isDark_ and _toggleTheme_ function. I just need to wrap the _Layout component_ with the context provider. Then, with useContext I can access _isDark_ and _toggleTheme_ on every child component. This is pretty much the same way you'd use [Provider](https://react-redux.js.org/api/provider) and [Connect](https://react-redux.js.org/api/connect) functions in [redux](https://redux.js.org/). Also, I'm adding _dark_ CSS class if the mode is dark and also persisting user mode to the localStorage. Finally, we export _ThemeProvider_ and _useTheme_.
 
-Here's how it's used in the [layout component](../../../src/components/Layout/Layout.js)
+Here's how it's used in the [layout component](https://github.com/rowlandekemezie/rowlandekemezie.com/tree/master/src/components/Layout/Layout.js)
 
 ```js
 /* components/Layout/Layout.js */
@@ -250,8 +250,8 @@ In order to easily use the CSS variables with the existing styles, I created a s
 Sample usage looks like this
 
 ```css
-@import 'path/to/functions.scss' .....
-  /* Switch between "#206aff" and "#b15e09" */ color: getColor(primary);
+@import 'path/to/functions.scss' /* Switch between "#206aff" and "#b15e09" */
+  color: getColor(primary);
 
 /* Switch between "#141618" and "#ffffff" */
 border: 1px solid getColor(base);
@@ -279,7 +279,7 @@ I wanted to have control over which section of the UI is updated with the toggle
 
 ### Color updates not syncing properly
 
-The color of some sections of the page content was updating faster than others. This is obviously a bad UX as different sections update differently. A workaround was adding color to the content wrapper CSS class, [".content"](../../../src/components/Post/Content/Content.module.scss).
+The color of some sections of the page content was updating faster than others. This is obviously a bad UX as different sections update differently. A workaround was adding color to the content wrapper CSS class - _content_.
 
 ```css
 /* components/Post/Content/Content.module.scss */
