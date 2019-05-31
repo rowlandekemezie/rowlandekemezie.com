@@ -9,6 +9,8 @@ category: Software
 tags:
   - dark theme
   - code
+  - react-hooks
+  - Sass
   - CSS
 image: ./images/atanas-teodosiev-unsplash.jpg
 ---
@@ -18,7 +20,7 @@ image: ./images/atanas-teodosiev-unsplash.jpg
 
 ## Introduction
 
-The reason for this post is to highlight the steps I took to add dark theme support and why I took certain decisions. Your mileage will vary so see it as a guide and not the gospel. The [starter kit](https://github.com/alxshelepenok/gatsby-starter-lumen) used to bootstrap this site already took a few decisions which I wouldn't want to change like [SCSS](https://sass-lang.com/) which is pretty great. With a [CSS-In-Js](https://medium.com/dailyjs/what-is-actually-css-in-js-f2f529a2757) library like [styled-components](https://www.styled-components.com/) or [emotion](https://emotion.sh/docs/introduction), few things would have been easier.
+The reason for this post is to highlight the steps I took to add dark theme support and why I took certain decisions. Your mileage will vary so see it as a guide and not the gospel. The [starter kit](https://github.com/alxshelepenok/gatsby-starter-lumen) used to bootstrap this site already made a few decisions which I wouldn't want to change like [SCSS](https://sass-lang.com/) which is pretty great. With a [CSS-In-Js](https://medium.com/dailyjs/what-is-actually-css-in-js-f2f529a2757) library like [styled-components](https://www.styled-components.com/) or [emotion](https://emotion.sh/docs/introduction), few things would have been easier.
 
 ## Objectives
 
@@ -49,8 +51,8 @@ const useTheme = () => {
   return context;
 };
 
-// userDarkThemeEffect is a custom hook to set ".dark" class to the
-// the body element if the persisted mode on localStorage is dark.
+// A custom hook to add ".dark" class to the the body
+//  element if the persisted mode on localStorage is dark.
 const useDarkThemeEffect = () => {
   const [themeState, setThemeState] = useState({
     isDark: false,
@@ -62,7 +64,11 @@ const useDarkThemeEffect = () => {
     if (lsDark) {
       document.querySelector('body').classList.add('dark');
     }
-    setThemeState({ ...themeState, isDark: lsDark, hasThemeLoaded: true });
+    setThemeState({
+      ...themeState,
+      isDark: lsDark,
+      hasThemeLoaded: true
+    });
   }, []);
 
   return { themeState, setThemeState };
@@ -105,10 +111,10 @@ I'm basically using [createContext](https://reactjs.org/docs/context.html#reactc
 Here's how it's used in the [layout component](../../../src/components/Layout/Layout.js)
 
 ```js
-// components/Layout/Layout.js
+/* components/Layout/Layout.js */
 <ThemeProvider>
   // highlight-line
-  <div className={styles['layout']}>........ ........</div>
+  <div className={styles['layout']}>/* Rest of the code */</div>
 </ThemeProvider>
 ```
 
@@ -204,7 +210,7 @@ _color-dark_ map simply inverts the colors. I'm using sass [map-get](https://sas
 }
 ```
 
-### Convert sass color map to css variables
+### Convert Sass color map to CSS variables
 
 To achieve the goal of inverting between two color maps, I leveraged the [root css pseudo class](https://developer.mozilla.org/en-US/docs/Web/CSS/:root) inside [\_generic.scss](../../../src/assets/scss/base/_generic.scss) file.
 
@@ -229,7 +235,7 @@ This will transpile to:
 ![Light mode](./images/light-mode.png)  
  ![Dark mode](./images/dark-mode.png)
 
-### Create a sass function for easy accessibility
+### Create a Sass function for easy accessibility
 
 In order to easily use the CSS variables with the existing styles, I created a sass function which takes the color name and returns a CSS variable.
 
@@ -253,12 +259,15 @@ border: 1px solid getColor(base);
 
 ### Where I didn't use CSS variables
 
-I want to have control over which section of the UI is updated with the toggle and which part remains constant. For instance, _Subscribe to Newsletter form_, _code blocks_, _scroll to top button_, _Footer_, etc should remain as-is. In those cases, I accessed the color from the map instead of using the values set in the CSS variables.
+I wanted to have control over which section of the UI is updated with the toggle and which part remains constant. For instance, _Subscribe to Newsletter form_, _code blocks_, _scroll to top button_, _Footer_, etc should remain as-is. In those cases, I accessed the color from the map instead of using the values set in the CSS variables.
 
 ```css
-// Subscribe form
+/* Subscribe form */
 .subscribe {
-  /* The color and background remains constant when you change mode */
+  /*
+    The color and background remains constant
+    when you change mode
+  */
   color: map-get($colors, whitish); // highlight-line
   max-width: 350px;
   background: map-get($colors, primary); // highlight-line
@@ -297,7 +306,7 @@ With the introduction of dark mode in macOS, Safari Technology Preview 68 has re
 Mark Otto described [how we can start using prefers-color-scheme](http://markdotto.com/2018/11/05/css-dark-mode/) today in order to create themes that dynamically adjust to the new user setting.
 
 ```css{7-13}
-// _generic.scss
+/* _generic.scss */
 :root {
   @each $name, $color in $colors {
     --color-#{$name}: #{$color};
