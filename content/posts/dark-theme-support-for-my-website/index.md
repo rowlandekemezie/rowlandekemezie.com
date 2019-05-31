@@ -250,8 +250,9 @@ In order to easily use the CSS variables with the existing styles, I created a s
 Sample usage looks like this
 
 ```css
-@import 'path/to/functions.scss' /* Switch between "#206aff" and "#b15e09" */
-  color: getColor(primary);
+@import 'path/to/functions.scss';
+/* Switch between "#206aff" and "#b15e09" */
+color: getColor(primary);
 
 /* Switch between "#141618" and "#ffffff" */
 border: 1px solid getColor(base);
