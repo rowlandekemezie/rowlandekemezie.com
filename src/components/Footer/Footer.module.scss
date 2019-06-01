@@ -20,6 +20,10 @@
 
   &__socials {
     align-self: center;
+
+    a {
+      color: map-get($colors, whitish);
+    }
   }
 
   &__copyright {
