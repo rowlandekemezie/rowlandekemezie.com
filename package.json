@@ -69,7 +69,7 @@
     "gatsby-transformer-sharp": "^2.1.13",
     "invariant": "^2.2.4",
     "katex": "^0.10.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "netlify-cms": "^2.8.0",
     "node-sass": "^4.11.0",
     "normalize-scss": "^7.0.1",
