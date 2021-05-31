@@ -32,7 +32,7 @@ const Footer = () => (
           <div className={styles['footer__socials']}>
             <Socials contacts={site.siteMetadata.author.contacts} />
             <p className={styles['footer__copyright']}>
-              <span>&copy; 2019 rowlandekemezie</span>
+              <span>&copy; 2021 rowlandekemezie</span>
             </p>
           </div>
         </div>
