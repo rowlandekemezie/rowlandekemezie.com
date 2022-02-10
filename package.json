@@ -71,7 +71,7 @@
     "katex": "^0.10.0",
     "lodash": "^4.17.11",
     "netlify-cms": "^2.8.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "normalize-scss": "^7.0.1",
     "prismjs": "^1.15.0",
     "prop-types": "^15.7.2",
