@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout title={`Not Found — ${site.title}`} description={site.description}>
+  <section class="panel stack">
+    <span class="eyebrow">404</span>
+    <h1>Page not found</h1>
+    <p class="muted">The page you requested does not exist on this build.</p>
+    <p><a href="/">Return to the posts index</a></p>
+  </section>
+</BaseLayout>
