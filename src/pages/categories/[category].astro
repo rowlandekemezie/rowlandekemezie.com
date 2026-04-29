@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatPostDate, getPostExcerpt, getPublishedPosts, getPostPath, groupPostsByCategory } from '../../lib/content';
+import { categoryRoute, kebabCase, site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const categories = groupPostsByCategory(await getPublishedPosts());
+
+  return categories.map(([category, posts]) => ({
+    params: { category: kebabCase(category) },
+    props: { category, posts },
+  }));
+}
+
+const { category, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={`${category} — ${site.title}`}
+  description={`Posts filed under ${category}.`}
+  canonical={new URL(categoryRoute(category), site.url).toString()}
+>
+  <section class="panel stack">
+    <span class="eyebrow">Category</span>
+    <h1>{category}</h1>
+    <div class="posts">
+      {
+        posts.map((post) => (
+          <article class="post-card">
+            <p class="muted">{formatPostDate(post.data.date)}</p>
+            <h2><a href={getPostPath(post)}>{post.data.title}</a></h2>
+            <p>{getPostExcerpt(post)}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
