@@ -1,0 +1,40 @@
+---
+import { render } from 'astro:content';
+import DisqusComments from '../components/DisqusComments.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatPostDate, getPostExcerpt, getPostIdentifier, getPostPath, getPublishedPosts } from '../lib/content';
+import { site } from '../lib/site';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+
+  return posts.map((post) => ({
+    params: { slug: getPostPath(post).replace(/^\/|\/$/g, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const title = `${post.data.title} — ${site.title}`;
+const canonical = new URL(getPostPath(post), site.url).toString();
+---
+
+<BaseLayout
+  title={title}
+  description={getPostExcerpt(post)}
+  canonical={canonical}
+  image={post.data.cover}
+>
+  <article class="panel stack">
+    <span class="eyebrow">{post.data.category}</span>
+    <h1>{post.data.title}</h1>
+    <p class="muted">{formatPostDate(post.data.date)}</p>
+    <Content />
+    <DisqusComments
+      identifier={getPostIdentifier(post)}
+      title={post.data.title}
+      url={canonical}
+    />
+  </article>
+</BaseLayout>
