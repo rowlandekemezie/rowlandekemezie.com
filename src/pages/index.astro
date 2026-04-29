@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatPostDate, getPostExcerpt, getPublishedPosts, getPostPath } from '../lib/content';
+import { site } from '../lib/site';
+
+const allPosts = await getPublishedPosts();
+---
+
+<BaseLayout title={site.title} description={site.description}>
+  <section class="panel stack">
+    <span class="eyebrow">Phase 1</span>
+    <h1>Posts</h1>
+    <p class="muted">
+      Phase 1 is focused on route, content, and metadata parity while the site is rebuilt on Astro.
+    </p>
+    <div class="posts">
+      {
+        allPosts.map((post) => (
+          <article class="post-card">
+            <p class="muted">{formatPostDate(post.data.date)}</p>
+            <h2>
+              <a href={getPostPath(post)}>{post.data.title}</a>
+            </h2>
+            <p>{getPostExcerpt(post)}</p>
+            <p class="muted">
+              {post.data.category}
+              {post.data.tags.length ? ` · ${post.data.tags.join(', ')}` : ''}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
