@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatPostDate, getPostExcerpt, getPublishedPosts, getPostPath, groupPostsByTag } from '../../lib/content';
+import { kebabCase, site, tagRoute } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const tags = groupPostsByTag(await getPublishedPosts());
+
+  return tags.map(([tag, posts]) => ({
+    params: { tag: kebabCase(tag) },
+    props: { tag, posts },
+  }));
+}
+
+const { posts, tag } = Astro.props;
+---
+
+<BaseLayout
+  title={`${tag} — ${site.title}`}
+  description={`Posts tagged ${tag}.`}
+  canonical={new URL(tagRoute(tag), site.url).toString()}
+>
+  <section class="panel stack">
+    <span class="eyebrow">Tag</span>
+    <h1>{tag}</h1>
+    <div class="posts">
+      {
+        posts.map((post) => (
+          <article class="post-card">
+            <p class="muted">{formatPostDate(post.data.date)}</p>
+            <h2><a href={getPostPath(post)}>{post.data.title}</a></h2>
+            <p>{getPostExcerpt(post)}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
