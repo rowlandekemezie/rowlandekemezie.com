@@ -28,6 +28,7 @@ const socialImage = image
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="icon" type="image/png" sizes="48x48" href="/logos/logo-48.png" />
     <link rel="canonical" href={canonical} />
     <link
       rel="alternate"
@@ -45,6 +46,7 @@ const socialImage = image
     <meta name="twitter:creator" content={`@${site.author.twitter}`} />
     {socialImage && <meta property="og:image" content={socialImage} />}
     {socialImage && <meta name="twitter:image" content={socialImage} />}
+    <meta property="og:site_name" content={site.title} />
     <title>{title}</title>
     <style>
       :root {
