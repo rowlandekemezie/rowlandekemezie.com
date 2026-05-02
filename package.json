@@ -9,6 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro:check": "astro check",
+    "verify:dist": "node scripts/verify-static-output.mjs",
     "legacy:develop": "yarn run legacy:clean && gatsby develop",
     "legacy:build": "yarn run legacy:clean && gatsby build",
     "legacy:deploy": "yarn run legacy:clean && gatsby build --prefix-paths && gh-pages -d public",
@@ -43,6 +44,7 @@
     "disqus"
   ],
   "dependencies": {
+    "@astrojs/rss": "^4.0.18",
     "@weknow/gatsby-remark-codepen": "^0.1.0",
     "astro": "^6.1.10",
     "caniuse-lite": "^1.0.30000960",
