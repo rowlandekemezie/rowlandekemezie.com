@@ -5,7 +5,7 @@ This document captures the current Gatsby site behavior that phase 1 of the Astr
 ### Snapshot
 
 - Repository: `rowlandekemezie/rowlandekemezie.com`
-- Current integration branch for migration work: `develop`
+- Current integration branch for migration work: `feat/astro-migration-foundation`
 - Remote HEAD at audit time: `b7057e2e68ceeac1cb58797f5c2f3478a6246709`
 - Current stack: Gatsby 2, React 16, GraphQL, SCSS, Netlify-oriented deploy config
 - Current deployment hints:
@@ -21,8 +21,12 @@ This document captures the current Gatsby site behavior that phase 1 of the Astr
 
 - `/`
   - post feed root
-- `/:slug/`
+- `/posts/:slug/`
   - post detail pages based on frontmatter `slug` or title-derived fallback slug
+- `/page/:number/`
+  - paginated archive pages, with `/` as the first page
+- `/pages/about/`
+  - standalone about page
 - `/tags/`
   - tag list
 - `/tags/:slug/`
@@ -61,7 +65,7 @@ This document captures the current Gatsby site behavior that phase 1 of the Astr
 
 ### Taxonomy and Pagination
 
-- Posts are currently rendered in one feed view on `/`
+- Posts are rendered on `/` and the `/page/:number/` archive family
 - Tag route generation uses kebab-case and `/tags/:slug/`
 - Category route generation uses kebab-case and `/categories/:slug/`
 
