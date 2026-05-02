@@ -1,6 +1,8 @@
 ---
+import AuthorCard from '../components/AuthorCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { formatPostDate, getPostExcerpt, getPublishedPosts, getPostPath } from '../lib/content';
+import PostCard from '../components/PostCard.astro';
+import { getPublishedPosts } from '../lib/content';
 import { site } from '../lib/site';
 
 const allPosts = await getPublishedPosts();
@@ -16,19 +18,10 @@ const allPosts = await getPublishedPosts();
     <div class="posts">
       {
         allPosts.map((post) => (
-          <article class="post-card">
-            <p class="muted">{formatPostDate(post.data.date)}</p>
-            <h2>
-              <a href={getPostPath(post)}>{post.data.title}</a>
-            </h2>
-            <p>{getPostExcerpt(post)}</p>
-            <p class="muted">
-              {post.data.category}
-              {post.data.tags.length ? ` · ${post.data.tags.join(', ')}` : ''}
-            </p>
-          </article>
+          <PostCard post={post} />
         ))
       }
     </div>
   </section>
+  <AuthorCard />
 </BaseLayout>
