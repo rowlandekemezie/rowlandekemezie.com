@@ -9,6 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro:check": "astro check",
+    "verify:content-assets": "node scripts/verify-content-image-paths.mjs",
     "verify:dist": "node scripts/verify-static-output.mjs",
     "legacy:develop": "yarn run legacy:clean && gatsby develop",
     "legacy:build": "yarn run legacy:clean && gatsby build",
