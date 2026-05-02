@@ -1,0 +1,31 @@
+---
+import type { PostEntry } from '../lib/content';
+import { formatPostDate, getPostExcerpt, getPostPath } from '../lib/content';
+
+interface Props {
+  post: PostEntry;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="post-card stack">
+  {
+    post.data.cover && (
+      <a href={getPostPath(post)} class="post-card-cover">
+        <img src={post.data.cover} alt="" loading="lazy" />
+      </a>
+    )
+  }
+  <div class="stack">
+    <p class="muted">{formatPostDate(post.data.date)}</p>
+    <h2>
+      <a href={getPostPath(post)}>{post.data.title}</a>
+    </h2>
+    <p>{getPostExcerpt(post)}</p>
+    <p class="muted">
+      {post.data.category}
+      {post.data.tags.length ? ` · ${post.data.tags.join(', ')}` : ''}
+    </p>
+  </div>
+</article>
