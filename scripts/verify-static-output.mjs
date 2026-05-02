@@ -5,6 +5,8 @@ const distDir = resolve(process.cwd(), 'dist');
 
 const requiredFiles = [
   'index.html',
+  'logos/logo-1024.png',
+  'logos/logo-48.png',
   'rss.xml',
   'robots.txt',
   'sitemap.xml',
