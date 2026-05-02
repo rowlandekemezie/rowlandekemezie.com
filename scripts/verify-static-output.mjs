@@ -23,11 +23,14 @@ for (const relativePath of requiredFiles) {
   }
 }
 
+const home = readFileSync(resolve(distDir, 'index.html'), 'utf8');
 const rss = readFileSync(resolve(distDir, 'rss.xml'), 'utf8');
 const sitemap = readFileSync(resolve(distDir, 'sitemap.xml'), 'utf8');
 const robots = readFileSync(resolve(distDir, 'robots.txt'), 'utf8');
 
 const assertions = [
+  ['Home page includes the favicon asset path', home.includes('/logos/logo-48.png')],
+  ['Home page does not reference a missing rowland.jpeg asset', !home.includes('/rowland.jpeg')],
   ['RSS contains the site feed title', rss.includes('<title>Rowland I. Ekemezie</title>')],
   ['RSS contains a canonical post URL', rss.includes('https://rowlandekemezie.com/bold-mage/')],
   ['Sitemap contains the site root URL', sitemap.includes('<loc>https://rowlandekemezie.com/</loc>')],
