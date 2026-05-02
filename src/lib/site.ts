@@ -3,7 +3,6 @@ export const site = {
     email: 'rowlandresource@gmail.com',
     github: 'rowlandekemezie',
     name: 'Rowland I. Ekemezie',
-    photo: '/rowland.jpeg',
     twitter: 'rowlandekemezie',
   },
   description:
