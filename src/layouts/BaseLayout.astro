@@ -1,4 +1,5 @@
 ---
+import SiteFooter from '../components/SiteFooter.astro';
 import { site } from '../lib/site';
 
 interface Props {
@@ -116,25 +117,55 @@ const socialImage = image
         margin-top: 1rem;
       }
 
+      .stack-sm > * + * {
+        margin-top: 0.65rem;
+      }
+
       .posts {
         display: grid;
-        gap: 1rem;
+        gap: 1.5rem;
         margin-top: 2rem;
       }
 
       .post-card {
-        padding: 1.25rem;
+        padding: 0;
         border: 1px solid var(--border);
         border-radius: 1rem;
         background: rgba(255, 255, 255, 0.6);
+        overflow: hidden;
       }
 
       .post-card h2 {
         margin-bottom: 0.4rem;
       }
 
+      .post-card > div,
+      .post-card > .stack {
+        padding: 1.25rem;
+      }
+
       .post-card p:last-child {
         margin-bottom: 0;
+      }
+
+      .post-card-cover {
+        display: block;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(135deg, rgba(177, 94, 9, 0.15), rgba(31, 22, 16, 0.06));
+      }
+
+      .post-card-cover img,
+      .post-hero img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .post-hero {
+        overflow: hidden;
+        border-radius: 1rem;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.45);
       }
 
       .nav {
@@ -168,6 +199,32 @@ const socialImage = image
         padding-left: 1.25rem;
       }
 
+      .tag-list,
+      .link-list {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .tag-list a,
+      .link-list a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2rem;
+        padding: 0.3rem 0.75rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.55);
+        text-decoration: none;
+      }
+
+      .author-card {
+        margin-top: 2rem;
+      }
+
       .pagination {
         display: flex;
         gap: 1rem;
@@ -182,6 +239,29 @@ const socialImage = image
         border-radius: 999px;
         text-decoration: none;
       }
+
+      .site-footer {
+        margin-top: 3rem;
+        text-align: center;
+      }
+
+      @media (min-width: 48rem) {
+        .posts {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 47.9375rem) {
+        main {
+          width: min(60rem, calc(100% - 1.25rem));
+          padding: 2rem 0 3rem;
+        }
+
+        .panel {
+          padding: 1.25rem;
+          border-radius: 1rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -192,6 +272,7 @@ const socialImage = image
         <a href="/categories/">Categories</a>
       </nav>
       <slot />
+      <SiteFooter />
     </main>
   </body>
 </html>
