@@ -4,7 +4,11 @@ jspm_packages
 .astro/
 dist/
 .cache/
-public/
+public/*
+!public/logos/
+public/logos/*
+!public/logos/logo-1024.png
+!public/logos/logo-48.png
 coverage
 .nyc_output
 logs
