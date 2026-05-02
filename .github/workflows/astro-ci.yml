@@ -22,7 +22,7 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: yarn install --ignore-scripts
+        run: yarn install
 
       - name: Astro type and content check
         run: yarn astro:check
