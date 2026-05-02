@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { postSlugFromEntry } from './site';
+import { postRouteFromSlug, postSlugFromEntry } from './site';
 
 export type PostEntry = CollectionEntry<'posts'>;
 
@@ -45,7 +45,20 @@ export function getPostIdentifier(post: PostEntry) {
 }
 
 export function getPostPath(post: PostEntry) {
-  return `/${postSlugFromEntry(post)}/`;
+  return postRouteFromSlug(postSlugFromEntry(post));
+}
+
+export function getPaginatedPosts(posts: PostEntry[], page: number, perPage: number) {
+  const totalPages = Math.max(1, Math.ceil(posts.length / perPage));
+  const currentPage = Math.min(Math.max(page, 1), totalPages);
+  const start = (currentPage - 1) * perPage;
+
+  return {
+    currentPage,
+    perPage,
+    posts: posts.slice(start, start + perPage),
+    totalPages,
+  };
 }
 
 export function groupPostsByTag(posts: PostEntry[]) {
