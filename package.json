@@ -89,6 +89,8 @@
     "react-helmet": "^5.2.0",
     "react-icons": "^3.5.0",
     "react-share": "^2.4.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
     "sass": "^1.86.3"
   },
   "devDependencies": {
