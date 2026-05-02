@@ -1,0 +1,19 @@
+---
+import { site } from '../lib/site';
+---
+
+<section class="panel stack author-card">
+  <span class="eyebrow">About</span>
+  <h2>{site.author.name}</h2>
+  <p>{site.author.summary}</p>
+  <p class="muted">{site.author.location}</p>
+  <ul class="link-list">
+    {
+      site.author.links.map((link) => (
+        <li>
+          <a href={link.url}>{link.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
