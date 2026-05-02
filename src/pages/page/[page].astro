@@ -1,0 +1,54 @@
+---
+import AuthorCard from '../../components/AuthorCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPaginatedPosts, getPublishedPosts } from '../../lib/content';
+import { pageRoute, site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  const totalPages = Math.max(1, Math.ceil(posts.length / 4));
+
+  return Array.from({ length: totalPages }, (_, index) => ({
+    params: { page: String(index + 1) },
+    props: {
+      allPosts: posts,
+      page: index + 1,
+    },
+  }));
+}
+
+const { allPosts, page } = Astro.props;
+const pagination = getPaginatedPosts(allPosts, page, 4);
+const title = page === 1 ? site.title : `Page ${page} — ${site.title}`;
+---
+
+<BaseLayout title={title} description={site.description}>
+  <section class="panel stack">
+    <span class="eyebrow">Archive</span>
+    <h1>Posts</h1>
+    <p class="muted">Page {pagination.currentPage} of {pagination.totalPages}</p>
+    <div class="posts">
+      {
+        pagination.posts.map((post) => (
+          <PostCard post={post} />
+        ))
+      }
+    </div>
+    <nav class="pagination" aria-label="Pagination">
+      {
+        pagination.currentPage > 1 && (
+          <a href={pagination.currentPage === 2 ? '/' : pageRoute(pagination.currentPage - 1)} rel="prev">
+            Newer posts
+          </a>
+        )
+      }
+      {
+        pagination.currentPage < pagination.totalPages && (
+          <a href={pageRoute(pagination.currentPage + 1)} rel="next">Older posts</a>
+        )
+      }
+    </nav>
+  </section>
+  <AuthorCard />
+</BaseLayout>

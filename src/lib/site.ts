@@ -35,7 +35,7 @@ export function trimSlashes(value: string) {
 }
 
 export function postRouteFromSlug(slug: string) {
-  return `/${trimSlashes(slug)}/`;
+  return `/posts/${trimSlashes(slug)}/`;
 }
 
 export function kebabCase(value: string) {
@@ -55,6 +55,14 @@ export function postRouteFromEntry(entry: { data: { slug?: string; title: string
 
 export function categoryRoute(category: string) {
   return `/categories/${kebabCase(category)}/`;
+}
+
+export function pageRoute(page: number) {
+  return `/page/${page}/`;
+}
+
+export function aboutRoute() {
+  return '/pages/about/';
 }
 
 export function tagRoute(tag: string) {

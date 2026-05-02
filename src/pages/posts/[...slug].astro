@@ -1,17 +1,23 @@
 ---
 import { render } from 'astro:content';
-import AuthorCard from '../components/AuthorCard.astro';
-import DisqusComments from '../components/DisqusComments.astro';
-import PostTags from '../components/PostTags.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { formatPostDate, getPostExcerpt, getPostIdentifier, getPostPath, getPublishedPosts } from '../lib/content';
-import { site } from '../lib/site';
+import AuthorCard from '../../components/AuthorCard.astro';
+import DisqusComments from '../../components/DisqusComments.astro';
+import PostTags from '../../components/PostTags.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  formatPostDate,
+  getPostExcerpt,
+  getPostIdentifier,
+  getPostPath,
+  getPublishedPosts,
+} from '../../lib/content';
+import { site } from '../../lib/site';
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
 
   return posts.map((post) => ({
-    params: { slug: getPostPath(post).replace(/^\/|\/$/g, '') },
+    params: { slug: getPostPath(post).replace(/^\/posts\/|\/$/g, '') },
     props: { post },
   }));
 }
