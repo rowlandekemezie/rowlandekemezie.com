@@ -29,3 +29,6 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Verify generated outputs
+        run: yarn verify:dist
