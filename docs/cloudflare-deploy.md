@@ -11,6 +11,18 @@ Phase 1 targets a static Astro deploy on Cloudflare Pages.
 - Production analytics: Cloudflare Web Analytics
 - Preview model: Git-connected preview deployments for the migration branch and PRs
 
+## Current production state
+
+As verified on `2026-05-03`, the live site is still served by Netlify.
+
+- Response headers show `server: Netlify`
+- Edge cache headers show `cache-status: "Netlify Edge"`
+- Current apex DNS resolves to:
+  - `52.52.192.191`
+  - `13.52.188.95`
+- Current `www` DNS resolves to:
+  - `rowlandbits.netlify.com.`
+
 ## Repository wiring
 
 - Until the Astro migration is complete, keep the long-lived migration work on `feat/astro-migration-foundation`.
@@ -39,6 +51,7 @@ The static response policy is defined in `public/_headers`.
   - `X-Frame-Options: DENY`
   - restrictive `Permissions-Policy`
 - Cache policy:
+  - HTML routes use `Cache-Control: public, max-age=0, must-revalidate`
   - immutable caching for `/logos/*`
   - short-lived caching for XML feeds and `robots.txt`
 
@@ -48,26 +61,41 @@ If a future phase adds a strict CSP, it must account for:
 - Cloudflare Web Analytics beacon domains
 - remote post cover images
 
+If Cloudflare Web Analytics auto-injection is enabled, do not add `Cache-Control: no-transform` to HTML responses. Cloudflare's automatic script injection will not run through `no-transform`.
+
 ## Analytics
 
 Phase 1 replaces Universal Analytics with Cloudflare Web Analytics.
 
 - If the site is proxied through Cloudflare, enable Web Analytics auto-injection in the dashboard.
-- If auto-injection is unavailable, add the manual beacon snippet in a later change once the site ID is issued.
+- If auto-injection is unavailable, set `PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` to enable the manual beacon snippet already supported by the Astro layout.
+- If the token is unset, the rebuilt site ships without analytics rather than carrying forward Universal Analytics.
 - Do not reintroduce GA Universal Analytics.
 
 ## Cutover checklist
 
 1. Keep the existing site live while the migration branch is in preview.
 2. Verify route parity for `/`, `/posts/:slug/`, `/page/:number/`, `/pages/about/`, `/tags/*`, and `/categories/*`.
-3. Confirm RSS, sitemap, `robots.txt`, image assets, and comment embeds in preview.
-4. Point the production domain at the Pages project only after parity sign-off.
-5. Enable Cloudflare Web Analytics after the domain is proxied.
+3. Confirm RSS, sitemap, `robots.txt`, image assets, comment embeds, and analytics behavior in preview.
+4. Confirm the Cloudflare Pages project is configured for the custom domain and TLS is active.
+5. Change DNS only after parity sign-off:
+   - move the apex from the current Netlify IPs to the Cloudflare-managed target
+   - move `www` away from `rowlandbits.netlify.com.` to the Cloudflare-managed target
+6. Validate the production domain after DNS propagation:
+   - home, post, page, tag, and category routes
+   - feed and sitemap endpoints
+   - comment embed load
+   - expected response-header policy from `_headers`
+7. Enable Cloudflare Web Analytics after the domain is proxied, or confirm the manual beacon token is set.
 
 ## Rollback
 
 If cutover fails:
 
-1. Revert DNS or Pages production branch back to the pre-migration origin.
-2. Leave the migration branch deployed only as preview.
-3. Fix the regression on `feat/astro-migration-foundation` and re-run verification before another cutover.
+1. Revert the apex DNS back to the Netlify IPs:
+   - `52.52.192.191`
+   - `13.52.188.95`
+2. Revert the `www` record back to `rowlandbits.netlify.com.`
+3. If the failure is branch-specific rather than DNS-specific, move the Pages production branch away from the migration target.
+4. Leave the migration branch deployed only as preview.
+5. Fix the regression on `feat/astro-migration-foundation` and re-run verification before another cutover.

@@ -30,6 +30,7 @@ This file tracks the Gatsby markdown pipeline features that matter for the Astro
 ## Representative content validation
 
 - `content/01-07-2017-Big_Sample_Post/index.md` exercises:
+
   - heading IDs and heading self-links
   - fenced code blocks
   - GFM tables

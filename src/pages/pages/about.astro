@@ -1,19 +1,24 @@
 ---
 import AuthorCard from '../../components/AuthorCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { render } from 'astro:content';
+import { getPageBySlug } from '../../lib/content';
 import { site } from '../../lib/site';
+
+const page = await getPageBySlug('about');
+
+if (!page) {
+  throw new Error('Missing content/pages/about.md');
+}
+
+const { Content } = await render(page);
 ---
 
 <BaseLayout title={`About — ${site.title}`} description={site.description}>
   <section class="panel stack">
     <span class="eyebrow">About</span>
-    <h1>{site.author.name}</h1>
-    <p>{site.author.summary}</p>
-    <p class="muted">{site.author.location}</p>
-    <p>
-      This phase-1 migration keeps the existing site structure intact while moving the blog from
-      Gatsby to Astro and Cloudflare.
-    </p>
+    <h1>{page.data.title}</h1>
+    <Content />
   </section>
   <AuthorCard />
 </BaseLayout>

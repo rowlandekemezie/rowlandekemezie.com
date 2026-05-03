@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import AuthorCard from '../../components/AuthorCard.astro';
 import DisqusComments from '../../components/DisqusComments.astro';
@@ -12,13 +13,13 @@ import {
   getPublishedPosts,
   parsePostDate,
 } from '../../lib/content';
-import { site } from '../../lib/site';
+import { site, trimSlashes } from '../../lib/site';
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
 
   return posts.map((post) => ({
-    params: { slug: getPostPath(post).replace(/^\/posts\/|\/$/g, '') },
+    params: { slug: trimSlashes(getPostPath(post)).replace(/^posts\//, '') },
     props: { post },
   }));
 }
@@ -28,6 +29,7 @@ const { Content } = await render(post);
 const title = `${post.data.title} — ${site.title}`;
 const canonical = new URL(getPostPath(post), site.url).toString();
 const publishedTime = parsePostDate(post.data.date).toISOString();
+const socialImage = post.data.image ? new URL(post.data.image.src, site.url).toString() : undefined;
 const articleStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -41,7 +43,7 @@ const articleStructuredData = {
   },
   mainEntityOfPage: canonical,
   url: canonical,
-  ...(post.data.cover ? { image: [post.data.cover] } : {}),
+  ...(socialImage ? { image: [socialImage] } : {}),
 };
 ---
 
@@ -49,20 +51,20 @@ const articleStructuredData = {
   title={title}
   description={getPostExcerpt(post)}
   canonical={canonical}
-  image={post.data.cover}
+  image={socialImage}
   socialType="article"
   publishedTime={publishedTime}
   structuredData={articleStructuredData}
 >
   {
-    post.data.cover && (
+    post.data.image && (
       <figure class="post-hero">
-        <img src={post.data.cover} alt="" loading="eager" />
+        <Image src={post.data.image} alt="" loading="eager" />
       </figure>
     )
   }
   <article class="panel stack post-detail">
-    <span class="eyebrow">{post.data.category}</span>
+    <span class="eyebrow">{post.data.category ?? 'Uncategorized'}</span>
     <h1>{post.data.title}</h1>
     <p class="muted">{formatPostDate(post.data.date)}</p>
     <Content />

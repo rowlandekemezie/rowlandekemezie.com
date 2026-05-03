@@ -1,6 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { postRouteFromSlug, postSlugFromEntry } from './site';
 
+export type PageEntry = CollectionEntry<'pages'>;
 export type PostEntry = CollectionEntry<'posts'>;
 
 export async function getPublishedPosts() {
@@ -9,7 +10,20 @@ export async function getPublishedPosts() {
   );
 }
 
+export async function getPages() {
+  return getCollection('pages');
+}
+
+export async function getPageBySlug(slug: string) {
+  const pages = await getPages();
+  return pages.find((page) => page.id.replace(/\.mdx?$/, '') === slug);
+}
+
 export function parsePostDate(value: string) {
+  if (value.includes('T')) {
+    return new Date(value);
+  }
+
   const [day, month, year] = value.split('/').map((part) => Number.parseInt(part, 10));
   return new Date(Date.UTC(year, month - 1, day));
 }
@@ -28,7 +42,8 @@ export function getPostExcerpt(post: PostEntry, maxLength = 180) {
     .replace(/^---[\s\S]*?---/, '')
     .replace(/`{1,3}[^`]*`{1,3}/g, ' ')
     .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
-    .replace(/\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/<[^>]+>/g, ' ')
     .replace(/[#>*_~-]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -79,9 +94,15 @@ export function groupPostsByCategory(posts: PostEntry[]) {
   const categories = new Map<string, PostEntry[]>();
 
   for (const post of posts) {
-    const current = categories.get(post.data.category) ?? [];
+    const category = post.data.category;
+
+    if (!category) {
+      continue;
+    }
+
+    const current = categories.get(category) ?? [];
     current.push(post);
-    categories.set(post.data.category, current);
+    categories.set(category, current);
   }
 
   return [...categories.entries()].sort((a, b) => a[0].localeCompare(b[0]));

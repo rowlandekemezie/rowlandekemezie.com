@@ -12,10 +12,10 @@ export async function GET(context: { site?: URL }) {
     customData: `<language>en-us</language>`,
     items: posts.map((post) => ({
       title: post.data.title,
-      description: getPostExcerpt(post),
+      description: post.data.description ?? getPostExcerpt(post),
       link: getPostPath(post),
       pubDate: parsePostDate(post.data.date),
-      categories: [post.data.category, ...post.data.tags],
+      categories: [...(post.data.category ? [post.data.category] : []), ...post.data.tags],
     })),
   });
 }

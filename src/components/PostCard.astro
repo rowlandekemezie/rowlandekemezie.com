@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { PostEntry } from '../lib/content';
 import { formatPostDate, getPostExcerpt, getPostPath } from '../lib/content';
 
@@ -11,9 +12,9 @@ const { post } = Astro.props;
 
 <article class="post-card stack">
   {
-    post.data.cover && (
+    post.data.image && (
       <a href={getPostPath(post)} class="post-card-cover">
-        <img src={post.data.cover} alt="" loading="lazy" />
+        <Image src={post.data.image} alt="" loading="lazy" />
       </a>
     )
   }
@@ -24,7 +25,7 @@ const { post } = Astro.props;
     </h2>
     <p>{getPostExcerpt(post)}</p>
     <p class="muted">
-      {post.data.category}
+      {post.data.category ?? 'Uncategorized'}
       {post.data.tags.length ? ` · ${post.data.tags.join(', ')}` : ''}
     </p>
   </div>

@@ -35,6 +35,14 @@ export function trimSlashes(value: string) {
 }
 
 export function postRouteFromSlug(slug: string) {
+  if (slug.startsWith('/')) {
+    return `/${trimSlashes(slug)}/`;
+  }
+
+  if (slug.startsWith('posts/')) {
+    return `/${trimSlashes(slug)}/`;
+  }
+
   return `/posts/${trimSlashes(slug)}/`;
 }
 
@@ -46,7 +54,11 @@ export function kebabCase(value: string) {
 }
 
 export function postSlugFromEntry(entry: { data: { slug?: string; title: string } }) {
-  return kebabCase(entry.data.slug ?? entry.data.title);
+  if (entry.data.slug) {
+    return trimSlashes(entry.data.slug);
+  }
+
+  return kebabCase(entry.data.title);
 }
 
 export function postRouteFromEntry(entry: { data: { slug?: string; title: string } }) {

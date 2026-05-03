@@ -10,8 +10,10 @@
     "preview": "astro preview",
     "astro:check": "astro check",
     "verify:content-assets": "node scripts/verify-content-image-paths.mjs",
+    "verify:analytics": "node scripts/verify-analytics-integration.mjs",
     "verify:dist": "node scripts/verify-static-output.mjs",
-    "verify:all": "yarn astro:check && yarn verify:content-assets && yarn build && yarn verify:dist",
+    "verify:launch-gates": "node scripts/verify-launch-gates.mjs",
+    "verify:all": "yarn astro:check && yarn verify:content-assets && yarn build && yarn verify:dist && yarn verify:launch-gates",
     "clean": "rimraf .astro dist"
   },
   "repository": "https://github.com/rowlandekemezie/rowlandekemezie.com",
@@ -25,6 +27,7 @@
     "disqus"
   ],
   "dependencies": {
+    "@astrojs/mdx": "^5.0.4",
     "@astrojs/rss": "^4.0.18",
     "astro": "^6.1.10",
     "rehype-autolink-headings": "^7.1.0",

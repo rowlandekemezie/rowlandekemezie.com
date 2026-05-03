@@ -11,31 +11,37 @@ The current Astro rebuild does not require `@astrojs/react`, and adding it now w
 ## Component inventory
 
 - `src/components/Disqus/Disqus.js`
+
   - Gatsby-specific wrapper around `react-disqus-comments`.
   - Replaced by `src/components/DisqusComments.astro`.
   - Keep as Astro, not React.
 
 - `src/components/SEO/SEO.js`
+
   - React Helmet wrapper for metadata and JSON-LD.
   - Better expressed directly in Astro layouts.
   - Keep as Astro, not React.
 
 - `src/components/PostListing/PostListing.js`
+
   - Static list rendering with Gatsby `Link`.
   - Better expressed as Astro markup.
   - Keep as Astro, not React.
 
 - `src/components/PostTags/PostTags.js`
+
   - Static tag link rendering.
   - Better expressed as Astro markup.
   - Keep as Astro, not React.
 
 - `src/components/UserInfo/UserInfo.js`
+
   - Twitter follow widget wrapper.
   - Not required for parity-first launch.
   - If restored later, prefer a direct embed or native Astro wrapper before React.
 
 - `src/components/SocialLinks/SocialLinks.js`
+
   - Share button bundle with third-party React dependencies, including deprecated Google+ support.
   - Not required for parity-first launch.
   - If restored later, redesign the feature instead of carrying this React component forward.
