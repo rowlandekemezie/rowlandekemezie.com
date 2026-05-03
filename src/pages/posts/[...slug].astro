@@ -10,6 +10,7 @@ import {
   getPostIdentifier,
   getPostPath,
   getPublishedPosts,
+  parsePostDate,
 } from '../../lib/content';
 import { site } from '../../lib/site';
 
@@ -26,6 +27,22 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 const title = `${post.data.title} — ${site.title}`;
 const canonical = new URL(getPostPath(post), site.url).toString();
+const publishedTime = parsePostDate(post.data.date).toISOString();
+const articleStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: getPostExcerpt(post),
+  datePublished: publishedTime,
+  dateModified: publishedTime,
+  author: {
+    '@type': 'Person',
+    name: site.author.name,
+  },
+  mainEntityOfPage: canonical,
+  url: canonical,
+  ...(post.data.cover ? { image: [post.data.cover] } : {}),
+};
 ---
 
 <BaseLayout
@@ -33,6 +50,9 @@ const canonical = new URL(getPostPath(post), site.url).toString();
   description={getPostExcerpt(post)}
   canonical={canonical}
   image={post.data.cover}
+  socialType="article"
+  publishedTime={publishedTime}
+  structuredData={articleStructuredData}
 >
   {
     post.data.cover && (
