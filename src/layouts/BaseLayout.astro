@@ -75,7 +75,7 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
     {socialImage && <meta property="og:image" content={socialImage} />}
     {socialImage && <meta name="twitter:image" content={socialImage} />}
     <meta property="og:site_name" content={site.title} />
-    <script type="application/ld+json" set:html={jsonLd}></script>
+    <script is:inline type="application/ld+json" set:html={jsonLd}></script>
     <title>{title}</title>
     <style>
       :root {

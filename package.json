@@ -11,6 +11,7 @@
     "astro:check": "astro check",
     "verify:content-assets": "node scripts/verify-content-image-paths.mjs",
     "verify:dist": "node scripts/verify-static-output.mjs",
+    "verify:all": "yarn astro:check && yarn verify:content-assets && yarn build && yarn verify:dist",
     "clean": "rimraf .astro dist"
   },
   "repository": "https://github.com/rowlandekemezie/rowlandekemezie.com",
