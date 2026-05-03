@@ -6,6 +6,7 @@ dist/
 .cache/
 public/*
 !public/logos/
+!public/_headers
 public/logos/*
 !public/logos/logo-1024.png
 !public/logos/logo-48.png
