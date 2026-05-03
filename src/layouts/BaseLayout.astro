@@ -6,6 +6,9 @@ interface Props {
   canonical?: string;
   description?: string;
   image?: string;
+  publishedTime?: string;
+  socialType?: 'article' | 'website';
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
   title?: string;
 }
 
@@ -13,6 +16,9 @@ const {
   canonical = site.url + Astro.url.pathname,
   description = site.description,
   image,
+  publishedTime,
+  socialType = 'website',
+  structuredData,
   title = site.title,
 } = Astro.props;
 
@@ -21,6 +27,26 @@ const socialImage = image
     ? image
     : new URL(image, site.url).toString()
   : undefined;
+
+const defaultStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.title,
+    description,
+    url: site.url,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.author.name,
+    description: site.author.summary,
+    url: site.url,
+    sameAs: site.author.links.map((link) => link.url).filter((url) => !url.startsWith('mailto:')),
+  },
+];
+
+const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[structuredData].flat()] : defaultStructuredData);
 ---
 
 <!doctype html>
@@ -37,10 +63,11 @@ const socialImage = image
       title={`${site.title} RSS Feed`}
       href={new URL('/rss.xml', site.url).toString()}
     />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={socialType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -48,6 +75,7 @@ const socialImage = image
     {socialImage && <meta property="og:image" content={socialImage} />}
     {socialImage && <meta name="twitter:image" content={socialImage} />}
     <meta property="og:site_name" content={site.title} />
+    <script type="application/ld+json" set:html={jsonLd}></script>
     <title>{title}</title>
     <style>
       :root {
