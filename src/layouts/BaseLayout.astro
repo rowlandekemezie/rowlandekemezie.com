@@ -202,7 +202,7 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
         margin-top: 0.65rem;
       }
 
-      .posts {
+      :global(.posts) {
         display: grid;
         gap: 2.8rem;
         margin-top: 2rem;
@@ -284,16 +284,16 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
         margin-top: 2rem;
       }
 
-      .pagination {
-        display: flex;
+      :global(.pagination) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         align-items: center;
-        justify-content: space-between;
         margin-top: 2rem;
         width: 100%;
       }
 
-      .pagination a,
-      .pagination span {
+      :global(.pagination a),
+      :global(.pagination span) {
         padding: 0.3rem 0;
         text-decoration: none;
         color: var(--muted);
@@ -306,17 +306,26 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
         text-transform: uppercase;
       }
 
-      .pagination a {
+      :global(.pagination a) {
         color: var(--accent);
         font-weight: 600;
+        text-decoration: none !important;
       }
 
-      .pagination a:hover {
+      :global(.pagination > :last-child) {
+        text-align: right;
+      }
+
+      :global(.pagination a:hover) {
         text-decoration: underline;
         text-underline-offset: 0.14em;
       }
 
-      .pagination [aria-disabled='true'] {
+      :global(.pagination a:visited) {
+        color: var(--accent);
+      }
+
+      :global(.pagination [aria-disabled='true']) {
         opacity: 0.45;
       }
 

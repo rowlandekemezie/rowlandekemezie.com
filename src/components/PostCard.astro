@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const excerpt = post.data.description ?? getPostExcerpt(post, 165);
 ---
 
 <article class="post-card stack-sm">
@@ -17,7 +18,7 @@ const { post } = Astro.props;
   <h2 class="post-card-title">
     <a href={getPostPath(post)}>{post.data.title}</a>
   </h2>
-  <p class="post-card-excerpt">{getPostExcerpt(post, 165)}</p>
+  <p class="post-card-excerpt">{excerpt}</p>
   <p class="post-card-read">
     <a href={getPostPath(post)}>Read →</a>
   </p>
@@ -25,9 +26,9 @@ const { post } = Astro.props;
 
 <style>
   .post-card {
-    padding: 2.15rem 2.25rem 2.05rem;
+    padding: 1.85rem 1.95rem 1.8rem;
     border: 1px solid rgba(31, 35, 40, 0.1);
-    border-radius: 1rem;
+    border-radius: 0.45rem;
     background: rgba(255, 255, 255, 0.96);
     box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
   }
@@ -47,8 +48,9 @@ const { post } = Astro.props;
   }
 
   .post-card-title {
-    font-size: clamp(2rem, 3vw, 2.45rem);
-    letter-spacing: -0.04em;
+    font-size: clamp(1.55rem, 2.8vw, 1.95rem);
+    letter-spacing: -0.03em;
+    line-height: 1.3;
   }
 
   .post-card-title a {
@@ -65,8 +67,8 @@ const { post } = Astro.props;
   }
 
   .post-card-excerpt {
-    font-size: 1.1rem;
-    line-height: 1.65;
+    font-size: 0.98rem;
+    line-height: 1.6;
     color: #1f2328;
   }
 
@@ -82,11 +84,11 @@ const { post } = Astro.props;
 
   @media (max-width: 47.9375rem) {
     .post-card {
-      padding: 1.45rem 1.5rem;
+      padding: 1.35rem 1.4rem;
     }
 
     .post-card-title {
-      font-size: 1.8rem;
+      font-size: 1.55rem;
     }
   }
 </style>
