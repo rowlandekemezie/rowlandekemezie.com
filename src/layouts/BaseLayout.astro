@@ -7,6 +7,8 @@ interface Props {
   canonical?: string;
   description?: string;
   image?: string;
+  hideFooter?: boolean;
+  layout?: 'default' | 'home' | 'article';
   publishedTime?: string;
   socialType?: 'article' | 'website';
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
@@ -17,6 +19,8 @@ const {
   canonical = site.url + Astro.url.pathname,
   description = site.description,
   image,
+  layout = 'default',
+  hideFooter = layout === 'home',
   publishedTime,
   socialType = 'website',
   structuredData,
@@ -79,15 +83,56 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
     <script is:inline type="application/ld+json" set:html={jsonLd}></script>
     <CloudflareAnalytics />
     <title>{title}</title>
+    <script is:inline>
+      (() => {
+        const key = 'rowland-theme';
+        const root = document.documentElement;
+        const apply = (theme) => {
+          root.dataset.theme = theme;
+          const toggle = document.querySelector('[data-theme-toggle]');
+          if (toggle) {
+            toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+          }
+        };
+        const saved = localStorage.getItem(key);
+        const preferred = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        apply(preferred);
+        document.addEventListener('click', (event) => {
+          const trigger = event.target instanceof Element ? event.target.closest('[data-theme-toggle]') : null;
+          if (!trigger) return;
+          const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          localStorage.setItem(key, next);
+          apply(next);
+        });
+      })();
+    </script>
     <style>
       :root {
         color-scheme: light;
-        --bg: #f4efe6;
-        --text: #1f1610;
-        --muted: #66584d;
-        --accent: #b15e09;
-        --card: rgba(255, 255, 255, 0.72);
-        --border: rgba(31, 22, 16, 0.12);
+        --bg: #f6f6f4;
+        --surface: #ffffff;
+        --surface-muted: #fbfbfa;
+        --text: #1f2328;
+        --muted: #5f6670;
+        --accent: #b8681a;
+        --link: #2563eb;
+        --card: rgba(255, 255, 255, 0.96);
+        --border: rgba(31, 35, 40, 0.1);
+        --shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+      }
+
+      :root[data-theme='dark'] {
+        color-scheme: dark;
+        --bg: #0f1216;
+        --surface: #171c22;
+        --surface-muted: #1c2229;
+        --text: #eef2f7;
+        --muted: #a5b0bc;
+        --accent: #d49043;
+        --link: #73a7ff;
+        --card: rgba(23, 28, 34, 0.96);
+        --border: rgba(255, 255, 255, 0.08);
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
       }
 
       * {
@@ -97,11 +142,9 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: Georgia, 'Times New Roman', serif;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         color: var(--text);
-        background:
-          radial-gradient(circle at top left, rgba(177, 94, 9, 0.2), transparent 32rem),
-          linear-gradient(180deg, #fbf6ee 0%, var(--bg) 100%);
+        background: var(--bg);
       }
 
       a {
@@ -109,30 +152,38 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
       }
 
       main {
-        width: min(60rem, calc(100% - 2rem));
+        width: min(82rem, calc(100% - 3rem));
         margin: 0 auto;
-        padding: 4rem 0 5rem;
+        padding: 1.8rem 0 3.5rem;
       }
 
       .panel {
         padding: 2rem;
         border: 1px solid var(--border);
-        border-radius: 1.5rem;
+        border-radius: 1rem;
         background: var(--card);
-        box-shadow: 0 1rem 3rem rgba(31, 22, 16, 0.08);
-        backdrop-filter: blur(12px);
+        box-shadow: var(--shadow);
       }
 
       h1,
       h2,
+      h3,
+      h4,
       p {
-        margin-top: 0;
+        margin: 0;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.2;
       }
 
       .eyebrow {
         display: inline-block;
-        margin-bottom: 1rem;
-        font-size: 0.8rem;
+        margin-bottom: 0.9rem;
+        font-size: 0.78rem;
         font-weight: 700;
         letter-spacing: 0.12em;
         text-transform: uppercase;
@@ -153,61 +204,39 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
 
       .posts {
         display: grid;
-        gap: 1.5rem;
+        gap: 2.8rem;
         margin-top: 2rem;
-      }
-
-      .post-card {
-        padding: 0;
-        border: 1px solid var(--border);
-        border-radius: 1rem;
-        background: rgba(255, 255, 255, 0.6);
-        overflow: hidden;
-      }
-
-      .post-card h2 {
-        margin-bottom: 0.4rem;
-      }
-
-      .post-card > div,
-      .post-card > .stack {
-        padding: 1.25rem;
-      }
-
-      .post-card p:last-child {
-        margin-bottom: 0;
-      }
-
-      .post-card-cover {
-        display: block;
-        border-bottom: 1px solid var(--border);
-        background: linear-gradient(135deg, rgba(177, 94, 9, 0.15), rgba(31, 22, 16, 0.06));
-      }
-
-      .post-card-cover img,
-      .post-hero img {
-        display: block;
-        width: 100%;
-        height: auto;
       }
 
       .post-hero {
         overflow: hidden;
         border-radius: 1rem;
         border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.45);
+        background: var(--surface);
+        margin-bottom: 1.5rem;
+      }
+
+      .post-hero img {
+        display: block;
+        width: 100%;
+        height: auto;
       }
 
       .nav {
         display: flex;
-        gap: 1rem;
+        gap: 1.25rem;
         flex-wrap: wrap;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
       }
 
       .nav a {
-        font-weight: 600;
+        font-weight: 500;
         text-decoration: none;
+      }
+
+      .nav a:hover,
+      .nav a[aria-current='page'] {
+        color: var(--link);
       }
 
       article :global(img) {
@@ -247,7 +276,7 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
         padding: 0.3rem 0.75rem;
         border: 1px solid var(--border);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.55);
+        background: var(--surface-muted);
         text-decoration: none;
       }
 
@@ -257,33 +286,430 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
 
       .pagination {
         display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
         margin-top: 2rem;
+        width: 100%;
       }
 
       .pagination a,
       .pagination span {
-        padding: 0.55rem 0.9rem;
-        border: 1px solid var(--border);
-        border-radius: 999px;
+        padding: 0.3rem 0;
         text-decoration: none;
+        color: var(--muted);
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        font-size: 0.98rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+      }
+
+      .pagination a {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .pagination a:hover {
+        text-decoration: underline;
+        text-underline-offset: 0.14em;
+      }
+
+      .pagination [aria-disabled='true'] {
+        opacity: 0.45;
       }
 
       .site-footer {
         margin-top: 3rem;
         text-align: center;
+        color: var(--muted);
       }
 
-      @media (min-width: 48rem) {
-        .posts {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+      .post-detail > h1,
+      .prose > :first-child {
+        margin-top: 0;
+      }
+
+      .prose {
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: var(--text);
+      }
+
+      .prose :global(h2),
+      .prose :global(h3),
+      .prose :global(h4),
+      .prose :global(h5),
+      .prose :global(h6) {
+        margin: 2.25rem 0 0.85rem;
+        line-height: 1.25;
+      }
+
+      .prose :global(h2) {
+        font-size: 1.7rem;
+      }
+
+      .prose :global(h3) {
+        font-size: 1.4rem;
+      }
+
+      .prose :global(h4) {
+        font-size: 1.15rem;
+      }
+
+      .prose :global(p),
+      .prose :global(ul),
+      .prose :global(ol),
+      .prose :global(dl),
+      .prose :global(blockquote),
+      .prose :global(pre),
+      .prose :global(figure),
+      .prose :global(table),
+      .prose :global(center) {
+        margin: 1rem 0;
+      }
+
+      .prose :global(ul),
+      .prose :global(ol) {
+        padding-left: 1.5rem;
+      }
+
+      .prose :global(li + li) {
+        margin-top: 0.45rem;
+      }
+
+      .prose :global(blockquote) {
+        margin-inline: 0;
+        padding: 1rem 1.25rem;
+        border-left: 4px solid var(--accent);
+        border-radius: 0 1rem 1rem 0;
+        background: rgba(255, 255, 255, 0.6);
+        color: var(--muted);
+      }
+
+      .prose :global(blockquote p:last-child) {
+        margin-bottom: 0;
+      }
+
+      .prose :global(pre),
+      .prose :global(.astro-code) {
+        padding: 1.35rem 1.5rem;
+        border-radius: 0.8rem;
+        border: 1px solid var(--border);
+        background: #201813;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        line-height: 1.65;
+      }
+
+      .prose :global(pre code),
+      .prose :global(.astro-code code) {
+        line-height: inherit;
+      }
+
+      .prose :global(code:not(pre code)) {
+        padding: 0.12rem 0.35rem;
+        border-radius: 0.35rem;
+        background: rgba(31, 22, 16, 0.08);
+        font-size: 0.92em;
+      }
+
+      .prose :global(hr) {
+        margin: 2rem 0;
+        border: 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .prose :global(a) {
+        color: var(--link);
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.14em;
+      }
+
+      .prose :global(a:hover) {
+        text-decoration: none;
+      }
+
+      .prose :global(img) {
+        display: block;
+        margin-inline: auto;
+        border-radius: 1rem;
+        max-width: 100%;
+      }
+
+      .prose :global(p > img:only-child) {
+        margin-block: 0.25rem;
+      }
+
+      .prose :global(center) {
+        text-align: center;
+      }
+
+      .prose :global(center img) {
+        max-width: min(18rem, 100%);
+      }
+
+      .prose :global(iframe) {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-height: 22rem;
+        margin: 1.5rem 0;
+        border: 0;
+        border-radius: 1rem;
+      }
+
+      .prose :global(table) {
+        width: 100%;
+        border-collapse: collapse;
+        display: block;
+        overflow-x: auto;
+      }
+
+      .prose :global(th),
+      .prose :global(td) {
+        padding: 0.75rem;
+        border: 1px solid var(--border);
+        text-align: left;
+      }
+
+      .prose :global(dl) {
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      .prose :global(dt) {
+        font-weight: 700;
+      }
+
+      .prose :global(dd) {
+        margin-left: 0;
+        color: var(--muted);
+      }
+
+      .prose :global(.icon-link) {
+        display: inline-block;
+        width: 0.85em;
+      }
+
+      .prose :global(h2 a[aria-hidden='true']),
+      .prose :global(h3 a[aria-hidden='true']),
+      .prose :global(h4 a[aria-hidden='true']),
+      .prose :global(h5 a[aria-hidden='true']),
+      .prose :global(h6 a[aria-hidden='true']) {
+        margin-left: 0.4rem;
+        color: var(--muted);
+        opacity: 0.45;
+        text-decoration: none;
+      }
+
+      .prose :global(h2:hover a[aria-hidden='true']),
+      .prose :global(h3:hover a[aria-hidden='true']),
+      .prose :global(h4:hover a[aria-hidden='true']),
+      .prose :global(h5:hover a[aria-hidden='true']),
+      .prose :global(h6:hover a[aria-hidden='true']) {
+        opacity: 1;
+      }
+
+      .home-layout {
+        display: grid;
+        grid-template-columns: minmax(16rem, 21rem) minmax(0, 1fr);
+        gap: 4.75rem;
+        align-items: start;
+      }
+
+      .article-layout {
+        width: min(54rem, 100%);
+        margin: 0 auto;
+      }
+
+      .article-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      .article-back {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.25rem;
+        padding: 0.2rem 1.1rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--surface);
+        text-decoration: none;
+      }
+
+      .article-feed {
+        min-width: 0;
+      }
+
+      .home-sidebar {
+        position: sticky;
+        top: 2rem;
+        padding-right: 2.5rem;
+        border-right: 1px solid var(--border);
+      }
+
+      .home-sidebar :global(.sidebar-top) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      .home-sidebar :global(.avatar) {
+        width: 5.25rem;
+        height: 5.25rem;
+        border-radius: 999px;
+        object-fit: cover;
+      }
+
+      .home-sidebar :global(.theme-toggle) {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        width: 6.75rem;
+        height: 3rem;
+        border: 0;
+        border-radius: 999px;
+        padding: 0 0.8rem;
+        background: #1b1d22;
+        color: #fff4cc;
+        cursor: pointer;
+      }
+
+      .article-toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        width: 4.7rem;
+        height: 2.3rem;
+        border: 0;
+        border-radius: 999px;
+        padding: 0 0.45rem;
+        background: #1b1d22;
+        color: #fff4cc;
+        cursor: pointer;
+      }
+
+      .article-toggle .theme-knob {
+        position: absolute;
+        left: 0.16rem;
+        top: 0.16rem;
+        width: 1.98rem;
+        height: 1.98rem;
+        border-radius: 999px;
+        background: #ffffff;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        transition: transform 180ms ease;
+      }
+
+      :root[data-theme='dark'] .article-toggle .theme-knob {
+        transform: translateX(2.2rem);
+      }
+
+      .article-toggle .theme-icon {
+        position: relative;
+        z-index: 1;
+        width: 50%;
+        text-align: center;
+        font-size: 0.92rem;
+      }
+
+      .home-sidebar :global(.theme-knob) {
+        position: absolute;
+        left: 0.18rem;
+        top: 0.18rem;
+        width: 2.64rem;
+        height: 2.64rem;
+        border-radius: 999px;
+        background: #ffffff;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        transition: transform 180ms ease;
+      }
+
+      :root[data-theme='dark'] .home-sidebar :global(.theme-knob) {
+        transform: translateX(3.65rem);
+      }
+
+      .home-sidebar :global(.theme-icon) {
+        position: relative;
+        z-index: 1;
+        width: 50%;
+        text-align: center;
+        font-size: 1.15rem;
+      }
+
+      .home-sidebar :global(h1) {
+        font-size: 1.6rem;
+        letter-spacing: -0.04em;
+      }
+
+      .home-sidebar :global(p) {
+        font-size: 1rem;
+        line-height: 1.55;
+      }
+
+      .home-sidebar :global(.home-links) {
+        display: grid;
+        gap: 1.1rem;
+        margin: 3.2rem 0;
+      }
+
+      .home-sidebar :global(.home-links a) {
+        width: fit-content;
+        font-size: 1rem;
+        letter-spacing: -0.02em;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .home-sidebar :global(.home-links a:hover),
+      .home-sidebar :global(.home-links a[aria-current='page']) {
+        text-decoration: underline;
+        text-underline-offset: 0.18em;
+      }
+
+      .home-sidebar :global(.home-socials) {
+        display: flex;
+        gap: 0.9rem;
+        flex-wrap: wrap;
+        margin-top: 3rem;
+        list-style: none;
+        padding: 0;
+      }
+
+      .home-sidebar :global(.home-socials li) {
+        list-style: none;
+      }
+
+      .home-sidebar :global(.home-socials a) {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      .home-sidebar :global(.home-socials a svg) {
+        width: 1.15rem;
+        height: 1.15rem;
+      }
+
+      .home-feed {
+        min-width: 0;
       }
 
       @media (max-width: 47.9375rem) {
         main {
-          width: min(60rem, calc(100% - 1.25rem));
+          width: min(82rem, calc(100% - 1.25rem));
           padding: 2rem 0 3rem;
         }
 
@@ -291,18 +717,100 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
           padding: 1.25rem;
           border-radius: 1rem;
         }
+
+        .prose {
+          font-size: 1rem;
+          line-height: 1.65;
+        }
+
+        .prose :global(h2) {
+          font-size: 1.45rem;
+        }
+
+        .prose :global(h3) {
+          font-size: 1.25rem;
+        }
+
+        .prose :global(iframe) {
+          min-height: 16rem;
+        }
+
+        .home-layout {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .article-layout {
+          width: 100%;
+        }
+
+        .home-sidebar {
+          position: static;
+          padding-right: 0;
+          padding-bottom: 2rem;
+          border-right: 0;
+          border-bottom: 1px solid var(--border);
+        }
+
+        .home-sidebar :global(.theme-toggle) {
+          width: 5.8rem;
+          height: 2.7rem;
+        }
+
+        .home-sidebar :global(.theme-knob) {
+          width: 2.34rem;
+          height: 2.34rem;
+        }
+
+        :root[data-theme='dark'] .home-sidebar :global(.theme-knob) {
+          transform: translateX(3rem);
+        }
+
+        .home-sidebar :global(.home-links) {
+          margin: 2rem 0;
+        }
       }
     </style>
   </head>
   <body>
     <main>
-      <nav class="nav" aria-label="Primary">
-        <a href="/">Posts</a>
-        <a href="/tags/">Tags</a>
-        <a href="/categories/">Categories</a>
-      </nav>
-      <slot />
-      <SiteFooter />
+      {
+        layout === 'home' ? (
+          <div class="home-layout">
+            <aside class="home-sidebar">
+              <slot name="sidebar" />
+            </aside>
+            <div class="home-feed">
+              <slot />
+            </div>
+          </div>
+        ) : layout === 'article' ? (
+          <div class="article-layout">
+            <div class="article-bar">
+              <a class="article-back" href="/">All Posts</a>
+              <button class="theme-toggle article-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>
+                <span class="theme-knob"></span>
+                <span class="theme-icon theme-icon-moon" aria-hidden="true">🌙</span>
+                <span class="theme-icon theme-icon-sun" aria-hidden="true">☀️</span>
+              </button>
+            </div>
+            <div class="article-feed">
+              <slot />
+            </div>
+          </div>
+        ) : (
+          <>
+            <nav class="nav" aria-label="Primary">
+              <a href="/">Posts</a>
+              <a href="/pages/about/">About</a>
+              <a href="/tags/">Tags</a>
+              <a href="/categories/">Categories</a>
+            </nav>
+            <slot />
+          </>
+        )
+      }
+      {!hideFooter && <SiteFooter />}
     </main>
   </body>
 </html>

@@ -1,7 +1,5 @@
 ---
-import { Image } from 'astro:assets';
 import { render } from 'astro:content';
-import AuthorCard from '../../components/AuthorCard.astro';
 import DisqusComments from '../../components/DisqusComments.astro';
 import PostTags from '../../components/PostTags.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -52,28 +50,85 @@ const articleStructuredData = {
   description={getPostExcerpt(post)}
   canonical={canonical}
   image={socialImage}
+  hideFooter={true}
+  layout="article"
   socialType="article"
   publishedTime={publishedTime}
   structuredData={articleStructuredData}
 >
-  {
-    post.data.image && (
-      <figure class="post-hero">
-        <Image src={post.data.image} alt="" loading="eager" />
-      </figure>
-    )
-  }
-  <article class="panel stack post-detail">
-    <span class="eyebrow">{post.data.category ?? 'Uncategorized'}</span>
+  <article class="post-detail">
     <h1>{post.data.title}</h1>
-    <p class="muted">{formatPostDate(post.data.date)}</p>
-    <Content />
-    <PostTags tags={post.data.tags} />
-    <DisqusComments
-      identifier={getPostIdentifier(post)}
-      title={post.data.title}
-      url={canonical}
-    />
+    <p class="post-meta-line muted">
+      <span>{formatPostDate(post.data.date)}</span>
+      <span>•</span>
+      <span>{Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220))} min read</span>
+    </p>
+    <div class="prose">
+      <Content />
+    </div>
+    <div class="post-bottom">
+      <PostTags tags={post.data.tags} />
+      <DisqusComments
+        identifier={getPostIdentifier(post)}
+        title={post.data.title}
+        url={canonical}
+      />
+    </div>
   </article>
-  <AuthorCard />
 </BaseLayout>
+
+<style>
+  .post-detail {
+    text-align: center;
+  }
+
+  .post-detail h1 {
+    max-width: 18ch;
+    margin: 0 auto;
+    font-size: clamp(2.7rem, 6vw, 4rem);
+    letter-spacing: -0.05em;
+    line-height: 1.12;
+  }
+
+  .post-meta-line {
+    display: flex;
+    justify-content: center;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+    margin-top: 1.8rem;
+    font-style: italic;
+  }
+
+  .post-detail .prose {
+    max-width: 39rem;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .post-detail .prose :global(img),
+  .post-detail .prose :global(img[data-image-component='true']) {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  .post-detail .prose :global(p > img:only-child),
+  .post-detail .prose :global(picture) {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .post-bottom {
+    max-width: 39rem;
+    margin: 2rem auto 0;
+    text-align: left;
+  }
+
+  @media (max-width: 47.9375rem) {
+    .post-detail h1 {
+      font-size: 2.25rem;
+    }
+  }
+</style>

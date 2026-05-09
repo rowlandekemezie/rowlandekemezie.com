@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import type { PostEntry } from '../lib/content';
-import { formatPostDate, getPostExcerpt, getPostPath } from '../lib/content';
+import { formatPostMonthYear, getPostExcerpt, getPostPath } from '../lib/content';
 
 interface Props {
   post: PostEntry;
@@ -10,23 +9,84 @@ interface Props {
 const { post } = Astro.props;
 ---
 
-<article class="post-card stack">
-  {
-    post.data.image && (
-      <a href={getPostPath(post)} class="post-card-cover">
-        <Image src={post.data.image} alt="" loading="lazy" />
-      </a>
-    )
-  }
-  <div class="stack">
-    <p class="muted">{formatPostDate(post.data.date)}</p>
-    <h2>
-      <a href={getPostPath(post)}>{post.data.title}</a>
-    </h2>
-    <p>{getPostExcerpt(post)}</p>
-    <p class="muted">
-      {post.data.category ?? 'Uncategorized'}
-      {post.data.tags.length ? ` · ${post.data.tags.join(', ')}` : ''}
-    </p>
-  </div>
+<article class="post-card stack-sm">
+  <p class="post-card-meta">
+    <span>{formatPostMonthYear(post.data.date).toUpperCase()}</span>
+    <span>{post.data.category ?? 'Uncategorized'}</span>
+  </p>
+  <h2 class="post-card-title">
+    <a href={getPostPath(post)}>{post.data.title}</a>
+  </h2>
+  <p class="post-card-excerpt">{getPostExcerpt(post, 165)}</p>
+  <p class="post-card-read">
+    <a href={getPostPath(post)}>Read →</a>
+  </p>
 </article>
+
+<style>
+  .post-card {
+    padding: 2.15rem 2.25rem 2.05rem;
+    border: 1px solid rgba(31, 35, 40, 0.1);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+  }
+
+  .post-card-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .post-card-meta span:last-child {
+    color: #b8681a;
+  }
+
+  .post-card-title {
+    font-size: clamp(2rem, 3vw, 2.45rem);
+    letter-spacing: -0.04em;
+  }
+
+  .post-card-title a {
+    color: #1f2328;
+    text-decoration: none;
+  }
+
+  .post-card-title a:visited {
+    color: #1f2328;
+  }
+
+  .post-card-title a:hover {
+    color: #2563eb;
+  }
+
+  .post-card-excerpt {
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: #1f2328;
+  }
+
+  .post-card-read a {
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .post-card-read a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 47.9375rem) {
+    .post-card {
+      padding: 1.45rem 1.5rem;
+    }
+
+    .post-card-title {
+      font-size: 1.8rem;
+    }
+  }
+</style>

@@ -37,6 +37,14 @@ export function formatPostDate(value: string) {
   });
 }
 
+export function formatPostMonthYear(value: string) {
+  return parsePostDate(value).toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
 export function getPostExcerpt(post: PostEntry, maxLength = 180) {
   const text = (post.body ?? '')
     .replace(/^---[\s\S]*?---/, '')

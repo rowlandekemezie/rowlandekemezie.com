@@ -1,6 +1,6 @@
 ---
-import AuthorCard from '../../components/AuthorCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeSidebar from '../../components/HomeSidebar.astro';
 import PostCard from '../../components/PostCard.astro';
 import { getPaginatedPosts, getPublishedPosts } from '../../lib/content';
 import { pageRoute, site } from '../../lib/site';
@@ -23,8 +23,9 @@ const pagination = getPaginatedPosts(allPosts, page, 4);
 const title = page === 1 ? site.title : `Page ${page} — ${site.title}`;
 ---
 
-<BaseLayout title={title} description={site.description}>
-  <section class="panel stack">
+<BaseLayout title={title} description={site.description} layout="home">
+  <HomeSidebar slot="sidebar" current="posts" />
+  <section class="stack">
     <span class="eyebrow">Archive</span>
     <h1>Posts</h1>
     <p class="muted">Page {pagination.currentPage} of {pagination.totalPages}</p>
@@ -39,16 +40,17 @@ const title = page === 1 ? site.title : `Page ${page} — ${site.title}`;
       {
         pagination.currentPage > 1 && (
           <a href={pagination.currentPage === 2 ? '/' : pageRoute(pagination.currentPage - 1)} rel="prev">
-            Newer posts
+            ← Prev
           </a>
         )
       }
+      {pagination.currentPage === 1 && <span aria-disabled="true">← Prev</span>}
       {
         pagination.currentPage < pagination.totalPages && (
-          <a href={pageRoute(pagination.currentPage + 1)} rel="next">Older posts</a>
+          <a href={pageRoute(pagination.currentPage + 1)} rel="next">Next →</a>
         )
       }
+      {pagination.currentPage === pagination.totalPages && <span aria-disabled="true">Next →</span>}
     </nav>
   </section>
-  <AuthorCard />
 </BaseLayout>

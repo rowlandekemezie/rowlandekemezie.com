@@ -1,6 +1,6 @@
 ---
-import AuthorCard from '../components/AuthorCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeSidebar from '../components/HomeSidebar.astro';
 import PostCard from '../components/PostCard.astro';
 import { getPaginatedPosts, getPublishedPosts } from '../lib/content';
 import { pageRoute, site } from '../lib/site';
@@ -9,27 +9,21 @@ const allPosts = await getPublishedPosts();
 const pagination = getPaginatedPosts(allPosts, 1, 4);
 ---
 
-<BaseLayout title={site.title} description={site.description}>
-  <section class="panel stack">
-    <span class="eyebrow">Phase 1</span>
-    <h1>Posts</h1>
-    <p class="muted">
-      Phase 1 is focused on route, content, and metadata parity while the site is rebuilt on Astro.
-    </p>
-    <div class="posts">
-      {
-        pagination.posts.map((post) => (
-          <PostCard post={post} />
-        ))
-      }
-    </div>
+<BaseLayout title={site.title} description={site.description} layout="home">
+  <HomeSidebar slot="sidebar" current="posts" />
+  <div class="posts">
     {
-      pagination.totalPages > 1 && (
-        <nav class="pagination" aria-label="Pagination">
-          <a href={pageRoute(1)} rel="next">Older posts</a>
-        </nav>
-      )
+      pagination.posts.map((post) => (
+        <PostCard post={post} />
+      ))
     }
-  </section>
-  <AuthorCard />
+  </div>
+  {
+    pagination.totalPages > 1 && (
+      <nav class="pagination" aria-label="Pagination">
+        <span aria-disabled="true">← Prev</span>
+        <a href={pageRoute(2)} rel="next">Next →</a>
+      </nav>
+    )
+  }
 </BaseLayout>

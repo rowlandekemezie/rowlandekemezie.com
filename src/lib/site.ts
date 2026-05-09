@@ -1,5 +1,6 @@
 export const site = {
   author: {
+    avatar: 'https://avatars2.githubusercontent.com/u/15085641?s=300&v=4',
     email: 'rowlandresource@gmail.com',
     github: 'rowlandekemezie',
     links: [
@@ -14,6 +15,10 @@ export const site = {
       {
         label: 'Email',
         url: 'mailto:rowland.ekemezie@gmail.com',
+      },
+      {
+        label: 'RSS',
+        url: '/rss.xml',
       },
     ],
     location: 'Lagos, Nigeria',

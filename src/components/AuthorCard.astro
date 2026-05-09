@@ -11,9 +11,46 @@ import { site } from '../lib/site';
     {
       site.author.links.map((link) => (
         <li>
-          <a href={link.url}>{link.label}</a>
+          <a href={link.url} target={link.url.startsWith('http') ? '_blank' : undefined} rel={link.url.startsWith('http') ? 'noreferrer' : undefined}>
+            {link.label}
+          </a>
         </li>
       ))
     }
   </ul>
 </section>
+
+<style>
+  .author-card {
+    margin-top: 2rem;
+  }
+
+  .link-list {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .link-list li {
+    list-style: none;
+  }
+
+  .link-list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid rgba(31, 35, 40, 0.1);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    color: #1f2328;
+  }
+
+  .link-list a:hover {
+    color: #2563eb;
+  }
+</style>
