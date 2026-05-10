@@ -1,0 +1,219 @@
+---
+import { site } from '../lib/site';
+
+const modalId = 'subscribe-modal';
+const openerId = 'subscribe-modal-open';
+---
+
+<div class="subscribe-launcher">
+  <button id={openerId} type="button" class="subscribe-launcher-button" data-subscribe-open={modalId}>
+    Subscribe
+  </button>
+</div>
+
+<dialog id={modalId} class="subscribe-modal" aria-labelledby={`${modalId}-title`}>
+  <div class="subscribe-card">
+    <button type="button" class="subscribe-close" aria-label="Close subscribe form" data-subscribe-close={modalId}>
+      ×
+    </button>
+    <form class="subscribe-form" data-subscribe-form>
+      <h3 id={`${modalId}-title`} class="subscribe-header">Subscribe to Newsletter</h3>
+      <p class="subscribe-copy">
+        Get new posts from {site.author.name} in your inbox. You can also follow the <a href="/rss.xml">RSS feed</a>.
+      </p>
+      <label class="subscribe-label" for={`${modalId}-email`}>Email address</label>
+      <div class="subscribe-inputwrapper">
+        <input
+          id={`${modalId}-email`}
+          name="email"
+          type="email"
+          autocomplete="email"
+          class="subscribe-input"
+          placeholder="you@example.com"
+          required
+        />
+      </div>
+      <button type="submit" class="subscribe-button">Subscribe</button>
+    </form>
+  </div>
+</dialog>
+
+<script is:inline>
+  (() => {
+    const init = () => {
+      const openers = document.querySelectorAll('[data-subscribe-open]');
+      const closers = document.querySelectorAll('[data-subscribe-close]');
+      const forms = document.querySelectorAll('[data-subscribe-form]');
+
+      openers.forEach((button) => {
+        button.addEventListener('click', () => {
+          const modal = document.getElementById(button.getAttribute('data-subscribe-open'));
+          if (modal instanceof HTMLDialogElement) {
+            modal.showModal();
+          }
+        });
+      });
+
+      closers.forEach((button) => {
+        button.addEventListener('click', () => {
+          const modal = document.getElementById(button.getAttribute('data-subscribe-close'));
+          if (modal instanceof HTMLDialogElement) {
+            modal.close();
+          }
+        });
+      });
+
+      document.querySelectorAll('.subscribe-modal').forEach((dialog) => {
+        dialog.addEventListener('click', (event) => {
+          if (event.target === dialog) {
+            dialog.close();
+          }
+        });
+      });
+
+      forms.forEach((form) => {
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const emailInput = form.querySelector('input[name="email"]');
+          const email = emailInput instanceof HTMLInputElement ? emailInput.value.trim() : '';
+          const subject = encodeURIComponent('Newsletter subscription');
+          const body = encodeURIComponent(`Please add ${email || 'me'} to the newsletter list.`);
+          window.location.href = `mailto:rowland.ekemezie@gmail.com?subject=${subject}&body=${body}`;
+          const dialog = form.closest('dialog');
+          if (dialog instanceof HTMLDialogElement) {
+            dialog.close();
+          }
+        });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<style>
+  .subscribe-launcher {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .subscribe-launcher-button {
+    margin-top: 0.25rem;
+    font-size: 1rem;
+    border-radius: 0.1875rem;
+    padding: 0.625rem 1.875rem;
+    background-color: #b15e09;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .subscribe-launcher-button:hover,
+  .subscribe-launcher-button:focus-visible {
+    background-color: #fff;
+    color: #b15e09;
+    border: 1px solid #b15e09;
+  }
+
+  .subscribe-modal {
+    width: min(100% - 2rem, 24rem);
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .subscribe-modal::backdrop {
+    background: rgba(9, 12, 18, 0.6);
+    backdrop-filter: blur(2px);
+  }
+
+  .subscribe-card {
+    position: relative;
+    color: #fff;
+    max-width: 21.875rem;
+    background: #206aff;
+    background-image: linear-gradient(-213deg, #5e31dc 0%, #3155dc 100%),
+      linear-gradient(32deg, rgba(255, 255, 255, 0.25) 33%, rgba(0, 0, 0, 0.25) 100%);
+    border-radius: 0.3125rem;
+    box-shadow: 0 22px 60px rgba(17, 26, 46, 0.35);
+  }
+
+  .subscribe-close {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.8rem;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .subscribe-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.875rem;
+  }
+
+  .subscribe-header {
+    margin: 0 0 0.25rem;
+    color: #fff;
+  }
+
+  .subscribe-copy {
+    margin: 0.35rem 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .subscribe-copy a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+  }
+
+  .subscribe-label {
+    width: 100%;
+    margin: 1.25rem 0 0.35rem;
+    font-size: 1rem;
+  }
+
+  .subscribe-inputwrapper {
+    width: 100%;
+    margin: 0.625rem 0;
+  }
+
+  .subscribe-input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.625rem;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0.1875rem;
+  }
+
+  .subscribe-button {
+    margin-top: 1.25rem;
+    font-size: 1rem;
+    border-radius: 0.1875rem;
+    padding: 0.625rem 1.875rem;
+    background-color: #b15e09;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .subscribe-button:hover,
+  .subscribe-button:focus-visible {
+    background-color: #fff;
+    color: #b15e09;
+    border: 1px solid #b15e09;
+  }
+</style>

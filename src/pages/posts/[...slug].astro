@@ -2,6 +2,8 @@
 import { render } from 'astro:content';
 import DisqusComments from '../../components/DisqusComments.astro';
 import PostTags from '../../components/PostTags.astro';
+import ScrollTopButton from '../../components/ScrollTopButton.astro';
+import SubscribeModal from '../../components/SubscribeModal.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import {
   formatPostDate,
@@ -73,8 +75,12 @@ const articleStructuredData = {
         title={post.data.title}
         url={canonical}
       />
+      <div class="post-utility-row">
+        <SubscribeModal />
+      </div>
     </div>
   </article>
+  <ScrollTopButton />
 </BaseLayout>
 
 <style>
@@ -124,6 +130,10 @@ const articleStructuredData = {
     max-width: 39rem;
     margin: 2rem auto 0;
     text-align: left;
+  }
+
+  .post-utility-row {
+    margin-top: 2rem;
   }
 
   @media (max-width: 47.9375rem) {
