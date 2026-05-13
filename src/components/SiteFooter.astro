@@ -1,25 +1,25 @@
 ---
-import { aboutRoute, site, systemPillars } from '../lib/site';
+import { aboutRoute, site } from '../lib/site';
 ---
 
-<footer class="section" style="margin-top: 1.5rem;">
-  <div class="grid-two">
+<footer class="paper">
+  <div class="paper-inner page-grid">
     <div class="section-stack">
-      <span class="eyebrow">System close</span>
-      <h2 style="margin-bottom: 0.6rem;">A minimal portfolio, organized by how the work actually happens.</h2>
-      <p class="lede" style="font-size: 1rem;">
-        The surface stays spare on purpose: fewer flourishes, clearer signals, and an archive that keeps writing and execution in the same map.
+      <span class="eyebrow">Direct contact</span>
+      <h2>Interested in software systems, thoughtful writing, or a hard problem worth untangling?</h2>
+      <p class="lede">
+        The simplest route is still the best one. Send a note, share what you are building, or point me to the problem that needs judgment.
       </p>
-      <div class="pillars-nav" style="margin-top: 1rem;">
-        {systemPillars.map((pillar) => <a href={`/#${pillar.id}`}>{pillar.label}</a>)}
+      <div class="nav-strip">
+        <a href={`mailto:${site.author.email}`}>Email Rowland</a>
+        <a href={aboutRoute()}>About</a>
       </div>
     </div>
-    <div class="section stack">
-      <span class="eyebrow">Navigate</span>
+    <div class="section-stack">
+      <span class="eyebrow">Elsewhere</span>
       <ul class="link-list" aria-label="Footer links">
-        <li><a href="/">Map</a></li>
-        <li><a href="/page/1/">Archive</a></li>
-        <li><a href={aboutRoute()}>About</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/page/1/">Essays</a></li>
         <li><a href="/tags/">Tags</a></li>
         <li><a href="/categories/">Categories</a></li>
       </ul>
@@ -27,12 +27,18 @@ import { aboutRoute, site, systemPillars } from '../lib/site';
         {
           site.author.links.map((link) => (
             <li>
-              <a href={link.url}>{link.label}</a>
+              <a
+                href={link.url}
+                target={link.url.startsWith('http') ? '_blank' : undefined}
+                rel={link.url.startsWith('http') ? 'noreferrer' : undefined}
+              >
+                {link.label}
+              </a>
             </li>
           ))
         }
       </ul>
-      <p class="muted" style="margin-bottom: 0;">{site.titleAlt}</p>
+      <p class="muted">{site.titleAlt}</p>
     </div>
   </div>
 </footer>
