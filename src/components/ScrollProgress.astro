@@ -1,0 +1,43 @@
+<div class="scroll-progress" data-scroll-progress></div>
+
+<script is:inline>
+  (() => {
+    const init = () => {
+      const bar = document.querySelector('[data-scroll-progress]');
+      if (!(bar instanceof HTMLDivElement)) return;
+
+      const sync = () => {
+        const root = document.documentElement;
+        const body = document.body;
+        const scrollTop = root.scrollTop || body.scrollTop;
+        const scrollHeight = root.scrollHeight || body.scrollHeight;
+        const available = scrollHeight - root.clientHeight;
+        const progress = available > 0 ? Math.min(100, Math.max(0, (scrollTop / available) * 100)) : 0;
+        bar.style.width = `${progress}%`;
+      };
+
+      window.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<style>
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    z-index: 40;
+    background: #206aff;
+    transition: width 0.2s ease-in-out;
+  }
+</style>

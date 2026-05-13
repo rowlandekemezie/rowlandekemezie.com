@@ -5,12 +5,12 @@ export const site = {
     github: 'rowlandekemezie',
     links: [
       {
-        label: 'GitHub',
-        url: 'https://github.com/rowlandekemezie',
-      },
-      {
         label: 'Twitter',
         url: 'https://twitter.com/rowlandekemezie',
+      },
+      {
+        label: 'GitHub',
+        url: 'https://github.com/rowlandekemezie',
       },
       {
         label: 'Email',

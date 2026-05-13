@@ -26,9 +26,6 @@ const title = page === 1 ? site.title : `Page ${page} — ${site.title}`;
 <BaseLayout title={title} description={site.description} layout="home">
   <HomeSidebar slot="sidebar" current="posts" />
   <section class="stack">
-    <span class="eyebrow">Archive</span>
-    <h1>Posts</h1>
-    <p class="muted">Page {pagination.currentPage} of {pagination.totalPages}</p>
     <div class="posts">
       {
         pagination.posts.map((post) => (

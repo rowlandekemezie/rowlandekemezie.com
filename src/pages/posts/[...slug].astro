@@ -1,14 +1,11 @@
 ---
 import { render } from 'astro:content';
-import DisqusComments from '../../components/DisqusComments.astro';
 import PostTags from '../../components/PostTags.astro';
 import ScrollTopButton from '../../components/ScrollTopButton.astro';
-import SubscribeModal from '../../components/SubscribeModal.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import {
   formatPostDate,
   getPostExcerpt,
-  getPostIdentifier,
   getPostPath,
   getPublishedPosts,
   parsePostDate,
@@ -52,8 +49,8 @@ const articleStructuredData = {
   description={getPostExcerpt(post)}
   canonical={canonical}
   image={socialImage}
-  hideFooter={true}
   layout="article"
+  footerVariant="article"
   socialType="article"
   publishedTime={publishedTime}
   structuredData={articleStructuredData}
@@ -70,14 +67,11 @@ const articleStructuredData = {
     </div>
     <div class="post-bottom">
       <PostTags tags={post.data.tags} />
-      <DisqusComments
+      <!-- <DisqusComments
         identifier={getPostIdentifier(post)}
         title={post.data.title}
         url={canonical}
-      />
-      <div class="post-utility-row">
-        <SubscribeModal />
-      </div>
+      /> -->
     </div>
   </article>
   <ScrollTopButton />
@@ -131,11 +125,6 @@ const articleStructuredData = {
     margin: 2rem auto 0;
     text-align: left;
   }
-
-  .post-utility-row {
-    margin-top: 2rem;
-  }
-
   @media (max-width: 47.9375rem) {
     .post-detail h1 {
       font-size: 2.25rem;

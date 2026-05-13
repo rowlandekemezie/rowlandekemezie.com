@@ -53,7 +53,7 @@ const assertions = [
   ['Home page does not leak raw frontmatter image paths', !home.includes('src="./images/')],
   ['Home page includes generated Astro asset paths for cards', home.includes('/_astro/')],
   ['Page 1 archive includes pagination navigation', pageOne.includes('aria-label="Pagination"')],
-  ['Page 2 archive renders the older-post navigation', pageTwo.includes('Newer posts')],
+  ['Page 2 archive renders the previous-page navigation', pageTwo.includes('← Prev')],
   ['About page is published under /pages/about/', about.includes('Meet Rowland I. Ekemezie')],
   ['About page preserves the real contact email', about.includes('rowlandresource@gmail.com')],
   ['Top 30 article exposes article Open Graph metadata', topThirty.includes('<meta property="og:type" content="article">')],
