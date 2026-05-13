@@ -1,16 +1,15 @@
 ---
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
-import ScrollProgress from '../components/ScrollProgress.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { site } from '../lib/site';
 
 interface Props {
   canonical?: string;
   description?: string;
-  image?: string;
-  hideFooter?: boolean;
-  layout?: 'default' | 'home' | 'article';
   footerVariant?: 'default' | 'article';
+  hideFooter?: boolean;
+  image?: string;
+  layout?: 'default' | 'home' | 'article';
   publishedTime?: string;
   socialType?: 'article' | 'website';
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
@@ -18,12 +17,12 @@ interface Props {
 }
 
 const {
-  canonical = site.url + Astro.url.pathname,
+  canonical = new URL(Astro.url.pathname, site.url).toString(),
   description = site.description,
+  footerVariant = 'default',
+  hideFooter = false,
   image,
   layout = 'default',
-  footerVariant = layout === 'article' ? 'article' : 'default',
-  hideFooter = layout === 'home',
   publishedTime,
   socialType = 'website',
   structuredData,
@@ -50,11 +49,13 @@ const defaultStructuredData = [
     name: site.author.name,
     description: site.author.summary,
     url: site.url,
-    sameAs: site.author.links.map((link) => link.url).filter((url) => !url.startsWith('mailto:')),
+    sameAs: site.author.links.map((link) => link.url).filter((url) => url.startsWith('http')),
   },
 ];
 
-const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[structuredData].flat()] : defaultStructuredData);
+const jsonLd = JSON.stringify(
+  structuredData ? [...defaultStructuredData, ...[structuredData].flat()] : defaultStructuredData
+);
 ---
 
 <!doctype html>
@@ -63,789 +64,236 @@ const jsonLd = JSON.stringify(structuredData ? [...defaultStructuredData, ...[st
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" href="/icons/icon-48x48.png?v=3" sizes="48x48" />
-    <link rel="shortcut icon" href="/icons/icon-48x48.png?v=3" />
-    <link rel="manifest" href="/manifest.webmanifest?v=3" />
-    <meta name="theme-color" content="#b15e09" />
-    <link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=3" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=3" />
-    <link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=3" />
-    <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=3" />
-    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=3" />
-    <link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=3" />
-    <link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=3" />
-    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=3" />
     <link rel="canonical" href={canonical} />
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={`${site.title} RSS Feed`}
-      href={new URL('/rss.xml', site.url).toString()}
-    />
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/icon-48x48.png" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.title} RSS Feed`} href="/rss.xml" />
     <meta property="og:type" content={socialType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.title} />
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:creator" content={`@${site.author.twitter}`} />
-    {socialImage && <meta property="og:image" content={socialImage} />}
     {socialImage && <meta name="twitter:image" content={socialImage} />}
-    <meta property="og:site_name" content={site.title} />
     <script is:inline type="application/ld+json" set:html={jsonLd}></script>
-    <CloudflareAnalytics />
     <title>{title}</title>
-    <script is:inline>
-      (() => {
-        const key = 'rowland-theme';
-        const root = document.documentElement;
-        const apply = (theme) => {
-          root.dataset.theme = theme;
-          const toggle = document.querySelector('[data-theme-toggle]');
-          if (toggle) {
-            toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-          }
-        };
-        const saved = localStorage.getItem(key);
-        const preferred = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        apply(preferred);
-        document.addEventListener('click', (event) => {
-          const trigger = event.target instanceof Element ? event.target.closest('[data-theme-toggle]') : null;
-          if (!trigger) return;
-          const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-          localStorage.setItem(key, next);
-          apply(next);
-        });
-      })();
-    </script>
-    <style>
+    <style is:global>
       :root {
         color-scheme: light;
-        --bg: #f6f6f4;
-        --surface: #ffffff;
-        --surface-muted: #fbfbfa;
-        --text: #1f2328;
-        --muted: #5f6670;
-        --accent: #b8681a;
-        --link: #2563eb;
-        --card: #fcfcfb;
-        --border: rgba(31, 35, 40, 0.1);
-        --shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+        --bg: #f5f0e7;
+        --surface: rgba(255, 252, 247, 0.72);
+        --text: #14110f;
+        --muted: #72675d;
+        --line: rgba(20, 17, 15, 0.12);
+        --accent: #b5641d;
+        --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        --page-width: min(76rem, calc(100vw - 2rem));
       }
-
-      :root[data-theme='dark'] {
-        color-scheme: dark;
-        --bg: #0f1216;
-        --surface: #171c22;
-        --surface-muted: #1c2229;
-        --text: #eef2f7;
-        --muted: #a5b0bc;
-        --accent: #d49043;
-        --link: #73a7ff;
-        --card: rgba(26, 31, 39, 0.98);
-        --border: rgba(255, 255, 255, 0.08);
-        --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         color: var(--text);
-        background: var(--bg);
+        font-family: var(--font-sans);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0)) 0 0 / 100% 14rem no-repeat,
+          linear-gradient(90deg, rgba(20,17,15,0.025) 1px, transparent 1px) center / min(76rem, calc(100vw - 2rem)) 100% no-repeat,
+          var(--bg);
       }
-
-      a {
-        color: inherit;
+      a { color: inherit; text-decoration-color: rgba(181, 100, 29, 0.45); text-underline-offset: 0.18em; }
+      img { max-width: 100%; height: auto; }
+      .site-header, .site-main, .site-footer { width: var(--page-width); margin: 0 auto; }
+      .site-header { padding: 1.25rem 0 0; }
+      .site-header-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        min-height: 3rem;
+        border-bottom: 1px solid var(--line);
       }
-
-      main {
-        width: min(82rem, calc(100% - 3rem));
-        margin: 0 auto;
-        padding: 1.8rem 0 3.5rem;
+      .site-brand {
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        text-decoration: none;
       }
-
+      .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+      }
+      .site-nav a { color: var(--muted); font-size: 0.95rem; text-decoration: none; }
+      .site-nav a:hover,
+      .site-nav a:focus-visible { color: var(--text); }
+      .site-main { padding: 2rem 0 4rem; }
       .panel {
-        padding: 2rem;
-        border: 1px solid var(--border);
-        border-radius: 1rem;
-        background: var(--card);
-        box-shadow: var(--shadow);
+        padding: clamp(1.5rem, 2vw, 2rem);
+        background: var(--surface);
+        border: 1px solid var(--line);
       }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      p {
-        margin: 0;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4 {
-        line-height: 1.2;
-      }
-
+      .stack > * + * { margin-top: 1rem; }
+      .muted { color: var(--muted); }
       .eyebrow {
         display: inline-block;
-        margin-bottom: 0.9rem;
+        margin: 0 0 0.9rem;
+        color: var(--accent);
         font-size: 0.78rem;
         font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--accent);
-      }
-
-      .muted {
-        color: var(--muted);
-      }
-
-      .stack > * + * {
-        margin-top: 1rem;
-      }
-
-      .stack-sm > * + * {
-        margin-top: 0.55rem;
-      }
-
-      :global(.posts) {
-        display: grid;
-        gap: 2.15rem;
-        margin-top: 2rem;
-      }
-
-      .post-hero {
-        overflow: hidden;
-        border-radius: 1rem;
-        border: 1px solid var(--border);
-        background: var(--surface);
-        margin-bottom: 1.5rem;
-      }
-
-      .post-hero img {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-
-      .nav {
-        display: flex;
-        gap: 1.25rem;
-        flex-wrap: wrap;
-        margin-bottom: 2.5rem;
-      }
-
-      .nav a {
-        font-weight: 500;
-        text-decoration: none;
-      }
-
-      .nav a:hover,
-      .nav a[aria-current='page'] {
-        color: var(--link);
-      }
-
-      article :global(img) {
-        max-width: 100%;
-        height: auto;
-      }
-
-      article :global(pre) {
-        overflow-x: auto;
-      }
-
-      ul {
-        padding-left: 1.25rem;
-      }
-
-      .taxonomy-list {
-        display: grid;
-        gap: 0.75rem;
-        padding-left: 1.25rem;
-      }
-
-      .tag-list,
-      .link-list {
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .tag-list a,
-      .link-list a {
-        display: inline-flex;
-        align-items: center;
-        min-height: 2rem;
-        padding: 0.3rem 0.75rem;
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        background: var(--surface-muted);
-        text-decoration: none;
-      }
-
-      .author-card {
-        margin-top: 2rem;
-      }
-
-      :global(.pagination) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-        margin-top: 2rem;
-        width: 100%;
-      }
-
-      :global(.pagination a),
-      :global(.pagination span) {
-        padding: 0.3rem 0;
-        text-decoration: none;
-        color: var(--muted);
-        background: transparent;
-        border: 0;
-        border-radius: 0;
-        font-size: 0.98rem;
-        font-weight: 700;
-        letter-spacing: 0.01em;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
       }
-
-      :global(.pagination a) {
-        color: var(--accent);
-        font-weight: 600;
-        text-decoration: none !important;
-      }
-
-      :global(.pagination > :last-child) {
-        text-align: right;
-      }
-
-      :global(.pagination a:hover) {
-        text-decoration: underline;
-        text-underline-offset: 0.14em;
-      }
-
-      :global(.pagination a:visited) {
-        color: var(--accent);
-      }
-
-      :global(.pagination [aria-disabled='true']) {
-        opacity: 0.45;
-      }
-
-      .site-footer {
-        margin-top: 3rem;
-        text-align: center;
+      .lede {
+        max-width: 36rem;
+        font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+        line-height: 1.7;
         color: var(--muted);
       }
-
-      .post-detail > h1,
-      .prose > :first-child {
-        margin-top: 0;
-      }
-
-      .prose {
-        font-size: 1.05rem;
-        line-height: 1.75;
-        color: var(--text);
-      }
-
-      .prose :global(h2),
-      .prose :global(h3),
-      .prose :global(h4),
-      .prose :global(h5),
-      .prose :global(h6) {
-        margin: 2.25rem 0 0.85rem;
-        line-height: 1.25;
-      }
-
-      .prose :global(h2) {
-        font-size: 1.7rem;
-      }
-
-      .prose :global(h3) {
-        font-size: 1.4rem;
-      }
-
-      .prose :global(h4) {
-        font-size: 1.15rem;
-      }
-
-      .prose :global(p),
-      .prose :global(ul),
-      .prose :global(ol),
-      .prose :global(dl),
-      .prose :global(blockquote),
-      .prose :global(pre),
-      .prose :global(figure),
-      .prose :global(table),
-      .prose :global(center) {
-        margin: 1rem 0;
-      }
-
-      .prose :global(ul),
-      .prose :global(ol) {
-        padding-left: 1.5rem;
-      }
-
-      .prose :global(li + li) {
-        margin-top: 0.45rem;
-      }
-
-      .prose :global(blockquote) {
-        margin-inline: 0;
-        padding: 1rem 1.25rem;
-        border-left: 4px solid var(--accent);
-        border-radius: 0 1rem 1rem 0;
-        background: rgba(255, 255, 255, 0.6);
-        color: var(--muted);
-      }
-
-      .prose :global(blockquote p:last-child) {
-        margin-bottom: 0;
-      }
-
-      :global(.prose pre),
-      :global(.prose .astro-code) {
-        padding: 14px !important;
-        margin: 0.5em 0 1.5rem !important;
-        border-radius: 1rem;
-        border: 0;
-        border-top: 5px solid var(--accent);
-        background: #1f1f1f !important;
-        box-shadow: none;
-        line-height: 1.5;
-        overflow-x: auto;
-      }
-
-      :global(.prose pre code),
-      :global(.prose .astro-code code) {
-        display: block;
-        padding: 0 !important;
-        line-height: inherit;
-      }
-
-      :global(.prose .astro-code > span),
-      :global(.prose pre > span),
-      :global(.prose .astro-code .line) {
-        display: block;
-      }
-
-      .prose :global(code:not(pre code)) {
-        padding: 0.12rem 0.35rem;
-        border-radius: 0.35rem;
-        background: rgba(31, 22, 16, 0.08);
-        font-size: 0.92em;
-      }
-
-      .prose :global(hr) {
-        margin: 2rem 0;
-        border: 0;
-        border-top: 1px solid var(--border);
-      }
-
-      .prose :global(a) {
-        color: var(--link);
-        text-decoration-thickness: 0.08em;
-        text-underline-offset: 0.14em;
-      }
-
-      .prose :global(a:hover) {
-        text-decoration: none;
-      }
-
-      .prose :global(img) {
-        display: block;
-        margin-inline: auto;
-        border-radius: 1rem;
-        max-width: 100%;
-      }
-
-      .prose :global(p > img:only-child) {
-        margin-block: 0.25rem;
-      }
-
-      .prose :global(center) {
-        text-align: center;
-      }
-
-      .prose :global(center img) {
-        max-width: min(18rem, 100%);
-      }
-
-      .prose :global(iframe) {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        min-height: 22rem;
-        margin: 1.5rem 0;
-        border: 0;
-        border-radius: 1rem;
-      }
-
-      .prose :global(table) {
-        width: 100%;
-        border-collapse: collapse;
-        display: block;
-        overflow-x: auto;
-      }
-
-      .prose :global(th),
-      .prose :global(td) {
-        padding: 0.75rem;
-        border: 1px solid var(--border);
-        text-align: left;
-      }
-
-      .prose :global(dl) {
-        display: grid;
-        gap: 0.5rem;
-      }
-
-      .prose :global(dt) {
-        font-weight: 700;
-      }
-
-      .prose :global(dd) {
-        margin-left: 0;
-        color: var(--muted);
-      }
-
-      .prose :global(.icon-link) {
-        display: inline-block;
-        width: 0.85em;
-      }
-
-      .prose :global(h2 a[aria-hidden='true']),
-      .prose :global(h3 a[aria-hidden='true']),
-      .prose :global(h4 a[aria-hidden='true']),
-      .prose :global(h5 a[aria-hidden='true']),
-      .prose :global(h6 a[aria-hidden='true']) {
-        margin-left: 0.4rem;
-        color: var(--muted);
-        opacity: 0.45;
-        text-decoration: none;
-      }
-
-      .prose :global(h2:hover a[aria-hidden='true']),
-      .prose :global(h3:hover a[aria-hidden='true']),
-      .prose :global(h4:hover a[aria-hidden='true']),
-      .prose :global(h5:hover a[aria-hidden='true']),
-      .prose :global(h6:hover a[aria-hidden='true']) {
-        opacity: 1;
-      }
-
-      .home-layout {
-        display: grid;
-        grid-template-columns: minmax(16rem, 21rem) minmax(0, 1fr);
-        gap: 4.75rem;
-        align-items: start;
-      }
-
-      .article-layout {
-        width: min(54rem, 100%);
-        margin: 0 auto;
-      }
-
-      .article-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1.5rem;
-      }
-
-      .article-back {
-        display: inline-flex;
-        align-items: center;
-        min-height: 2.25rem;
-        padding: 0.2rem 1.1rem;
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        background: var(--surface);
-        text-decoration: none;
-      }
-
-      .article-feed {
-        min-width: 0;
-      }
-
-      .home-sidebar {
-        position: sticky;
-        top: 2rem;
-        padding-right: 2.5rem;
-        border-right: 1px solid var(--border);
-      }
-
-      .home-sidebar :global(.sidebar-top) {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1.5rem;
-      }
-
-      .home-sidebar :global(.avatar) {
-        width: 5.25rem;
-        height: 5.25rem;
-        border-radius: 999px;
-        object-fit: cover;
-      }
-
-      .home-sidebar :global(.theme-toggle) {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        width: 6.75rem;
-        height: 3rem;
-        border: 0;
-        border-radius: 999px;
-        padding: 0 0.8rem;
-        background: #1b1d22;
-        color: #fff4cc;
-        cursor: pointer;
-      }
-
-      .article-toggle {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        width: 4.7rem;
-        height: 2.3rem;
-        border: 0;
-        border-radius: 999px;
-        padding: 0 0.45rem;
-        background: #1b1d22;
-        color: #fff4cc;
-        cursor: pointer;
-      }
-
-      .article-toggle .theme-knob {
-        position: absolute;
-        left: 0.16rem;
-        top: 0.16rem;
-        width: 1.98rem;
-        height: 1.98rem;
-        border-radius: 999px;
-        background: #ffffff;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-        transition: transform 180ms ease;
-      }
-
-      :root[data-theme='dark'] .article-toggle .theme-knob {
-        transform: translateX(2.2rem);
-      }
-
-      .article-toggle .theme-icon {
-        position: relative;
-        z-index: 1;
-        width: 50%;
-        text-align: center;
-        font-size: 0.92rem;
-      }
-
-      .home-sidebar :global(.theme-knob) {
-        position: absolute;
-        left: 0.18rem;
-        top: 0.18rem;
-        width: 2.64rem;
-        height: 2.64rem;
-        border-radius: 999px;
-        background: #ffffff;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-        transition: transform 180ms ease;
-      }
-
-      :root[data-theme='dark'] .home-sidebar :global(.theme-knob) {
-        transform: translateX(3.65rem);
-      }
-
-      .home-sidebar :global(.theme-icon) {
-        position: relative;
-        z-index: 1;
-        width: 50%;
-        text-align: center;
-        font-size: 1.15rem;
-      }
-
-      .home-sidebar :global(h1) {
-        font-size: 1.6rem;
-        letter-spacing: -0.04em;
-      }
-
-      .home-sidebar :global(p) {
-        font-size: 1rem;
-        line-height: 1.55;
-      }
-
-      .home-sidebar :global(.home-links) {
-        display: grid;
-        gap: 1.1rem;
-        margin: 3.2rem 0;
-      }
-
-      .home-sidebar :global(.home-links a) {
-        width: fit-content;
-        font-size: 1rem;
-        letter-spacing: -0.02em;
-        text-decoration: none;
-        color: var(--text);
-      }
-
-      .home-sidebar :global(.home-links a:hover),
-      .home-sidebar :global(.home-links a[aria-current='page']) {
-        text-decoration: underline;
-        text-underline-offset: 0.18em;
-      }
-
-      .home-sidebar :global(.home-socials) {
-        display: flex;
-        gap: 0.9rem;
-        flex-wrap: wrap;
-        margin-top: 3rem;
-        list-style: none;
-        padding: 0;
-      }
-
-      .home-sidebar :global(.home-socials li) {
-        list-style: none;
-      }
-
-      .home-sidebar :global(.home-socials a) {
+      .button-link {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 3rem;
-        height: 3rem;
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        background: var(--surface);
+        min-height: 2.85rem;
+        padding: 0.65rem 1rem;
+        border: 1px solid var(--accent);
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+      }
+      .button-link:hover,
+      .button-link:focus-visible { background: #985111; }
+      .subtle-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
         color: var(--muted);
         text-decoration: none;
       }
-
-      .home-sidebar :global(.home-socials a svg) {
-        width: 1.15rem;
-        height: 1.15rem;
+      .subtle-link:hover,
+      .subtle-link:focus-visible { color: var(--text); }
+      .section-jumps,
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding: 0;
+        margin: 0;
+        list-style: none;
       }
-
-      .home-feed {
-        min-width: 0;
+      .section-jumps a,
+      .tag-list a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2rem;
+        padding: 0 0.15rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
       }
-
-      @media (max-width: 47.9375rem) {
-        main {
-          width: min(82rem, calc(100% - 1.25rem));
-          padding: 2rem 0 3rem;
-        }
-
-        .panel {
-          padding: 1.25rem;
-          border-radius: 1rem;
-        }
-
-        .prose {
-          font-size: 1rem;
-          line-height: 1.65;
-        }
-
-        .prose :global(h2) {
-          font-size: 1.45rem;
-        }
-
-        .prose :global(h3) {
-          font-size: 1.25rem;
-        }
-
-        .prose :global(iframe) {
-          min-height: 16rem;
-        }
-
-        .home-layout {
-          grid-template-columns: 1fr;
-          gap: 2rem;
-        }
-
-        .article-layout {
-          width: 100%;
-        }
-
-        .home-sidebar {
-          position: static;
-          padding-right: 0;
-          padding-bottom: 2rem;
-          border-right: 0;
-          border-bottom: 1px solid var(--border);
-        }
-
-        .home-sidebar :global(.theme-toggle) {
-          width: 5.8rem;
-          height: 2.7rem;
-        }
-
-        .home-sidebar :global(.theme-knob) {
-          width: 2.34rem;
-          height: 2.34rem;
-        }
-
-        :root[data-theme='dark'] .home-sidebar :global(.theme-knob) {
-          transform: translateX(3rem);
-        }
-
-        .home-sidebar :global(.home-links) {
-          margin: 2rem 0;
-        }
+      .section-jumps a:hover,
+      .section-jumps a:focus-visible,
+      .tag-list a:hover,
+      .tag-list a:focus-visible { color: var(--text); border-bottom-color: var(--accent); }
+      .posts { display: grid; gap: 1.75rem; }
+      .pagination {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: center;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line);
+      }
+      .pagination a,
+      .pagination span { color: var(--muted); font-size: 0.95rem; text-decoration: none; }
+      .pagination a:hover,
+      .pagination a:focus-visible { color: var(--accent); }
+      .pagination span[aria-disabled='true'] { opacity: 0.4; }
+      .taxonomy-list { display: grid; gap: 0.75rem; padding-left: 1rem; }
+      .taxonomy-list a { text-decoration: none; }
+      .taxonomy-list a:hover,
+      .taxonomy-list a:focus-visible { color: var(--accent); }
+      .prose {
+        font-family: var(--font-serif);
+        font-size: 1.08rem;
+        line-height: 1.85;
+        color: rgba(20, 17, 15, 0.96);
+      }
+      .prose > :first-child { margin-top: 0; }
+      .prose h2,
+      .prose h3,
+      .prose h4 {
+        margin: 2.4rem 0 1rem;
+        font-family: var(--font-sans);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.2;
+      }
+      .prose h2 { font-size: clamp(1.65rem, 3vw, 2.1rem); }
+      .prose h3 { font-size: 1.25rem; }
+      .prose p,
+      .prose ul,
+      .prose ol,
+      .prose blockquote,
+      .prose pre,
+      .prose table,
+      .prose figure { margin: 1.2rem 0; }
+      .prose blockquote {
+        margin-left: 0;
+        padding-left: 1.2rem;
+        border-left: 2px solid var(--accent);
+        color: var(--muted);
+      }
+      .prose ul,
+      .prose ol { padding-left: 1.4rem; }
+      .prose :global(a) { color: var(--accent); }
+      .prose :global(pre),
+      .prose :global(.astro-code) {
+        overflow-x: auto;
+        padding: 14px;
+        background: #1f1f1f !important;
+        color: #f7f4ef;
+        border-top: 5px solid #2f2f2f;
+      }
+      .prose :global(pre code),
+      .prose :global(.astro-code code) { padding: 0; background: transparent; }
+      .reveal { animation: reveal-up 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+      @keyframes reveal-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { animation: none; } }
+      @media (max-width: 56rem) {
+        .site-header, .site-main, .site-footer { width: min(100vw - 1.5rem, 100%); }
+      }
+      @media (max-width: 40rem) {
+        .site-header-bar { align-items: flex-start; flex-direction: column; padding-bottom: 0.9rem; }
+        .site-nav { gap: 0.75rem 1rem; }
+        .site-main { padding-top: 1.5rem; }
       }
     </style>
   </head>
   <body>
-    {layout === 'article' && <ScrollProgress />}
-    <main>
-      {
-        layout === 'home' ? (
-          <div class="home-layout">
-            <aside class="home-sidebar">
-              <slot name="sidebar" />
-            </aside>
-            <div class="home-feed">
-              <slot />
-            </div>
-          </div>
-        ) : layout === 'article' ? (
-          <div class="article-layout">
-            <div class="article-bar">
-              <a class="article-back" href="/">All Posts</a>
-              <button class="theme-toggle article-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>
-                <span class="theme-knob"></span>
-                <span class="theme-icon theme-icon-moon" aria-hidden="true">🌙</span>
-                <span class="theme-icon theme-icon-sun" aria-hidden="true">☀️</span>
-              </button>
-            </div>
-            <div class="article-feed">
-              <slot />
-            </div>
-          </div>
-        ) : (
-          <>
-            <nav class="nav" aria-label="Primary">
-              <a href="/">Posts</a>
-              <a href="/pages/about/">About</a>
-              <a href="/tags/">Tags</a>
-              <a href="/categories/">Categories</a>
-            </nav>
-            <slot />
-          </>
-        )
-      }
-      {!hideFooter && <SiteFooter variant={footerVariant} />}
+    <header class="site-header">
+      <div class="site-header-bar">
+        <a class="site-brand" href="/">{site.title}</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/">Writing</a>
+          <a href="/pages/about/">About</a>
+          <a href="/tags/">Tags</a>
+        </nav>
+      </div>
+    </header>
+    <main class="site-main" data-layout={layout}>
+      <slot />
     </main>
+    {!hideFooter && <SiteFooter variant={footerVariant} />}
+    <CloudflareAnalytics />
   </body>
 </html>

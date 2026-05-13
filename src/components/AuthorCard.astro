@@ -1,56 +1,51 @@
 ---
-import { site } from '../lib/site';
+import { site, systemPillars } from '../lib/site';
 ---
 
-<section class="panel stack author-card">
-  <span class="eyebrow">About</span>
-  <h2>{site.author.name}</h2>
-  <p>{site.author.summary}</p>
-  <p class="muted">{site.author.location}</p>
-  <ul class="link-list">
+<aside class="section">
+  <div class="hero-grid">
+    <div class="section-stack">
+      <span class="eyebrow">Portrait</span>
+      <div class="split-line">
+        <div>
+          <h2>{site.author.name}</h2>
+          <p class="lede">{site.positioning}</p>
+        </div>
+        <div class="section stack">
+          <p class="muted">Current location</p>
+          <p><strong>{site.author.location}</strong></p>
+          <p class="muted">Primary mode</p>
+          <p>Software engineering with a systems lens.</p>
+        </div>
+      </div>
+    </div>
+    <div class="section stack">
+      <span class="eyebrow">Links</span>
+      <ul class="link-list" aria-label="Author links">
+        {
+          site.author.links.map((link) => (
+            <li>
+              <a href={link.url}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="muted">
+        The work here is organized as a system map: build, write, think, and lead.
+      </p>
+    </div>
+  </div>
+  <div class="pillar-grid" style="margin-top: 1rem;">
     {
-      site.author.links.map((link) => (
-        <li>
-          <a href={link.url} target={link.url.startsWith('http') ? '_blank' : undefined} rel={link.url.startsWith('http') ? 'noreferrer' : undefined}>
-            {link.label}
-          </a>
-        </li>
+      systemPillars.map((pillar) => (
+        <section class="section stack" id={`pillar-${pillar.id}`}>
+          <span class="eyebrow">{pillar.label}</span>
+          <p>{pillar.blurb}</p>
+          <ul class="taxonomy-list">
+            {pillar.prompts.map((prompt) => <li>{prompt}</li>)}
+          </ul>
+        </section>
       ))
     }
-  </ul>
-</section>
-
-<style>
-  .author-card {
-    margin-top: 2rem;
-  }
-
-  .link-list {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .link-list li {
-    list-style: none;
-  }
-
-  .link-list a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2rem;
-    padding: 0.3rem 0.75rem;
-    border: 1px solid rgba(31, 35, 40, 0.1);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    color: #1f2328;
-  }
-
-  .link-list a:hover {
-    color: #2563eb;
-  }
-</style>
+  </div>
+</aside>

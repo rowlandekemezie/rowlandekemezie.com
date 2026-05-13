@@ -1,6 +1,6 @@
 ---
+import AuthorCard from '../../components/AuthorCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import HomeSidebar from '../../components/HomeSidebar.astro';
 import PostCard from '../../components/PostCard.astro';
 import { getPaginatedPosts, getPublishedPosts } from '../../lib/content';
 import { pageRoute, site } from '../../lib/site';
@@ -24,30 +24,51 @@ const title = page === 1 ? site.title : `Page ${page} — ${site.title}`;
 ---
 
 <BaseLayout title={title} description={site.description} layout="home">
-  <HomeSidebar slot="sidebar" current="posts" />
-  <section class="stack">
-    <div class="posts">
-      {
-        pagination.posts.map((post) => (
-          <PostCard post={post} />
-        ))
-      }
-    </div>
-    <nav class="pagination" aria-label="Pagination">
-      {
-        pagination.currentPage > 1 && (
-          <a href={pagination.currentPage === 2 ? '/' : pageRoute(pagination.currentPage - 1)} rel="prev">
-            ← Prev
-          </a>
-        )
-      }
-      {pagination.currentPage === 1 && <span aria-disabled="true">← Prev</span>}
-      {
-        pagination.currentPage < pagination.totalPages && (
-          <a href={pageRoute(pagination.currentPage + 1)} rel="next">Next →</a>
-        )
-      }
-      {pagination.currentPage === pagination.totalPages && <span aria-disabled="true">Next →</span>}
-    </nav>
-  </section>
+  <div class="page-flow grid-rule">
+    <section class="archive-grid">
+      <div>
+        <div class="section-header reveal">
+          <span class="section-label">Archive</span>
+          <h1 class="section-title archive-title">More notebook entries.</h1>
+          <p class="section-blurb">
+            Same reading-first structure, just a little deeper in the archive.
+            The notes stay lightweight and easy to scan.
+          </p>
+        </div>
+
+        <div class="archive-list">
+          {pagination.posts.map((post) => <PostCard post={post} />)}
+        </div>
+
+        <nav class="pagination" aria-label="Pagination">
+          {
+            pagination.currentPage > 1 ? (
+              <a href={pagination.currentPage === 2 ? '/' : pageRoute(pagination.currentPage - 1)} rel="prev">
+                Newer notes
+              </a>
+            ) : (
+              <span aria-disabled="true">Newer notes</span>
+            )
+          }
+          {
+            pagination.currentPage < pagination.totalPages ? (
+              <a href={pageRoute(pagination.currentPage + 1)} rel="next">Older notes</a>
+            ) : (
+              <span aria-disabled="true">Older notes</span>
+            )
+          }
+        </nav>
+      </div>
+
+      <div class="section-note reveal reveal-delay">
+        <AuthorCard variant="compact" />
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .archive-title {
+    font-size: clamp(2.1rem, 1.75rem + 1.3vw, 3rem);
+  }
+</style>

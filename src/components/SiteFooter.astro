@@ -1,154 +1,38 @@
 ---
-import { aboutRoute, site } from '../lib/site';
-
-interface Props {
-  variant?: 'default' | 'article';
-}
-
-const { variant = 'default' } = Astro.props;
-
-function icon(label: string) {
-  if (label === 'Twitter') {
-    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 7.2c.8-.1 1.5-.5 2.1-1.1-.3.9-.9 1.6-1.7 2.1v.5c0 4.8-3.7 10.4-10.4 10.4-2.1 0-4-.6-5.6-1.5h.9c1.7 0 3.3-.6 4.5-1.6-1.6 0-2.9-1.1-3.4-2.5h.6c.3 0 .7 0 1-.1-1.7-.3-3-1.8-3-3.6v-.1c.5.3 1.1.5 1.7.5-1-.7-1.7-1.9-1.7-3.2 0-.7.2-1.4.5-2 1.9 2.4 4.8 3.9 8 4-.1-.3-.1-.6-.1-.9 0-2.1 1.7-3.8 3.8-3.8 1.1 0 2.1.5 2.8 1.2Z"/></svg>';
-  }
-
-  if (label === 'GitHub') {
-    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.6.5.5 5.7.5 12.1c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.7 3.3 1.9.1-.7.4-1.2.7-1.5-2.5-.3-5.2-1.3-5.2-5.7 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1 .8 2.1v3.1c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.4.5 12 .5Z"/></svg>';
-  }
-
-  if (label === 'Email') {
-    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5.5h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1Zm0 2v.2l9 6.3 9-6.3v-.2H3Zm18 9v-6.3l-8.4 5.9a1 1 0 0 1-1.2 0L3 10.2v6.3h18Z"/></svg>';
-  }
-
-  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 18.5A1.5 1.5 0 1 1 6 21.5A1.5 1.5 0 0 1 6 18.5Zm-1.5-7a8 8 0 0 1 8 8h-2a6 6 0 0 0-6-6v-2Zm0-4a12 12 0 0 1 12 12h-2a10 10 0 0 0-10-10v-2Z"/></svg>';
-}
+import { aboutRoute, site, systemPillars } from '../lib/site';
 ---
 
-{
-  variant === 'article' ? (
-    <footer class="site-footer site-footer-article">
-      <div class="site-footer-wrapper">
-        <!-- <div class="site-footer-subscribe">
-          <SubscribeModal />
-        </div> -->
-        <div class="site-footer-meta">
-          <ul class="site-footer-socials" aria-label="Social links">
-            {
-              site.author.links.map((link) => (
-                <li>
-                  <a
-                    href={link.url}
-                    target={link.url.startsWith('http') ? '_blank' : undefined}
-                    rel={link.url.startsWith('http') ? 'noreferrer' : undefined}
-                    aria-label={link.label}
-                    title={link.label}
-                    set:html={icon(link.label)}
-                  />
-                </li>
-              ))
-            }
-          </ul>
-          <p class="site-footer-copyright">© 2021 rowlandekemezie</p>
-        </div>
-      </div>
-    </footer>
-  ) : (
-    <footer class="site-footer muted">
-      <p>{site.titleAlt}</p>
-      <p>
-        <a href="/">Posts</a> · <a href={aboutRoute()}>About</a> · <a href="/tags/">Tags</a> · <a href="/categories/">Categories</a>
+<footer class="section" style="margin-top: 1.5rem;">
+  <div class="grid-two">
+    <div class="section-stack">
+      <span class="eyebrow">System close</span>
+      <h2 style="margin-bottom: 0.6rem;">A minimal portfolio, organized by how the work actually happens.</h2>
+      <p class="lede" style="font-size: 1rem;">
+        The surface stays spare on purpose: fewer flourishes, clearer signals, and an archive that keeps writing and execution in the same map.
       </p>
-    </footer>
-  )
-}
-
-<style>
-  .site-footer-article {
-    margin-top: 4.375rem;
-    padding: 0 0 3.25rem;
-    color: #fff;
-    background: #141618;
-  }
-
-  .site-footer-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: 0 auto;
-  }
-
-  .site-footer-subscribe {
-    margin-top: -2.5rem;
-    margin-bottom: 3.25rem;
-  }
-
-  .site-footer-meta {
-    align-self: center;
-  }
-
-  .site-footer-socials {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    flex-grow: 0;
-    flex-shrink: 0;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .site-footer-socials li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.1875rem;
-    height: 2.1875rem;
-    margin: 0.25rem;
-    border: 1px solid #dddfe2;
-    border-radius: 50%;
-  }
-
-  .site-footer-socials a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    opacity: 0.6;
-    text-decoration: none;
-  }
-
-  .site-footer-socials a:hover,
-  .site-footer-socials a:focus-visible {
-    color: #b15e09;
-  }
-
-  .site-footer-socials a :global(svg) {
-    width: 1rem;
-    height: 1rem;
-    display: block;
-    flex: 0 0 auto;
-  }
-
-  .site-footer-copyright {
-    color: #a2aab2;
-    font-size: 0.875rem;
-    margin: 0;
-  }
-
-  @media screen and (min-width: 685px) {
-    .site-footer-wrapper {
-      flex-direction: row;
-      justify-content: space-between;
-      max-width: 40rem;
-    }
-
-    .site-footer-meta {
-      align-self: center;
-    }
-
-    .site-footer-socials {
-      justify-content: flex-start;
-      margin: 0.625rem -0.1875rem;
-    }
-  }
-</style>
+      <div class="pillars-nav" style="margin-top: 1rem;">
+        {systemPillars.map((pillar) => <a href={`/#${pillar.id}`}>{pillar.label}</a>)}
+      </div>
+    </div>
+    <div class="section stack">
+      <span class="eyebrow">Navigate</span>
+      <ul class="link-list" aria-label="Footer links">
+        <li><a href="/">Map</a></li>
+        <li><a href="/page/1/">Archive</a></li>
+        <li><a href={aboutRoute()}>About</a></li>
+        <li><a href="/tags/">Tags</a></li>
+        <li><a href="/categories/">Categories</a></li>
+      </ul>
+      <ul class="link-list" aria-label="Social links">
+        {
+          site.author.links.map((link) => (
+            <li>
+              <a href={link.url}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="muted" style="margin-bottom: 0;">{site.titleAlt}</p>
+    </div>
+  </div>
+</footer>

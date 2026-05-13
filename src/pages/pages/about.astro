@@ -1,51 +1,71 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { render } from 'astro:content';
-import { getPageBySlug } from '../../lib/content';
-import { site } from '../../lib/site';
-
-const page = await getPageBySlug('about');
-
-if (!page) {
-  throw new Error('Missing content/pages/about.md');
-}
-
-const { Content } = await render(page);
+import { site, systemPillars } from '../../lib/site';
 ---
 
-<BaseLayout title={`About — ${site.title}`} description={site.description} hideFooter={true}>
-  <section class="about-page stack">
-    <h1>{page.data.title}</h1>
-    <div class="prose">
-      <Content />
+<BaseLayout title={`About — ${site.title}`} description={site.description}>
+  <section class="section">
+    <div class="hero-grid">
+      <div class="section-stack">
+        <span class="eyebrow">About</span>
+        <h1 style="font-size: clamp(2.3rem, 5vw, 4.6rem);">{site.author.name}</h1>
+        <p class="lede">
+          I work at the intersection of software, learning, and human systems. The goal is not just
+          to ship code, but to build clearer loops around thinking, execution, and feedback.
+        </p>
+      </div>
+      <aside class="section stack">
+        <span class="eyebrow">Coordinates</span>
+        <dl>
+          <dt>Location</dt>
+          <dd>{site.author.location}</dd>
+        </dl>
+        <dl>
+          <dt>Best known for</dt>
+          <dd>Systems thinking applied to software, writing, and team-level clarity.</dd>
+        </dl>
+        <dl>
+          <dt>Contact</dt>
+          <dd><a href={`mailto:${site.author.email}`}>{site.author.email}</a></dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="eyebrow">The four systems</span>
+    <div class="pillar-grid">
+      {
+        systemPillars.map((pillar) => (
+          <section class="section stack">
+            <h2 style="font-size: 1.35rem;">{pillar.label}</h2>
+            <p>{pillar.blurb}</p>
+            <ul class="taxonomy-list">
+              {pillar.prompts.map((prompt) => <li>{prompt}</li>)}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="split-line">
+      <div class="section stack">
+        <span class="eyebrow">How I work</span>
+        <ul class="taxonomy-list">
+          <li>Prefer clear structures over ornamental complexity.</li>
+          <li>Use writing to make technical decisions legible.</li>
+          <li>Care about the human systems around software, not only the code.</li>
+        </ul>
+      </div>
+      <div class="section stack">
+        <span class="eyebrow">What this site is for</span>
+        <p class="muted">
+          This portfolio is not split into a polished work page and a separate blog. It treats notes,
+          essays, and shipped thinking as one connected body of work.
+        </p>
+      </div>
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .about-page {
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  .about-page h1 {
-    text-align: center;
-    font-size: clamp(2.2rem, 5vw, 3.2rem);
-    letter-spacing: -0.05em;
-  }
-
-  .about-page .prose {
-    font-size: 1.15rem;
-    line-height: 1.8;
-  }
-
-  .about-page .prose :global(center) {
-    margin-bottom: 2rem;
-  }
-
-  .about-page .prose :global(center img) {
-    width: 18rem;
-    max-width: 100%;
-    border-radius: 999px;
-  }
-</style>
