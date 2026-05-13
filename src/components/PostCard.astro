@@ -1,0 +1,94 @@
+---
+import type { PostEntry } from '../lib/content';
+import { formatPostMonthYear, getPostExcerpt, getPostPath } from '../lib/content';
+
+interface Props {
+  post: PostEntry;
+  variant?: 'essay' | 'case-study';
+}
+
+const { post, variant = 'essay' } = Astro.props;
+const excerpt = post.data.description ?? getPostExcerpt(post, variant === 'case-study' ? 150 : 185);
+---
+
+<article class:list={['post-card', `post-card-${variant}`, 'reveal']}>
+  <p class="post-card-meta">
+    <span>{formatPostMonthYear(post.data.date).toUpperCase()}</span>
+    {post.data.category && <span>{post.data.category}</span>}
+  </p>
+  <h2 class="post-card-title">
+    <a href={getPostPath(post)}>{post.data.title}</a>
+  </h2>
+  <p class="post-card-excerpt">{excerpt}</p>
+  <p class="post-card-read">
+    <a href={getPostPath(post)}>{variant === 'case-study' ? 'Read case study' : 'Read essay'}</a>
+  </p>
+</article>
+
+<style>
+  .post-card {
+    padding: 1.4rem 0 1.55rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .post-card-case-study {
+    padding-bottom: 1.35rem;
+  }
+
+  .post-card-meta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 0 0 0.9rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .post-card-meta span:last-child {
+    color: var(--accent);
+  }
+
+  .post-card-title {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1.45rem, 2.2vw, 2rem);
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+
+  .post-card-title a {
+    text-decoration: none;
+  }
+
+  .post-card-title a:hover,
+  .post-card-title a:focus-visible {
+    color: var(--accent);
+  }
+
+  .post-card-excerpt {
+    max-width: 42rem;
+    margin: 1rem 0 0;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .post-card-read {
+    margin: 1rem 0 0;
+  }
+
+  .post-card-read a {
+    color: var(--accent);
+    font-size: 0.96rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .post-card-read a:hover,
+  .post-card-read a:focus-visible {
+    text-decoration: underline;
+  }
+</style>
