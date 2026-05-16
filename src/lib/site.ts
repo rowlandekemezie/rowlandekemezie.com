@@ -1,7 +1,7 @@
 export const site = {
   author: {
     avatar: 'https://avatars2.githubusercontent.com/u/15085641?s=300&v=4',
-    email: 'rowlandresource@gmail.com',
+    email: 'hello@rowlandekemezie.com',
     github: 'rowlandekemezie',
     links: [
       {
@@ -14,21 +14,21 @@ export const site = {
       },
       {
         label: 'Email',
-        url: 'mailto:rowland.ekemezie@gmail.com',
+        url: 'mailto:hello@rowlandekemezie.com',
       },
       {
         label: 'RSS',
         url: '/rss.xml',
       },
     ],
-    location: 'Lagos, Nigeria',
+    location: 'Vancouver, BC, Canada',
     name: 'Rowland I. Ekemezie',
     summary:
-      'Automated systems enthusiast, addictive learner, human capital development advocate, writer, and software engineer.',
+      'Software engineer, writer, and systems thinker focused on reliable product systems, technical clarity, and high-leverage team practices.',
     twitter: 'rowlandekemezie',
   },
   description:
-    "Hi I'm Rowland. I'm an Automated systems enthusiast, human capital development advocate; Software Engineer and everything in between",
+    "Hi, I'm Rowland. I build reliable software systems, write about engineering practice, and care deeply about the human systems that shape strong teams.",
   focus: [
     'Software engineering',
     'Technical writing',
@@ -36,7 +36,7 @@ export const site = {
   ],
   logo: '/logos/logo-1024.png',
   positioning:
-    'Software engineer, writer, and systems thinker building calmer systems, stronger teams, and clearer technical communication.',
+    'Engineering leader, systems builder, and product-minded technologist building software and teams for real-world complexity.',
   practiceAreas: [
     {
       title: 'Build calmer software systems',

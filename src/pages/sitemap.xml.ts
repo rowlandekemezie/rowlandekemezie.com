@@ -28,7 +28,7 @@ export const GET: APIRoute = async ({ site: contextSite }) => {
   const latestPostDate = posts[0] ? parsePostDate(posts[0].data.date) : new Date();
   const tags = groupPostsByTag(posts);
   const categories = groupPostsByCategory(posts);
-  const pagination = getPaginatedPosts(posts, 1, 4);
+  const pagination = getPaginatedPosts(posts, 1, 5);
 
   const entries = [
     { path: '/', lastmod: latestPostDate },

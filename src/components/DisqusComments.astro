@@ -18,11 +18,25 @@ const configScript = `
 
 const embedScript = `
   (function () {
+    const applyConfig = function () {
+      this.page.url = ${JSON.stringify(url)};
+      this.page.identifier = ${JSON.stringify(identifier)};
+      this.page.title = ${JSON.stringify(title)};
+    };
+
     const d = document;
     const s = d.createElement('script');
     s.src = 'https://${shortname}.disqus.com/embed.js';
     s.setAttribute('data-timestamp', String(+new Date()));
     (d.head || d.body).appendChild(s);
+
+    window.addEventListener('rowland:theme-change', () => {
+      if (!window.DISQUS) return;
+      window.DISQUS.reset({
+        reload: true,
+        config: applyConfig
+      });
+    });
   })();
 `;
 ---
@@ -34,3 +48,9 @@ const embedScript = `
   <script is:inline set:html={embedScript}></script>
   <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
 </section>
+
+<style>
+  #disqus_thread {
+    color: var(--text);
+  }
+</style>

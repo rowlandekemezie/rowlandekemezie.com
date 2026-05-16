@@ -1,166 +1,33 @@
 ---
-import AuthorCard from '../components/AuthorCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeSidebar from '../components/HomeSidebar.astro';
 import PostCard from '../components/PostCard.astro';
-import { getPaginatedPosts, getPublishedPosts, getPostPath } from '../lib/content';
+import { getPaginatedPosts, getPublishedPosts } from '../lib/content';
 import { pageRoute, site } from '../lib/site';
 
 const allPosts = await getPublishedPosts();
-const pagination = getPaginatedPosts(allPosts, 1, 4);
-const selectedEssays = allPosts.slice(0, 3);
-const selectedWork = allPosts.slice(3, 6);
-const latestEssay = selectedEssays[0];
+const pagination = getPaginatedPosts(allPosts, 1, 5);
 ---
 
 <BaseLayout title={site.title} description={site.description} layout="home">
-  <div class="page-flow grid-rule">
-    <section class="hero-grid section-anchor" id="top">
-      <div class="hero-intro reveal">
-        <span class="eyebrow">Calm editorial notebook</span>
-        <h1>{site.positioning}</h1>
-        <p class="lede">
-          A public notebook of essays, case studies, and working notes on software,
-          communication, and the systems that make teams easier to trust.
-        </p>
-        <div class="small-meta">
-          <span>{site.author.location}</span>
-          <span>Writing-first portfolio</span>
-          <span>Minimal by design</span>
-        </div>
-        <div class="hero-note">
-          <p><strong>Current focus</strong></p>
-          <p>
-            Building clearer engineering systems, writing better technical notes,
-            and turning day-to-day product work into reusable judgment.
-          </p>
-        </div>
+  <div class="home-layout">
+    <aside class="home-sidebar reveal">
+      <HomeSidebar current="posts" />
+    </aside>
+
+    <section class="home-feed reveal reveal-delay">
+      <div class="home-feed-list">
+        {pagination.posts.map((post) => <PostCard post={post} />)}
       </div>
 
-      <div class="reveal reveal-delay">
-        <AuthorCard />
-      </div>
-    </section>
-
-    <section class="home-section section-anchor" id="selected-essays">
-      <div>
-        <div class="section-header reveal">
-          <span class="section-label">Selected essays</span>
-          <h2 class="section-title">Writing as the clearest proof of technical taste.</h2>
-          <p class="section-blurb">
-            Recent essays stay foregrounded here. The archive is still available,
-            but the homepage reads more like a notebook index than a feed.
-          </p>
-        </div>
-
-        {
-          latestEssay && (
-            <article class="micro-panel reveal reveal-delay">
-              <p class="small-meta">
-                <span>Latest note</span>
-                {latestEssay.data.category && <span>{latestEssay.data.category}</span>}
-              </p>
-              <h3 class="feature-title">
-                <a href={getPostPath(latestEssay)}>{latestEssay.data.title}</a>
-              </h3>
-              <p>{latestEssay.data.description}</p>
-              <p><a class="list-link" href={getPostPath(latestEssay)}>Open notebook entry</a></p>
-            </article>
-          )
-        }
-
-        <div class="essay-list">
-          {selectedEssays.map((post) => <PostCard post={post} />)}
-        </div>
-
+      <nav class="pagination" aria-label="Pagination">
+        <span aria-disabled="true">← Prev</span>
         {
           pagination.totalPages > 1 && (
-            <nav class="pagination" aria-label="Pagination">
-              <span aria-disabled="true">Earlier</span>
-              <a href={pageRoute(2)} rel="next">More notes</a>
-            </nav>
+            <a href={pageRoute(2)} rel="next">Next →</a>
           )
         }
-      </div>
-
-      <div class="section-note reveal reveal-delay">
-        <p><strong>How to browse</strong></p>
-        <p>
-          Start with the latest essay, follow a tag if a thread is interesting,
-          then use the archive like a notebook rather than a timeline.
-        </p>
-      </div>
-    </section>
-
-    <section class="home-section section-anchor" id="selected-work">
-      <div>
-        <div class="section-header reveal">
-          <span class="section-label">Selected work</span>
-          <h2 class="section-title">Case-study shaped writing about how the work gets done.</h2>
-          <p class="section-blurb">
-            These entries are positioned as project thinking: quality loops, review habits,
-            front-end care, and the small decisions that make software steadier.
-          </p>
-        </div>
-
-        <div class="work-list">
-          {selectedWork.map((post) => <PostCard post={post} variant="case-study" />)}
-        </div>
-      </div>
-
-      <div class="section-note reveal reveal-delay">
-        <p><strong>Why this structure</strong></p>
-        <p>
-          The site is intentionally spare. The writing does the explanatory work;
-          the layout simply keeps it legible and easy to return to.
-        </p>
-      </div>
-    </section>
-
-    <section class="home-section section-anchor" id="now">
-      <div>
-        <div class="section-header reveal">
-          <span class="section-label">Now</span>
-          <h2 class="section-title">What the notebook is orbiting right now.</h2>
-        </div>
-
-        <div class="micro-panel reveal reveal-delay">
-          <ul class="now-list">
-            {site.focus.map((item) => <li>{item}</li>)}
-          </ul>
-        </div>
-      </div>
-
-      <div class="section-note reveal reveal-delay-2">
-        <p><strong>Compact bio</strong></p>
-        <p>
-          Rowland works at the intersection of software engineering, writing,
-          and human systems. The throughline is clarity: fewer surprises, better notes,
-          stronger teams.
-        </p>
-      </div>
+      </nav>
     </section>
   </div>
 </BaseLayout>
-
-<style>
-  .feature-title {
-    margin: 0.45rem 0 0;
-    font-family: var(--font-serif);
-    font-size: clamp(1.55rem, 1.4rem + 0.55vw, 1.9rem);
-    line-height: 1.08;
-    letter-spacing: -0.04em;
-  }
-
-  .feature-title + p {
-    margin-top: 0.8rem;
-  }
-
-  .now-list {
-    margin: 0;
-    padding-left: 1rem;
-  }
-
-  .now-list li + li {
-    margin-top: 0.45rem;
-  }
-</style>

@@ -1,6 +1,5 @@
 ---
 import { render } from 'astro:content';
-import AuthorCard from '../../components/AuthorCard.astro';
 import DisqusComments from '../../components/DisqusComments.astro';
 import PostTags from '../../components/PostTags.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -57,43 +56,59 @@ const articleStructuredData = {
   structuredData={articleStructuredData}
 >
   <div class="page-flow">
-    <section class="article-shell">
-      <div>
-        <div class="article-head reveal">
-          <span class="eyebrow">{post.data.category ?? 'Essay'}</span>
-          <h1>{post.data.title}</h1>
-          <p class="article-lede">{getPostExcerpt(post, 220)}</p>
-          <p class="article-meta">
-            <span>{formatPostDate(post.data.date)}</span>
-            <span>{Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220))} min read</span>
-          </p>
-        </div>
-
-        {post.data.image && <figure class="article-cover reveal reveal-delay"><img src={post.data.image.src} alt="" loading="eager" /></figure>}
-
-        <article class="prose reveal reveal-delay-2">
-          <Content />
-        </article>
-
-        <div class="micro-panel" style="margin-top: 2rem;">
-          <p><strong>Tags</strong></p>
-          <PostTags tags={post.data.tags} />
-        </div>
-
-        <section style="margin-top: 3rem;">
-          <DisqusComments
-            identifier={getPostIdentifier(post)}
-            title={post.data.title}
-            url={canonical}
-          />
-        </section>
+    <section>
+      <div class="article-head reveal">
+        <span class="eyebrow">{post.data.category ?? 'Essay'}</span>
+        <h1>{post.data.title}</h1>
+        <p class="article-lede">{getPostExcerpt(post, 220)}</p>
+        <p class="article-meta">
+          <span>{formatPostDate(post.data.date)}</span>
+          <span>{Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220))} min read</span>
+        </p>
       </div>
 
-      <aside class="article-rail reveal reveal-delay">
-        <p class="eyebrow">Notebook context</p>
-        <a class="list-link" href="/">Back to writing</a>
-        <AuthorCard variant="compact" />
-      </aside>
+      <article class="prose reveal reveal-delay-2">
+        <Content />
+      </article>
+
+      <section class="post-tags-section reveal reveal-delay-2">
+        <PostTags tags={post.data.tags} />
+      </section>
+
+      <section style="margin-top: 3rem;">
+        <DisqusComments
+          identifier={getPostIdentifier(post)}
+          title={post.data.title}
+          url={canonical}
+        />
+      </section>
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .post-tags-section {
+    margin-top: 2rem;
+  }
+
+  .post-tags-section :global(.tag-list) {
+    gap: 0.5rem;
+  }
+
+  .post-tags-section :global(.tag-list a) {
+    min-height: 2rem;
+    padding: 0 0.9375rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    line-height: 2rem;
+  }
+
+  .post-tags-section :global(.tag-list a:hover),
+  .post-tags-section :global(.tag-list a:focus-visible) {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+</style>

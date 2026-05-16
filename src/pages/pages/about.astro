@@ -1,28 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { site, systemPillars } from '../../lib/site';
+import { site } from '../../lib/site';
 ---
 
 <BaseLayout title={`About — ${site.title}`} description={site.description}>
   <section class="section">
-    <div class="hero-grid">
+    <div class="about-shell">
       <div class="section-stack">
         <span class="eyebrow">About</span>
-        <h1 style="font-size: clamp(2.3rem, 5vw, 4.6rem);">{site.author.name}</h1>
-        <p class="lede">
-          I work at the intersection of software, learning, and human systems. The goal is not just
-          to ship code, but to build clearer loops around thinking, execution, and feedback.
-        </p>
+        <h1>{site.author.name}</h1>
+        <p class="lede">{site.positioning}</p>
       </div>
       <aside class="section stack">
-        <span class="eyebrow">Coordinates</span>
+        <span class="eyebrow">Details</span>
         <dl>
           <dt>Location</dt>
           <dd>{site.author.location}</dd>
-        </dl>
-        <dl>
-          <dt>Best known for</dt>
-          <dd>Systems thinking applied to software, writing, and team-level clarity.</dd>
         </dl>
         <dl>
           <dt>Contact</dt>
@@ -33,39 +26,51 @@ import { site, systemPillars } from '../../lib/site';
   </section>
 
   <section class="section">
-    <span class="eyebrow">The four systems</span>
-    <div class="pillar-grid">
-      {
-        systemPillars.map((pillar) => (
-          <section class="section stack">
-            <h2 style="font-size: 1.35rem;">{pillar.label}</h2>
-            <p>{pillar.blurb}</p>
-            <ul class="taxonomy-list">
-              {pillar.prompts.map((prompt) => <li>{prompt}</li>)}
-            </ul>
-          </section>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="split-line">
+    <div class="about-grid">
       <div class="section stack">
         <span class="eyebrow">How I work</span>
         <ul class="taxonomy-list">
-          <li>Prefer clear structures over ornamental complexity.</li>
-          <li>Use writing to make technical decisions legible.</li>
-          <li>Care about the human systems around software, not only the code.</li>
+          <li>Turn ambiguous business problems into maintainable software with clear architecture and explicit tradeoffs.</li>
+          <li>Build systems that are boring in production, elegant under the hood, and easy for teams to operate.</li>
+          <li>Lead distributed teams with ownership, clarity, and leverage over busyness.</li>
         </ul>
       </div>
       <div class="section stack">
-        <span class="eyebrow">What this site is for</span>
-        <p class="muted">
-          This portfolio is not split into a polished work page and a separate blog. It treats notes,
-          essays, and shipped thinking as one connected body of work.
-        </p>
+        <span class="eyebrow">What I write about</span>
+        <ul class="taxonomy-list">
+          <li>Backend architecture, multi-tenant systems, and developer-friendly design.</li>
+          <li>Financial infrastructure across payroll, accounting, and payments.</li>
+          <li>AI-enabled operations, workflow automation, and engineering leadership.</li>
+        </ul>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .about-shell {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .about-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .about-shell h1 {
+    font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+    line-height: 1.05;
+  }
+
+  @media (min-width: 56rem) {
+    .about-shell {
+      grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 0.9fr);
+      align-items: start;
+    }
+
+    .about-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
