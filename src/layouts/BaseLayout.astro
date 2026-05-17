@@ -744,10 +744,10 @@ const jsonLd = JSON.stringify(
       body.dark .prose .astro-code {
         border-top-color: #4a5563;
       }
-      .reveal { animation: reveal-up 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+      .reveal { animation: reveal-up 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; will-change: transform; }
       .reveal-delay { animation-delay: 100ms; }
       .reveal-delay-2 { animation-delay: 180ms; }
-      @keyframes reveal-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes reveal-up { from { transform: translateY(18px); } to { transform: translateY(0); } }
       @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { animation: none; } }
       .dev-mode .reveal {
         animation: none;
