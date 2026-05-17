@@ -1,4 +1,4 @@
-name: Astro CI (Ok)
+name: Astro CI
 
 on:
   pull_request:
