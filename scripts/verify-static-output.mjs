@@ -47,15 +47,15 @@ const robots = readFileSync(resolve(distDir, 'robots.txt'), 'utf8');
 const builtOutput = [home, pageOne, pageTwo, about, topThirty, percy, rss, sitemap, robots].join('\n');
 
 const assertions = [
-  ['Home page includes the favicon asset path', home.includes('/logos/logo-48.png')],
+  ['Home page includes the favicon asset path', home.includes('/icons/icon-48x48.png')],
   ['Home page does not reference a missing rowland.jpeg asset', !home.includes('/rowland.jpeg')],
   ['Home page links to the imported GitStart article', home.includes('/posts/top-30-things-i-learnt-at-gitstart/')],
   ['Home page does not leak raw frontmatter image paths', !home.includes('src="./images/')],
   ['Home page includes generated Astro asset paths for cards', home.includes('/_astro/')],
   ['Page 1 archive includes pagination navigation', pageOne.includes('aria-label="Pagination"')],
   ['Page 2 archive renders the previous-page navigation', pageTwo.includes('← Prev')],
-  ['About page is published under /pages/about/', about.includes('Meet Rowland I. Ekemezie')],
-  ['About page preserves the real contact email', about.includes('rowlandresource@gmail.com')],
+  ['About page is published under /pages/about/', about.includes('Engineering leader, systems builder, and product-minded technologist')],
+  ['About page preserves the real contact email', about.includes('hello@rowlandekemezie.com')],
   ['Top 30 article exposes article Open Graph metadata', topThirty.includes('<meta property="og:type" content="article">')],
   ['Top 30 article exposes BlogPosting JSON-LD', topThirty.includes('"@type":"BlogPosting"')],
   ['Top 30 article uses the canonical imported post URL', topThirty.includes('https://rowlandekemezie.com/posts/top-30-things-i-learnt-at-gitstart/')],
