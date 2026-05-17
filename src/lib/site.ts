@@ -1,6 +1,5 @@
 export const site = {
   author: {
-    avatar: 'https://avatars2.githubusercontent.com/u/15085641?s=300&v=4',
     email: 'hello@rowlandekemezie.com',
     github: 'rowlandekemezie',
     links: [

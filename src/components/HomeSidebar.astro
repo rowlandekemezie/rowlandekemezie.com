@@ -1,4 +1,5 @@
 ---
+import avatar from '../assets/rowland-avatar.jpg';
 import { site } from '../lib/site';
 
 interface Props {
@@ -26,7 +27,15 @@ function icon(label: string) {
 
 <section class="stack">
   <div class="sidebar-top">
-    <img class="avatar" src={site.author.avatar} alt={site.author.name} loading="eager" />
+    <img
+      class="avatar"
+      src={avatar.src}
+      alt={site.author.name}
+      width="300"
+      height="300"
+      loading="eager"
+      decoding="async"
+    />
     <button class="theme-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>
       <span class="theme-knob"></span>
       <span class="theme-icon theme-icon-moon" aria-hidden="true">🌙</span>

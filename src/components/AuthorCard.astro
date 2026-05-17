@@ -1,14 +1,14 @@
 ---
-import { Image } from 'astro:assets';
+import avatar from '../assets/rowland-avatar.jpg';
 import { site } from '../lib/site';
 ---
 
 <aside class="paper">
   <div class="paper-inner section-stack">
     <span class="eyebrow">Notebook keeper</span>
-    <Image
+    <img
       class="author-avatar"
-      src={site.author.avatar}
+      src={avatar.src}
       alt={site.author.name}
       width={300}
       height={300}
