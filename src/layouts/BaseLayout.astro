@@ -749,6 +749,9 @@ const jsonLd = JSON.stringify(
       .reveal-delay-2 { animation-delay: 180ms; }
       @keyframes reveal-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
       @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { animation: none; } }
+      .dev-mode .reveal {
+        animation: none;
+      }
       @media (max-width: 70rem) {
         .hero-grid,
         .archive-grid,
@@ -787,7 +790,7 @@ const jsonLd = JSON.stringify(
       }
     </style>
   </head>
-  <body>
+  <body class:list={{ 'dev-mode': import.meta.env.DEV }}>
     <ScrollProgress />
     {layout !== 'home' && (
       <header class="site-header">

@@ -5,6 +5,9 @@ import rehypeSlug from 'rehype-slug';
 
 export default defineConfig({
   integrations: [mdx()],
+  devToolbar: {
+    enabled: false,
+  },
   image: {
     service: passthroughImageService(),
   },
