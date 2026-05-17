@@ -1,6 +1,7 @@
 {
   "version": "1.0.0",
   "name": "rowland-i-ekemezie",
+  "packageManager": "yarn@1.22.22",
   "description": "Personal blog for Rowland Ekemezie",
   "main": "n/a",
   "scripts": {
