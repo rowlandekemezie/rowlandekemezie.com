@@ -1,5 +1,8 @@
 {
-  "name": "rowlandekemezie-com",
+  "name": "rowlandekemezie",
   "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-05-02"
+  "compatibility_date": "2026-05-02",
+  "observability": {
+    "enabled": true
+  }
 }

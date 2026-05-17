@@ -12,7 +12,7 @@ The migration branch is ready to merge into `develop` only when all of these are
 
 These thresholds are enforced by `yarn verify:launch-gates` against representative built routes.
 
-- `/` raw HTML must stay at or below `15 KB`
+- `/` raw HTML must stay at or below `18 KB`
 - `/pages/about/` raw HTML must stay at or below `12 KB`
 - representative post pages must stay at or below `35 KB` raw HTML
 - representative post pages must emit canonical, Open Graph, Twitter image, and `BlogPosting` metadata

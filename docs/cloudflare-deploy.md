@@ -9,7 +9,7 @@ Phase 1 targets a static Astro deploy on Cloudflare Pages.
 - Output directory: `dist`
 - Production domain: `rowlandekemezie.com`
 - Production analytics: Cloudflare Web Analytics
-- Preview model: Git-connected preview deployments for the migration branch and PRs
+- Preview model: Git-connected preview deployments for the migration branch, `feat/*`, `concept/*`, and PRs
 
 ## Current production state
 
@@ -28,7 +28,7 @@ As verified on `2026-05-03`, the live site is still served by Netlify.
 - Until the Astro migration is complete, keep the long-lived migration work on `feat/astro-migration-foundation`.
 - Keep `develop` untouched as the current integration branch.
 - Attach the Pages project to this repository.
-- Use preview deployments from `feat/astro-migration-foundation` while parity work continues.
+- Use preview deployments from `feat/astro-migration-foundation`, task branches under `feat/*`, and exploratory branches under `concept/*` while parity work continues.
 - When the migration is complete, merge the migration branch into `develop` and switch the Pages production branch to `develop`.
 
 ## Cloudflare Pages settings
@@ -40,6 +40,7 @@ As verified on `2026-05-03`, the live site is still served by Netlify.
 - Node.js version: `22`
 
 The repo now includes `wrangler.jsonc` so direct `wrangler pages deploy` commands use the same build output contract.
+The repo also includes `.nvmrc` pinned to `22` so local, CI, and Pages builds resolve the same Node major version by default.
 
 ## Headers and caching
 
