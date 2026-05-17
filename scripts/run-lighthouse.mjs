@@ -27,8 +27,20 @@ function formatScore(score) {
   return `${Math.round(score * 100)}`;
 }
 
+function normalizeUrl(input) {
+  if (input.includes('://')) {
+    const parsed = new URL(input);
+    if (!parsed.pathname || parsed.pathname === '') {
+      parsed.pathname = '/';
+    }
+    return parsed.toString();
+  }
+
+  return input;
+}
+
 function main() {
-  const url = process.argv[2] ?? DEFAULT_URL;
+  const url = normalizeUrl(process.argv[2] ?? DEFAULT_URL);
   const chromePath = resolveChromePath();
   const tempDir = mkdtempSync(join(tmpdir(), 'lighthouse-'));
   const outputPath = join(tempDir, 'report.json');
