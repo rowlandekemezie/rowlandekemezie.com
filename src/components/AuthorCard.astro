@@ -6,7 +6,13 @@ import { site } from '../lib/site';
 <aside class="paper">
   <div class="paper-inner section-stack">
     <span class="eyebrow">Notebook keeper</span>
-    <Image class="author-avatar" src={site.author.avatar} alt={site.author.name} />
+    <Image
+      class="author-avatar"
+      src={site.author.avatar}
+      alt={site.author.name}
+      width={300}
+      height={300}
+    />
     <div class="author-copy">
       <h2>{site.author.name}</h2>
       <p class="lede">{site.author.summary}</p>
