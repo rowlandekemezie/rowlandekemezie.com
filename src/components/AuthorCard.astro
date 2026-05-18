@@ -1,0 +1,72 @@
+---
+import avatar from '../assets/rowland-avatar.jpg';
+import { site } from '../lib/site';
+---
+
+<aside class="paper">
+  <div class="paper-inner section-stack">
+    <span class="eyebrow">Notebook keeper</span>
+    <img
+      class="author-avatar"
+      src={avatar.src}
+      alt={site.author.name}
+      width={300}
+      height={300}
+    />
+    <div class="author-copy">
+      <h2>{site.author.name}</h2>
+      <p class="lede">{site.author.summary}</p>
+      <p class="muted">{site.author.location}</p>
+    </div>
+    <div class="annotations">
+      <div class="annotation">
+        <strong>Current lens</strong>
+        Writing about software systems, hiring loops, technical communication, and the small decisions that shape durable engineering practice.
+      </div>
+      <div class="annotation">
+        <strong>How to read this</strong>
+        Start with an essay, follow the tags, then use the archive as a notebook rather than a feed.
+      </div>
+    </div>
+    <ul class="link-list" aria-label="Site links">
+      <li><a href="/page/1/">Essays</a></li>
+      <li><a href="/pages/about/">About</a></li>
+    </ul>
+    <ul class="link-list" aria-label="External links">
+      {
+        site.author.links.map((link) => (
+          <li>
+            <a
+              href={link.url}
+              target={link.url.startsWith('http') ? '_blank' : undefined}
+              rel={link.url.startsWith('http') ? 'noreferrer' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</aside>
+
+<style>
+  .author-avatar {
+    width: 5.5rem;
+    height: 5.5rem;
+    object-fit: cover;
+    border-radius: 999px;
+    border: 1px solid rgba(98, 87, 76, 0.14);
+  }
+
+  .author-copy h2 {
+    margin: 0 0 0.35rem;
+    font-size: 1.7rem;
+    letter-spacing: -0.03em;
+  }
+
+  .author-copy p,
+  .author-copy .lede {
+    margin: 0;
+  }
+</style>

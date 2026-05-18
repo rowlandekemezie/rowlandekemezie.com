@@ -1,0 +1,60 @@
+<button type="button" class="scroll-top-button" data-scroll-top hidden>
+  Scroll to Top
+</button>
+
+<script is:inline>
+  (() => {
+    const init = () => {
+      const button = document.querySelector('[data-scroll-top]');
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      const sync = () => {
+        button.hidden = window.scrollY < 560;
+      };
+
+      button.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      window.addEventListener('scroll', sync, { passive: true });
+      sync();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<style>
+  .scroll-top-button {
+    position: fixed;
+    right: 2rem;
+    bottom: 1.75rem;
+    z-index: 20;
+    color: #fff;
+    background-color: #206aff;
+    padding: 0.8125rem 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 1.25rem;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(32, 106, 255, 0.22);
+  }
+
+  .scroll-top-button:hover,
+  .scroll-top-button:focus-visible {
+    box-shadow: 5px 5px 15px 0 #717c87;
+  }
+
+  @media (max-width: 47.9375rem) {
+    .scroll-top-button {
+      right: 1rem;
+      bottom: 1rem;
+      padding-inline: 0.9rem;
+    }
+  }
+</style>

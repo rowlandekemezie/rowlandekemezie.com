@@ -1,0 +1,37 @@
+name: Astro CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - develop
+      - feat/**
+      - concept/**
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Astro type and content check
+        run: yarn astro:check
+
+      - name: Verify content asset paths
+        run: yarn verify:content-assets
+
+      - name: Build
+        run: yarn build
+
+      - name: Verify generated outputs
+        run: yarn verify:dist

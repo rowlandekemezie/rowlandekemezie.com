@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, groupPostsByTag } from '../../lib/content';
+import { site, tagRoute } from '../../lib/site';
+
+const tags = groupPostsByTag(await getPublishedPosts());
+---
+
+<BaseLayout title={`Tags — ${site.title}`} description={site.description}>
+  <section class="panel stack">
+    <span class="eyebrow">Taxonomy</span>
+    <h1>Tags</h1>
+    <ul class="taxonomy-list">
+      {
+        tags.map(([tag, posts]) => (
+          <li>
+            <a href={tagRoute(tag)}>
+              {tag} ({posts.length})
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

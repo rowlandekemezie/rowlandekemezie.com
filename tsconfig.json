@@ -1,0 +1,12 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "exclude": [
+    "gatsby-config.js",
+    "gatsby-node.js",
+    "data/**",
+    "src/components/Disqus/**",
+    "src/layout/**",
+    "src/templates/**",
+    "tests/**"
+  ]
+}

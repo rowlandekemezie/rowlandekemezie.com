@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeSidebar from '../components/HomeSidebar.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPaginatedPosts, getPublishedPosts } from '../lib/content';
+import { pageRoute, site } from '../lib/site';
+
+const allPosts = await getPublishedPosts();
+const pagination = getPaginatedPosts(allPosts, 1, 5);
+---
+
+<BaseLayout title={site.title} description={site.description} layout="home">
+  <div class="home-layout">
+    <aside class="home-sidebar reveal">
+      <HomeSidebar current="posts" />
+    </aside>
+
+    <section class="home-feed reveal reveal-delay">
+      <div class="home-feed-list">
+        {pagination.posts.map((post) => <PostCard post={post} />)}
+      </div>
+
+      <nav class="pagination" aria-label="Pagination">
+        <span aria-disabled="true">← Prev</span>
+        {
+          pagination.totalPages > 1 && (
+            <a href={pageRoute(2)} rel="next">Next →</a>
+          )
+        }
+      </nav>
+    </section>
+  </div>
+</BaseLayout>

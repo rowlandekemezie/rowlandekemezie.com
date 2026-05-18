@@ -1,0 +1,35 @@
+---
+import PostCard from '../../components/PostCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, groupPostsByTag } from '../../lib/content';
+import { kebabCase, site, tagRoute } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const tags = groupPostsByTag(await getPublishedPosts());
+
+  return tags.map(([tag, posts]) => ({
+    params: { tag: kebabCase(tag) },
+    props: { tag, posts },
+  }));
+}
+
+const { posts, tag } = Astro.props;
+---
+
+<BaseLayout
+  title={`${tag} — ${site.title}`}
+  description={`Posts tagged ${tag}.`}
+  canonical={new URL(tagRoute(tag), site.url).toString()}
+>
+  <section class="panel stack">
+    <span class="eyebrow">Tag</span>
+    <h1>{tag}</h1>
+    <div class="posts">
+      {
+        posts.map((post) => (
+          <PostCard post={post} />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

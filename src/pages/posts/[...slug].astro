@@ -1,0 +1,114 @@
+---
+import { render } from 'astro:content';
+import DisqusComments from '../../components/DisqusComments.astro';
+import PostTags from '../../components/PostTags.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  formatPostDate,
+  getPostExcerpt,
+  getPostIdentifier,
+  getPostPath,
+  getPublishedPosts,
+  parsePostDate,
+} from '../../lib/content';
+import { site, trimSlashes } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+
+  return posts.map((post) => ({
+    params: { slug: trimSlashes(getPostPath(post)).replace(/^posts\//, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const title = `${post.data.title} — ${site.title}`;
+const canonical = new URL(getPostPath(post), site.url).toString();
+const publishedTime = parsePostDate(post.data.date).toISOString();
+const socialImage = post.data.image ? new URL(post.data.image.src, site.url).toString() : undefined;
+const articleStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: getPostExcerpt(post),
+  datePublished: publishedTime,
+  dateModified: publishedTime,
+  author: {
+    '@type': 'Person',
+    name: site.author.name,
+  },
+  mainEntityOfPage: canonical,
+  url: canonical,
+  ...(socialImage ? { image: [socialImage] } : {}),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={getPostExcerpt(post)}
+  canonical={canonical}
+  image={socialImage}
+  layout="article"
+  socialType="article"
+  publishedTime={publishedTime}
+  structuredData={articleStructuredData}
+>
+  <div class="page-flow">
+    <section>
+      <div class="article-head reveal">
+        <span class="eyebrow">{post.data.category ?? 'Essay'}</span>
+        <h1>{post.data.title}</h1>
+        <p class="article-lede">{getPostExcerpt(post, 220)}</p>
+        <p class="article-meta">
+          <span>{formatPostDate(post.data.date)}</span>
+          <span>{Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220))} min read</span>
+        </p>
+      </div>
+
+      <article class="prose reveal reveal-delay-2">
+        <Content />
+      </article>
+
+      <section class="post-tags-section reveal reveal-delay-2">
+        <PostTags tags={post.data.tags} />
+      </section>
+
+      <section style="margin-top: 3rem;">
+        <DisqusComments
+          identifier={getPostIdentifier(post)}
+          title={post.data.title}
+          url={canonical}
+        />
+      </section>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .post-tags-section {
+    margin-top: 2rem;
+  }
+
+  .post-tags-section :global(.tag-list) {
+    gap: 0.5rem;
+  }
+
+  .post-tags-section :global(.tag-list a) {
+    min-height: 2rem;
+    padding: 0 0.9375rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    line-height: 2rem;
+  }
+
+  .post-tags-section :global(.tag-list a:hover),
+  .post-tags-section :global(.tag-list a:focus-visible) {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, groupPostsByCategory } from '../../lib/content';
+import { categoryRoute, site } from '../../lib/site';
+
+const categories = groupPostsByCategory(await getPublishedPosts());
+---
+
+<BaseLayout title={`Categories — ${site.title}`} description={site.description}>
+  <section class="panel stack">
+    <span class="eyebrow">Taxonomy</span>
+    <h1>Categories</h1>
+    <ul class="taxonomy-list">
+      {
+        categories.map(([category, posts]) => (
+          <li>
+            <a href={categoryRoute(category)}>
+              {category} ({posts.length})
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

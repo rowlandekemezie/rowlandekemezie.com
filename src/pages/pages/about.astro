@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../lib/site';
+---
+
+<BaseLayout title={`About — ${site.title}`} description={site.description}>
+  <section class="section">
+    <div class="about-shell">
+      <div class="section-stack">
+        <span class="eyebrow">About</span>
+        <h1>{site.author.name}</h1>
+        <p class="lede">{site.positioning}</p>
+      </div>
+      <aside class="section stack">
+        <span class="eyebrow">Details</span>
+        <dl>
+          <dt>Location</dt>
+          <dd>{site.author.location}</dd>
+        </dl>
+        <dl>
+          <dt>Contact</dt>
+          <dd><a href={`mailto:${site.author.email}`}>{site.author.email}</a></dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="about-grid">
+      <div class="section stack">
+        <span class="eyebrow">How I work</span>
+        <ul class="taxonomy-list">
+          <li>Turn ambiguous business problems into maintainable software with clear architecture and explicit tradeoffs.</li>
+          <li>Build systems that are boring in production, elegant under the hood, and easy for teams to operate.</li>
+          <li>Lead distributed teams with ownership, clarity, and leverage over busyness.</li>
+        </ul>
+      </div>
+      <div class="section stack">
+        <span class="eyebrow">What I write about</span>
+        <ul class="taxonomy-list">
+          <li>Backend architecture, multi-tenant systems, and developer-friendly design.</li>
+          <li>Financial infrastructure across payroll, accounting, and payments.</li>
+          <li>AI-enabled operations, workflow automation, and engineering leadership.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-shell {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .about-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .about-shell h1 {
+    font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+    line-height: 1.05;
+  }
+
+  @media (min-width: 56rem) {
+    .about-shell {
+      grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 0.9fr);
+      align-items: start;
+    }
+
+    .about-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
