@@ -47,7 +47,7 @@ const robots = readFileSync(resolve(distDir, 'robots.txt'), 'utf8');
 const builtOutput = [home, pageOne, pageTwo, about, topThirty, percy, rss, sitemap, robots].join('\n');
 
 const assertions = [
-  ['Home page includes the favicon asset path', home.includes('/icons/icon-48x48.png')],
+  ['Home page includes the favicon asset path', home.includes('/icons/favicon.svg')],
   ['Home page does not reference a missing rowland.jpeg asset', !home.includes('/rowland.jpeg')],
   ['Home page links to the imported GitStart article', home.includes('/posts/top-30-things-i-learnt-at-gitstart/')],
   ['Home page does not leak raw frontmatter image paths', !home.includes('src="./images/')],
