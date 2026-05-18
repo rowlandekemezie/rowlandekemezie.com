@@ -5,7 +5,7 @@ const rootDir = process.cwd();
 const contentDir = resolve(rootDir, 'content');
 const publicDir = resolve(rootDir, 'public');
 const staticDir = resolve(rootDir, 'static');
-const markdownImagePattern = /!\[[^\]]*\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)/g;
+const markdownImagePattern = /!\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
 
 function walk(dir) {
   const entries = readdirSync(dir, { withFileTypes: true });
@@ -55,7 +55,7 @@ for (const markdownFile of markdownFiles) {
     if (!resolveLocalAsset(markdownFile, assetPath)) {
       unresolvedAssets.push({
         file: markdownFile.replace(`${rootDir}/`, ''),
-        assetPath,
+        assetPath
       });
     }
   }
