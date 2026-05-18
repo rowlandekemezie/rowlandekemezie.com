@@ -1,4 +1,5 @@
 ---
+import EmailLink from './EmailLink.astro';
 import { site } from '../lib/site';
 const currentYear = new Date().getFullYear();
 
@@ -31,14 +32,18 @@ function icon(label: string) {
         {
           site.author.links.map((link) => (
             <li>
-              <a
-                href={link.url}
-                target={link.url.startsWith('http') ? '_blank' : undefined}
-                rel={link.url.startsWith('http') ? 'noreferrer' : undefined}
-                aria-label={link.label}
-                title={link.label}
-                set:html={icon(link.label)}
-              />
+              {link.label === 'Email' ? (
+                <EmailLink ariaLabel={link.label} title={link.label} html={icon(link.label)} />
+              ) : (
+                <a
+                  href={link.url}
+                  target={link.url.startsWith('http') ? '_blank' : undefined}
+                  rel={link.url.startsWith('http') ? 'noreferrer' : undefined}
+                  aria-label={link.label}
+                  title={link.label}
+                  set:html={icon(link.label)}
+                />
+              )}
             </li>
           ))
         }
