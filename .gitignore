@@ -8,16 +8,7 @@ public/*
 !public/icons/
 !public/logos/
 !public/_headers
-!public/icons/icon-48x48.png
-!public/icons/icon-72x72.png
-!public/icons/icon-96x96.png
-!public/icons/icon-144x144.png
-!public/icons/icon-192.png
-!public/icons/icon-192x192.png
-!public/icons/icon-256x256.png
-!public/icons/icon-384x384.png
-!public/icons/icon-512.png
-!public/icons/icon-512x512.png
+!public/icons/favicon.svg
 public/logos/*
 !public/logos/logo-1024.png
 !public/logos/logo-48.png

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>RIE favicon</title>
+  <rect width="64" height="64" rx="14" fill="#b5641d" />
+  <path
+    fill="#f5f0e7"
+    d="M10 13h14c7.9 0 12.8 4 12.8 10.7 0 4.6-2.3 7.8-6.3 9.4L38 51h-8.8l-5.8-15h-5.2v15H10V13Zm8.2 6.8v9.4h5.1c3.5 0 5.3-1.5 5.3-4.7 0-3.2-1.8-4.7-5.3-4.7h-5.1Z"
+  />
+  <rect x="39" y="13" width="5.8" height="38" rx="1.5" fill="#f5f0e7" />
+  <path
+    fill="#f5f0e7"
+    d="M48.5 13H57v6.4h-8.5zm0 15.8h7.6v6.2h-7.6zm0 15.8H57V51h-8.5z"
+  />
+</svg>
