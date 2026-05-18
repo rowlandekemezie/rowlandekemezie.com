@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "name": "rowland-i-ekemezie",
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "pnpm@10.22.0",
   "description": "Personal blog for Rowland Ekemezie",
   "main": "n/a",
   "scripts": {
@@ -16,7 +16,7 @@
     "verify:launch-gates": "node scripts/verify-launch-gates.mjs",
     "lighthouse:local": "node scripts/run-lighthouse.mjs",
     "lighthouse:preview": "node scripts/run-lighthouse.mjs https://concept-signal-desk.rowlandekemezie-com.pages.dev",
-    "verify:all": "yarn astro:check && yarn verify:content-assets && yarn build && yarn verify:dist && yarn verify:launch-gates",
+    "verify:all": "pnpm astro:check && pnpm verify:content-assets && pnpm build && pnpm verify:dist && pnpm verify:launch-gates",
     "clean": "rimraf .astro dist"
   },
   "repository": "https://github.com/rowlandekemezie/rowlandekemezie.com",

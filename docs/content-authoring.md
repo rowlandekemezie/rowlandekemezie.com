@@ -22,4 +22,4 @@
 ## Phase 1 editing workflow
 
 - Git is the only supported editorial workflow in phase 1.
-- Content changes should pass `yarn verify:all` before they are merged into the migration branch.
+- Content changes should pass `pnpm verify:all` before they are merged into the migration branch.

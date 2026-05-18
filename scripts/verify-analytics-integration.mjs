@@ -6,7 +6,7 @@ const rootDir = process.cwd();
 const distDir = resolve(rootDir, 'dist');
 const token = 'test-cloudflare-analytics-token';
 
-execFileSync('yarn', ['build'], {
+execFileSync('pnpm', ['build'], {
   cwd: rootDir,
   env: {
     ...process.env,

@@ -4,13 +4,13 @@ The migration branch is ready to merge into `develop` only when all of these are
 
 ## Automated gates
 
-- `yarn install` succeeds without `--ignore-scripts`
-- `yarn verify:all` passes
+- `pnpm install --frozen-lockfile` succeeds without `--ignore-scripts`
+- `pnpm verify:all` passes
 - GitHub Actions `Astro CI` passes on the latest branch head
 
 ## Build-artifact thresholds
 
-These thresholds are enforced by `yarn verify:launch-gates` against representative built routes.
+These thresholds are enforced by `pnpm verify:launch-gates` against representative built routes.
 
 - `/` raw HTML must stay at or below `18 KB`
 - `/pages/about/` raw HTML must stay at or below `12 KB`
