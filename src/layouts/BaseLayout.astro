@@ -58,6 +58,8 @@ const defaultStructuredData = [
 const jsonLd = JSON.stringify(
   structuredData ? [...defaultStructuredData, ...[structuredData].flat()] : defaultStructuredData
 );
+const emailLinkScript =
+  '(()=>{const i=()=>document.querySelectorAll("[data-email-link]").forEach((n)=>{if(!(n instanceof HTMLAnchorElement))return;const{eh,eu}=n.dataset;if(!eu||!eh)return;n.href="mai"+"lto:"+eu+"@"+eh});document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:true}):i()})();';
 ---
 
 <!doctype html>
@@ -82,6 +84,7 @@ const jsonLd = JSON.stringify(
     <meta name="twitter:creator" content={`@${site.author.twitter}`} />
     {socialImage && <meta name="twitter:image" content={socialImage} />}
     <script is:inline type="application/ld+json" set:html={jsonLd}></script>
+    <script is:inline set:html={emailLinkScript}></script>
     <title>{title}</title>
     <style is:global>
       :root {

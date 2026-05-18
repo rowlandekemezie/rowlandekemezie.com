@@ -1,0 +1,25 @@
+---
+import { site } from '../lib/site';
+
+interface Props {
+  ariaLabel?: string;
+  class?: string;
+  html?: string;
+  title?: string;
+}
+
+const { ariaLabel, class: className, html, title } = Astro.props;
+const [emailUser, emailHost] = site.author.email.split('@');
+---
+
+<a
+  href="#"
+  class={className}
+  data-email-link
+  data-eu={emailUser}
+  data-eh={emailHost}
+  aria-label={ariaLabel}
+  title={title}
+>
+  {html ? <Fragment set:html={html} /> : <slot />}
+</a>
