@@ -13,18 +13,18 @@ Personal site and writing archive built with Astro and deployed to Cloudflare Pa
 ## Local development
 
 ```sh
-yarn install
-yarn dev
+pnpm install
+pnpm dev
 ```
 
 Primary scripts:
 
 ```sh
-yarn build
-yarn preview
-yarn astro:check
-yarn verify:all
-yarn lighthouse:preview
+pnpm build
+pnpm preview
+pnpm astro:check
+pnpm verify:all
+pnpm lighthouse:preview
 ```
 
 ## Project structure
@@ -43,7 +43,7 @@ yarn lighthouse:preview
 Cloudflare Pages builds the site from `dist` using:
 
 ```sh
-yarn install && yarn build
+pnpm install --frozen-lockfile && pnpm build
 ```
 
 Preview deployments are enabled for `feat/*`, `concept/*`, and pull requests.
@@ -53,11 +53,11 @@ Preview deployments are enabled for `feat/*`, `concept/*`, and pull requests.
 Before merging branch work, run:
 
 ```sh
-yarn verify:all
+pnpm verify:all
 ```
 
 For preview performance checks:
 
 ```sh
-yarn lighthouse:preview
+pnpm lighthouse:preview
 ```

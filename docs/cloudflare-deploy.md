@@ -5,7 +5,7 @@ Phase 1 targets a static Astro deploy on Cloudflare Pages.
 ## Platform decisions
 
 - Hosting: Cloudflare Pages
-- Build command: `yarn install && yarn build`
+- Build command: `pnpm install --frozen-lockfile && pnpm build`
 - Output directory: `dist`
 - Production domain: `rowlandekemezie.com`
 - Production analytics: Cloudflare Web Analytics
@@ -34,7 +34,7 @@ As verified on `2026-05-03`, the live site is still served by Netlify.
 ## Cloudflare Pages settings
 
 - Framework preset: `Astro`
-- Build command: `yarn install && yarn build`
+- Build command: `pnpm install --frozen-lockfile && pnpm build`
 - Build output directory: `dist`
 - Root directory: `/`
 - Node.js version: `22`

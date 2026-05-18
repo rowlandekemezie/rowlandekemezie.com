@@ -24,7 +24,7 @@ This document defines the execution workflow for the Astro migration.
 
 ### Required checks
 
-- `yarn verify:all` must pass for migration task branches
+- `pnpm verify:all` must pass for migration task branches
 - GitHub Actions `Astro CI` must pass on the migration branch head
 - issue-specific verification criteria must be satisfied before the issue is checked off
 
