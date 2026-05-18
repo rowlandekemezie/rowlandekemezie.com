@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - develop
-      - feat/**
-      - concept/**
 
 jobs:
   validate:
@@ -16,22 +14,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.22.0
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: pnpm
 
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install --frozen-lockfile
 
-      - name: Astro type and content check
-        run: yarn astro:check
+      - name: Lint
+        run: pnpm lint
 
-      - name: Verify content asset paths
-        run: yarn verify:content-assets
+      - name: Astro type check
+        run: pnpm astro:check
+
+      - name: Verify content assets
+        run: pnpm verify:content-assets
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
-      - name: Verify generated outputs
-        run: yarn verify:dist
+      - name: Verify generated output
+        run: pnpm verify:dist
+
+      - name: Verify launch gates
+        run: pnpm verify:launch-gates
