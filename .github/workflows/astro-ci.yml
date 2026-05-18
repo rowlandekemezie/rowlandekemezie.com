@@ -20,18 +20,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.22.0
 
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install --frozen-lockfile
 
-      - name: Astro type and content check
-        run: yarn astro:check
-
-      - name: Verify content asset paths
-        run: yarn verify:content-assets
-
-      - name: Build
-        run: yarn build
-
-      - name: Verify generated outputs
-        run: yarn verify:dist
+      - name: Verify project
+        run: pnpm verify:all
