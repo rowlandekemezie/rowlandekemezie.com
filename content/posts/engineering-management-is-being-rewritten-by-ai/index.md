@@ -14,15 +14,15 @@ tags:
 image: ./images/ai-leadership-cover.png
 ---
 
-![Engineering management and AI](./images/cover.svg)
+![Engineering management and AI](./images/ai-leadership-cover.png)
 
 Most conversations about AI and engineering get trapped in code generation. I believe that framing feels a bit naive.
 
-The deeper shift is economic: Arguably,AI lowers the cost of producing engineering artifacts. Code is only one of them. Tests, documentation, design sketches, incident summaries, log analysis, migration plans, architecture alternatives, support investigation, prototypes, and review notes all start getting cheaper to produce.
+The deeper shift is economic: Arguably, AI lowers the cost of producing engineering artifacts. Code is only one of them. Tests, documentation, design sketches, incident summaries, log analysis, migration plans, architecture alternatives, support investigation, prototypes, and review notes all start getting cheaper to produce.
 
 Software engineering is broadly the work of turning ambiguity into reliable systems while navigating product constraints, operational risk, technical debt, team coordination, and business pressure. AI now touches more of that surface area, which means the manager's job starts moving away from tracking effort and closer to managing judgment, validation, and learning.
 
-That is the shift worth paying attention to.
+The shift happening now is worth paying attention to.
 
 ## The Old Bottleneck Was Effort
 
@@ -32,13 +32,13 @@ If you wanted more output, you usually probably needed more people, more time, c
 
 So we measured delivery dates, sprint predictability, throughput, utilization, velocity, ticket completion, and roadmap progress. None of those measures were perfect, but they mostly made sense in a world where human effort was the scarce resource.
 
-AI weakens that assumption.
+AI is pushing that assumption to the limit.
 
 A controlled GitHub Copilot study found developers completed a programming task **55.8% faster** with Copilot than without it. McKinsey estimated generative AI could improve software engineering productivity by **20-45% of current annual spending**, across work such as code generation, refactoring, root-cause analysis, and system design. Stack Overflow's 2025 survey also shows AI has moved into mainstream developer workflows, with **84%** of respondents using or planning to use AI tools and **51%** of professional developers using them daily. ([GitHub / Microsoft Research][1], [McKinsey][2], [Stack Overflow][3])
 
 So yes, AI can increase speed. But speed and progress are not the same thing.
 
-That gap is where I think the management problem begins.
+The gap between speed and progress is where I think the management problem begins.
 
 ## The New Bottleneck Is Validation
 
@@ -66,19 +66,17 @@ It may become the central management problem of the AI-assisted engineering orga
 
 ## Individual Productivity Can Rise While System Quality Becomes Unstable
 
-This is where the data gets interesting, but also concerning.
+The data gets interesting here, but also concerning.
 
 The 2024 DORA research complicated the simple productivity story: AI adoption was associated with higher individual productivity, flow, job satisfaction, and documentation quality, while also showing negative associations with software delivery throughput and stability. The 2025 DORA report appears more optimistic on throughput and product performance, which _suggests_ teams are learning how to integrate AI better, but the instability concern has not disappeared. Google's 2025 DORA summary says AI adoption now has a positive relationship with delivery throughput and product performance, while other summaries of the same report still highlight the tradeoff: faster delivery can come with more instability, rework, and change failures. ([DORA 2025][4], [Google Cloud][5])
 
-That should make every Engineering Manager/Leader pause.
+The insights uncovered by this research should make every Engineering Manager/Leader pause.
 
 Both ideas can be true at once: engineers may feel faster, while the system becomes harder to reason about.
 
 A team can create more pull requests, more documents, more tests, more prototypes, more dashboards, and more plans. But if judgment does not improve, and the system cannot validate the output, the organization does not get better engineering.
 
-It gets more artifacts.
-
-Generally speaking, artifact volume is a weak proxy for productivity.
+Simply put, it gets more artifacts, but generally speaking, artifact volume is a weak proxy for productivity.
 
 ## The EM Role Moves Upstream
 
