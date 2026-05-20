@@ -28,11 +28,12 @@ const title = `${post.data.title} — ${site.title}`;
 const canonical = new URL(getPostPath(post), site.url).toString();
 const publishedTime = parsePostDate(post.data.date).toISOString();
 const socialImage = post.data.image ? new URL(post.data.image.src, site.url).toString() : undefined;
+const description = post.data.description ?? getPostExcerpt(post);
 const articleStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: post.data.title,
-  description: getPostExcerpt(post),
+  description,
   datePublished: publishedTime,
   dateModified: publishedTime,
   author: {
@@ -47,7 +48,7 @@ const articleStructuredData = {
 
 <BaseLayout
   title={title}
-  description={getPostExcerpt(post)}
+  description={description}
   canonical={canonical}
   image={socialImage}
   layout="article"
@@ -60,7 +61,6 @@ const articleStructuredData = {
       <div class="article-head reveal">
         <span class="eyebrow">{post.data.category ?? 'Essay'}</span>
         <h1>{post.data.title}</h1>
-        <p class="article-lede">{getPostExcerpt(post, 220)}</p>
         <p class="article-meta">
           <span>{formatPostDate(post.data.date)}</span>
           <span>{Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220))} min read</span>
