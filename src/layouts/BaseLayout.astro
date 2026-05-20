@@ -1,5 +1,6 @@
 ---
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import ScrollProgress from '../components/ScrollProgress.astro';
 import ScrollTopButton from '../components/ScrollTopButton.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -817,6 +818,7 @@ const emailLinkScript =
     </main>
     {!hideFooter && <SiteFooter variant={footerVariant} />}
     <ScrollTopButton />
+    <GoogleAnalytics />
     <CloudflareAnalytics />
     <script is:inline>
       (() => {
