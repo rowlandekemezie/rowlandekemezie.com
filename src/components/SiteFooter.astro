@@ -67,10 +67,15 @@ function icon(label: string) {
     gap: 1rem;
     grid-template-columns: minmax(0, 1fr);
     align-items: center;
+    padding-top: 0;
   }
 
   .site-footer-subscribe {
     justify-self: start;
+    margin-top: -2.75rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 1;
   }
 
   .site-footer-meta {
@@ -132,10 +137,12 @@ function icon(label: string) {
       grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr);
       min-height: 9rem;
       gap: 2rem;
+      padding-top: 0;
     }
 
     .site-footer-meta {
       justify-items: start;
+      padding-top: 2.5rem;
     }
   }
 
@@ -152,6 +159,15 @@ function icon(label: string) {
 
     .site-footer-wrapper {
       grid-template-columns: minmax(0, 1fr);
+    }
+
+    .site-footer-subscribe {
+      margin-top: -2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .site-footer-meta {
+      padding-top: 0.5rem;
     }
   }
 </style>

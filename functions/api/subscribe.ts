@@ -20,20 +20,18 @@ function json(body: JsonRecord, status = 200) {
   });
 }
 
-async function readErrorMessage(response: Response) {
+async function readErrorPayload(response: Response) {
   const payload = (await response
     .json()
     .catch(() => null)) as JsonRecord | null;
 
-  if (
-    payload &&
-    Array.isArray(payload.errors) &&
-    typeof payload.errors[0] === 'string'
-  ) {
-    return payload.errors[0];
+  if (payload) {
+    return payload;
   }
 
-  return 'Unable to subscribe right now.';
+  return {
+    errors: ['Unable to subscribe right now.']
+  } as JsonRecord;
 }
 
 export const onRequestPost = async ({ env, request }: PagesContext) => {
@@ -61,28 +59,6 @@ export const onRequestPost = async ({ env, request }: PagesContext) => {
     return json({ error: 'Enter a valid email address.' }, 400);
   }
 
-  const createSubscriberResponse = await fetch(
-    'https://api.kit.com/v4/subscribers',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Kit-Api-Key': env.KIT_API_KEY
-      },
-      body: JSON.stringify({
-        email_address: email,
-        state: 'active'
-      })
-    }
-  );
-
-  if (!createSubscriberResponse.ok) {
-    return json(
-      { error: await readErrorMessage(createSubscriberResponse) },
-      502
-    );
-  }
-
   const addToFormResponse = await fetch(
     `https://api.kit.com/v4/forms/${env.KIT_FORM_ID}/subscribers`,
     {
@@ -99,7 +75,26 @@ export const onRequestPost = async ({ env, request }: PagesContext) => {
   );
 
   if (!addToFormResponse.ok) {
-    return json({ error: await readErrorMessage(addToFormResponse) }, 502);
+    const payload = await readErrorPayload(addToFormResponse);
+
+    console.error('Kit subscribe failed', {
+      status: addToFormResponse.status,
+      formId: env.KIT_FORM_ID,
+      payload
+    });
+
+    const firstError =
+      Array.isArray(payload.errors) && typeof payload.errors[0] === 'string'
+        ? payload.errors[0]
+        : 'Unable to subscribe right now.';
+
+    return json(
+      {
+        error: firstError,
+        kit_status: addToFormResponse.status
+      },
+      addToFormResponse.status
+    );
   }
 
   return json({
