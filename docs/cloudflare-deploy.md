@@ -70,10 +70,10 @@ Phase 1 replaces Universal Analytics with Cloudflare Web Analytics.
 
 - If the site is proxied through Cloudflare, enable Web Analytics auto-injection in the dashboard.
 - If auto-injection is unavailable, set `PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` to enable the manual beacon snippet already supported by the Astro layout.
-- Set `PUBLIC_KIT_FORM_UID` and `PUBLIC_KIT_EMBED_SRC` to enable the subscribe form against your Kit inline form.
-- Take those values from Kit's inline JavaScript embed snippet:
-  - `PUBLIC_KIT_FORM_UID` comes from the script tag's `data-uid` attribute
-  - `PUBLIC_KIT_EMBED_SRC` comes from the script tag's `src` attribute
+- Set `KIT_API_KEY` and `KIT_FORM_ID` to enable the subscribe form against Kit's API.
+- `KIT_API_KEY` should be configured as a secret environment variable in Cloudflare Pages.
+- `KIT_FORM_ID` should be the numeric Kit form id the footer card should add subscribers to.
+- UI-only validation works in `astro dev`, but actual subscribe submissions to `/api/subscribe` require the Cloudflare Pages runtime because the route is handled by `public/_worker.js` in advanced mode.
 - If the token is unset, the rebuilt site ships without analytics rather than carrying forward Universal Analytics.
 - Do not reintroduce GA Universal Analytics.
 
