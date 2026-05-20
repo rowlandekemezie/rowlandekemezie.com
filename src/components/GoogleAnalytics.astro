@@ -1,0 +1,15 @@
+---
+const measurementId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
+const analyticsScript = measurementId
+  ? `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${measurementId}',{anonymize_ip:true});`
+  : null;
+---
+
+{
+  measurementId && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+      <script is:inline set:html={analyticsScript}></script>
+    </>
+  )
+}
