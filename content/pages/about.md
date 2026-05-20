@@ -13,7 +13,7 @@ Rowland I. Ekemezie Enthusiastic Software Architect with a strong passion for En
 crafting hi-tech distributed systems. I'm passionate about automated systems and proudly a team
 player with a great aptitude for mentorship.
 
-He holds a BS in Computer Science and a Higher Diploma in Electrical/Electronics Engineering. He has worked as an individual contributor, Software consultant, and a technical lead at direct companies including Andela, HugeInc, 2U, CatholicSingles, and GitStart.
+He holds a BS in Computer Science and a Higher Diploma in Electrical/Electronics Engineering. He has worked as an individual contributor, Software consultant, and a technical lead at direct companies including Andela, HugeInc, 2U, CatholicSingles, GitStart, Circus(Acquired by Greenslate).
 
 Rowland loves mentoring, building bridges, and playing the piano.
 

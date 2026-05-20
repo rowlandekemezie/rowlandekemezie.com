@@ -29,17 +29,11 @@ This file tracks the Gatsby markdown pipeline features that matter for the Astro
 
 ## Representative content validation
 
-- `content/01-07-2017-Big_Sample_Post/index.md` exercises:
+The legacy sample markdown files used during migration were removed once the Astro content model stabilized.
 
-  - heading IDs and heading self-links
-  - fenced code blocks
-  - GFM tables
-  - raw HTML blocks
-  - remote markdown images
-  - YouTube-style raw HTML embed snippets
+Repo-wide content audit found:
 
-- Repo-wide content audit found:
-  - no KaTeX usage
-  - no CodePen usage
-  - no local markdown-linked image assets
-  - no iframe embeds
+- no KaTeX usage
+- no CodePen usage
+- no local markdown-linked image assets
+- no iframe embeds

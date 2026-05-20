@@ -11,16 +11,16 @@ tags:
   - ai
   - software engineering
   - leadership
-image: ./images/cover.svg
+image: ./images/ai-leadership-cover.png
 ---
 
 ![Engineering management and AI](./images/cover.svg)
 
-Most conversations about AI and engineering get trapped in code generation. That framing feels too small.
+Most conversations about AI and engineering get trapped in code generation. I believe that framing feels a bit naive.
 
-The deeper shift is economic: AI lowers the cost of producing engineering artifacts. Code is only one of them. Tests, documentation, design sketches, incident summaries, log analysis, migration plans, architecture alternatives, support investigation, prototypes, and review notes all start getting cheaper to produce.
+The deeper shift is economic: Arguably,AI lowers the cost of producing engineering artifacts. Code is only one of them. Tests, documentation, design sketches, incident summaries, log analysis, migration plans, architecture alternatives, support investigation, prototypes, and review notes all start getting cheaper to produce.
 
-Software engineering has always been broader than implementation. It is the work of turning ambiguity into reliable systems while navigating product constraints, operational risk, technical debt, team coordination, and business pressure. AI now touches more of that surface area, which means the manager's job starts moving away from tracking effort and closer to managing judgment, validation, and learning.
+Software engineering is broadly the work of turning ambiguity into reliable systems while navigating product constraints, operational risk, technical debt, team coordination, and business pressure. AI now touches more of that surface area, which means the manager's job starts moving away from tracking effort and closer to managing judgment, validation, and learning.
 
 That is the shift worth paying attention to.
 
@@ -28,7 +28,7 @@ That is the shift worth paying attention to.
 
 For years, the default Engineering Manager model was built around one obvious constraint: engineering work was expensive.
 
-If you wanted more output, you usually needed more people, more time, clearer requirements, fewer blockers, better prioritization, and tighter execution. A lot of management practice grew around that reality.
+If you wanted more output, you usually probably needed more people, more time, clearer requirements, fewer blockers, better prioritization, and tighter execution. A lot of management practice grew around that reality.
 
 So we measured delivery dates, sprint predictability, throughput, utilization, velocity, ticket completion, and roadmap progress. None of those measures were perfect, but they mostly made sense in a world where human effort was the scarce resource.
 
@@ -38,7 +38,7 @@ A controlled GitHub Copilot study found developers completed a programming task 
 
 So yes, AI can increase speed. But speed and progress are not the same thing.
 
-That gap is where the management problem begins.
+That gap is where I think the management problem begins.
 
 ## The New Bottleneck Is Validation
 
@@ -58,19 +58,19 @@ The more important constraint becomes:
 
 > **Effective Output = min(Judgment x Systems x AI Throughput, Validation Capacity)**
 
-This is where many teams will feel the pain. A team can generate more than it can understand, review, test, operate, or safely roll back. At that point, AI does not create leverage; it creates a growing pile of unverified decisions.
+I think this is where many teams will feel the pain. A team can generate more than it can understand, review, test, operate, or safely roll back. At that point, AI does not create leverage; it creates a growing pile of unverified decisions because it's difficult to outsource understanding.
 
-I think of this as the **generation-validation gap**.
+I view this as the **generation-validation gap**.
 
 It may become the central management problem of the AI-assisted engineering organization.
 
 ## Individual Productivity Can Rise While System Quality Becomes Unstable
 
-This is where the data gets interesting.
+This is where the data gets interesting, but also concerning.
 
-The 2024 DORA research complicated the simple productivity story: AI adoption was associated with higher individual productivity, flow, job satisfaction, and documentation quality, while also showing negative associations with software delivery throughput and stability. The 2025 DORA report appears more optimistic on throughput and product performance, which suggests teams are learning how to integrate AI better, but the instability concern has not disappeared. Google's 2025 DORA summary says AI adoption now has a positive relationship with delivery throughput and product performance, while other summaries of the same report still highlight the tradeoff: faster delivery can come with more instability, rework, and change failures. ([DORA 2025][4], [Google Cloud][5])
+The 2024 DORA research complicated the simple productivity story: AI adoption was associated with higher individual productivity, flow, job satisfaction, and documentation quality, while also showing negative associations with software delivery throughput and stability. The 2025 DORA report appears more optimistic on throughput and product performance, which _suggests_ teams are learning how to integrate AI better, but the instability concern has not disappeared. Google's 2025 DORA summary says AI adoption now has a positive relationship with delivery throughput and product performance, while other summaries of the same report still highlight the tradeoff: faster delivery can come with more instability, rework, and change failures. ([DORA 2025][4], [Google Cloud][5])
 
-That should make every Engineering Manager pause.
+That should make every Engineering Manager/Leader pause.
 
 Both ideas can be true at once: engineers may feel faster, while the system becomes harder to reason about.
 
@@ -78,7 +78,7 @@ A team can create more pull requests, more documents, more tests, more prototype
 
 It gets more artifacts.
 
-Artifact volume is a weak proxy for productivity.
+Generally speaking, artifact volume is a weak proxy for productivity.
 
 ## The EM Role Moves Upstream
 
@@ -88,67 +88,63 @@ The AI-era version is more uncomfortable: where does speed create new failure mo
 
 An EM now has to care less about whether work is merely moving and more about whether the system is learning the right things, making better decisions, and reducing risk as it moves.
 
-The questions become different.
+The questions have entered the conversation.
 
-Are we solving the right problem? Are we generating useful options or generating noise? Do we understand the constraints? Which parts of this change are reversible? What needs human review? What can be validated automatically? Where could this fail silently? Do we know what "correct" means before asking AI to help us move faster?
+Are we solving the right problem? Are we generating useful options or generating noise? Do we understand the constraints? Which parts of this change are reversible? What needs human review? What can be validated automatically? Where could this fail silently? Do we know what _correct_ means before asking AI to help us move faster?
 
-This is where weak management gets exposed. A team with poor judgment does not become excellent because it gets AI. It becomes faster at producing consequences.
+We will see weak management getting exposed here. A team with poor judgment does not become excellent because it gets AI. It becomes faster at producing consequences.
 
 ## Code Review Is Too Narrow a Lens
 
-A lot of the AI conversation gets trapped in code review. The broader shift is system review.
+A lot of the AI conversation gets trapped in code review. A much more broader shift might be system review.
 
-In an AI-assisted workflow, an engineer may generate a design sketch, migration script, test coverage, rollout plan, documentation, and incident checklist in the same afternoon. The code may look fine. The pull request may look reasonable. The tests may even pass.
+In an AI-assisted workflow, an engineer may generate a design sketch, migration script, test coverage, rollout plan, documentation, and incident checklist in the same afternoon. The code may look fine. The pull request may look reasonable. The tests may even pass with good coverage.
 
 The deeper question is whether the whole change is coherent.
 
 Does the design match the product intent? Do the tests prove the behavior we care about? Does the rollout match the blast radius? Can we observe failure quickly? Can we roll back safely? Does anyone deeply understand the edge cases?
 
-That is where Engineering Managers need to raise the bar. AI makes local output easier, but global correctness still has to be designed.
+This is where I think Engineering Managers need to raise the bar. AI makes local output easier, but global correctness still has to be designed.
 
 ## Process Has to Become Less Ceremonial and More Diagnostic
 
-I do not buy the lazy version of this argument: "Agile is dead" or "sprints are useless." That sounds edgy, but it avoids the real issue.
+I do not buy the lazy version of this argument: "Agile is dead" or "sprints are useless." That sounds dismissive, but it avoids the real issue.
 
-The better point is that many planning systems were designed around a slower production model.
+A much better point is that many planning systems were designed around a slower production model.
 
-When work becomes more exploratory, generative, and iterative, the process has to adapt. Otherwise, teams end up with a strange mismatch: AI-speed artifact generation inside old-world planning rituals.
+When work becomes more exploratory, generative, and iterative, the process has to adapt. Otherwise, teams end up with a strange mismatch: AI-speed artifact generation inside old-world planning rituals. It's akin to pouring new wine into an old wine skin.
 
-That mismatch creates theater.
-
-Tickets move, standups happen, velocity gets reported, roadmaps get adjusted, and dashboards look busy. But nobody can confidently say whether the team is making better decisions.
+Tickets may move, standups happen, velocity gets reported, roadmaps get adjusted, and dashboards look busy. But nobody can confidently say whether the team is making better decisions.
 
 The AI-era EM has to redesign workflow around faster learning loops, not just faster completion.
 
-That is a different job.
+This might feel like a different job, but I think it's just an evolution of the way we manage teams.
 
 ## Hiring and Performance Get Harder
 
 AI complicates talent judgment.
 
-Hard skills still matter. Fundamentals still matter. Taste matters more than ever. But the signal changes.
+Hard skills would and still matter. Fundamentals still matter. Taste matters more than ever. But the signal changes.
 
 A person who can use AI to explore, compare, validate, and communicate tradeoffs may outperform someone with stronger static knowledge but slower learning loops. That does not mean average engineers suddenly beat senior engineers. It means seniority has to prove itself differently.
 
 The question becomes less about what someone knows in isolation and more about how quickly they can reason through a messy problem, use tools well, validate assumptions, and improve the system around them.
 
-That is harder to evaluate.
+My experience talking with Engineering leaders is that it is harder to evaluate.
 
-It also means performance systems based mostly on visible effort will become more misleading. Effort used to be a rough proxy for impact. AI makes that proxy weaker.
+It also means performance systems based mostly on visible effort will become more misleading. AI somewhat makes effort a weak proxy for impact.
 
 ## The Real Risk Is Productivity Theater
 
 This is the trap many companies will fall into.
 
-They will adopt AI tools and measure the easiest things: more pull requests, more tickets closed, more code generated, more documentation produced, shorter cycle time in isolated workflows.
+They will adopt AI tools and measure the easiest things: more pull requests, more tickets closed, more code generated, more documentation produced, shorter cycle time in isolated workflows, even more tokens burned.
 
 Some of that will be useful. None of it will be enough.
 
 A serious measurement system has to ask whether customer value improved, whether change failure rate went up or down, whether operational load decreased, whether maintenance burden improved, whether onboarding got easier, whether incidents became clearer, and whether teams are learning faster.
 
-Otherwise, AI adoption becomes another form of productivity theater.
-
-Lots of motion. Weak signal.
+Otherwise, AI adoption becomes another form of productivity theater with lots of motion, but weak signal.
 
 ## So What Is the New EM Job?
 
@@ -158,9 +154,7 @@ The job is managing the relationship between generation, judgment, validation, a
 
 That means building teams that can move faster without becoming careless. It means designing workflows where AI improves exploration without bypassing responsibility. It means creating systems where more output leads to more understanding, not more noise.
 
-The EM becomes less of a delivery tracker and more of a system designer.
-
-Not in the abstract, performative sense. In the practical sense.
+The EM becomes less of a delivery tracker and more of a system designer in the practical sense of it.
 
 How does work enter the team? How are options explored? How are assumptions tested? How are decisions reviewed? How are failures detected? How does learning get fed back into the system?
 
@@ -172,17 +166,11 @@ The code-generation debate sits on the surface.
 
 The deeper shift is that AI makes generation cheaper across the engineering lifecycle. When that happens, effort loses its place as the main bottleneck. Judgment, validation, context, taste, and trust become more important.
 
-Engineering Managers were trained in a world where effort was scarce.
-
-That world is fading.
+Engineering Managers were trained in a world where effort was scarce. Let's just say that world is fading.
 
 The next generation of EMs will be judged by a different standard: whether they can build teams and systems where humans and AI make better decisions, validate those decisions faster, and learn without making the organization more fragile.
 
-That is the work now.
-
-Not managing more output.
-
-Managing better outcomes.
+Managing more output won't be the new norm. Managing better outcomes will be.
 
 ## References
 
