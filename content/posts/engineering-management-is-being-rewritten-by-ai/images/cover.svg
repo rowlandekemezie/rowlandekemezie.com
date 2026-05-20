@@ -11,28 +11,28 @@
     The job shifts from tracking effort to designing better learning loops.
   </text>
 
-  <rect x="132" y="564" width="300" height="132" rx="28" fill="#FDF7EF" stroke="#14110F" stroke-width="5"/>
+  <rect x="132" y="578" width="292" height="126" rx="26" fill="#FDF7EF" stroke="#14110F" stroke-width="5"/>
   <text x="171" y="620" fill="#B5641D" font-size="22" font-family="Arial, sans-serif" letter-spacing="4">OLD BOTTLENECK</text>
   <text x="171" y="672" fill="#14110F" font-size="54" font-family="Georgia, serif">Effort</text>
 
-  <path d="M452 630H626" stroke="#14110F" stroke-width="6" stroke-linecap="round"/>
-  <path d="M603 608L636 630L603 652" stroke="#14110F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M442 641H614" stroke="#14110F" stroke-width="6" stroke-linecap="round"/>
+  <path d="M591 619L624 641L591 663" stroke="#14110F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
 
-  <rect x="650" y="564" width="300" height="132" rx="28" fill="#FDF7EF" stroke="#14110F" stroke-width="5"/>
-  <text x="689" y="620" fill="#B5641D" font-size="22" font-family="Arial, sans-serif" letter-spacing="4">AI SHIFT</text>
-  <text x="689" y="672" fill="#14110F" font-size="54" font-family="Georgia, serif">Generation</text>
+  <rect x="650" y="578" width="316" height="126" rx="26" fill="#FDF7EF" stroke="#14110F" stroke-width="5"/>
+  <text x="690" y="620" fill="#B5641D" font-size="22" font-family="Arial, sans-serif" letter-spacing="4">AI SHIFT</text>
+  <text x="690" y="672" fill="#14110F" font-size="52" font-family="Georgia, serif">Generation</text>
 
-  <path d="M970 630H1144" stroke="#14110F" stroke-width="6" stroke-linecap="round"/>
-  <path d="M1121 608L1154 630L1121 652" stroke="#14110F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M988 641H1138" stroke="#14110F" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1115 619L1148 641L1115 663" stroke="#14110F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
 
-  <rect x="1168" y="530" width="260" height="198" rx="28" fill="#14110F"/>
-  <text x="1204" y="586" fill="#D8C3A6" font-size="22" font-family="Arial, sans-serif" letter-spacing="4">NEW EM FOCUS</text>
-  <text x="1204" y="644" fill="#F5F0E7" font-size="48" font-family="Georgia, serif">Judgment</text>
-  <text x="1204" y="696" fill="#F5F0E7" font-size="48" font-family="Georgia, serif">&amp; Validation</text>
+  <rect x="1164" y="548" width="312" height="164" rx="28" fill="#14110F"/>
+  <text x="1201" y="601" fill="#D8C3A6" font-size="20" font-family="Arial, sans-serif" letter-spacing="4">NEW EM FOCUS</text>
+  <text x="1201" y="655" fill="#F5F0E7" font-size="44" font-family="Georgia, serif">Judgment</text>
+  <text x="1201" y="703" fill="#F5F0E7" font-size="44" font-family="Georgia, serif">+ Validation</text>
 
-  <path d="M1048 170C1122 188 1178 230 1218 294" stroke="#B5641D" stroke-width="8" stroke-linecap="round"/>
-  <path d="M1188 282L1223 306L1177 313" stroke="#B5641D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1068 176C1131 194 1180 229 1213 283" stroke="#B5641D" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1185 272L1219 295L1174 302" stroke="#B5641D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
 
-  <path d="M1051 276C1118 295 1168 335 1204 393" stroke="#14110F" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 18"/>
-  <circle cx="1207" cy="396" r="10" fill="#14110F"/>
+  <path d="M1038 273C1095 286 1137 316 1168 360" stroke="#14110F" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 18"/>
+  <circle cx="1170" cy="362" r="8" fill="#14110F"/>
 </svg>
