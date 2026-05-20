@@ -11,10 +11,10 @@ tags:
   - ai
   - software engineering
   - leadership
-image: ./images/ai-leadership-cover.png
+image: ./images/ai_driven_management_evolution_1600x900.webp
 ---
 
-![Engineering management and AI](./images/ai-leadership-cover.png)
+![Engineering management and AI](./images/ai_driven_management_evolution_1600x900.webp)
 
 Most conversations about AI and engineering get trapped in code generation. I believe that framing feels a bit naive.
 
@@ -182,4 +182,4 @@ Managing more output won't be the new norm. Managing better outcomes will be.
 [2]: https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier
 [3]: https://survey.stackoverflow.co/2025/ai
 [4]: https://dora.dev/dora-report-2025/
-[5]: https://cloud.google.com/blog/products/devops-sre/announcing-the-2025-dora-report
+[5]: https://cloud.google.com/resources/content/2025-dora-ai-assisted-software-development-report

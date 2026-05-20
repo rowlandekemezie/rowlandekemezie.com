@@ -18,7 +18,7 @@ This file tracks the Gatsby markdown pipeline features that matter for the Astro
 - Heading IDs and self-links: preserved with `rehype-slug` and `rehype-autolink-headings`.
 - Smart punctuation and GFM tables: preserved by Astro defaults.
 - Syntax highlighting: handled by Astro's built-in markdown highlighter for now.
-- Raw HTML blocks and inline HTML: preserved by Astro markdown rendering and verified against the big sample post.
+- Raw HTML blocks and inline HTML: preserved by Astro markdown rendering.
 - Remote markdown images: rendered as standard remote `<img>` tags, matching the current content model.
 
 ## Intentional phase-1 decisions
