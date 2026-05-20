@@ -8,6 +8,7 @@ public/*
 !public/icons/
 !public/logos/
 !public/_headers
+!public/_worker.js
 !public/icons/favicon.svg
 public/logos/*
 !public/logos/logo-1024.png
