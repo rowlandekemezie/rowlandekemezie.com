@@ -4,11 +4,10 @@ import { site } from '../lib/site';
 interface Props {
   ariaLabel?: string;
   class?: string;
-  html?: string;
   title?: string;
 }
 
-const { ariaLabel, class: className, html, title } = Astro.props;
+const { ariaLabel, class: className, title } = Astro.props;
 const [emailUser, emailHost] = site.author.email.split('@');
 ---
 
@@ -21,5 +20,5 @@ const [emailUser, emailHost] = site.author.email.split('@');
   aria-label={ariaLabel}
   title={title}
 >
-  {html ? <Fragment set:html={html} /> : <slot />}
+  <slot />
 </a>

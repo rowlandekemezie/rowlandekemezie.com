@@ -12,6 +12,7 @@ public/*
 !public/_headers
 !public/_worker.js
 !public/icons/favicon.svg
+!public/scripts/
 public/logos/*
 !public/logos/logo-1024.png
 !public/logos/logo-48.png
