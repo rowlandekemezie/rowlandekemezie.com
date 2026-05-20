@@ -11,10 +11,10 @@ tags:
   - ai
   - software engineering
   - leadership
-image: ./images/cover.png
+image: ./images/cover.svg
 ---
 
-![Engineering management and AI](./images/cover.png)
+![Engineering management and AI](./images/cover.svg)
 _A sketch of the generation-validation gap in AI-assisted engineering._
 
 Most conversations about AI and engineering get trapped in code generation. That framing feels too small.
