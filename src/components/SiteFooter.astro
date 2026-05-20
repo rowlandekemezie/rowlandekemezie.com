@@ -1,5 +1,6 @@
 ---
 import EmailLink from './EmailLink.astro';
+import SubscribeModal from './SubscribeModal.astro';
 import { site } from '../lib/site';
 const currentYear = new Date().getFullYear();
 
@@ -22,11 +23,9 @@ function icon(label: string) {
 
 <footer class="site-footer">
   <div class="site-footer-wrapper">
-    <!-- Subscription modal intentionally disabled for now.
     <div class="site-footer-subscribe reveal">
       <SubscribeModal />
     </div>
-    -->
     <div class="site-footer-meta reveal reveal-delay">
       <ul class="site-footer-socials" aria-label="Social links">
         {
@@ -68,6 +67,10 @@ function icon(label: string) {
     gap: 1rem;
     grid-template-columns: minmax(0, 1fr);
     align-items: center;
+  }
+
+  .site-footer-subscribe {
+    justify-self: start;
   }
 
   .site-footer-meta {
@@ -126,8 +129,9 @@ function icon(label: string) {
 
   @media (min-width: 685px) {
     .site-footer-wrapper {
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr);
       min-height: 9rem;
+      gap: 2rem;
     }
 
     .site-footer-meta {
@@ -144,6 +148,10 @@ function icon(label: string) {
   @media (max-width: 43rem) {
     .site-footer {
       padding-bottom: 2rem;
+    }
+
+    .site-footer-wrapper {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>

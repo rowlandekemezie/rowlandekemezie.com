@@ -1,45 +1,99 @@
----
-const kitFormUid = import.meta.env.PUBLIC_KIT_FORM_UID?.trim();
-const kitEmbedSrc = import.meta.env.PUBLIC_KIT_EMBED_SRC?.trim();
-const hasKitConfig = Boolean(kitFormUid && kitEmbedSrc);
----
-
 <section class="subscribe-card" aria-labelledby="subscribe-title">
-  <div class="subscribe-form">
+  <form class="subscribe-form" data-subscribe-form novalidate>
     <h3 id="subscribe-title" class="subscribe-header">Want more articles? Subscribe to my newsletter</h3>
-    {
-      hasKitConfig ? (
-        <div class="kit-embed-shell">
-          <script
-            is:inline
-            async
-            data-uid={kitFormUid}
-            src={kitEmbedSrc}
-          ></script>
-        </div>
-      ) : (
-        <>
-          <div class="subscribe-inputwrapper">
-            <label class="subscribe-label" for="subscribe-email">Email address:</label>
-            <input
-              id="subscribe-email"
-              aria-label="your email address"
-              aria-required="true"
-              placeholder="john@doe.com"
-              type="email"
-              class="subscribe-input"
-              disabled
-            />
-          </div>
-          <button type="button" class="subscribe-button" disabled>Subscribe</button>
-          <p class="subscribe-status" role="status">
-            Configure `PUBLIC_KIT_EMBED_SRC` and `PUBLIC_KIT_FORM_UID` to enable signup.
-          </p>
-        </>
-      )
-    }
-  </div>
+    <div class="subscribe-inputwrapper">
+      <label class="subscribe-label" for="subscribe-email">Email address:</label>
+      <input
+        id="subscribe-email"
+        aria-label="your email address"
+        aria-required="true"
+        autocomplete="email"
+        inputmode="email"
+        name="email"
+        placeholder="john@doe.com"
+        required
+        type="email"
+        class="subscribe-input"
+      />
+    </div>
+    <button type="submit" class="subscribe-button">Subscribe</button>
+    <p class="subscribe-status" role="status" aria-live="polite"></p>
+  </form>
 </section>
+
+<script is:inline>
+  (() => {
+    const forms = document.querySelectorAll('[data-subscribe-form]');
+
+    for (const form of forms) {
+      if (!(form instanceof HTMLFormElement)) continue;
+
+      const emailInput = form.querySelector('input[name="email"]');
+      const submitButton = form.querySelector('button[type="submit"]');
+      const status = form.querySelector('.subscribe-status');
+
+      if (
+        !(emailInput instanceof HTMLInputElement) ||
+        !(submitButton instanceof HTMLButtonElement) ||
+        !(status instanceof HTMLElement)
+      ) {
+        continue;
+      }
+
+      const setPending = (pending) => {
+        emailInput.disabled = pending;
+        submitButton.disabled = pending;
+        submitButton.textContent = pending ? 'Subscribing...' : 'Subscribe';
+      };
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        status.textContent = '';
+
+        if (!emailInput.value.trim()) {
+          status.textContent = 'Enter your email address.';
+          return;
+        }
+
+        setPending(true);
+
+        try {
+          const response = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: emailInput.value.trim(),
+              referrer: window.location.href,
+            }),
+          });
+
+          const payload = await response.json().catch(() => ({}));
+
+          if (!response.ok) {
+            throw new Error(
+              typeof payload?.error === 'string'
+                ? payload.error
+                : 'Something went wrong. Try again.'
+            );
+          }
+
+          status.textContent =
+            typeof payload?.message === 'string'
+              ? payload.message
+              : 'Check your inbox to confirm your subscription.';
+          form.reset();
+        } catch (error) {
+          status.textContent =
+            error instanceof Error ? error.message : 'Something went wrong. Try again.';
+        } finally {
+          setPending(false);
+        }
+      });
+    }
+  })();
+</script>
 
 <style>
   .subscribe-card {
@@ -102,25 +156,21 @@ const hasKitConfig = Boolean(kitFormUid && kitEmbedSrc);
   }
 
   .kit-embed-shell {
-    width: 100%;
-    margin-top: 1rem;
+    display: none;
   }
 
-  .kit-embed-shell :global(form) {
-    margin: 0;
+  .subscribe-status {
+    min-height: 1.4rem;
+    margin-top: 0.85rem;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.88);
   }
 
   .subscribe-button:disabled,
   .subscribe-input:disabled {
     cursor: not-allowed;
     opacity: 0.7;
-  }
-
-  .subscribe-status {
-    margin-top: 0.85rem;
-    font-size: 0.875rem;
-    line-height: 1.45;
-    color: rgba(255, 255, 255, 0.88);
   }
 
   @media screen and (min-width: 685px) {
