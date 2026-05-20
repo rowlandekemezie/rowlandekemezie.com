@@ -4,6 +4,8 @@ jspm_packages
 .astro/
 dist/
 .cache/
+.tmp-pages-functions/
+.wrangler/
 public/*
 !public/icons/
 !public/logos/
