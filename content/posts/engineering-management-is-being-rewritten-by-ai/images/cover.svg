@@ -1,0 +1,48 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F5F0E7"/>
+  <path d="M104 108C317 64 593 63 817 100C1035 136 1264 109 1486 98" stroke="#14110F" stroke-width="7" stroke-linecap="round"/>
+  <path d="M111 166C337 132 563 137 795 161C1017 184 1239 181 1482 160" stroke="#B5641D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M108 742C307 781 567 802 816 783C1081 762 1288 747 1486 781" stroke="#14110F" stroke-width="7" stroke-linecap="round"/>
+  <path d="M112 790C343 821 566 835 795 821C1025 806 1263 794 1482 819" stroke="#B5641D" stroke-width="5" stroke-linecap="round"/>
+
+  <rect x="136" y="226" width="352" height="178" rx="30" fill="#FFF9F2" stroke="#14110F" stroke-width="8"/>
+  <path d="M165 262C249 237 342 241 460 259" stroke="#14110F" stroke-width="6" stroke-linecap="round"/>
+  <path d="M173 303C271 291 353 291 450 306" stroke="#B5641D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M176 339C281 332 360 333 448 347" stroke="#14110F" stroke-width="4.5" stroke-linecap="round"/>
+  <text x="175" y="384" fill="#14110F" font-size="50" font-family="Georgia, serif">Generation</text>
+
+  <rect x="622" y="180" width="356" height="224" rx="34" fill="#FFF9F2" stroke="#14110F" stroke-width="8"/>
+  <path d="M666 223C756 202 840 203 929 221" stroke="#14110F" stroke-width="6" stroke-linecap="round"/>
+  <path d="M668 271C760 254 842 255 934 275" stroke="#B5641D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M670 316C763 307 840 309 929 322" stroke="#14110F" stroke-width="4.5" stroke-linecap="round"/>
+  <text x="676" y="372" fill="#14110F" font-size="51" font-family="Georgia, serif">Judgment</text>
+
+  <rect x="1111" y="226" width="352" height="178" rx="30" fill="#FFF9F2" stroke="#14110F" stroke-width="8"/>
+  <path d="M1146 262C1234 239 1326 240 1429 258" stroke="#14110F" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1146 303C1238 289 1314 290 1425 306" stroke="#B5641D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M1148 342C1243 332 1320 333 1426 347" stroke="#14110F" stroke-width="4.5" stroke-linecap="round"/>
+  <text x="1151" y="384" fill="#14110F" font-size="50" font-family="Georgia, serif">Validation</text>
+
+  <rect x="618" y="540" width="364" height="168" rx="30" fill="#FFF9F2" stroke="#14110F" stroke-width="8"/>
+  <path d="M661 574C742 553 851 555 940 576" stroke="#14110F" stroke-width="6" stroke-linecap="round"/>
+  <path d="M664 618C750 602 846 602 938 620" stroke="#B5641D" stroke-width="5" stroke-linecap="round"/>
+  <text x="701" y="668" fill="#14110F" font-size="50" font-family="Georgia, serif">Learning</text>
+
+  <path d="M490 313C541 300 583 292 620 294" stroke="#14110F" stroke-width="8" stroke-linecap="round"/>
+  <path d="M595 271L625 295L591 310" stroke="#14110F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <path d="M982 294C1027 292 1069 300 1109 313" stroke="#14110F" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1081 272L1112 313L1077 311" stroke="#14110F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <path d="M1284 407C1251 477 1179 531 980 613" stroke="#B5641D" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1000 584L972 616L1015 621" stroke="#B5641D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <path d="M618 616C449 557 350 500 308 409" stroke="#B5641D" stroke-width="8" stroke-linecap="round"/>
+  <path d="M300 451L305 406L339 433" stroke="#B5641D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <path d="M798 405C798 455 798 491 800 531" stroke="#14110F" stroke-width="8" stroke-linecap="round"/>
+  <path d="M773 503L800 534L827 503" stroke="#14110F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="128" y="96" fill="#14110F" font-size="84" font-family="Georgia, serif">Engineering Management</text>
+  <text x="128" y="810" fill="#14110F" font-size="64" font-family="Georgia, serif">AI makes generation cheap. Managers have to raise judgment and validation.</text>
+</svg>
