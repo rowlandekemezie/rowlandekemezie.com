@@ -1,0 +1,116 @@
+---
+title: "Tech Debt Is Usually a Consequence of Success"
+slug: "/posts/tech-debt-is-usually-a-consequence-of-success/"
+draft: false
+date: "2026-05-24"
+description: "Technical debt is not always engineering failure. Sometimes it is the cost of learning, growth, and product success before the architecture catches up."
+category: "Engineering Leadership"
+tags:
+  - Engineering Leadership
+  - Technical Debt
+  - Software Architecture
+image: "./technical-debt-success.png"
+---
+
+During an interview with a Director of Product, I was asked a question that most engineering leaders eventually encounter in one form or another.
+
+*"How do you balance technical debt and shipping new features?"*
+
+My response initially surprised them because I do not automatically place technical debt into the category of engineering failure. Technical debt is not inherently bad. In many cases, it becomes a consequence of success, because successful systems experience pressure in ways unsuccessful systems never do.
+
+If nobody uses your product, architecture quality rarely becomes the limiting factor. A beautifully designed platform serving a handful of users can remain elegant for years because very little stress is being applied to the system. Growth changes the equation. Customer adoption creates scale challenges. Product-market fit creates urgency. New opportunities appear faster than teams can comfortably absorb them. Product organizations push toward expansion because momentum exists and engineering organizations start making tradeoffs because momentum needs support.
+
+Complexity enters slowly and then all at once.
+
+The mistake many organizations make is treating technical debt as evidence that engineering teams made poor decisions. Most of the time, engineering teams made exactly the right decisions given the information, constraints, and business realities available at that moment.
+
+## Early-stage systems optimize around learning
+
+Teams need answers quickly. Customers need to validate assumptions. Product teams need evidence that investment decisions are pointing in the right direction. Leadership needs confidence that the market opportunity exists before committing heavily toward long-term architecture investments.
+
+Under those conditions, engineering purity rarely wins.
+
+You can design clean service boundaries, perfectly abstracted domains, resilient infrastructure patterns, and future-proof scalability plans before meaningful customer adoption exists. You can also discover months later that the product direction changed entirely and most of that engineering effort created little business value.
+
+Many successful companies intentionally borrow against engineering elegance because speed matters.
+
+An integration becomes tightly coupled because customer delivery timelines matter. A service remains less abstract than engineers would ideally prefer because market validation matters. Infrastructure decisions optimize around shipping speed because the company still needs evidence that customers care enough to keep investing.
+
+Those decisions often get criticized years later without acknowledging the context in which they were made.
+
+Technical debt frequently represents an optimization strategy.
+
+The problem appears when organizations forget that they borrowed.
+
+## Debt carries interest
+
+The financial analogy behind technical debt remains useful because it mirrors reality surprisingly well. Debt creates leverage. Leverage creates speed. Speed creates learning. Learning creates growth. Growth creates complexity. Complexity eventually increases operational cost.
+
+What initially accelerated delivery slowly begins creating friction.
+
+A feature that once required three days suddenly requires three teams. Small changes begin touching unexpected areas of the system. Engineers start spending increasing amounts of time understanding existing behavior rather than creating new value. Deployment confidence drops. Onboarding becomes harder. Velocity appears stable on paper while delivery effort quietly compounds underneath.
+
+Organizations often interpret those signals incorrectly.
+
+Leadership sometimes assumes engineering execution deteriorated.
+
+Engineering sometimes assumes product expectations became unreasonable.
+
+Neither explanation captures the full picture.
+
+Yesterday's optimization strategy simply stopped matching today's operating reality.
+
+## Product and engineering optimize around different clocks
+
+Product leaders and engineering leaders naturally optimize around different clocks and neither perspective is wrong. Product organizations focus on capturing opportunity while engineering organizations focus on sustaining execution capacity. Product leaders naturally see customer demand, expansion opportunities, and market pressure. Engineering leaders naturally see operational complexity, reliability concerns, scalability risks, and compounding maintenance cost.
+
+Healthy organizations need both perspectives because growth without sustainability eventually collapses under its own weight and sustainability without growth creates beautifully engineered products customers never meaningfully adopt.
+
+The conversation therefore should not revolve around choosing between shipping features or paying technical debt.
+
+The better conversation focuses on understanding where debt continues creating business leverage and where debt begins quietly destroying future execution capacity.
+
+## Not all technical debt deserves equal treatment
+
+One mistake teams make is grouping every engineering compromise into a single backlog category labeled "technical debt" and treating it as one giant cleanup initiative waiting for future prioritization.
+
+Debt requires portfolio thinking.
+
+Some debt creates very little operational pain and can remain untouched for years. Some debt creates onboarding friction and gradually slows team expansion. Some debt directly impacts delivery speed and deserves prioritization because customer value creation depends on it. Some debt introduces reliability risk, security exposure, operational fragility, or deployment instability and demands immediate attention.
+
+Engineering organizations already understand prioritization deeply when customer-facing work enters planning conversations.
+
+The same discipline should apply internally.
+
+The question leadership teams should ask is not whether technical debt exists because every meaningful software organization carries some version of it.
+
+The better question asks whether the existing debt structure still supports the company's ability to win.
+
+There is a meaningful difference between a fast-growing organization carrying intentional debt while scaling successfully and an organization struggling under years of unmanaged operational complexity.
+
+One borrowed strategically.
+
+The other stopped paying attention.
+
+## Technical debt is organizational feedback
+
+Technical debt often becomes feedback from the system itself.
+
+Cycle times change. Operational incidents increase. Deployment confidence declines. Knowledge silos expand. Engineering teams feel friction before dashboards fully reveal it. Architecture quietly communicates when previous decisions no longer fit current realities and leadership maturity increasingly depends on recognizing those signals early.
+
+The goal was never eliminating technical debt entirely because software systems evolve faster than architecture plans ever will.
+
+The goal has always been learning quickly, adapting intentionally, and recognizing when yesterday's tradeoffs no longer serve tomorrow's ambitions.
+
+Teams that consistently navigate this balance well usually move faster over long periods of time.
+
+Not because they avoided debt.
+
+Because they learned how to manage it.
+
+## Further reading
+
+- [Martin Fowler — Technical Debt](https://martinfowler.com/bliki/TechnicalDebt.html)
+- [Ward Cunningham — The Debt Metaphor](https://wiki.c2.com/?WardExplainsDebtMetaphor)
+- [Thoughtworks Technology Radar](https://www.thoughtworks.com/radar)
+- [Accelerate — Nicole Forsgren, Jez Humble, Gene Kim](https://itrevolution.com/product/accelerate/)
