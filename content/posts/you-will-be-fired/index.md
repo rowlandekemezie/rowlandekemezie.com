@@ -16,7 +16,7 @@ image: ./images/you-will-be-fired-hero.webp
 
 ![An empty leadership chair overlooking a football pitch beside a strategy board](./images/you-will-be-fired-hero.webp)
 
-## Why engineering leaders need a philosophy before the system chooses them as the problem
+> Why engineering leaders need a philosophy before the system chooses them as the problem
 
 The room is quiet because everyone already knows what is about to happen. The chairman has the statement prepared, the communications team has a quote ready, and the assistant coaches have heard enough whispers to stop pretending this is just another difficult week.
 
