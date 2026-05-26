@@ -11,6 +11,10 @@ tags:
   - professional services
   - expertise
   - judgment
+series:
+  title: AI and Professional Practice
+  slug: ai-and-professional-practice
+  order: 2
 image: ./images/ai_in_hands_professionals_hero.webp
 ---
 

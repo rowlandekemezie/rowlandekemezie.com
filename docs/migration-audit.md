@@ -35,6 +35,10 @@ This document captures the current Gatsby site behavior that phase 1 of the Astr
   - category list
 - `/categories/:slug/`
   - category detail pages
+- `/series/`
+  - series list
+- `/series/:slug/`
+  - ordered series detail pages
 - `/404.html`
   - custom 404 page
 
@@ -52,9 +56,10 @@ This document captures the current Gatsby site behavior that phase 1 of the Astr
 - Common frontmatter fields:
   - `title`
   - `date`
-  - `category`
-  - `tags`
-  - `cover`
+- `category`
+- `tags`
+- optional `series`
+- `cover`
   - optional `slug`
 - Current slug behavior:
   - explicit `frontmatter.slug` is kebab-cased when present
@@ -68,6 +73,7 @@ This document captures the current Gatsby site behavior that phase 1 of the Astr
 - Posts are rendered on `/` and the `/page/:number/` archive family
 - Tag route generation uses kebab-case and `/tags/:slug/`
 - Category route generation uses kebab-case and `/categories/:slug/`
+- Series route generation uses explicit series slugs when present and `/series/:slug/`
 
 ### Site Metadata and Navigation
 

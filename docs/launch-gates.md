@@ -23,7 +23,7 @@ These thresholds are enforced by `pnpm verify:launch-gates` against representati
 - Archive pagination renders at `/page/:number/`
 - Posts render at `/posts/:slug/`
 - About page renders at `/pages/about/`
-- Tag and category indexes and detail pages render
+- Tag, category, and series indexes and detail pages render
 - RSS, sitemap, and `robots.txt` are present and correct
 
 ## SEO and metadata
@@ -32,7 +32,7 @@ These thresholds are enforced by `pnpm verify:launch-gates` against representati
 - Post pages emit `og:type=article`
 - Post pages emit `BlogPosting` JSON-LD
 - Post pages emit social image metadata that resolves to generated site assets
-- Sitemap includes home, posts, taxonomies, pagination, and `/pages/about/`
+- Sitemap includes home, posts, taxonomies, series, pagination, and `/pages/about/`
 - The build output contains no Universal Analytics identifiers or Google Analytics embed assets
 
 ## Comments

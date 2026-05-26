@@ -13,6 +13,8 @@ const requiredFiles = [
   'page/1/index.html',
   'page/2/index.html',
   'pages/about/index.html',
+  'series/index.html',
+  'series/ai-and-professional-practice/index.html',
   'tags/index.html',
   'tags/software-engineering/index.html',
   'categories/index.html',
@@ -42,6 +44,11 @@ const about = readFileSync(
   resolve(distDir, 'pages', 'about', 'index.html'),
   'utf8'
 );
+const seriesIndex = readFileSync(resolve(distDir, 'series', 'index.html'), 'utf8');
+const aiSeries = readFileSync(
+  resolve(distDir, 'series', 'ai-and-professional-practice', 'index.html'),
+  'utf8'
+);
 const topThirty = readFileSync(
   resolve(distDir, 'posts', 'top-30-things-i-learnt-at-gitstart', 'index.html'),
   'utf8'
@@ -63,6 +70,8 @@ const builtOutput = [
   pageOne,
   pageTwo,
   about,
+  seriesIndex,
+  aiSeries,
   topThirty,
   percy,
   rss,
@@ -80,8 +89,8 @@ const assertions = [
     !home.includes('/rowland.jpeg')
   ],
   [
-    'Home page links to the imported GitStart article',
-    home.includes('/posts/top-30-things-i-learnt-at-gitstart/')
+    'Built archive output links to the imported GitStart article',
+    builtOutput.includes('/posts/top-30-things-i-learnt-at-gitstart/')
   ],
   [
     'Home page does not leak raw frontmatter image paths',
@@ -112,6 +121,14 @@ const assertions = [
   [
     'About page does not expose the raw contact email in HTML',
     !about.includes('hello@rowlandekemezie.com')
+  ],
+  [
+    'Series index is published under /series/',
+    seriesIndex.includes('<h1>Series</h1>')
+  ],
+  [
+    'Series detail page includes the seeded AI series title',
+    aiSeries.includes('AI and Professional Practice')
   ],
   [
     'Top 30 article exposes article Open Graph metadata',
@@ -188,6 +205,12 @@ const assertions = [
     'Sitemap contains the software engineering tag URL',
     sitemap.includes(
       '<loc>https://rowlandekemezie.com/tags/software-engineering/</loc>'
+    )
+  ],
+  [
+    'Sitemap contains the AI series URL',
+    sitemap.includes(
+      '<loc>https://rowlandekemezie.com/series/ai-and-professional-practice/</loc>'
     )
   ],
   [

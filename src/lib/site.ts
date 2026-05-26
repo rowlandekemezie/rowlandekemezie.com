@@ -128,6 +128,10 @@ export function pageRoute(page: number) {
   return `/page/${page}/`;
 }
 
+export function seriesRoute(seriesSlug: string) {
+  return `/series/${trimSlashes(seriesSlug)}/`;
+}
+
 export function aboutRoute() {
   return '/pages/about/';
 }

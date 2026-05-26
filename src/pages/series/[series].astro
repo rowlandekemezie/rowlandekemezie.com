@@ -1,0 +1,40 @@
+---
+import PostCard from '../../components/PostCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, groupPostsBySeries } from '../../lib/content';
+import { seriesRoute, site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const seriesList = groupPostsBySeries(await getPublishedPosts());
+
+  return seriesList.map((series) => ({
+    params: { series: series.slug },
+    props: { series },
+  }));
+}
+
+const { series } = Astro.props;
+const description =
+  series.posts.length === 1
+    ? `${series.title} contains 1 post.`
+    : `${series.title} contains ${series.posts.length} posts.`;
+---
+
+<BaseLayout
+  title={`${series.title} — ${site.title}`}
+  description={description}
+  canonical={new URL(seriesRoute(series.slug), site.url).toString()}
+>
+  <section class="panel stack">
+    <span class="eyebrow">Series</span>
+    <h1>{series.title}</h1>
+    <p class="muted">{description}</p>
+    <div class="posts">
+      {
+        series.posts.map((post) => (
+          <PostCard post={post} />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -4,7 +4,7 @@ import EmailLink from './EmailLink.astro';
 import { site } from '../lib/site';
 
 interface Props {
-  current?: 'posts' | 'about';
+  current?: 'posts' | 'series' | 'about';
 }
 
 const { current = 'posts' } = Astro.props;
@@ -38,6 +38,7 @@ function iconId(label: string) {
   <p>{site.description}</p>
   <nav class="home-links" aria-label="Primary">
     <a href="/" aria-current={current === 'posts' ? 'page' : undefined}>Posts</a>
+    <a href="/series/" aria-current={current === 'series' ? 'page' : undefined}>Series</a>
     <a href="/pages/about/" aria-current={current === 'about' ? 'page' : undefined}>About me</a>
   </nav>
   <ul class="home-socials" aria-label="Social links">
