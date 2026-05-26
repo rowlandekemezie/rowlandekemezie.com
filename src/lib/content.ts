@@ -1,8 +1,15 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { postRouteFromSlug, postSlugFromEntry } from './site';
+import { kebabCase, postRouteFromSlug, postSlugFromEntry } from './site';
 
 export type PageEntry = CollectionEntry<'pages'>;
 export type PostEntry = CollectionEntry<'posts'>;
+export type PostSeries = NonNullable<PostEntry['data']['series']>;
+
+export interface SeriesGroup {
+  posts: PostEntry[];
+  slug: string;
+  title: string;
+}
 
 export async function getPublishedPosts() {
   return (await getCollection('posts', ({ data }) => !data.draft)).sort(
@@ -71,6 +78,23 @@ export function getPostPath(post: PostEntry) {
   return postRouteFromSlug(postSlugFromEntry(post));
 }
 
+export function getSeriesSlug(series: PostSeries) {
+  return series.slug ? series.slug.replace(/^\/+|\/+$/g, '') : kebabCase(series.title);
+}
+
+export function getSeriesForPost(post: PostEntry) {
+  const series = post.data.series;
+
+  if (!series) {
+    return undefined;
+  }
+
+  return {
+    ...series,
+    slug: getSeriesSlug(series),
+  };
+}
+
 export function getPaginatedPosts(posts: PostEntry[], page: number, perPage: number) {
   const totalPages = Math.max(1, Math.ceil(posts.length / perPage));
   const currentPage = Math.min(Math.max(page, 1), totalPages);
@@ -114,4 +138,67 @@ export function groupPostsByCategory(posts: PostEntry[]) {
   }
 
   return [...categories.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+}
+
+export function sortSeriesPosts(posts: PostEntry[]) {
+  return [...posts].sort((a, b) => {
+    const aSeries = a.data.series;
+    const bSeries = b.data.series;
+
+    if (!aSeries || !bSeries) {
+      return 0;
+    }
+
+    if (aSeries.order !== bSeries.order) {
+      return aSeries.order - bSeries.order;
+    }
+
+    const dateDelta = parsePostDate(a.data.date).getTime() - parsePostDate(b.data.date).getTime();
+
+    if (dateDelta !== 0) {
+      return dateDelta;
+    }
+
+    return a.data.title.localeCompare(b.data.title);
+  });
+}
+
+export function groupPostsBySeries(posts: PostEntry[]) {
+  const seriesGroups = new Map<string, SeriesGroup>();
+
+  for (const post of posts) {
+    const series = getSeriesForPost(post);
+
+    if (!series) {
+      continue;
+    }
+
+    const current = seriesGroups.get(series.slug);
+
+    if (current) {
+      current.posts.push(post);
+      continue;
+    }
+
+    seriesGroups.set(series.slug, {
+      posts: [post],
+      slug: series.slug,
+      title: series.title,
+    });
+  }
+
+  return [...seriesGroups.values()]
+    .map((series) => ({
+      ...series,
+      posts: sortSeriesPosts(series.posts),
+    }))
+    .sort((a, b) => a.title.localeCompare(b.title));
+}
+
+export function getSeriesBySlug(posts: PostEntry[], slug: string) {
+  return groupPostsBySeries(posts).find((series) => series.slug === slug);
+}
+
+export function getSeriesPosition(post: PostEntry, seriesPosts: PostEntry[]) {
+  return seriesPosts.findIndex((seriesPost) => getPostPath(seriesPost) === getPostPath(post));
 }

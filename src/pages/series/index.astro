@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeSidebar from '../../components/HomeSidebar.astro';
+import { getPublishedPosts, groupPostsBySeries } from '../../lib/content';
+import { seriesRoute, site } from '../../lib/site';
+
+const seriesList = groupPostsBySeries(await getPublishedPosts());
+---
+
+<BaseLayout title={`Series — ${site.title}`} description="Ordered groups of related essays and notes." layout="home">
+  <div class="home-layout">
+    <aside class="home-sidebar reveal">
+      <HomeSidebar current="series" />
+    </aside>
+
+    <section class="home-feed reveal reveal-delay">
+      <section class="panel stack">
+        <span class="eyebrow">Series</span>
+        <h1>Series</h1>
+        <p class="muted">Ordered collections for essays that belong together.</p>
+        <ul class="taxonomy-list">
+          {
+            seriesList.map((series) => (
+              <li>
+                <a href={seriesRoute(series.slug)}>
+                  {series.title} ({series.posts.length})
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </section>
+  </div>
+</BaseLayout>

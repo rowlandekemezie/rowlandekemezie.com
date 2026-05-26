@@ -11,6 +11,10 @@ tags:
   - ai
   - software engineering
   - leadership
+series:
+  title: AI and Professional Practice
+  slug: ai-and-professional-practice
+  order: 1
 image: ./images/ai_driven_management_evolution_1600x900.webp
 ---
 

@@ -8,10 +8,13 @@ import {
   getPostExcerpt,
   getPostIdentifier,
   getPostPath,
+  getSeriesBySlug,
+  getSeriesForPost,
+  getSeriesPosition,
   getPublishedPosts,
   parsePostDate,
 } from '../../lib/content';
-import { site, trimSlashes } from '../../lib/site';
+import { seriesRoute, site, trimSlashes } from '../../lib/site';
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
@@ -24,6 +27,15 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const allPosts = await getPublishedPosts();
+const series = getSeriesForPost(post);
+const seriesGroup = series ? getSeriesBySlug(allPosts, series.slug) : undefined;
+const seriesPosition = seriesGroup ? getSeriesPosition(post, seriesGroup.posts) : -1;
+const previousInSeries = seriesPosition > 0 ? seriesGroup?.posts[seriesPosition - 1] : undefined;
+const nextInSeries =
+  seriesGroup && seriesPosition >= 0 && seriesPosition < seriesGroup.posts.length - 1
+    ? seriesGroup.posts[seriesPosition + 1]
+    : undefined;
 const title = `${post.data.title} — ${site.title}`;
 const canonical = new URL(getPostPath(post), site.url).toString();
 const publishedTime = parsePostDate(post.data.date).toISOString();
@@ -40,6 +52,16 @@ const articleStructuredData = {
     '@type': 'Person',
     name: site.author.name,
   },
+  ...(seriesGroup
+    ? {
+        isPartOf: {
+          '@type': 'CreativeWorkSeries',
+          name: seriesGroup.title,
+          url: new URL(seriesRoute(seriesGroup.slug), site.url).toString(),
+        },
+        position: seriesPosition + 1,
+      }
+    : {}),
   mainEntityOfPage: canonical,
   url: canonical,
   ...(socialImage ? { image: [socialImage] } : {}),
@@ -61,6 +83,14 @@ const articleStructuredData = {
       <div class="article-head reveal">
         <span class="eyebrow">{post.data.category ?? 'Essay'}</span>
         <h1>{post.data.title}</h1>
+        {
+          seriesGroup && seriesPosition >= 0 && (
+            <p class="article-series">
+              <a href={seriesRoute(seriesGroup.slug)}>{seriesGroup.title}</a>
+              <span>Part {seriesPosition + 1} of {seriesGroup.posts.length}</span>
+            </p>
+          )
+        }
         <p class="article-meta">
           <span>{formatPostDate(post.data.date)}</span>
           <span>{Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220))} min read</span>
@@ -74,6 +104,35 @@ const articleStructuredData = {
       <section class="post-tags-section reveal reveal-delay-2">
         <PostTags tags={post.data.tags} />
       </section>
+
+      {
+        seriesGroup && seriesPosition >= 0 && (
+          <section class="series-panel reveal reveal-delay-2" aria-labelledby="series-navigation-heading">
+            <p class="series-kicker">Series</p>
+            <h2 id="series-navigation-heading">{seriesGroup.title}</h2>
+            <p class="series-summary">
+              Part {seriesPosition + 1} of {seriesGroup.posts.length}
+            </p>
+            <nav class="series-links" aria-label="Series navigation">
+              {
+                previousInSeries ? (
+                  <a href={getPostPath(previousInSeries)}>← {previousInSeries.data.title}</a>
+                ) : (
+                  <span aria-disabled="true">← Start of series</span>
+                )
+              }
+              <a href={seriesRoute(seriesGroup.slug)}>View series overview</a>
+              {
+                nextInSeries ? (
+                  <a href={getPostPath(nextInSeries)}>{nextInSeries.data.title} →</a>
+                ) : (
+                  <span aria-disabled="true">End of series →</span>
+                )
+              }
+            </nav>
+          </section>
+        )
+      }
 
       <section style="margin-top: 3rem;">
         <DisqusComments
@@ -110,5 +169,71 @@ const articleStructuredData = {
   .post-tags-section :global(.tag-list a:focus-visible) {
     color: var(--text);
     border-color: var(--accent);
+  }
+
+  .article-series {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin: 1rem 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .article-series a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .article-series a:hover,
+  .article-series a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .series-panel {
+    margin-top: 2rem;
+    padding: 1.4rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .series-kicker {
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .series-panel h2 {
+    margin-top: 0.6rem;
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+  }
+
+  .series-summary {
+    margin: 0.55rem 0 0;
+    color: var(--muted);
+  }
+
+  .series-links {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .series-links a,
+  .series-links span {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .series-links a:hover,
+  .series-links a:focus-visible {
+    color: var(--accent);
+  }
+
+  .series-links span[aria-disabled='true'] {
+    opacity: 0.55;
   }
 </style>

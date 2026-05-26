@@ -1,6 +1,7 @@
 ---
 import type { PostEntry } from '../lib/content';
-import { formatPostMonthYear, getPostExcerpt, getPostPath } from '../lib/content';
+import { formatPostMonthYear, getPostExcerpt, getPostPath, getSeriesForPost } from '../lib/content';
+import { seriesRoute } from '../lib/site';
 
 interface Props {
   post: PostEntry;
@@ -9,12 +10,20 @@ interface Props {
 
 const { post, variant = 'essay' } = Astro.props;
 const excerpt = post.data.description ?? getPostExcerpt(post, variant === 'case-study' ? 150 : 185);
+const series = getSeriesForPost(post);
 ---
 
 <article class:list={['post-card', `post-card-${variant}`, 'reveal']}>
   <p class="post-card-meta">
     <span>{formatPostMonthYear(post.data.date).toUpperCase()}</span>
     {post.data.category && <span>{post.data.category}</span>}
+    {
+      series && (
+        <span>
+          <a href={seriesRoute(series.slug)}>{series.title}</a>
+        </span>
+      )
+    }
   </p>
   <h2 class="post-card-title">
     <a href={getPostPath(post)}>{post.data.title}</a>

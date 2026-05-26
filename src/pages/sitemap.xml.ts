@@ -4,10 +4,11 @@ import {
   getPostPath,
   getPublishedPosts,
   groupPostsByCategory,
+  groupPostsBySeries,
   groupPostsByTag,
   parsePostDate,
 } from '../lib/content';
-import { aboutRoute, categoryRoute, pageRoute, site, tagRoute } from '../lib/site';
+import { aboutRoute, categoryRoute, pageRoute, seriesRoute, site, tagRoute } from '../lib/site';
 
 function escapeXml(value: string) {
   return value
@@ -28,6 +29,7 @@ export const GET: APIRoute = async ({ site: contextSite }) => {
   const latestPostDate = posts[0] ? parsePostDate(posts[0].data.date) : new Date();
   const tags = groupPostsByTag(posts);
   const categories = groupPostsByCategory(posts);
+  const seriesList = groupPostsBySeries(posts);
   const pagination = getPaginatedPosts(posts, 1, 5);
 
   const entries = [
@@ -35,6 +37,7 @@ export const GET: APIRoute = async ({ site: contextSite }) => {
     { path: aboutRoute(), lastmod: latestPostDate },
     { path: '/tags/', lastmod: latestPostDate },
     { path: '/categories/', lastmod: latestPostDate },
+    { path: '/series/', lastmod: latestPostDate },
     ...Array.from({ length: pagination.totalPages }, (_, index) => ({
       path: pageRoute(index + 1),
       lastmod: latestPostDate,
@@ -49,6 +52,10 @@ export const GET: APIRoute = async ({ site: contextSite }) => {
     })),
     ...categories.map(([category]) => ({
       path: categoryRoute(category),
+      lastmod: latestPostDate,
+    })),
+    ...seriesList.map((series) => ({
+      path: seriesRoute(series.slug),
       lastmod: latestPostDate,
     })),
   ];
