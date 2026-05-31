@@ -1,10 +1,10 @@
 ---
 template: post
-title: Integrations Start Where SDK Documentation Ends
-slug: /posts/integrations-start-where-sdk-documentation-ends/
+title: Integrations Start Where API Documentation Ends
+slug: /posts/integrations-start-where-api-documentation-ends/
 draft: false
 date: '2026-05-31T00:00:00.000Z'
-description: SDK documentation gets you to the first request. Real integration engineering starts when your system has to own the boundary between external behavior and internal meaning.
+description: API documentation gets you to the first request. Real integration engineering starts when your system has to own the boundary between external behavior and internal meaning.
 category: Software
 tags:
   - integrations
@@ -22,19 +22,17 @@ image: ./images/integrations-boundary-hero.webp
 
 Most integration work looks simple at the beginning because the surface area is intentionally presented as simple.
 
-You install the SDK, generate a token, make the first request, receive a clean JSON response, map a few fields, and for a brief moment it feels like the hard part has already been solved by the provider.
+You install the SDK, generate a token, make the first request, receive a clean JSON response, map a few fields, and for a brief moment it feels like the hard part has already been solved by the provider. But then, production starts.
 
-> No! Actually, then production starts.
-
-A webhook arrives before the object it references exists in your local system. A provider sends the same event twice, but with slightly different payloads. A customer changes a setting in the provider dashboard and your assumptions stop being true. A field documented as a number arrives as a string. An API silently starts returning a new status value. A provider says an employee is “active”, but in your product “active” means something more specific. A sync job succeeds from the provider’s point of view, but your local model now contains data your application cannot safely reason about.
-
-> That point is where real integration engineering begins.
+A webhook arrives before the object it references exists in your local system. A provider sends the same event twice, but with slightly different payloads. A customer changes a setting in the provider dashboard and your assumptions stop being true. A field documented as a number arrives as a string. An API silently starts returning a new status value. A provider says an employee is “active”, but in your product “active” means something more specific. A sync job succeeds from the provider’s point of view, but your local model now contains data your application cannot safely reason about. I believe, this is the point is where real integration engineering begins.
 
 SDK documentation tells you how to call a provider. It rarely tells you how to own the boundary between your system and theirs.
 
 For senior engineers, the work is not only about connecting systems. The deeper work is deciding which system owns which truth, which concepts are allowed to cross the boundary, how external behavior gets translated into internal meaning, and how much of the provider’s worldview you are willing to let into your domain.
 
 Good integrations are rarely thin wrappers around third-party APIs. They become boundary systems.
+
+> Disclaimer: I will be drawing inferences from my own experience working on multi-provider syncing engine and payroll integration systems.
 
 ## The mistake is treating the provider as part of your domain
 
@@ -54,7 +52,7 @@ The problem comes later, when your product needs to mean something slightly diff
 
 GitHub has repositories, installations, organizations, teams, collaborators, and permissions. Jira has projects, issues, comments, users, transitions, workflows, and custom fields. Payroll systems have employees, contractors, pay schedules, tax jurisdictions, deductions, benefits, earnings, reimbursements, and pay runs. Each provider has a model, but their model exists to serve their product, their constraints, their history, and their commercial decisions.
 
-> Your system needs its own model.
+> Your system needs its own model!
 
 Without that separation, your internal code slowly becomes a museum of provider-specific assumptions.
 
@@ -127,7 +125,7 @@ A clean boundary gives the system one place to absorb external complexity.
 
 For example, imagine a payroll product integrating with several payroll providers. One provider represents a worker like this:
 
-```typescript
+```json
 {
   "id": "emp_123",
   "employment_type": "W2",
@@ -140,7 +138,7 @@ For example, imagine a payroll product integrating with several payroll provider
 
 Another provider sends this:
 
-```typescript
+```json
 {
   "workerId": 98765,
   "type": "employee",
@@ -185,7 +183,7 @@ An adapter says:
 type ProviderEmployeeResponse = {
   id: string
   employment_type: 'W2' | '1099'
-  status: 'active' | 'inactive' | 'terminated'
+  status: string
   home_address?: {
     state?: string
   }
@@ -206,10 +204,8 @@ function mapAcmeEmployeeToWorkerRecord(
     provider: 'acme-payroll',
     providerWorkerId: employee.id,
     classification: mapEmploymentType(employee.employment_type),
-    lifecycleStatus: employee.status,
-    taxRegion: employee.home_address?.state
-      ? `US-${employee.home_address.state}`
-      : null,
+    lifecycleStatus: normalizeAcmePayrollStatus(employee.status),
+    taxRegion: mapHomeAddressToTaxRegion(employee.home_address),
   }
 }
 
@@ -234,11 +230,11 @@ The more important the integration becomes, the more the adapter becomes part of
 
 Canonical models are powerful because they reduce the number of transformations needed across integrations. Instead of every system knowing every other system’s format, each provider maps into a shared internal shape.
 
-<div style="display: flex; justify-content: center; overflow-x: auto; margin: 1.25rem 0;">
-  <pre style="display: inline-block; width: max-content; max-width: none; text-align: left; margin: 0;"><code>GitHub    -> Provider Adapter -> Canonical Pull Request Model -> Product
+```text
+GitHub    -> Provider Adapter -> Canonical Pull Request Model -> Product
 GitLab    -> Provider Adapter -> Canonical Pull Request Model -> Product
-Bitbucket -> Provider Adapter -> Canonical Pull Request Model -> Product</code></pre>
-</div>
+Bitbucket -> Provider Adapter -> Canonical Pull Request Model -> Product
+```
 
 For many systems, this is the right move.
 
@@ -291,7 +287,7 @@ type PullRequestRecord = {
 }
 ```
 
-That shape looks flexible, but flexibility without semantics usually moves complexity somewhere else. The UI has to guess. The sync engine has to guess. Business rules have to guess. Eventually, every caller has to know provider behavior anyway.
+That shape looks flexible, but flexibility without semantics usually moves complexity somewhere else. The UI, sync engine, and business rules all have to infer provider behavior anyway.
 
 A better design makes the differences visible.
 
@@ -303,7 +299,7 @@ They have different authentication models, rate limits, object lifecycles, retry
 
 The goal of a provider abstraction is not to make providers identical. The goal is to make the common path consistent while giving the system safe escape hatches for differences that matter.
 
-A naive abstraction usually starts like this:
+A common abstraction usually starts like this:
 
 ```typescript
 interface PayrollProvider {
@@ -315,7 +311,7 @@ interface PayrollProvider {
 
 The interface looks clean until one provider requires worker tax setup before creation, another allows draft workers, another creates workers asynchronously, another does not support payroll previews, and another returns a successful response before downstream compliance validation has completed.
 
-A more honest abstraction separates commands, results, capabilities, and provider-specific constraints.
+One of the more honest abstraction is separating commands, results, capabilities, and provider-specific constraints.
 
 ```typescript
 type CreateWorkerCommand = {
@@ -346,13 +342,13 @@ interface PayrollProviderAdapter {
 
 The result type forces the application to handle reality.
 
-Some operations complete immediately. Some operations become asynchronous provider workflows. Some operations fail because the provider has rules your system cannot bypass. A clean interface that lies about those differences will eventually create messy code elsewhere.
+Some operations complete immediately, while some operations become asynchronous provider workflows; some operations fail because the provider has rules your system cannot bypass. A clean interface that lies about those differences will eventually create messy code elsewhere.
 
-Senior engineers tend to learn this the hard way. The abstraction should make the happy path easy, but it should not pretend the edge cases do not exist.
+Most Senior engineers tend to learn this the hard way. The abstraction should make the happy path easy, but it should not pretend the edge cases do not exist.
 
 ## Undocumented behavior belongs in code, not folklore
 
-Every meaningful integration accumulates folklore.
+Every meaningful integration accumulates folklore over time.
 
 Someone knows that Provider A sends webhooks out of order.
 
@@ -451,8 +447,7 @@ A simplified schema might look like this:
 ```typescript
 type RawIntegrationEvent = {
   id: string
-  provider: IntegrationProvider
-  providerEventId: string | null
+  eventId: string | null
   eventType: string
   payload: unknown
   headers: Record<string, string>
@@ -510,8 +505,8 @@ The boundary protects both sides. The adapter respects the provider's API while 
 
 I like to think of integration architecture in layers of responsibility.
 
-<div style="display: flex; justify-content: center; overflow-x: auto; margin: 1.25rem 0;">
-  <pre style="display: inline-block; width: max-content; max-width: none; text-align: left; margin: 0;"><code>┌──────────────────────────────────────────────┐
+```text
+┌──────────────────────────────────────────────┐
 │ Core Domain                                  │
 │ Product rules, workflows, invariants         │
 └──────────────────────────────────────────────┘
@@ -532,8 +527,8 @@ I like to think of integration architecture in layers of responsibility.
 ┌──────────────────────────────────────────────┐
 │ External Provider                            │
 │ API, SDK, webhooks, undocumented behavior    │
-└──────────────────────────────────────────────┘</code></pre>
-</div>
+└──────────────────────────────────────────────┘
+```
 
 When something changes, the layer responsible should absorb the change.
 
@@ -541,23 +536,15 @@ If GitHub changes a payload field, the GitHub adapter should absorb it.
 
 If the product changes how it defines an “active worker”, the domain should absorb it.
 
-If the team adds GitLab support, the provider abstraction and canonical model should absorb the expansion.
-
-If every change requires touching all layers, the boundary is probably too weak.
+If the team adds GitLab support, the new adapter, provider capabilities, and canonical model should absorb only the differences the product truly needs.
 
 ## The real integration question
 
-The important question is not, “Can we connect to this provider?”
+Most teams can connect to a provider but the question is, "Can we keep our system understandable after this provider becomes operationally important?"
 
-Most teams can connect to a provider.
+The question goes deeper than dropping in a new provider to your product to absorbing it into your integration architecture.
 
-The better question is, “Can we keep our system understandable after this provider becomes operationally important?”
-
-That is where integration architecture becomes serious engineering.
-
-SDKs help you start. Documentation helps you make the first call. Sample code helps you prove the API works.
-
-After that, the work becomes boundary ownership.
+SDKs help you start. Documentation helps you make the first call. Sample code helps you prove the API works. After that, the work becomes boundary ownership.
 
 You need to decide what your system believes, what the provider is allowed to influence, how external concepts enter your model, where provider-specific behavior lives, how undocumented behavior becomes executable knowledge, and how future providers can be added without turning the application into a pile of conditional logic.
 
@@ -565,16 +552,12 @@ Integrations start with API calls, but they survive through boundaries.
 
 The teams that understand this early build systems that can absorb provider changes, support more customers, debug production issues faster, and add new integrations without rewriting the product every time.
 
-The teams that miss it eventually discover that the external API was never the hardest part.
-
-The hardest part was letting another system quietly define their own.
+The teams that miss it eventually discover that the external API was never the hardest part. The hardest part was letting another system quietly define what your system means.
 
 ---
 
 ## Further reading
 
-The language around anti-corruption layers comes from Domain-Driven Design, where the core idea is to keep foreign models from polluting your domain. Azure and AWS both describe the pattern as a translation or mediation layer between systems with different semantics, and Fowler also discusses anti-corruption layers in the context of legacy displacement. The canonical data model pattern from Enterprise Integration Patterns is useful for reducing point-to-point transformations, but the tradeoff is that the shared model must not pretend provider differences have disappeared. ([Microsoft Learn][1])
+The language around anti-corruption layers comes from Domain-Driven Design, where the core idea is to keep foreign models from polluting your domain. Microsoft Learn describes the anti-corruption layer pattern as a translation layer between systems with different semantics. ([Microsoft Learn][1])
 
-Also grounding this in the earlier integration-series direction we outlined: the strongest angle is still the operational reality after integrations become infrastructure, especially around canonical models, provider abstractions, undocumented behavior, reconciliation, observability, and data correctness.
-
-[1]: https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer?utm_source=chatgpt.com "Anti-corruption Layer pattern - Azure Architecture Center"
+[1]: https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer "Anti-corruption Layer pattern - Azure Architecture Center"
