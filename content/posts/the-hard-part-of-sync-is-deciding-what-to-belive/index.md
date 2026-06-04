@@ -1,7 +1,7 @@
 ---
 template: post
 title: The Hard Part of Sync Is Deciding What to Believe
-slug: /posts/the-real-integration-problem-is-trusting-data/
+slug: /posts/integration-systems-trusting-data/
 draft: false
 date: '2026-06-03T00:00:00.000Z'
 description: Bidirectional sync turns integration into an authority problem. Reliable systems need field ownership, conflict detection, event history, reconciliation, and explainable state.
