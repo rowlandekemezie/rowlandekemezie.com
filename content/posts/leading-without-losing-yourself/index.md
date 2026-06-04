@@ -16,6 +16,7 @@ images:
 
 
 ![hard focus on growth without identity erosion](./images/Leading_Without_Losing_Yourself_Hero.webp)
+
 > The hardest leadership challenge is not growth. It is growth without identity erosion.
 
 Every promotion stretches you.
@@ -108,17 +109,13 @@ You are expected to understand the business without becoming purely business-dri
 
 You are expected to give executives confidence without lying about uncertainty, support Product without becoming a ticket delivery function, absorb ambiguity without letting the team drown in it, and remain calm during incidents while being clear during planning and honest during escalation.
 
-No wonder leaders drift.
-
-The job constantly rewards adaptation, and adaptation can become imitation if you are not careful.
+No wonder leaders drift. The job constantly rewards adaptation, and adaptation can become imitation if you are not careful.
 
 You start asking what an executive wants to hear, how leaders in this company talk, what gets rewarded here, what kind of person gets promoted here, and what you should sound like in this room.
 
 Those are not bad questions. Every leader needs context awareness. But when those questions become louder than your own judgment, you are no longer adapting. You are outsourcing your center.
 
-Teams can smell it.
-
-They may not say it directly, but they know when a leader is merely translating pressure downward. They know when the leader no longer believes what they are saying. They know when every decision is optimized for optics. They know when the leader has become a spokesperson for the system instead of a thoughtful interpreter of it.
+Teams can smell it. They may not say it directly, but they know when a leader is merely translating pressure downward. They know when the leader no longer believes what they are saying. They know when every decision is optimized for optics. They know when the leader has become a spokesperson for the system instead of a thoughtful interpreter of it.
 
 Once that happens, trust becomes thin.
 
@@ -156,9 +153,7 @@ That can feel uncomfortable, so some managers keep reaching back into the work.
 
 They become the reviewer of every important pull request, the hidden architect behind every decision, the person who rewrites every document, fixes every plan, and rescues every project.
 
-Then they complain that the team lacks ownership.
-
-But the team has learned the system.
+Then they complain that the team lacks ownership, but the team has learned the system.
 
 Ownership eventually flows to wherever decisions are truly made. If every important decision comes back to the manager, the team is not immature. The system is centralized.
 

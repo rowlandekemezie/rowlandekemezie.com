@@ -748,6 +748,30 @@ const emailLinkScript =
       body.dark .prose .astro-code {
         border-top-color: #4a5563;
       }
+      .prose pre:has(code.language-txt),
+      .prose pre:has(code.language-text),
+      .prose pre[data-language="txt"],
+      .prose pre[data-language="text"],
+      .prose .astro-code:has(code.language-txt),
+      .prose .astro-code:has(code.language-text),
+      .prose .astro-code[data-language="txt"],
+      .prose .astro-code[data-language="text"] {
+        background: rgba(20, 17, 15, 0.06) !important;
+        color: var(--text) !important;
+        border: 1px solid rgba(20, 17, 15, 0.1);
+        border-top: 1px solid rgba(20, 17, 15, 0.1);
+      }
+      body.dark .prose pre:has(code.language-txt),
+      body.dark .prose pre:has(code.language-text),
+      body.dark .prose pre[data-language="txt"],
+      body.dark .prose pre[data-language="text"],
+      body.dark .prose .astro-code:has(code.language-txt),
+      body.dark .prose .astro-code:has(code.language-text),
+      body.dark .prose .astro-code[data-language="txt"],
+      body.dark .prose .astro-code[data-language="text"] {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: rgba(255, 255, 255, 0.12);
+      }
       .reveal { animation: reveal-up 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; will-change: transform; }
       .reveal-delay { animation-delay: 100ms; }
       .reveal-delay-2 { animation-delay: 180ms; }
