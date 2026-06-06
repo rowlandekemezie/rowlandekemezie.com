@@ -505,29 +505,16 @@ The boundary protects both sides. The adapter respects the provider's API while 
 
 I like to think of integration architecture in layers of responsibility.
 
-```text
-┌──────────────────────────────────────────────┐
-│ Core Domain                                  │
-│ Product rules, workflows, invariants         │
-└──────────────────────────────────────────────┘
-                    ▲
-                    │
-┌──────────────────────────────────────────────┐
-│ Canonical Integration Model                  │
-│ Stable internal representation               │
-└──────────────────────────────────────────────┘
-                    ▲
-                    │
-┌──────────────────────────────────────────────┐
-│ Provider Adapter                             │
-│ Mapping, auth, pagination, retries, quirks   │
-└──────────────────────────────────────────────┘
-                    ▲
-                    │
-┌──────────────────────────────────────────────┐
-│ External Provider                            │
-│ API, SDK, webhooks, undocumented behavior    │
-└──────────────────────────────────────────────┘
+```mermaid
+flowchart BT
+  provider["External Provider<br/>API, SDK, webhooks, undocumented behavior"]
+  adapter["Provider Adapter<br/>Mapping, auth, pagination, retries, quirks"]
+  canonical["Canonical Integration Model<br/>Stable internal representation"]
+  domain["Core Domain<br/>Product rules, workflows, invariants"]
+
+  provider --> adapter
+  adapter --> canonical
+  canonical --> domain
 ```
 
 When something changes, the layer responsible should absorb the change.

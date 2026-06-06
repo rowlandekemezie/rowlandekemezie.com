@@ -1,6 +1,7 @@
 ---
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import MermaidRenderer from '../components/MermaidRenderer.astro';
 import ScrollProgress from '../components/ScrollProgress.astro';
 import ScrollTopButton from '../components/ScrollTopButton.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -787,6 +788,29 @@ const emailLinkScript =
         border: 1px solid rgba(20, 17, 15, 0.1);
         border-top: 1px solid rgba(20, 17, 15, 0.1);
       }
+      .prose .mermaid-diagram {
+        margin: 1.6rem 0;
+        padding: 1rem;
+        overflow-x: auto;
+        /*background: rgba(255, 252, 247, 0.72);
+        border: 1px solid rgba(20, 17, 15, 0.1);*/
+        border-radius: 0.5rem;
+      }
+      .prose .mermaid-diagram svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+      }
+      .prose .mermaid-diagram[data-mermaid-error="true"] {
+        white-space: pre;
+        font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+        font-size: 0.9rem;
+      }
+      /*body.dark .prose .mermaid-diagram {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.12);
+      }*/
       body.dark .prose pre:has(code.language-txt),
       body.dark .prose pre:has(code.language-text),
       body.dark .prose pre[data-language="txt"],
@@ -797,6 +821,29 @@ const emailLinkScript =
       body.dark .prose .astro-code[data-language="text"] {
         background: rgba(255, 255, 255, 0.08) !important;
         border-color: rgba(255, 255, 255, 0.12);
+      }
+      .prose .mermaid-diagram {
+        display: grid;
+        place-items: center;
+        max-width: 100%;
+        overflow-x: auto;
+        margin: 1.6rem 0;
+        padding: clamp(1rem, 2vw, 1.5rem);
+        border-radius: 0.5rem;
+      }
+      /*body.dark .prose .mermaid-diagram {
+        background: rgba(255, 255, 255, 0.06);
+      }*/
+      .prose .mermaid-diagram svg {
+        max-width: 100%;
+        height: auto;
+      }
+      .prose .mermaid-diagram[data-mermaid-error='true'] {
+        display: block;
+        white-space: pre-wrap;
+        color: var(--text);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-size: 0.9rem;
       }
       .reveal { animation: reveal-up 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; will-change: transform; }
       .reveal-delay { animation-delay: 100ms; }
@@ -869,6 +916,7 @@ const emailLinkScript =
     </main>
     {!hideFooter && <SiteFooter variant={footerVariant} />}
     <ScrollTopButton />
+    <MermaidRenderer />
     <GoogleAnalytics />
     <CloudflareAnalytics />
     <script is:inline>

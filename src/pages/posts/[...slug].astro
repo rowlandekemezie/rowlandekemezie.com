@@ -1,6 +1,7 @@
 ---
 import { render } from 'astro:content';
 import DisqusComments from '../../components/DisqusComments.astro';
+import MermaidRenderer from '../../components/MermaidRenderer.astro';
 import PostTags from '../../components/PostTags.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import {
@@ -8,6 +9,7 @@ import {
   getPostExcerpt,
   getPostIdentifier,
   getPostPath,
+  getPostReadingMinutes,
   getSeriesBySlug,
   getSeriesForPost,
   getSeriesPosition,
@@ -93,13 +95,14 @@ const articleStructuredData = {
         }
         <p class="article-meta">
           <span>{formatPostDate(post.data.date)}</span>
-          <span>{Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).length / 220))} min read</span>
+          <span>{getPostReadingMinutes(post)} min read</span>
         </p>
       </div>
 
       <article class="prose reveal reveal-delay-2">
         <Content />
       </article>
+      <MermaidRenderer />
 
       <section class="post-tags-section reveal reveal-delay-2">
         <PostTags tags={post.data.tags} />
