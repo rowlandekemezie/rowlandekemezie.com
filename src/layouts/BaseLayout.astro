@@ -61,6 +61,8 @@ const jsonLd = JSON.stringify(
 );
 const emailLinkScript =
   '(()=>{const i=()=>document.querySelectorAll("[data-email-link]").forEach((n)=>{if(!(n instanceof HTMLAnchorElement))return;const{eh,eu}=n.dataset;if(!eu||!eh)return;n.href="mai"+"lto:"+eu+"@"+eh});document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:true}):i()})();';
+const pwaCacheResetScript =
+  '(()=>{if(!("serviceWorker"in navigator))return;const k="pwa-cache-reset-v1";if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");const r=navigator.serviceWorker.getRegistrations().then((rs)=>Promise.all(rs.map((r)=>r.unregister())));const c=("caches"in window)?caches.keys().then((ks)=>Promise.all(ks.map((n)=>caches.delete(n)))):Promise.resolve();Promise.all([r,c]).then(()=>{if(navigator.serviceWorker.controller)location.reload()}).catch(()=>{});})();';
 ---
 
 <!doctype html>
@@ -86,6 +88,7 @@ const emailLinkScript =
     {socialImage && <meta name="twitter:image" content={socialImage} />}
     <script is:inline type="application/ld+json" set:html={jsonLd}></script>
     <script is:inline set:html={emailLinkScript}></script>
+    <script is:inline set:html={pwaCacheResetScript}></script>
     <title>{title}</title>
     <style is:global>
       :root {
