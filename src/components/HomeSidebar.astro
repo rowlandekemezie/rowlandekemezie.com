@@ -12,6 +12,7 @@ const { current = 'posts' } = Astro.props;
 function iconId(label: string) {
   if (label === 'Twitter') return 'twitter';
   if (label === 'GitHub') return 'github';
+  if (label === 'LinkedIn') return 'linkedin';
   if (label === 'Email') return 'email';
   return 'rss';
 }
