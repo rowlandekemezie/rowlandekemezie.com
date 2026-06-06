@@ -99,18 +99,21 @@ function iconId(label: string) {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.50);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: #fff;
     opacity: 0.9;
     text-decoration: none;
+    transition:
+      color 0.18s ease,
+      transform 0.18s ease;
   }
 
-  .site-footer-socials a :global(svg) {
-    width: 1.3rem;
-    height: 1.3rem;
+  .site-footer-socials a svg {
+    width: 1.35rem;
+    height: 1.35rem;
   }
 
   .site-footer-socials a:hover,
