@@ -130,7 +130,12 @@ const emailLinkScript =
       }
       a { color: inherit; text-decoration-color: rgba(181, 100, 29, 0.45); text-underline-offset: 0.18em; }
       img { max-width: 100%; height: auto; }
-      .site-header, .site-main { width: var(--page-width); margin: 0 auto; }
+      .site-header, .site-main {
+        width: var(--page-width);
+        max-width: 100%;
+        min-width: 0;
+        margin: 0 auto;
+      }
       .site-header { padding: 1.25rem 0 0; }
       .site-header-bar {
         display: flex;
@@ -330,6 +335,15 @@ const emailLinkScript =
       .page-flow {
         display: grid;
         gap: clamp(2.8rem, 4vw, 4.4rem);
+      }
+      .page-flow > *,
+      .hero-grid > *,
+      .archive-grid > *,
+      .home-section > *,
+      .article-shell > *,
+      .split-line > *,
+      .page-grid > * {
+        min-width: 0;
       }
       .grid-rule {
         position: relative;
@@ -678,12 +692,24 @@ const emailLinkScript =
       .taxonomy-list a:hover,
       .taxonomy-list a:focus-visible { color: var(--accent); }
       .prose {
+        max-width: 100%;
+        min-width: 0;
         font-family: var(--font-serif);
         font-size: 1.08rem;
         line-height: 1.85;
         color: var(--text);
+        overflow-wrap: break-word;
       }
       .prose > :first-child { margin-top: 0; }
+      .prose img,
+      .prose picture,
+      .prose video,
+      .prose canvas,
+      .prose svg {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
       .prose h2,
       .prose h3,
       .prose h4 {
@@ -704,9 +730,7 @@ const emailLinkScript =
       .prose figure { margin: 1.2rem 0; }
       .prose > p:first-of-type img,
       .prose > figure:first-of-type img {
-        display: block;
         width: 100%;
-        height: auto;
       }
       .prose blockquote {
         margin-left: 0;
@@ -728,6 +752,7 @@ const emailLinkScript =
       }
       .prose pre,
       .prose .astro-code {
+        max-width: 100%;
         overflow-x: auto;
         padding: 14px !important;
         background: #1f1f1f !important;
@@ -799,7 +824,7 @@ const emailLinkScript =
         }
       }
       @media (max-width: 56rem) {
-        .site-header, .site-main { width: min(100vw - 1.5rem, 100%); }
+        .site-header, .site-main { width: min(calc(100vw - 1.5rem), 100%); }
         .site-main {
           padding-bottom: 3rem;
         }
