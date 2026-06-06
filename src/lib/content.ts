@@ -52,16 +52,34 @@ export function formatPostMonthYear(value: string) {
   });
 }
 
-export function getPostExcerpt(post: PostEntry, maxLength = 180) {
-  const text = (post.body ?? '')
-    .replace(/^---[\s\S]*?---/, '')
-    .replace(/`{1,3}[^`]*`{1,3}/g, ' ')
+export function getReadablePostText(post: PostEntry) {
+  return (post.body ?? '')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
     .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
     .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
     .replace(/<[^>]+>/g, ' ')
     .replace(/[#>*_~-]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+export function getPostWordCount(post: PostEntry) {
+  const text = getReadablePostText(post);
+
+  if (!text) {
+    return 0;
+  }
+
+  return text.split(/\s+/).length;
+}
+
+export function getPostReadingMinutes(post: PostEntry) {
+  return Math.max(1, Math.ceil(getPostWordCount(post) / 238));
+}
+
+export function getPostExcerpt(post: PostEntry, maxLength = 180) {
+  const text = getReadablePostText(post);
 
   if (text.length <= maxLength) {
     return text;
