@@ -1,0 +1,92 @@
+<script>
+  const getMermaidTheme = () => (document.body.classList.contains('dark') ? 'dark' : 'default');
+
+  const collectMermaidBlocks = () => {
+    const selectors = [
+      'pre[data-language="mermaid"]',
+      '.astro-code[data-language="mermaid"]',
+      'pre:has(code.language-mermaid)',
+      '.astro-code:has(code.language-mermaid)',
+    ];
+    const blocks = new Set<Element>();
+
+    selectors.forEach((selector) => {
+      try {
+        document.querySelectorAll(selector).forEach((block) => blocks.add(block));
+      } catch {
+        // Some older browsers do not support :has(). The data-language selectors above cover Astro output.
+      }
+    });
+
+    blocks.forEach((block) => {
+      if (!(block instanceof HTMLElement)) return;
+
+      const code = block.querySelector('code.language-mermaid, code');
+      const source = code?.textContent?.trim();
+
+      if (!source) return;
+
+      const diagram = document.createElement('div');
+      diagram.className = 'mermaid-diagram';
+      diagram.dataset.mermaidSource = source;
+      diagram.setAttribute('role', 'img');
+      diagram.setAttribute('aria-label', 'Architecture diagram');
+      block.replaceWith(diagram);
+    });
+  };
+
+  let renderIndex = 0;
+  let mermaidModulePromise;
+
+  const loadMermaid = () => {
+    mermaidModulePromise ??= import('mermaid');
+    return mermaidModulePromise;
+  };
+
+  const renderMermaid = async () => {
+    collectMermaidBlocks();
+
+    const diagrams = Array.from(document.querySelectorAll('[data-mermaid-source]')).filter(
+      (diagram) => diagram instanceof HTMLElement
+    );
+
+    if (diagrams.length === 0) return;
+
+    const { default: mermaid } = await loadMermaid();
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'strict',
+      theme: getMermaidTheme(),
+    });
+
+    await Promise.all(
+      diagrams.map(async (diagram) => {
+        const source = diagram.dataset.mermaidSource;
+        if (!source) return;
+
+        const id = `mermaid-${Date.now()}-${renderIndex}`;
+        renderIndex += 1;
+
+        try {
+          const { svg, bindFunctions } = await mermaid.render(id, source);
+          diagram.innerHTML = svg;
+          bindFunctions?.(diagram);
+          diagram.removeAttribute('data-mermaid-error');
+        } catch (error) {
+          diagram.dataset.mermaidError = 'true';
+          diagram.textContent = source;
+          console.error('Failed to render Mermaid diagram', error);
+        }
+      })
+    );
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMermaid, { once: true });
+  } else {
+    renderMermaid();
+  }
+
+  window.addEventListener('rowland:theme-change', renderMermaid);
+</script>
