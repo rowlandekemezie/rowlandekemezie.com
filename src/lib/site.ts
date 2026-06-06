@@ -12,6 +12,10 @@ export const site = {
         url: 'https://github.com/rowlandekemezie',
       },
       {
+        label: 'LinkedIn',
+        url: 'https://www.linkedin.com/in/rowlandekemezie/',
+      },
+      {
         label: 'Email',
         url: 'mailto:hello@rowlandekemezie.com',
       },
