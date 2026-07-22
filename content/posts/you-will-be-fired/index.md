@@ -22,9 +22,7 @@ The room is quiet because everyone already knows what is about to happen. The ch
 
 The players have not been told yet, but some of them have guessed. Results have been poor. The team looks nervous, the press is disorganized, the forwards are isolated, and the defenders keep making the same mistakes. The supporters are angry. The journalists are circling. So the club does what clubs do: it fires the manager.
 
-Not the striker who missed the chances.
-Not the defender who lost his man.
-Not the midfielder who gave the ball away under pressure.
+The striker missed chances, the defender lost his man, and the midfielder gave the ball away under pressure. The manager still goes.
 
 The manager did not touch the ball once, but he is the cleanest person to remove. By morning, the club has a new story. The squad still has quality. The season can still be saved. The players need a fresh voice. The club thanks him for his service and wishes him well. Training continues, and the brutal economy of leadership reveals itself:
 
@@ -42,20 +40,15 @@ Sometimes that story is cowardice. Sometimes it is true. The hard part is that, 
 
 In sports, firing the manager is often the safest visible action. It signals urgency without forcing the club to admit more uncomfortable things: maybe recruitment was poor, maybe the squad was imbalanced, maybe ownership was confused, maybe the strategy was never coherent, or maybe there was never a real footballing philosophy in the first place. Those are harder to fix. The manager is simpler.
 
-Bad squad planning? Fire the manager.
-No identity? Fire the manager.
-Players underperforming? Fire the manager.
-Fans angry? Fire the manager.
+Bad squad planning, no identity, underperforming players, angry fans: fire the manager.
 
 It is not always rational, but it creates motion. It gives everyone the feeling that something decisive has happened, and organizations love that feeling. Engineering organizations are no different. A team may be drowning in unclear priorities, unstable product direction, legacy architecture, weak staffing, brittle systems, and a roadmap built from executive anxiety. Then one day, someone asks:
 
 “Why is this team not performing?”
 
-The truthful answer may be complicated. The convenient answer is not: “The manager is not strong enough.” And here is the uncomfortable part: sometimes they are right.
+The truthful answer may be complicated. The convenient answer is simple: “The manager is not strong enough.” Sometimes they are right.
 
-Not because the manager caused every problem. Not because the manager personally created the legacy system. Not because the manager changed the roadmap six times. Not because the manager wrote the bad code, missed the edge case, or broke production.
-
-But because leadership is not only responsible for the work. **Leadership is responsible for the conditions around the work.** That is the job, and that is why you can be held accountable for problems you did not personally create.
+The manager may not have caused every problem, created the legacy system, changed the roadmap six times, written the bad code, missed the edge case, or broken production. But leadership is responsible for the conditions around the work. That is the job, and that is why you can be held accountable for problems you did not personally create.
 
 ## The Manager Without a Philosophy
 
@@ -284,29 +277,13 @@ You will call lack of strategy “being agile.”
 
 And then one day, someone will say the team needs different leadership. Maybe they will be wrong, but they may not be surprised.
 
-## The Landing
+## Build a team that makes replacement a lazy answer
 
-So yes, you might be fired. Not because you are bad, not because you failed alone, and not because leadership is fair. You might be fired because when outcomes collapse, leaders become the cleanest story an organization can tell itself.
+You might be fired because when outcomes collapse, leaders become the cleanest story an organization can tell itself. That does not mean you are bad, failed alone, or were treated fairly.
 
-The question is not whether that is fair. The question is whether you are leading in a way that makes replacing you a lazy answer.
+Lead in a way that makes replacing you a lazy answer.
 
-Build a team with clarity.
-
-Build a team with standards.
-
-Build a team that can tell the truth early.
-
-Build a team that understands the business.
-
-Build a team that can operate without your constant rescue.
-
-Build a team where ownership is not a slogan but a practiced muscle.
-
-And above all, build from a philosophy, because when the organization starts looking for the simplest thing to change, your title will not protect you. Your effort will not protect you. Your intentions will not protect you. Only your operating system has a chance.
-
-The match is already in progress. The board is watching. The team is looking over.
-
-What exactly do you believe?
+Build a team with clarity and standards, one that can tell the truth early, understands the business, operates without your constant rescue, and practices ownership instead of treating it as a slogan. Build from a philosophy, because when the organization starts looking for the simplest thing to change, your title, effort, and intentions will not protect you. Your operating philosophy might.
 
 ## Further Reading
 

@@ -73,20 +73,18 @@ I do not know whether current expectations are too high or too low. I do not kno
 
 What I do know is that learning has historically been one of the lowest-regret responses to technological change.
 
-Suppose a young professional spends the next two years learning how AI systems work, where they succeed, where they fail, and how they can be incorporated into existing workflows. If AI ultimately falls short of today's expectations, that person still develops a deeper understanding of automation, workflow design, experimentation, systems thinking, and emerging technologies. Those skills remain useful even if the technology evolves differently than expected. In another case, if AI exceeds expectations, the benefits become even more obvious.
+Suppose a young professional spends the next two years learning how AI systems work, where they succeed, where they fail, and how they can fit into existing workflows. If AI falls short of today's expectations, that person still develops a deeper understanding of automation, workflow design, experimentation, systems thinking, and emerging technologies. Those skills remain useful even if the technology evolves differently than expected. If AI exceeds expectations, the benefits become even more obvious.
 
 The asymmetry is difficult to ignore. The downside of learning appears relatively small while the potential upside can be substantial.
 
-What makes this particularly interesting is that the most valuable skills may not be the ones many people expect. Every major technological shift changes the economics of something. When production becomes cheaper, distribution becomes more important. When information becomes abundant, attention becomes more valuable. When infrastructure becomes easier to provision, execution speed becomes a competitive advantage.
+The most valuable skills may not be the ones many people expect. Every major technological shift changes the economics of something. When production becomes cheaper, distribution becomes more important. When information becomes abundant, attention becomes more valuable. When infrastructure becomes easier to provision, execution speed becomes a competitive advantage.
 
 AI appears to be reducing the cost of generation across many forms of knowledge work. As generation becomes cheaper, other capabilities naturally increase in importance. Judgment becomes more important. Validation becomes more important. Context becomes more important. Decision-making becomes more important. Understanding whether an answer is correct often becomes more valuable than producing an answer in the first place.
 
-For me, the deeper question is how professionals adapt when a capability becomes dramatically cheaper than it was before.
+For me, the question is how professionals adapt when a capability becomes dramatically cheaper than it was before.
 
-After looking at enough technological transitions, I keep returning to the same conclusion. Technology changes. Industries change. Tools change. Predictions change. Human behavior changes far less than we often imagine.
+After looking at enough technological transitions, I keep returning to the same conclusion: technology, industries, tools, and predictions change faster than human behavior.
 
 Every generation eventually encounters a technology that forces a choice between skepticism, resistance, evangelism, and learning.
 
-History has not consistently rewarded the skeptics nor the evangelists. It has been remarkably consistent in rewarding the learners.
-
-That is why learning remains my safest bet.
+History has rewarded neither skeptics nor evangelists consistently. Learning remains my safest bet.

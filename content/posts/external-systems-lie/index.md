@@ -16,13 +16,11 @@ series:
   slug: building-integration-systems
   order: 2
 image: ./images/external-systems-lie.webp
-
----
-![External Systems Lie Image](./images/external-systems-lie.webp)
+---![External Systems Lie Image](./images/external-systems-lie.webp)
 
 [In the first article of this series,](https://rowlandekemezie.com/posts/integrations-start-where-api-documentation-ends/) I argued that integrations begin at the point where API documentation ends. Once your product depends on a third‑party system, the work becomes less about making API calls and more about owning the boundary between your domain and theirs. This second installment expands on that idea. It is about what happens when external systems quietly diverge from the world your code believes in.
 
-Most integration failures do not start with a pager duty alert or a provider outage. They begin when a customer notices that something they know to be true doesn’t align with what your application shows. The API still responds; the queue still drains; the dashboards all glow green. Yet something fundamental has shifted. Engineers often describe these moments by saying _external systems lie_. The reality is more interesting. External systems are not dishonest; they are simply evolving in ways your code is no longer prepared to accept.
+Most integration failures do not start with a pager duty alert or a provider outage. They begin when a customer notices that something they know to be true doesn’t align with what your application shows. The API still responds; the queue still drains; the dashboards all glow green. Yet something has shifted. Engineers often describe these moments by saying _external systems lie_. External systems are not dishonest; they are evolving in ways your code is no longer prepared to accept.
 
 ## The payment that moved backwards
 
@@ -105,7 +103,7 @@ A mature integration accommodates this by designing workflows around convergence
 
 ## The provider said nothing changed
 
-A common conversation goes like this: your system is broken; the provider insists nothing has changed. The truth is that both statements can be correct. The provider measures change by whether their published contract has a new version. You measure change by whether your assumptions still hold.
+A common conversation goes like this: your system is broken; the provider insists nothing has changed. Both statements can be correct. The provider measures change by whether their published contract has a new version. You measure change by whether your assumptions still hold.
 
 One way to make these invisible assumptions concrete is _consumer‑driven contract testing_. PactFlow describes consumer‑driven contract testing as a process that checks whether a provider is compatible with the expectations that the consumer has of it. The consumer serialises its expectations into a contract file as part of its tests; the provider then verifies that contract as part of its build. If the provider adds a new field that doesn’t affect the contract, nothing breaks. If the provider changes a field in a way that violates the consumer’s contract, the provider’s test suite fails before the change reaches production.
 
