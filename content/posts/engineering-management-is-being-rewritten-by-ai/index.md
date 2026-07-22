@@ -62,7 +62,7 @@ The more important constraint becomes:
 
 > **Effective Output = min(Judgment x Systems x AI Throughput, Validation Capacity)**
 
-I think this is where many teams will feel the pain. A team can generate more than it can understand, review, test, operate, or safely roll back. At that point, AI does not create leverage; it creates a growing pile of unverified decisions because it's difficult to outsource understanding.
+I think this is where many teams will feel the pain. A team can generate more than it can understand, review, test, operate, or safely roll back. At that point, AI creates a growing pile of unverified decisions because it's difficult to outsource understanding.
 
 I view this as the **generation-validation gap**.
 
@@ -162,17 +162,13 @@ How does work enter the team? How are options explored? How are assumptions test
 
 That is management in the AI-assisted engineering organization.
 
-## Bottom Line
+## What changes for managers
 
-The code-generation debate sits on the surface.
-
-The deeper shift is that AI makes generation cheaper across the engineering lifecycle. When that happens, effort loses its place as the main bottleneck. Judgment, validation, context, taste, and trust become more important.
+AI makes generation cheaper across the engineering lifecycle. As effort stops being the main bottleneck, judgment, validation, context, taste, and trust matter more.
 
 Engineering Managers were trained in a world where effort was scarce. Let's just say that world is fading.
 
-The next generation of EMs will be judged by a different standard: whether they can build teams and systems where humans and AI make better decisions, validate those decisions faster, and learn without making the organization more fragile.
-
-Managing more output won't be the new norm. Managing better outcomes will be.
+The next generation of EMs will be judged by whether they can build teams and systems where humans and AI make better decisions, validate them faster, and learn without making the organization more fragile.
 
 ## References
 

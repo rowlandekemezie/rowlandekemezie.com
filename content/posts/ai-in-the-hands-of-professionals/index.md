@@ -100,9 +100,7 @@ Which operating assumptions no longer hold when generation becomes effectively a
 
 Questions like those increasingly determine organizational advantage.
 
-The divide emerging over the next decade may not separate professionals who adopt artificial intelligence from professionals who avoid it. Adoption curves suggest most professional environments eventually incorporate AI systems into daily operation. The larger separation may emerge between organizations accelerating existing workflows and organizations redesigning professional work because artificial intelligence exists.
-
-While one approach produces efficiency improvements and the other changes leverage itself, leading to increasingly inexpensive generation and increasingly scarce judgment, professional expertise does not lose importance when intelligence becomes broadly accessible, but rather its value compounds differently.
+The divide emerging over the next decade may be between organizations that use AI to speed up existing workflows and those that redesign professional work around it. Professional expertise does not lose importance as intelligence becomes broadly accessible. Its value compounds differently because generation gets cheaper while judgment remains scarce.
 
 ## Further Reading
 

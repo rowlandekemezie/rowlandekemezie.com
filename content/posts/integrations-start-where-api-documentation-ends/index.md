@@ -60,11 +60,11 @@ You start seeing names like this:
 
 ```typescript
 type GithubUser = {
-  id: number
-  login: string
-  avatar_url: string
-  html_url: string
-}
+  id: number;
+  login: string;
+  avatar_url: string;
+  html_url: string;
+};
 ```
 
 Then the type leaks into places where GitHub should not exist.
@@ -74,8 +74,8 @@ async function assignReviewerToPullRequest(user: GithubUser) {
   await notificationService.notify({
     userId: user.id.toString(),
     displayName: user.login,
-    avatarUrl: user.avatar_url,
-  })
+    avatarUrl: user.avatar_url
+  });
 }
 ```
 
@@ -85,17 +85,17 @@ A better internal model starts by asking what the product actually needs to know
 
 ```typescript
 type ExternalActor = {
-  provider: IntegrationProvider
-  providerActorId: string
-  displayName: string
-  profileUrl: string | null
-  avatarUrl: string | null
-}
+  provider: IntegrationProvider;
+  providerActorId: string;
+  displayName: string;
+  profileUrl: string | null;
+  avatarUrl: string | null;
+};
 ```
 
 GitHub can become an `ExternalActor`. GitLab can become an `ExternalActor`. A payroll provider employee, depending on the context, may become a `WorkerIdentity`, `EmploymentRecord`, or `Payee`.
 
-The point is not to create generic names for everything. The point is to protect your application from outsourcing its language to someone else’s API.
+Protect your application from outsourcing its language to someone else’s API. That does not require generic names for everything.
 
 ## Integration boundaries need ownership
 
@@ -150,17 +150,17 @@ Another provider sends this:
 A weak integration model spreads those differences throughout the codebase. A stronger boundary translates both into something the application can own.
 
 ```typescript
-type WorkerClassification = 'employee' | 'contractor'
+type WorkerClassification = 'employee' | 'contractor';
 
-type WorkerLifecycleStatus = 'active' | 'inactive' | 'terminated'
+type WorkerLifecycleStatus = 'active' | 'inactive' | 'terminated';
 
 type WorkerRecord = {
-  provider: IntegrationProvider
-  providerWorkerId: string
-  classification: WorkerClassification
-  lifecycleStatus: WorkerLifecycleStatus
-  taxRegion: string | null
-}
+  provider: IntegrationProvider;
+  providerWorkerId: string;
+  classification: WorkerClassification;
+  lifecycleStatus: WorkerLifecycleStatus;
+  taxRegion: string | null;
+};
 ```
 
 The model is still imperfect because every model is a tradeoff, but the rest of the system now works with concepts it understands.
@@ -173,7 +173,7 @@ A wrapper says:
 
 ```typescript
 async function getEmployee(employeeId: string) {
-  return payrollClient.employees.get(employeeId)
+  return payrollClient.employees.get(employeeId);
 }
 ```
 
@@ -181,42 +181,42 @@ An adapter says:
 
 ```typescript
 type ProviderEmployeeResponse = {
-  id: string
-  employment_type: 'W2' | '1099'
-  status: string
+  id: string;
+  employment_type: 'W2' | '1099';
+  status: string;
   home_address?: {
-    state?: string
-  }
-}
+    state?: string;
+  };
+};
 
 type WorkerRecord = {
-  provider: 'acme-payroll'
-  providerWorkerId: string
-  classification: 'employee' | 'contractor'
-  lifecycleStatus: 'active' | 'inactive' | 'terminated'
-  taxRegion: string | null
-}
+  provider: 'acme-payroll';
+  providerWorkerId: string;
+  classification: 'employee' | 'contractor';
+  lifecycleStatus: 'active' | 'inactive' | 'terminated';
+  taxRegion: string | null;
+};
 
 function mapAcmeEmployeeToWorkerRecord(
-  employee: ProviderEmployeeResponse,
+  employee: ProviderEmployeeResponse
 ): WorkerRecord {
   return {
     provider: 'acme-payroll',
     providerWorkerId: employee.id,
     classification: mapEmploymentType(employee.employment_type),
     lifecycleStatus: normalizeAcmePayrollStatus(employee.status),
-    taxRegion: mapHomeAddressToTaxRegion(employee.home_address),
-  }
+    taxRegion: mapHomeAddressToTaxRegion(employee.home_address)
+  };
 }
 
 function mapEmploymentType(
-  employmentType: ProviderEmployeeResponse['employment_type'],
+  employmentType: ProviderEmployeeResponse['employment_type']
 ): WorkerRecord['classification'] {
   if (employmentType === 'W2') {
-    return 'employee'
+    return 'employee';
   }
 
-  return 'contractor'
+  return 'contractor';
 }
 ```
 
@@ -249,25 +249,25 @@ A canonical model should represent the stable internal concept your product can 
 One useful pattern is to separate the normalized model from provider capabilities.
 
 ```typescript
-type IntegrationProvider = 'github' | 'gitlab' | 'bitbucket'
+type IntegrationProvider = 'github' | 'gitlab' | 'bitbucket';
 
 type PullRequestRecord = {
-  provider: IntegrationProvider
-  providerPullRequestId: string
-  repositoryId: string
-  title: string
-  state: 'open' | 'closed' | 'merged'
-  author: ExternalActor
-  createdAt: Date
-  updatedAt: Date
-}
+  provider: IntegrationProvider;
+  providerPullRequestId: string;
+  repositoryId: string;
+  title: string;
+  state: 'open' | 'closed' | 'merged';
+  author: ExternalActor;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 type PullRequestProviderCapabilities = {
-  supportsDraftPullRequests: boolean
-  supportsRequiredReviewers: boolean
-  supportsMergeQueue: boolean
-  supportsCodeOwners: boolean
-}
+  supportsDraftPullRequests: boolean;
+  supportsRequiredReviewers: boolean;
+  supportsMergeQueue: boolean;
+  supportsCodeOwners: boolean;
+};
 ```
 
 The canonical record answers, “What does our product need to know about a pull request?”
@@ -278,13 +278,13 @@ Combining both into one abstraction often leads to awkward optional fields every
 
 ```typescript
 type PullRequestRecord = {
-  title: string
-  state: string
-  draft?: boolean
-  mergeQueueStatus?: string
-  requiredReviewers?: Array<string>
-  codeOwners?: Array<string>
-}
+  title: string;
+  state: string;
+  draft?: boolean;
+  mergeQueueStatus?: string;
+  requiredReviewers?: Array<string>;
+  codeOwners?: Array<string>;
+};
 ```
 
 That shape looks flexible, but flexibility without semantics usually moves complexity somewhere else. The UI, sync engine, and business rules all have to infer provider behavior anyway.
@@ -297,15 +297,15 @@ Every provider abstraction leaks because providers are not interchangeable machi
 
 They have different authentication models, rate limits, object lifecycles, retry semantics, pagination strategies, webhook guarantees, filtering capabilities, reporting APIs, and support processes.
 
-The goal of a provider abstraction is not to make providers identical. The goal is to make the common path consistent while giving the system safe escape hatches for differences that matter.
+A provider abstraction should make the common path consistent while giving the system safe escape hatches for differences that matter. It should not pretend providers are identical.
 
 A common abstraction usually starts like this:
 
 ```typescript
 interface PayrollProvider {
-  createWorker(worker: WorkerRecord): Promise<WorkerRecord>
-  getWorker(workerId: string): Promise<WorkerRecord>
-  runPayroll(payrollRun: PayrollRun): Promise<PayrollRun>
+  createWorker(worker: WorkerRecord): Promise<WorkerRecord>;
+  getWorker(workerId: string): Promise<WorkerRecord>;
+  runPayroll(payrollRun: PayrollRun): Promise<PayrollRun>;
 }
 ```
 
@@ -315,28 +315,28 @@ One of the more honest abstraction is separating commands, results, capabilities
 
 ```typescript
 type CreateWorkerCommand = {
-  organizationId: string
-  worker: WorkerRecord
-}
+  organizationId: string;
+  worker: WorkerRecord;
+};
 
 type CreateWorkerResult =
   | {
-      status: 'created'
-      worker: WorkerRecord
+      status: 'created';
+      worker: WorkerRecord;
     }
   | {
-      status: 'pending'
-      providerOperationId: string
+      status: 'pending';
+      providerOperationId: string;
     }
   | {
-      status: 'rejected'
-      reason: ProviderRejectionReason
-    }
+      status: 'rejected';
+      reason: ProviderRejectionReason;
+    };
 
 interface PayrollProviderAdapter {
-  getCapabilities(): PayrollProviderCapabilities
-  createWorker(command: CreateWorkerCommand): Promise<CreateWorkerResult>
-  getWorker(providerWorkerId: string): Promise<WorkerRecord | null>
+  getCapabilities(): PayrollProviderCapabilities;
+  createWorker(command: CreateWorkerCommand): Promise<CreateWorkerResult>;
+  getWorker(providerWorkerId: string): Promise<WorkerRecord | null>;
 }
 ```
 
@@ -368,20 +368,20 @@ Provider behavior should become executable knowledge.
 function normalizeAcmePayrollStatus(status: string): WorkerLifecycleStatus {
   switch (status) {
     case 'active':
-      return 'active'
+      return 'active';
 
     case 'inactive':
-      return 'inactive'
+      return 'inactive';
 
     case 'terminated':
     case 'deleted':
-      return 'terminated'
+      return 'terminated';
 
     default:
       throw new UnknownProviderStatusError({
         provider: 'acme-payroll',
-        status,
-      })
+        status
+      });
   }
 }
 ```
@@ -391,15 +391,15 @@ The test should tell the story.
 ```typescript
 describe('normalizeAcmePayrollStatus', () => {
   it('treats deleted workers as terminated because Acme uses deleted for archived employment records', () => {
-    expect(normalizeAcmePayrollStatus('deleted')).toBe('terminated')
-  })
+    expect(normalizeAcmePayrollStatus('deleted')).toBe('terminated');
+  });
 
   it('fails loudly when Acme sends an unknown worker status', () => {
     expect(() => normalizeAcmePayrollStatus('suspended')).toThrow(
-      UnknownProviderStatusError,
-    )
-  })
-})
+      UnknownProviderStatusError
+    );
+  });
+});
 ```
 
 A mature integration codebase becomes a record of provider truth.
@@ -446,28 +446,28 @@ A simplified schema might look like this:
 
 ```typescript
 type RawIntegrationEvent = {
-  id: string
-  eventId: string | null
-  eventType: string
-  payload: unknown
-  headers: Record<string, string>
-  receivedAt: Date
-  processedAt: Date | null
-  processingStatus: 'pending' | 'processed' | 'failed'
-}
+  id: string;
+  eventId: string | null;
+  eventType: string;
+  payload: unknown;
+  headers: Record<string, string>;
+  receivedAt: Date;
+  processedAt: Date | null;
+  processingStatus: 'pending' | 'processed' | 'failed';
+};
 ```
 
 Then the normalized record can reference the source event.
 
 ```typescript
 type IntegrationSyncRecord = {
-  id: string
-  provider: IntegrationProvider
-  providerObjectId: string
-  objectType: 'pull_request' | 'issue' | 'worker' | 'payroll_run'
-  sourceEventId: string | null
-  lastSyncedAt: Date
-}
+  id: string;
+  provider: IntegrationProvider;
+  providerObjectId: string;
+  objectType: 'pull_request' | 'issue' | 'worker' | 'payroll_run';
+  sourceEventId: string | null;
+  lastSyncedAt: Date;
+};
 ```
 
 When a customer asks why a status changed, you do not want to guess. You want to inspect the raw event, the normalized model, and the domain action that followed.
@@ -482,15 +482,16 @@ For example, a provider may allow a payroll run to be created without a complete
 
 ```typescript
 function validatePayrollRunReadiness(payrollRun: PayrollRun): void {
-  const workersWithoutTaxRegion = payrollRun.workers.filter((worker) => {
-    return worker.taxRegion === null
-  })
+  const workersWithoutTaxRegion = payrollRun.workers.filter(worker => {
+    return worker.taxRegion === null;
+  });
 
   if (workersWithoutTaxRegion.length > 0) {
     throw new PayrollRunValidationError({
-      message: 'Payroll run cannot be submitted while workers are missing tax regions',
-      workerIds: workersWithoutTaxRegion.map((worker) => worker.id),
-    })
+      message:
+        'Payroll run cannot be submitted while workers are missing tax regions',
+      workerIds: workersWithoutTaxRegion.map(worker => worker.id)
+    });
   }
 }
 ```
@@ -525,21 +526,19 @@ If the product changes how it defines an “active worker”, the domain should 
 
 If the team adds GitLab support, the new adapter, provider capabilities, and canonical model should absorb only the differences the product truly needs.
 
-## The real integration question
+## Can the system stay understandable?
 
-Most teams can connect to a provider but the question is, "Can we keep our system understandable after this provider becomes operationally important?"
-
-The question goes deeper than dropping in a new provider to your product to absorbing it into your integration architecture.
+Most teams can connect to a provider. The harder work is keeping the system understandable after that provider becomes operationally important and part of the integration architecture.
 
 SDKs help you start. Documentation helps you make the first call. Sample code helps you prove the API works. After that, the work becomes boundary ownership.
 
 You need to decide what your system believes, what the provider is allowed to influence, how external concepts enter your model, where provider-specific behavior lives, how undocumented behavior becomes executable knowledge, and how future providers can be added without turning the application into a pile of conditional logic.
 
-Integrations start with API calls, but they survive through boundaries.
+API calls start an integration. Boundaries keep it alive.
 
 The teams that understand this early build systems that can absorb provider changes, support more customers, debug production issues faster, and add new integrations without rewriting the product every time.
 
-The teams that miss it eventually discover that the external API was never the hardest part. The hardest part was letting another system quietly define what your system means.
+Teams that miss it eventually discover that they let another system quietly define what their own system means.
 
 ---
 
@@ -547,4 +546,4 @@ The teams that miss it eventually discover that the external API was never the h
 
 The language around anti-corruption layers comes from Domain-Driven Design, where the core idea is to keep foreign models from polluting your domain. Microsoft Learn describes the anti-corruption layer pattern as a translation layer between systems with different semantics. ([Microsoft Learn][1])
 
-[1]: https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer "Anti-corruption Layer pattern - Azure Architecture Center"
+[1]: https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer 'Anti-corruption Layer pattern - Azure Architecture Center'

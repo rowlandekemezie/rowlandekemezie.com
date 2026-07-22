@@ -33,7 +33,7 @@ A one-way integration has a simple authority model. One system owns the truth. A
 
 However, bidirectional synchronization eliminates that architectural simplicity.
 
-Now two systems can change the same record. In some cases, they change different fields, which can be safe. In others, they change the same field, which can be dangerous. Occasionally, both changes are valid from the perspective of the person who made them. Ultimately, both systems believe they are right because, locally, they are.
+Now two systems can change the same record. In some cases, they change different fields, which can be safe. In others, they change the same field, which can be dangerous. Occasionally, both changes are valid from the perspective of the person who made them. Both systems believe they are right because, locally, they are.
 
 A customer updates their email in your app. A few minutes later, a support agent updates the same customer in the CRM. An hour later, your system receives a delayed webhook from the CRM with the old email. Your webhook handler processes the event successfully. Your database updates. Your UI shows the old value again.
 
@@ -85,13 +85,13 @@ A weak sync system treats the record as one indivisible object.
 
 ```ts
 type Customer = {
-  id: string
-  email: string
-  phoneNumber: string
-  lifecycleStage: 'lead' | 'qualified' | 'customer'
-  billingStatus: 'trial' | 'active' | 'past_due' | 'cancelled'
-  updatedAt: Date
-}
+  id: string;
+  email: string;
+  phoneNumber: string;
+  lifecycleStage: 'lead' | 'qualified' | 'customer';
+  billingStatus: 'trial' | 'active' | 'past_due' | 'cancelled';
+  updatedAt: Date;
+};
 ```
 
 Then it asks:
@@ -113,38 +113,38 @@ A more useful model looks like this:
 
 ```ts
 type FieldOwnershipPolicy = {
-  fieldName: string
-  owner: 'local' | 'crm' | 'billing_provider' | 'shared'
+  fieldName: string;
+  owner: 'local' | 'crm' | 'billing_provider' | 'shared';
   conflictStrategy:
     | 'local_wins'
     | 'external_wins'
     | 'latest_valid_change'
     | 'merge'
-    | 'manual_review'
-}
+    | 'manual_review';
+};
 
 const customerSyncPolicy: Array<FieldOwnershipPolicy> = [
   {
     fieldName: 'email',
     owner: 'local',
-    conflictStrategy: 'local_wins',
+    conflictStrategy: 'local_wins'
   },
   {
     fieldName: 'phoneNumber',
     owner: 'shared',
-    conflictStrategy: 'latest_valid_change',
+    conflictStrategy: 'latest_valid_change'
   },
   {
     fieldName: 'lifecycleStage',
     owner: 'crm',
-    conflictStrategy: 'external_wins',
+    conflictStrategy: 'external_wins'
   },
   {
     fieldName: 'billingStatus',
     owner: 'billing_provider',
-    conflictStrategy: 'external_wins',
-  },
-]
+    conflictStrategy: 'external_wins'
+  }
+];
 ```
 
 The shape can change. The discipline matters more than the implementation.
@@ -186,13 +186,13 @@ If the CRM updates a record after seeing your latest local version, the CRM chan
 Version vectors helps a lot in this scenario. Instead of relying on wall-clock time, each system tracks what it has seen from every other system.
 
 ```ts
-type VersionVector = Record<string, number>
+type VersionVector = Record<string, number>;
 
 type VersionedCustomerRecord = {
-  id: string
-  data: Customer
-  version: VersionVector
-}
+  id: string;
+  data: Customer;
+  version: VersionVector;
+};
 ```
 
 Imagine your local system and a CRM are both syncing customer records.
@@ -214,39 +214,39 @@ The versions are concurrent.
 ```ts
 function compareVersionVectors(
   left: VersionVector,
-  right: VersionVector,
+  right: VersionVector
 ): 'left_after_right' | 'right_after_left' | 'same' | 'concurrent' {
-  const allSystems = new Set([...Object.keys(left), ...Object.keys(right)])
+  const allSystems = new Set([...Object.keys(left), ...Object.keys(right)]);
 
-  let leftIsAhead = false
-  let rightIsAhead = false
+  let leftIsAhead = false;
+  let rightIsAhead = false;
 
   for (const system of allSystems) {
-    const leftValue = left[system] ?? 0
-    const rightValue = right[system] ?? 0
+    const leftValue = left[system] ?? 0;
+    const rightValue = right[system] ?? 0;
 
     if (leftValue > rightValue) {
-      leftIsAhead = true
+      leftIsAhead = true;
     }
 
     if (rightValue > leftValue) {
-      rightIsAhead = true
+      rightIsAhead = true;
     }
   }
 
   if (leftIsAhead && !rightIsAhead) {
-    return 'left_after_right'
+    return 'left_after_right';
   }
 
   if (rightIsAhead && !leftIsAhead) {
-    return 'right_after_left'
+    return 'right_after_left';
   }
 
   if (!leftIsAhead && !rightIsAhead) {
-    return 'same'
+    return 'same';
   }
 
-  return 'concurrent'
+  return 'concurrent';
 }
 ```
 
@@ -267,53 +267,53 @@ Different fields need different strategies.
 ```ts
 type ConflictResolutionResult =
   | {
-      type: 'resolved'
-      value: unknown
-      reason: string
+      type: 'resolved';
+      value: unknown;
+      reason: string;
     }
   | {
-      type: 'manual_review_required'
-      reason: string
-      localValue: unknown
-      externalValue: unknown
-    }
+      type: 'manual_review_required';
+      reason: string;
+      localValue: unknown;
+      externalValue: unknown;
+    };
 
 function resolveCustomerFieldConflict(input: {
-  fieldName: keyof Customer
-  localValue: unknown
-  externalValue: unknown
-  localVersion: VersionVector
-  externalVersion: VersionVector
-  policy: FieldOwnershipPolicy
+  fieldName: keyof Customer;
+  localValue: unknown;
+  externalValue: unknown;
+  localVersion: VersionVector;
+  externalVersion: VersionVector;
+  policy: FieldOwnershipPolicy;
 }): ConflictResolutionResult {
   switch (input.policy.conflictStrategy) {
     case 'local_wins':
       return {
         type: 'resolved',
         value: input.localValue,
-        reason: `${String(input.fieldName)} is owned locally`,
-      }
+        reason: `${String(input.fieldName)} is owned locally`
+      };
 
     case 'external_wins':
       return {
         type: 'resolved',
         value: input.externalValue,
-        reason: `${String(input.fieldName)} is owned externally`,
-      }
+        reason: `${String(input.fieldName)} is owned externally`
+      };
 
     case 'manual_review':
       return {
         type: 'manual_review_required',
         reason: `${String(input.fieldName)} requires human review`,
         localValue: input.localValue,
-        externalValue: input.externalValue,
-      }
+        externalValue: input.externalValue
+      };
 
     case 'latest_valid_change':
-      return resolveLatestValidChange(input)
+      return resolveLatestValidChange(input);
 
     case 'merge':
-      return mergeFieldValues(input)
+      return mergeFieldValues(input);
   }
 }
 ```
@@ -353,11 +353,11 @@ If your database only stores the current record, how do you defend its accuracy?
 
 ```ts
 type IntegrationEvent = {
-  id: string
-  entityType: 'customer' | 'invoice' | 'payment' | 'employee'
-  entityId: string
+  id: string;
+  entityType: 'customer' | 'invoice' | 'payment' | 'employee';
+  entityId: string;
 
-  sourceSystem: 'local' | 'crm' | 'billing_provider' | 'payroll_provider'
+  sourceSystem: 'local' | 'crm' | 'billing_provider' | 'payroll_provider';
   eventType:
     | 'field_changed'
     | 'webhook_received'
@@ -365,15 +365,15 @@ type IntegrationEvent = {
     | 'conflict_detected'
     | 'conflict_resolved'
     | 'manual_review_requested'
-    | 'reconciliation_applied'
+    | 'reconciliation_applied';
 
-  payload: unknown
-  version: VersionVector
+  payload: unknown;
+  version: VersionVector;
 
-  occurredAt: Date
-  receivedAt: Date
-  recordedAt: Date
-}
+  occurredAt: Date;
+  receivedAt: Date;
+  recordedAt: Date;
+};
 ```
 
 With this history, the system can answer better questions.
@@ -389,7 +389,7 @@ Did reconciliation later change the result?
 
 Without this history, engineers become the event store. Instead of relying on a system memory, the job devolves into manual labor: searching logs, inspecting provider dashboards, comparing timestamps by hand, asking support to reproduce issues, writing one-off scripts, and patching records manually. Then, the same class of failure returns later with different details.
 
-It's worth noting that hope does not scale as an integration strategy.
+Hope does not scale as an integration strategy.
 
 ## Snapshots make history usable
 
@@ -401,14 +401,14 @@ The same pattern helps integration systems. A snapshot captures what a system be
 
 ```ts
 type EntitySnapshot = {
-  id: string
-  entityType: 'customer'
-  entityId: string
-  system: 'local' | 'crm'
-  state: Customer
-  version: VersionVector
-  capturedAt: Date
-}
+  id: string;
+  entityType: 'customer';
+  entityId: string;
+  system: 'local' | 'crm';
+  state: Customer;
+  version: VersionVector;
+  capturedAt: Date;
+};
 ```
 
 Snapshots let you compare your system's belief against an external system's belief at a known point. The point-in-time part matters a lot.
@@ -439,32 +439,32 @@ For large datasets, you may start with counts and hashes.
 
 ```ts
 type ReconciliationSummary = {
-  system: 'crm'
-  entityType: 'customer'
-  capturedAt: Date
-  localRecordCount: number
-  externalRecordCount: number
-  localHash: string
-  externalHash: string
-  matches: boolean
-}
+  system: 'crm';
+  entityType: 'customer';
+  capturedAt: Date;
+  localRecordCount: number;
+  externalRecordCount: number;
+  localHash: string;
+  externalHash: string;
+  matches: boolean;
+};
 ```
 
 If the summary differs, you drill down to row-level differences.
 
 ```ts
 type ReconciliationDifference = {
-  entityId: string
-  fieldName: string
-  localValue: unknown
-  externalValue: unknown
-  owner: 'local' | 'crm' | 'shared'
+  entityId: string;
+  fieldName: string;
+  localValue: unknown;
+  externalValue: unknown;
+  owner: 'local' | 'crm' | 'shared';
   recommendedAction:
     | 'update_local'
     | 'update_external'
     | 'ignore'
-    | 'manual_review'
-}
+    | 'manual_review';
+};
 ```
 
 Obviously, sensitive domains would require careful repair.
@@ -514,16 +514,16 @@ When your system sends a change to a provider, record the outbound sync operatio
 
 ```ts
 type OutboundSyncOperation = {
-  id: string
-  entityType: 'customer'
-  entityId: string
-  targetSystem: 'crm'
-  fields: Array<string>
-  localVersion: VersionVector
-  idempotencyKey: string
-  status: 'pending' | 'sent' | 'confirmed' | 'failed'
-  createdAt: Date
-}
+  id: string;
+  entityType: 'customer';
+  entityId: string;
+  targetSystem: 'crm';
+  fields: Array<string>;
+  localVersion: VersionVector;
+  idempotencyKey: string;
+  status: 'pending' | 'sent' | 'confirmed' | 'failed';
+  createdAt: Date;
+};
 ```
 
 When a webhook returns, the system should classify it before applying it.
