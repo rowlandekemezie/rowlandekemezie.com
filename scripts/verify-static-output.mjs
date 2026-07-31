@@ -44,7 +44,10 @@ const about = readFileSync(
   resolve(distDir, 'pages', 'about', 'index.html'),
   'utf8'
 );
-const seriesIndex = readFileSync(resolve(distDir, 'series', 'index.html'), 'utf8');
+const seriesIndex = readFileSync(
+  resolve(distDir, 'series', 'index.html'),
+  'utf8'
+);
 const aiSeries = readFileSync(
   resolve(distDir, 'series', 'ai-and-professional-practice', 'index.html'),
   'utf8'
@@ -168,6 +171,12 @@ const assertions = [
     'Percy article preserves heading self-links',
     percy.includes('href="#the-problem"') &&
       percy.includes('aria-hidden="true"')
+  ],
+  [
+    'Percy article includes the in-page table of contents',
+    percy.includes('data-article-toc') &&
+      percy.includes('aria-label="On this page"') &&
+      percy.includes('data-heading-id="the-problem"')
   ],
   [
     'Percy article keeps the imported repository link',

@@ -1,0 +1,297 @@
+---
+interface ArticleHeading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: ArticleHeading[];
+}
+
+const { headings } = Astro.props;
+const articleHeadings = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
+const shallowestDepth = articleHeadings.length
+  ? Math.min(...articleHeadings.map((heading) => heading.depth))
+  : 2;
+const tableOfContents = articleHeadings.filter(
+  (heading) => heading.depth <= shallowestDepth + 1
+);
+const shouldRender = tableOfContents.length >= 2;
+---
+
+{
+  shouldRender && (
+    <aside class="article-toc" data-article-toc>
+      <details open>
+        <summary>On this page</summary>
+        <nav aria-label="On this page">
+          <ol class="toc-list">
+            {tableOfContents.map((heading, index) => (
+              <li class:list={['toc-item', { 'toc-item-nested': heading.depth > shallowestDepth }]}>
+                <a
+                  href={`#${heading.slug}`}
+                  data-active={index === 0 ? 'true' : undefined}
+                  data-heading-id={heading.slug}
+                  data-toc-link
+                  aria-current={index === 0 ? 'location' : undefined}
+                  title={heading.text}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </details>
+    </aside>
+  )
+}
+
+<script>
+  const initializeTableOfContents = () => {
+    document.querySelectorAll('[data-article-toc]').forEach((tableOfContents) => {
+      if (!(tableOfContents instanceof HTMLElement) || tableOfContents.dataset.initialized) return;
+
+      const links = Array.from(tableOfContents.querySelectorAll('[data-toc-link]')).filter(
+        (link): link is HTMLAnchorElement => link instanceof HTMLAnchorElement
+      );
+      const sections = links
+        .map((link) => {
+          const id = link.dataset.headingId;
+          const section = id ? document.getElementById(id) : null;
+          return id && section ? { id, link, section } : null;
+        })
+        .filter(
+          (
+            entry
+          ): entry is { id: string; link: HTMLAnchorElement; section: HTMLElement } => entry !== null
+        );
+
+      if (!sections.length) return;
+      tableOfContents.dataset.initialized = 'true';
+      const disclosure = tableOfContents.querySelector('details');
+      const desktopLayout = window.matchMedia('(min-width: 70.001rem)');
+
+      const syncDisclosure = () => {
+        if (!(disclosure instanceof HTMLDetailsElement)) return;
+        disclosure.open = desktopLayout.matches;
+      };
+
+      syncDisclosure();
+      desktopLayout.addEventListener('change', syncDisclosure);
+
+      const setActiveSection = (id: string) => {
+        sections.forEach(({ id: sectionId, link }) => {
+          const isActive = sectionId === id;
+          if (isActive) {
+            link.setAttribute('data-active', 'true');
+            link.setAttribute('aria-current', 'location');
+
+            if (desktopLayout.matches) {
+              const linkTop = link.offsetTop;
+              const linkBottom = linkTop + link.offsetHeight;
+              const visibleTop = tableOfContents.scrollTop;
+              const visibleBottom = visibleTop + tableOfContents.clientHeight;
+
+              if (linkTop < visibleTop) tableOfContents.scrollTop = linkTop;
+              if (linkBottom > visibleBottom) {
+                tableOfContents.scrollTop = linkBottom - tableOfContents.clientHeight;
+              }
+            }
+          } else {
+            link.removeAttribute('data-active');
+            link.removeAttribute('aria-current');
+          }
+        });
+      };
+
+      const syncActiveSection = () => {
+        const readingLine = Math.min(160, window.innerHeight * 0.24);
+        const passedSections = sections.filter(
+          ({ section }) => section.getBoundingClientRect().top <= readingLine
+        );
+        const nextSection = passedSections.at(-1) ?? sections[0];
+        setActiveSection(nextSection.id);
+      };
+
+      let syncFrame = 0;
+      const requestActiveSectionSync = () => {
+        if (syncFrame) return;
+        syncFrame = window.requestAnimationFrame(() => {
+          syncFrame = 0;
+          syncActiveSection();
+        });
+      };
+
+      const rootFontSize = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).fontSize
+      );
+      const observerTopMargin = Number.isFinite(rootFontSize) ? Math.round(rootFontSize * 6) : 96;
+      const observer = new IntersectionObserver(requestActiveSectionSync, {
+        rootMargin: `-${observerTopMargin}px 0px -65% 0px`,
+        threshold: [0, 1],
+      });
+
+      sections.forEach(({ section }) => observer.observe(section));
+      window.addEventListener('scroll', requestActiveSectionSync, { passive: true });
+      window.addEventListener('resize', requestActiveSectionSync);
+      syncActiveSection();
+
+      links.forEach((link) => {
+        link.addEventListener('click', () => {
+          const id = link.dataset.headingId;
+          if (id) setActiveSection(id);
+
+          if (!desktopLayout.matches) {
+            disclosure?.removeAttribute('open');
+          }
+        });
+      });
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeTableOfContents, { once: true });
+  } else {
+    initializeTableOfContents();
+  }
+</script>
+
+<style>
+  /* Hallmark · pre-emit critique: P5 H4 E5 S5 R5 V4 */
+  /* Hallmark · component: article table of contents · genre: editorial · theme: existing site system
+   * states: default · hover · focus · active · disabled · open · closed
+   * contrast: inherited from --text / --muted / --accent tokens
+   */
+  .article-toc {
+    order: -1;
+    min-width: 0;
+    padding: 0.25rem 1rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .article-toc summary {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--text);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    list-style: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .article-toc summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .article-toc summary::after {
+    content: '+';
+    color: var(--accent);
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .article-toc details[open] summary::after {
+    content: '−';
+  }
+
+  .article-toc summary:focus-visible,
+  .toc-item a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .article-toc nav {
+    padding-block: 0.5rem 0.75rem;
+  }
+
+  .toc-list {
+    margin: 0;
+    padding: 0;
+    border-inline-start: 1px solid var(--line);
+    list-style: none;
+  }
+
+  .toc-item {
+    margin: 0;
+  }
+
+  .toc-item a {
+    position: relative;
+    display: block;
+    min-height: 2.75rem;
+    padding: 0.75rem 0.5rem 0.75rem 1rem;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .toc-item a::before {
+    position: absolute;
+    inset-block: 0.5rem;
+    inset-inline-start: -1px;
+    width: 2px;
+    background: transparent;
+    content: '';
+  }
+
+  .toc-item-nested a {
+    padding-inline-start: 1.75rem;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .article-toc summary:hover,
+    .toc-item a:hover {
+      color: var(--text);
+    }
+  }
+
+  .article-toc summary:active,
+  .toc-item a:active {
+    color: var(--accent);
+  }
+
+  .article-toc summary[aria-disabled='true'],
+  .toc-item a[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .toc-item a[data-active='true'] {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .toc-item a[data-active='true']::before {
+    background: var(--accent);
+  }
+
+  @media (min-width: 70.001rem) {
+    .article-toc {
+      position: sticky;
+      top: 1.25rem;
+      order: initial;
+      max-height: calc(100svh - 2.5rem);
+      padding: 0;
+      overflow-y: auto;
+      border: 0;
+      background: transparent;
+      scrollbar-width: thin;
+    }
+  }
+</style>
