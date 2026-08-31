@@ -1,6 +1,6 @@
 ---
 template: post
-title: I Built a Small CDN on Top of S3 to Understand What a CDN Actually Does
+title: How Far Can You Get Building a CDN on Top of S3?
 slug: /posts/i-built-a-small-cdn-on-top-of-s3/
 draft: false
 date: '2026-08-31T00:00:00.000Z'
