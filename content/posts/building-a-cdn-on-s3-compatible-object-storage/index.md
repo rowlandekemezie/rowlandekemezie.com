@@ -4,7 +4,7 @@ title: How Far Can You Get Building a CDN on Top of S3-Compatible Object Storage
 slug: /posts/building-a-cdn-on-s3-compatible-object-storage/
 draft: false
 date: '2026-08-31T00:00:00.000Z'
-description: I built a small CDN data path over AWS S3, Cloudflare R2, and MinIO to explore cache identity, request collapsing, revalidation, byte ranges, and the line between a caching proxy and a CDN.
+description: I built a small CDN data path around the S3-compatible contract shared by AWS S3, Cloudflare R2, and MinIO to explore cache identity, request collapsing, revalidation, byte ranges, and the line between a caching proxy and a CDN.
 category: Software
 tags:
   - cdn
@@ -45,8 +45,6 @@ The edge owns no durable state. If I remove the Vancouver cache, the object stil
 
 ## What S3-compatible means here
 
-The first version of the article described the project as a CDN on top of S3. That was accurate, but narrower than the implementation needed to be.
-
 The origin adapter relies on a small contract:
 
 - a signed `GetObject` request;
@@ -56,7 +54,7 @@ The origin adapter relies on a small contract:
 
 AWS S3 supports that contract. MinIO implements it locally. Cloudflare documents the same operations for R2, with Signature Version 4 and the signing region set to `auto`.
 
-The implementation therefore has one adapter and three configurations:
+The implementation has one adapter and three configurations:
 
 | Origin | Endpoint style | Signing region | What the project verifies |
 | --- | --- | --- | --- |
@@ -64,7 +62,7 @@ The implementation therefore has one adapter and three configurations:
 | Cloudflare R2 | `<bucket>.<account>.r2.cloudflarestorage.com` | `auto` | URL construction and signed conditional range requests |
 | MinIO | Path-style local endpoint | `us-east-1` | The complete request path through Docker Compose |
 
-This does not mean that every S3 feature behaves identically across all three systems. It means the narrow contract used by this project is portable. The R2 tests validate the documented request shape without putting account credentials in CI, while MinIO provides a real object store for the end-to-end test.
+This does not mean that every S3 feature behaves identically across all three systems. It means the narrow contract used by this project is portable. The R2 tests validate Cloudflare's documented request shape without putting account credentials in CI, while MinIO provides a real object store for the end-to-end test.
 
 ## The cache key needed more than the object path
 
@@ -114,7 +112,7 @@ flowchart LR
     Disk --> C
 ```
 
-The implementation is only a map and a shared promise:
+The implementation uses a map and a shared promise:
 
 ```ts
 const existing = this.inFlight.get(cacheIdentity)
@@ -197,13 +195,13 @@ The CI workflow starts the complete Docker Compose stack and checks this sequenc
 
 Toronto misses because it has a different cache volume. The router is still a simulation. A real CDN needs Anycast, latency-aware DNS, or another global traffic system, together with health-aware failover rather than a header that names a POP.
 
-## R2 works, but that does not mean it needs this proxy
+## R2 fits the same contract, but this proxy does not belong inside Workers
 
-R2 is already designed for Cloudflare's platform. An application running in Workers can use an R2 binding and Cloudflare's cache facilities without operating this Node service beside them.
+When code already runs in Cloudflare Workers, an R2 binding is a more direct path to object bytes than operating this Node service beside it. Cloudflare also documents how to place R2 responses in the Workers Cache API when application-controlled edge caching is useful.
 
-Adding R2 to this project is useful for a different reason: it proves that the origin boundary is a protocol contract rather than an AWS dependency. It also forced the cache identity to stop assuming that one object path belongs to one provider.
+Supporting R2 here serves a different purpose. It shows that the origin boundary is designed around a protocol contract rather than AWS-specific code, and it forced the cache identity to stop assuming that one object path belongs to one provider.
 
-Durable Objects do not belong in the byte-storage role here. They could become useful later as a control plane for purge versions, per-object coordination, or tenant configuration, while R2 or another object store continues to hold the bytes. That would be a separate experiment because it introduces distributed coordination, not another S3-compatible origin.
+I did not use Durable Objects for the object bytes. Their stronger fit in this design would be a later control plane for purge versions, per-object coordination, or tenant configuration, while R2 or another object store continues to hold the bytes. That would be a separate experiment because it introduces distributed coordination, not another S3-compatible origin.
 
 ## Where the experiment stops
 
@@ -233,4 +231,5 @@ The more useful result is knowing exactly where that line is.
 
 1. [Cloudflare R2 S3 API compatibility](https://developers.cloudflare.com/r2/api/s3/api/)
 2. [Cloudflare R2 S3 configuration](https://developers.cloudflare.com/r2/get-started/s3/)
-3. [AWS Signature Version 4 examples](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-header-based-auth.html)
+3. [Cloudflare R2 with the Workers Cache API](https://developers.cloudflare.com/r2/examples/cache-api/)
+4. [AWS Signature Version 4 examples](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-header-based-auth.html)
