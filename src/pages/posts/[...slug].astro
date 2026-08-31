@@ -171,6 +171,48 @@ const articleStructuredData = {
     scroll-margin-top: 4rem;
   }
 
+  .article-main :global(.prose table) {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: var(--font-sans);
+    font-size: 0.94rem;
+    line-height: 1.55;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .article-main :global(.prose th),
+  .article-main :global(.prose td) {
+    min-width: 9rem;
+    padding: 0.75rem 0.85rem;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid var(--line);
+  }
+
+  .article-main :global(.prose th) {
+    background: var(--surface);
+    font-weight: 700;
+  }
+
+  .article-main :global(.prose pre),
+  .article-main :global(.prose .astro-code) {
+    margin: 1rem 0 1.35rem;
+    padding: 0.8rem 1rem !important;
+    border-top-width: 1px !important;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    tab-size: 2;
+  }
+
+  .article-main :global(.prose pre:has(code.language-txt)),
+  .article-main :global(.prose pre:has(code.language-text)) {
+    padding-block: 0.65rem !important;
+  }
+
   .post-tags-section {
     margin-top: 2rem;
   }
