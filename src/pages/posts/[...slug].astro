@@ -2,7 +2,6 @@
 import { render } from 'astro:content';
 import ArticleTableOfContents from '../../components/ArticleTableOfContents.astro';
 import DisqusComments from '../../components/DisqusComments.astro';
-import MermaidRenderer from '../../components/MermaidRenderer.astro';
 import PostTags from '../../components/PostTags.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import {
@@ -105,7 +104,6 @@ const articleStructuredData = {
           <article class="prose reveal reveal-delay-2">
             <Content />
           </article>
-          <MermaidRenderer />
 
           <section class="post-tags-section reveal reveal-delay-2">
             <PostTags tags={post.data.tags} />
