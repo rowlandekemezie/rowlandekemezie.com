@@ -1,5 +1,29 @@
 <script>
+  type RequestFlowStep = {
+    edgeId: string;
+    label: string;
+  };
+
+  const requestFlowPattern = /^%%\s*request-flow:\s*(.+)$/m;
   const getMermaidTheme = () => (document.body.classList.contains('dark') ? 'dark' : 'default');
+
+  const parseRequestFlowSteps = (source: string): Array<RequestFlowStep> => {
+    const definition = source.match(requestFlowPattern)?.[1];
+    if (!definition) return [];
+
+    const steps: Array<RequestFlowStep> = [];
+
+    definition.split(';').forEach((entry) => {
+      const [edgeId, ...labelParts] = entry.split('=');
+      const label = labelParts.join('=').trim();
+
+      if (edgeId?.trim() && label) {
+        steps.push({ edgeId: edgeId.trim(), label });
+      }
+    });
+
+    return steps;
+  };
 
   const collectMermaidBlocks = () => {
     const selectors = [
@@ -27,11 +51,107 @@
       if (!source) return;
 
       const diagram = document.createElement('div');
+      const requestFlowSteps = parseRequestFlowSteps(source);
+
       diagram.className = 'mermaid-diagram';
       diagram.dataset.mermaidSource = source;
       diagram.setAttribute('role', 'img');
-      diagram.setAttribute('aria-label', 'Architecture diagram');
-      block.replaceWith(diagram);
+      diagram.setAttribute(
+        'aria-label',
+        requestFlowSteps.length > 0 ? 'Animated request flow diagram' : 'Architecture diagram'
+      );
+
+      if (requestFlowSteps.length === 0) {
+        block.replaceWith(diagram);
+        return;
+      }
+
+      const figure = document.createElement('figure');
+      figure.className = 'mermaid-figure';
+      diagram.dataset.requestFlow = JSON.stringify(requestFlowSteps);
+      figure.append(diagram);
+      block.replaceWith(figure);
+    });
+  };
+
+  const getFlowchartPaths = (diagram: HTMLElement): Array<SVGPathElement> => {
+    const paths = Array.from(diagram.querySelectorAll<SVGPathElement>('path.flowchart-link'));
+    return paths.length > 0
+      ? paths
+      : Array.from(diagram.querySelectorAll<SVGPathElement>('g.edgePaths path'));
+  };
+
+  const findEdgePath = (
+    paths: Array<SVGPathElement>,
+    edgeId: string
+  ): SVGPathElement | undefined =>
+    paths.find((path) => path.id === edgeId || path.id.endsWith(`-${edgeId}`));
+
+  const wait = (durationMs: number) =>
+    new Promise<void>((resolve) => window.setTimeout(resolve, durationMs));
+
+  const addRequestFlowControls = (diagram: HTMLElement) => {
+    const requestFlow = diagram.dataset.requestFlow;
+    const figure = diagram.closest<HTMLElement>('.mermaid-figure');
+
+    if (!requestFlow || !figure) return;
+
+    figure.querySelector('.mermaid-flow-controls')?.remove();
+
+    const paths = getFlowchartPaths(diagram);
+    const steps = (JSON.parse(requestFlow) as Array<RequestFlowStep>)
+      .map((step) => ({ ...step, path: findEdgePath(paths, step.edgeId) }))
+      .filter(
+        (step): step is RequestFlowStep & { path: SVGPathElement } =>
+          step.path instanceof SVGPathElement
+      );
+
+    if (steps.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    paths.forEach((path) => path.classList.add('request-flow-path'));
+    steps.forEach(({ path }) => path.classList.add('request-flow-edge'));
+
+    const controls = document.createElement('figcaption');
+    const button = document.createElement('button');
+    const status = document.createElement('span');
+
+    controls.className = 'mermaid-flow-controls';
+    button.className = 'mermaid-flow-button';
+    button.type = 'button';
+    button.textContent = 'Play cold request';
+    status.className = 'mermaid-flow-status';
+    status.setAttribute('aria-live', 'polite');
+    status.textContent = 'Trace the cache-miss path through the edge.';
+
+    controls.append(button, status);
+    figure.append(controls);
+
+    button.addEventListener('click', () => {
+      void (async () => {
+        button.disabled = true;
+        button.textContent = 'Playing…';
+        diagram.classList.add('is-request-flow-playing');
+
+        steps.forEach(({ path }) => {
+          path.classList.remove('is-request-flow-active', 'is-request-flow-complete');
+        });
+
+        for (const [index, step] of steps.entries()) {
+          status.textContent = `Step ${index + 1} of ${steps.length}: ${step.label}`;
+          step.path.classList.add('is-request-flow-active');
+          await wait(800);
+          step.path.classList.remove('is-request-flow-active');
+          step.path.classList.add('is-request-flow-complete');
+          await wait(120);
+        }
+
+        diagram.classList.remove('is-request-flow-playing');
+        status.textContent = 'Request complete. The object is cached at this POP.';
+        button.disabled = false;
+        button.textContent = 'Replay cold request';
+      })();
     });
   };
 
@@ -73,7 +193,9 @@
           diagram.innerHTML = svg;
           bindFunctions?.(diagram);
           diagram.removeAttribute('data-mermaid-error');
+          addRequestFlowControls(diagram);
         } catch (error) {
+          diagram.closest('.mermaid-figure')?.querySelector('.mermaid-flow-controls')?.remove();
           diagram.dataset.mermaidError = 'true';
           diagram.textContent = source;
           console.error('Failed to render Mermaid diagram', error);
@@ -90,3 +212,97 @@
 
   window.addEventListener('rowland:theme-change', renderMermaid);
 </script>
+
+<style is:global>
+  .prose .mermaid-figure {
+    margin: 1.6rem 0;
+  }
+
+  .prose .mermaid-figure .mermaid-diagram {
+    margin: 0;
+  }
+
+  .mermaid-flow-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    font-family: var(--font-sans);
+  }
+
+  .mermaid-flow-button {
+    flex: 0 0 auto;
+    min-height: 2.25rem;
+    padding: 0.45rem 0.8rem;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    cursor: pointer;
+  }
+
+  .mermaid-flow-button:hover,
+  .mermaid-flow-button:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .mermaid-flow-button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  .mermaid-flow-status {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .mermaid-diagram .request-flow-path {
+    transition:
+      opacity 180ms ease,
+      stroke-width 180ms ease;
+  }
+
+  .mermaid-diagram.is-request-flow-playing .request-flow-path {
+    opacity: 0.2;
+  }
+
+  .mermaid-diagram.is-request-flow-playing .request-flow-edge.is-request-flow-complete {
+    opacity: 0.62;
+  }
+
+  .mermaid-diagram.is-request-flow-playing .request-flow-edge.is-request-flow-active {
+    opacity: 1;
+    stroke-width: 3px !important;
+    stroke-dasharray: 10 6 !important;
+    animation: mermaid-request-flow-dash 700ms linear infinite;
+  }
+
+  @keyframes mermaid-request-flow-dash {
+    to {
+      stroke-dashoffset: -32;
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .mermaid-flow-controls {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mermaid-diagram .request-flow-path {
+      transition: none;
+    }
+
+    .mermaid-diagram .request-flow-edge {
+      animation: none !important;
+    }
+  }
+</style>
