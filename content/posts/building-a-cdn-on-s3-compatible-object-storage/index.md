@@ -200,7 +200,7 @@ Toronto misses because it has a different cache volume. The router is a simulati
 
 When code already runs in Cloudflare Workers, an R2 binding is a more direct path to object bytes than operating this Node service beside it. Cloudflare also documents how to place R2 responses in the Workers Cache API when application-controlled edge caching is useful.
 
-R2 support tests the protocol boundary and forced the cache identity to stop assuming that one object path belongs to one provider.
+Adding R2 tested the protocol boundary and forced the cache identity to stop assuming that one object path belongs to one provider.
 
 Durable Objects fit a later control plane for purge versions, per-object coordination, or tenant configuration, while R2 or another object store continues to hold the bytes. That would be a separate experiment because it introduces distributed coordination rather than another S3-compatible origin.
 
@@ -208,7 +208,7 @@ Durable Objects fit a later control plane for purge versions, per-object coordin
 
 The project now has a working data path: signed origin reads, independent caches, request collapsing, revalidation, ranges, origin-aware cache identity, and a multi-POP demo.
 
-It still lacks the parts that make a CDN safe to operate at scale:
+Operating it at scale would also require:
 
 - global traffic routing and failover;
 - bounded eviction when disks fill;
