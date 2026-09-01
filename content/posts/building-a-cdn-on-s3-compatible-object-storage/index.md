@@ -17,9 +17,9 @@ tags:
 
 I started this project after reading about systems that keep durable state in object storage and move active data into faster local tiers. Turbopuffer was one example, but the pattern is broader: keep the source of truth in durable storage, then use local disks or memory to make the active path fast.
 
-That led me to a smaller question. If the object store already holds the bytes, how far can I get by putting caches in front of it and treating each cache server as an edge location?
+If the object store already holds the bytes, how far can I get by putting caches in front of it and treating each cache server as an edge location?
 
-Putting a Node server in front of S3 is easy. The interesting work begins when it must decide whether cached bytes are still valid, prevent a burst from producing duplicate origin reads, serve ranges from large files, and keep caches at different locations independent.
+A basic Node proxy is easy to write. A useful one must decide whether cached bytes are still valid, prevent a burst from producing duplicate origin reads, serve ranges from large files, and keep caches at different locations independent.
 
 I built [`object-edge`](https://github.com/rowlandekemezie/object-edge) to explore that path. It is a small TypeScript implementation with S3-compatible object storage as the durable origin, a disk cache at each logical point of presence, and a router that moves the same request through different edge nodes.
 
@@ -28,15 +28,16 @@ I first built the adapter around AWS S3. I then widened the boundary to Cloudfla
 ## The basic path
 
 ```mermaid
+%% request-flow: request=Client sends the request; route=Router selects a POP; cacheCheck=The edge checks its local cache; originFetch=The cache miss goes to the origin; originReturn=The origin returns the object; cacheWrite=The edge publishes the cache entry; response=The edge returns the response
 flowchart LR
-    Client[Client] --> Router[POP router]
-    Router --> Edge[Selected edge node]
-    Edge --> Cache{Local disk cache}
+    Client[Client] request@--> Router[POP router]
+    Router route@--> Edge[Selected edge node]
+    Edge cacheCheck@--> Cache{Local disk cache}
     Cache -->|fresh hit| Client
-    Cache -->|miss or stale| Origin[S3-compatible origin]
-    Origin --> Edge
-    Edge --> Cache
-    Edge --> Client
+    Cache originFetch@-->|miss or stale| Origin[S3-compatible origin]
+    Origin originReturn@--> Edge
+    Edge cacheWrite@--> Cache
+    Edge response@--> Client
 ```
 
 The router chooses an edge node. The edge checks its local disk. A fresh object is served locally, while a missing or stale object goes back to the configured origin.
@@ -62,7 +63,7 @@ The implementation has one adapter and three configurations:
 | Cloudflare R2 | `<bucket>.<account>.r2.cloudflarestorage.com` | `auto` | URL construction and signed conditional range requests |
 | MinIO | Path-style local endpoint | `us-east-1` | The complete request path through Docker Compose |
 
-This does not mean that every S3 feature behaves identically across all three systems. It means the narrow contract used by this project is portable. The R2 tests validate Cloudflare's documented request shape without putting account credentials in CI, while MinIO provides a real object store for the end-to-end test.
+Portability stops at this narrow contract. The R2 tests validate Cloudflare's documented request shape without putting account credentials in CI, while MinIO provides a real object store for the end-to-end test.
 
 ## The cache key needed more than the object path
 
@@ -72,13 +73,13 @@ The disk cache was keyed only by the object key. That works while one cache dire
 
 If I changed the configuration from an S3 bucket to an R2 bucket but reused the same cache directory, the old implementation could return the cached S3 object without asking R2.
 
-The fix was to make the origin part of cache identity:
+The cache identity now includes the origin:
 
 ```text
 cache identity = origin endpoint + bucket + object key
 ```
 
-The code remains small:
+The helper combines the namespace and object key before the disk cache hashes it.
 
 ```ts
 private cacheIdentity(originKey: string): string {
@@ -86,9 +87,9 @@ private cacheIdentity(originKey: string): string {
 }
 ```
 
-The origin namespace is derived from the resolved bucket endpoint, and the disk cache hashes the combined value before creating file paths. Two origins can now use the same object key without making their cached bytes interchangeable.
+The origin namespace is derived from the resolved bucket endpoint. Two origins can now use the same object key without making their cached bytes interchangeable.
 
-This is not yet a complete HTTP cache key. Query parameters, `Accept-Encoding`, authorization, and `Vary` are not included. The current design assumes that one edge process serves one configured object origin and that the object key identifies one representation. A multi-tenant CDN would need an explicit cache-key policy instead of that assumption.
+A complete HTTP cache key would also account for query parameters, `Accept-Encoding`, authorization, and `Vary`. This version assumes that one edge process serves one configured object origin and that the object key identifies one representation. A multi-tenant CDN would need an explicit cache-key policy instead of that assumption.
 
 ## A cold miss can become an origin stampede
 
@@ -96,7 +97,7 @@ The naive miss path is straightforward: look on disk, fetch the object when it i
 
 The problem appears when a cold object becomes popular before the first origin request completes. If 100 requests arrive together, sending 100 copies of the same `GetObject` request wastes origin capacity and lets a traffic spike multiply behind the cache.
 
-Each edge node therefore keeps an in-memory map of fills already in progress. The first request creates the fill. Later requests for the same cache identity wait for it.
+Each edge node keeps an in-memory map of fills already in progress. The first request creates the fill. Later requests for the same cache identity wait for it.
 
 ```mermaid
 flowchart LR
@@ -112,7 +113,7 @@ flowchart LR
     Disk --> C
 ```
 
-The implementation uses a map and a shared promise:
+The implementation uses a map and a shared promise.
 
 ```ts
 const existing = this.inFlight.get(cacheIdentity)
@@ -159,11 +160,11 @@ A `304 Not Modified` response lets the edge keep the local body instead of downl
 
 Once a complete object is cached, the edge can also serve byte ranges directly from disk. That matters for media and resumable downloads because a client may request only part of a large object.
 
-This is a useful subset of HTTP caching, not the complete model. The project does not calculate `Age`, implement `stale-while-revalidate`, interpret `must-revalidate`, or vary representations by request headers.
+The project implements only part of HTTP caching. It does not calculate `Age`, implement `stale-while-revalidate`, interpret `must-revalidate`, or vary representations by request headers.
 
 ## Three logical POPs make the distribution boundary visible
 
-One cache server in front of an object store is a caching proxy. It does not become a CDN until requests can be distributed across edge locations.
+A CDN needs distribution across edge locations. One cache server in front of an object store is only a caching proxy.
 
 The local demo runs three logical POPs—Vancouver, Toronto, and Frankfurt—behind a small router. A request header selects the POP so the behavior is easy to inspect.
 
@@ -193,15 +194,15 @@ The CI workflow starts the complete Docker Compose stack and checks this sequenc
 | Second request through Vancouver | `HIT` |
 | First request through Toronto | `MISS` |
 
-Toronto misses because it has a different cache volume. The router is still a simulation. A real CDN needs Anycast, latency-aware DNS, or another global traffic system, together with health-aware failover rather than a header that names a POP.
+Toronto misses because it has a different cache volume. The router is a simulation. A real CDN needs Anycast, latency-aware DNS, or another global traffic system, together with health-aware failover rather than a header that names a POP.
 
 ## R2 fits the same contract, but this proxy does not belong inside Workers
 
 When code already runs in Cloudflare Workers, an R2 binding is a more direct path to object bytes than operating this Node service beside it. Cloudflare also documents how to place R2 responses in the Workers Cache API when application-controlled edge caching is useful.
 
-Supporting R2 here serves a different purpose. It shows that the origin boundary is designed around a protocol contract rather than AWS-specific code, and it forced the cache identity to stop assuming that one object path belongs to one provider.
+R2 support tests the protocol boundary and forced the cache identity to stop assuming that one object path belongs to one provider.
 
-I did not use Durable Objects for the object bytes. Their stronger fit in this design would be a later control plane for purge versions, per-object coordination, or tenant configuration, while R2 or another object store continues to hold the bytes. That would be a separate experiment because it introduces distributed coordination, not another S3-compatible origin.
+Durable Objects fit a later control plane for purge versions, per-object coordination, or tenant configuration, while R2 or another object store continues to hold the bytes. That would be a separate experiment because it introduces distributed coordination rather than another S3-compatible origin.
 
 ## Where the experiment stops
 
@@ -222,10 +223,6 @@ It still lacks the parts that make a CDN safe to operate at scale:
 The cold path is the next implementation boundary I would explore. The current edge downloads the complete object to a temporary file before serving it from disk. A better first-request path would stream the bytes to the client and the temporary file together, then publish the cache entry only after the origin stream completes successfully.
 
 That change affects failure handling, request collapsing, client cancellation, partial files, and what waiting requests are allowed to observe. It deserves its own implementation and article rather than being hidden inside this one.
-
-So, how far can you get on top of S3-compatible object storage? Far enough to build the core data path and make the important cache behaviors observable. Not far enough to pretend that a few cache servers and a router are a production CDN.
-
-The more useful result is knowing exactly where that line is.
 
 ## References
 
