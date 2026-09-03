@@ -144,13 +144,26 @@ Spotify's experience with Golden Paths is a good example. As autonomous teams gr
 
 DORA makes a similar recommendation for change management: move validation into peer review, continuous testing, monitoring, and the development platform rather than relying on people far from the change to manually inspect every release.[2]
 
+Regulated environments make the distinction more important, not less. A payments, banking, healthcare, or insurance team cannot treat compliance, privacy, segregation of duties, or auditability as an implementation preference, and some changes will genuinely require specialist review or explicit sign-off. But many requirements define controls, evidence, and accountability without requiring every change to pass through the same manual sequence. Teams can pre-approve common architectures, encode policy checks into CI and infrastructure, generate audit evidence automatically, and reserve additional human review for changes that leave the approved path or materially change the risk profile.
+
 The organization keeps the control but changes its form. Instead of asking a person for permission every time, it encodes repeatable knowledge into the system and saves human attention for cases that actually require judgment. In engineering organizations, some of the most scalable alignment will therefore look less like another meeting and more like better infrastructure.
 
 ## Measure the wait, not only the build
 
 Companies often have detailed engineering metrics while decision friction remains mostly invisible. If a feature takes five engineering days but forty calendar days to reach production, something consumed the other thirty-five. Without measuring that gap, the organization can keep pushing engineering teams to move faster while leaving the real bottleneck untouched.
 
-I would want to know how long proposals wait before a decision is made, how much time completed work spends waiting for approval, how many people must approve low-risk changes, how often settled decisions are reopened, and how long it takes a team to move from a product hypothesis to actual customer evidence.
+Standard delivery measures such as lead time for changes and cycle time are still useful, but they can miss part of this problem when the largest delay happens before implementation starts or while work is waiting outside the engineering workflow. I would pair them with a small set of measures that expose where elapsed time is actually going:
+
+| Metric | What it reveals |
+| --- | --- |
+| Decision latency | First serious proposal to a decision that lets the team proceed |
+| Approval wait time | Time spent waiting for required reviewers, separate from the time they spend reviewing |
+| Code-complete-to-production | How long ready work waits before customers can use it |
+| Experiment lead time | Product hypothesis to the first usable customer evidence |
+| Decision reopen rate | How often closed decisions are reopened without material new evidence |
+| Wait share | Waiting time as a percentage of total elapsed delivery time |
+
+These do not need to become another dashboard that teams optimize for. They are diagnostic measures. If a change involves six days of active work but takes thirty calendar days to reach production, a wait share near 80% tells a very different story from one where most of those thirty days were spent building and testing the product.
 
 Those measures tell you whether the organization is becoming easier or harder to move through, and they change the conversation. Instead of "Engineering needs to deliver faster," leaders can ask why a four-day implementation required twenty-five days of organizational elapsed time. Sometimes the answer will be a legitimate constraint. Other times it will expose approval queues, unclear ownership, serial reviews, or a control that exists because nobody has revisited why it was created.
 
