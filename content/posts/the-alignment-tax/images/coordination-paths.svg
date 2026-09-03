@@ -1,47 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
-  <title id="title">Possible communication paths as stakeholder count grows</title>
-  <desc id="desc">Line chart showing pairwise communication paths using n times n minus one divided by two. Five people create 10 possible paths, 10 people create 45, 15 people create 105, and 20 people create 190.</desc>
-  <rect width="1000" height="620" rx="24" fill="#f8fafc"/>
-  <text x="60" y="62" font-family="Inter, system-ui, sans-serif" font-size="30" font-weight="700" fill="#0f172a">Coordination complexity grows faster than the stakeholder list</text>
-  <text x="60" y="96" font-family="Inter, system-ui, sans-serif" font-size="17" fill="#475569">Possible pairwise communication paths: n × (n − 1) ÷ 2</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="paths-title paths-desc">
+  <title id="paths-title">More stakeholders create many more coordination paths</title>
+  <desc id="paths-desc">Line chart showing possible pairwise communication paths using n times n minus one divided by two. Five people create 10 paths, 10 people create 45, 15 people create 105, and 20 people create 190.</desc>
 
-  <line x1="105" y1="490" x2="930" y2="490" stroke="#cbd5e1" stroke-width="2"/>
-  <line x1="105" y1="145" x2="105" y2="490" stroke="#cbd5e1" stroke-width="2"/>
-  <g stroke="#e2e8f0" stroke-width="1">
-    <line x1="105" y1="404" x2="930" y2="404"/>
-    <line x1="105" y1="318" x2="930" y2="318"/>
-    <line x1="105" y1="232" x2="930" y2="232"/>
-    <line x1="105" y1="146" x2="930" y2="146"/>
-  </g>
-  <g font-family="Inter, system-ui, sans-serif" font-size="14" fill="#64748b">
-    <text x="77" y="495">0</text>
-    <text x="67" y="409">50</text>
-    <text x="58" y="323">100</text>
-    <text x="58" y="237">150</text>
-    <text x="58" y="151">200</text>
-  </g>
+  <rect x="1" y="1" width="1198" height="718" rx="24" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
 
-  <polyline fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
-    points="140,488 183,485 270,473 400,442 487,413 704,309 920,163"/>
-  <g fill="#2563eb">
-    <circle cx="140" cy="488" r="7"/><circle cx="183" cy="485" r="7"/><circle cx="270" cy="473" r="7"/>
-    <circle cx="400" cy="442" r="7"/><circle cx="487" cy="413" r="7"/><circle cx="704" cy="309" r="7"/><circle cx="920" cy="163" r="7"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="64" y="62" font-size="32" font-weight="700" fill="#0f172a">More stakeholders create many more coordination paths</text>
+    <text x="64" y="97" font-size="17" fill="#475569">Possible pairwise paths: n × (n − 1) ÷ 2</text>
+
+    <g stroke="#e2e8f0" stroke-width="1">
+      <line x1="120" y1="170" x2="1140" y2="170"/>
+      <line x1="120" y1="275" x2="1140" y2="275"/>
+      <line x1="120" y1="380" x2="1140" y2="380"/>
+      <line x1="120" y1="485" x2="1140" y2="485"/>
+      <line x1="120" y1="590" x2="1140" y2="590"/>
+    </g>
+    <line x1="120" y1="170" x2="120" y2="590" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="120" y1="590" x2="1140" y2="590" stroke="#94a3b8" stroke-width="2"/>
+
+    <g font-size="14" fill="#64748b" text-anchor="end">
+      <text x="103" y="175">200</text>
+      <text x="103" y="280">150</text>
+      <text x="103" y="385">100</text>
+      <text x="103" y="490">50</text>
+      <text x="103" y="595">0</text>
+    </g>
+
+    <polyline points="160,587.9 210,583.7 315,569 470,531.2 575,495.5 825,369.5 1110,191" fill="none" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g fill="#2563eb" stroke="#ffffff" stroke-width="3">
+      <circle cx="160" cy="587.9" r="8"/>
+      <circle cx="210" cy="583.7" r="8"/>
+      <circle cx="315" cy="569" r="8"/>
+      <circle cx="470" cy="531.2" r="8"/>
+      <circle cx="575" cy="495.5" r="8"/>
+      <circle cx="825" cy="369.5" r="8"/>
+      <circle cx="1110" cy="191" r="8"/>
+    </g>
+
+    <g font-size="17" font-weight="700" fill="#0f172a" text-anchor="middle">
+      <text x="315" y="548">10</text>
+      <text x="575" y="474">45</text>
+      <text x="825" y="348">105</text>
+      <text x="1110" y="169">190</text>
+    </g>
+
+    <g font-size="14" fill="#64748b" text-anchor="middle">
+      <text x="160" y="620">2</text>
+      <text x="210" y="620">3</text>
+      <text x="315" y="620">5</text>
+      <text x="470" y="620">8</text>
+      <text x="575" y="620">10</text>
+      <text x="825" y="620">15</text>
+      <text x="1110" y="620">20</text>
+    </g>
+
+    <text x="630" y="653" font-size="15" fill="#475569" text-anchor="middle">People involved in a decision</text>
+    <text x="64" y="689" font-size="13" fill="#64748b">Mathematical illustration of possible relationships. Not every path becomes a meeting or approval.</text>
   </g>
-  <g font-family="Inter, system-ui, sans-serif" font-size="14" fill="#64748b">
-    <text x="140" y="520" text-anchor="middle">2</text>
-    <text x="183" y="520" text-anchor="middle">3</text>
-    <text x="270" y="520" text-anchor="middle">5</text>
-    <text x="400" y="520" text-anchor="middle">8</text>
-    <text x="487" y="520" text-anchor="middle">10</text>
-    <text x="704" y="520" text-anchor="middle">15</text>
-    <text x="920" y="520" text-anchor="middle">20</text>
-  </g>
-  <g font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#0f172a">
-    <text x="270" y="452" text-anchor="middle">10</text>
-    <text x="487" y="390" text-anchor="middle">45</text>
-    <text x="704" y="286" text-anchor="middle">105</text>
-    <text x="920" y="140" text-anchor="middle">190</text>
-  </g>
-  <text x="520" y="558" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#475569">People involved in a decision</text>
-  <text x="60" y="590" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#64748b">This is a mathematical illustration of possible relationships, not a claim that every path becomes a meeting or approval.</text>
 </svg>

@@ -1,30 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
-  <title id="title">Alignment value and coordination cost</title>
-  <desc id="desc">Conceptual chart showing that alignment creates significant value at first by reducing confusion and surfacing constraints, while coordination cost continues to rise. After a useful middle zone, more alignment adds less value and can become an alignment tax.</desc>
-  <rect width="1000" height="620" rx="24" fill="#f8fafc"/>
-  <text x="60" y="62" font-family="Inter, system-ui, sans-serif" font-size="30" font-weight="700" fill="#0f172a">Alignment helps until coordination starts costing more than it returns</text>
-  <text x="60" y="96" font-family="Inter, system-ui, sans-serif" font-size="17" fill="#475569">Conceptual model: the goal is enough shared context to make local decisions safe</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="value-title value-desc">
+  <title id="value-title">Alignment has diminishing returns</title>
+  <desc id="value-desc">Conceptual chart showing that value from shared context rises quickly and then levels off, while coordination cost keeps increasing. The useful alignment zone is between under-alignment and the point where coordination cost overtakes value.</desc>
 
-  <rect x="355" y="135" width="235" height="350" fill="#dcfce7" opacity="0.55"/>
-  <text x="472" y="160" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#166534">Useful alignment zone</text>
+  <rect x="1" y="1" width="1198" height="718" rx="24" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
 
-  <line x1="105" y1="485" x2="930" y2="485" stroke="#cbd5e1" stroke-width="2"/>
-  <line x1="105" y1="145" x2="105" y2="485" stroke="#cbd5e1" stroke-width="2"/>
-  <text x="520" y="535" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#475569">Amount of coordination / approval</text>
-  <text x="35" y="320" transform="rotate(-90 35 320)" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#475569">Relative value / cost</text>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="64" y="62" font-size="32" font-weight="700" fill="#0f172a">Alignment has diminishing returns</text>
+    <text x="64" y="97" font-size="17" fill="#475569">Shared context rises quickly, while coordination cost keeps increasing</text>
 
-  <path d="M110 455 C210 340, 295 250, 390 205 C485 162, 580 170, 665 205 C760 245, 845 315, 925 395" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>
-  <path d="M110 470 C270 455, 405 410, 525 340 C665 260, 795 205, 925 165" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+    <rect x="64" y="121" width="16" height="16" rx="4" fill="#2563eb"/>
+    <text x="90" y="135" font-size="15" fill="#334155">Value from shared context</text>
+    <rect x="302" y="121" width="16" height="16" rx="4" fill="#dc2626"/>
+    <text x="328" y="135" font-size="15" fill="#334155">Coordination cost</text>
 
-  <rect x="675" y="102" width="14" height="14" rx="3" fill="#2563eb"/>
-  <text x="698" y="114" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#334155">Value from shared context</text>
-  <rect x="840" y="102" width="14" height="14" rx="3" fill="#dc2626"/>
-  <text x="863" y="114" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#334155">Coordination cost</text>
+    <rect x="375" y="165" width="285" height="425" fill="#dcfce7" opacity="0.65"/>
+    <text x="517" y="190" font-size="15" font-weight="700" fill="#166534" text-anchor="middle">Useful alignment zone</text>
 
-  <text x="180" y="430" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#334155">Under-aligned</text>
-  <text x="180" y="452" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#64748b">Missed dependencies</text>
-  <text x="755" y="430" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#334155">Alignment tax</text>
-  <text x="755" y="452" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#64748b">Permission replaces context</text>
+    <line x1="120" y1="165" x2="120" y2="590" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="120" y1="590" x2="1140" y2="590" stroke="#94a3b8" stroke-width="2"/>
 
-  <text x="60" y="585" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#64748b">Illustrative model, not measured data. The crossover point differs by decision risk, reversibility, dependencies, and regulatory constraints.</text>
+    <path d="M130 550 C255 345 385 250 525 215 C700 178 905 174 1120 172" fill="none" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+    <path d="M130 575 C300 570 445 520 595 430 C750 335 900 220 1120 120" fill="none" stroke="#dc2626" stroke-width="6" stroke-linecap="round"/>
+
+    <line x1="930" y1="165" x2="930" y2="590" stroke="#64748b" stroke-width="2" stroke-dasharray="8 8"/>
+    <text x="945" y="205" font-size="14" font-weight="700" fill="#475569">Cost begins to dominate</text>
+
+    <g font-size="15" fill="#334155">
+      <text x="150" y="530" font-weight="700">Under-aligned</text>
+      <text x="150" y="552" font-size="13" fill="#64748b">Missed context and dependencies</text>
+      <text x="770" y="525" font-weight="700">Alignment tax</text>
+      <text x="770" y="547" font-size="13" fill="#64748b">More permission, little new context</text>
+    </g>
+
+    <text x="630" y="635" font-size="15" fill="#475569" text-anchor="middle">Amount of coordination and approval</text>
+    <text x="45" y="380" transform="rotate(-90 45 380)" font-size="15" fill="#475569" text-anchor="middle">Relative value and cost</text>
+    <text x="64" y="684" font-size="13" fill="#64748b">Conceptual model. The crossover changes with risk, reversibility, dependencies, and regulation.</text>
+  </g>
 </svg>
