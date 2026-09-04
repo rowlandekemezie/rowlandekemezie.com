@@ -27,7 +27,7 @@ jobs:
           if grep -Eq '"security"[[:space:]]*:[[:space:]]*\[[[:space:]]*\]' /tmp/openapi.body 2>/dev/null && [ "$profile_status" = "200" ]; then
             echo "Production is directly serving the merged agent-ready runtime to curl."
           else
-            echo "Production deployment is complete, but direct curl does not yet see the expected machine-readable surface. The Is Agentic rescan will measure the public edge behavior directly."
+            echo "Production deployment is complete, but direct curl does not see the expected machine-readable surface. The Is Agentic rescan will measure the public edge behavior directly."
           fi
 
       - name: Install browser automation client
@@ -47,63 +47,68 @@ jobs:
           node <<'NODE'
           const { chromium } = require('/tmp/agent-rescan/node_modules/playwright-core')
 
-          const target = 'https://rowlandekemezie.com'
-          const reportApi = `https://is-agentic.com/api/v1/report?url=${encodeURIComponent(target)}`
-          const reportPage = 'https://is-agentic.com/scan/rowlandekemezie.com'
+          ;(async () => {
+            const target = 'https://rowlandekemezie.com'
+            const reportApi = `https://is-agentic.com/api/v1/report?url=${encodeURIComponent(target)}`
+            const reportPage = 'https://is-agentic.com/scan/rowlandekemezie.com'
 
-          function scannedAt(report) {
-            return report?.scanned_at ?? report?.scannedAt ?? report?.scanned_at_iso ?? null
-          }
+            function scannedAt(report) {
+              return report?.scanned_at ?? report?.scannedAt ?? report?.scanned_at_iso ?? null
+            }
 
-          async function getReport() {
-            const response = await fetch(reportApi, {
-              headers: { accept: 'application/json' }
+            async function getReport() {
+              const response = await fetch(reportApi, {
+                headers: { accept: 'application/json' }
+              })
+
+              if (!response.ok) {
+                throw new Error(`Report API returned ${response.status}: ${await response.text()}`)
+              }
+
+              return response.json()
+            }
+
+            const before = await getReport()
+            const beforeTimestamp = scannedAt(before)
+            console.log(`Before rescan: score=${before.score}, scanned_at=${beforeTimestamp}`)
+
+            const browser = await chromium.launch({
+              headless: true,
+              channel: 'chrome'
             })
 
-            if (!response.ok) {
-              throw new Error(`Report API returned ${response.status}: ${await response.text()}`)
+            try {
+              const page = await browser.newPage()
+              await page.goto(reportPage, { waitUntil: 'domcontentloaded', timeout: 60_000 })
+
+              const rescan = page.getByRole('button', { name: /^Rescan$/ })
+              await rescan.waitFor({ state: 'visible', timeout: 30_000 })
+              await rescan.click()
+              console.log('Clicked Is Agentic Rescan.')
+
+              for (let attempt = 1; attempt <= 120; attempt += 1) {
+                await new Promise(resolve => setTimeout(resolve, 5_000))
+                const current = await getReport()
+                const currentTimestamp = scannedAt(current)
+
+                if (currentTimestamp && currentTimestamp !== beforeTimestamp) {
+                  console.log('FRESH_IS_AGENTIC_REPORT_START')
+                  console.log(JSON.stringify(current, null, 2))
+                  console.log('FRESH_IS_AGENTIC_REPORT_END')
+                  return
+                }
+
+                if (attempt % 6 === 0) {
+                  console.log(`Still waiting for a fresh report (${attempt * 5}s).`)
+                }
+              }
+
+              throw new Error('Is Agentic did not publish a fresh report within 10 minutes.')
+            } finally {
+              await browser.close()
             }
-
-            return response.json()
-          }
-
-          const before = await getReport()
-          const beforeTimestamp = scannedAt(before)
-          console.log(`Before rescan: score=${before.score}, scanned_at=${beforeTimestamp}`)
-
-          const browser = await chromium.launch({
-            headless: true,
-            channel: 'chrome'
+          })().catch(error => {
+            console.error(error)
+            process.exit(1)
           })
-
-          try {
-            const page = await browser.newPage()
-            await page.goto(reportPage, { waitUntil: 'domcontentloaded', timeout: 60_000 })
-
-            const rescan = page.getByRole('button', { name: /^Rescan$/ })
-            await rescan.waitFor({ state: 'visible', timeout: 30_000 })
-            await rescan.click()
-            console.log('Clicked Is Agentic Rescan.')
-
-            for (let attempt = 1; attempt <= 120; attempt += 1) {
-              await new Promise(resolve => setTimeout(resolve, 5_000))
-              const current = await getReport()
-              const currentTimestamp = scannedAt(current)
-
-              if (currentTimestamp && currentTimestamp !== beforeTimestamp) {
-                console.log('FRESH_IS_AGENTIC_REPORT_START')
-                console.log(JSON.stringify(current, null, 2))
-                console.log('FRESH_IS_AGENTIC_REPORT_END')
-                process.exit(0)
-              }
-
-              if (attempt % 6 === 0) {
-                console.log(`Still waiting for a fresh report (${attempt * 5}s).`)
-              }
-            }
-
-            throw new Error('Is Agentic did not publish a fresh report within 10 minutes.')
-          } finally {
-            await browser.close()
-          }
           NODE
