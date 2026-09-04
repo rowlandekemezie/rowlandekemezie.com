@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailLink from '../components/EmailLink.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title={`Privacy — ${site.title}`}
+  description="Privacy information for rowlandekemezie.com, including analytics, newsletter subscriptions, comments, and public machine-readable resources."
+>
+  <section class="section">
+    <div class="section-stack">
+      <span class="eyebrow">Privacy</span>
+      <h1>Privacy</h1>
+      <p class="lede">
+        This is a personal website and technical publication. It collects only the data needed to
+        operate the site, understand basic usage, deliver requested subscriptions, and support
+        article comments.
+      </p>
+      <p>
+        The site may use Cloudflare Web Analytics to understand aggregate traffic and site
+        performance. Newsletter signup is handled through Kit when you choose to subscribe, which
+        means the email address you submit is sent to that service so it can manage the subscription
+        and confirmation flow. Some article pages use Disqus for comments; when you load or use that
+        feature, Disqus may process information under its own privacy terms. I do not ask these
+        services to build advertising profiles for this site.
+      </p>
+      <p>
+        Standard web infrastructure can process technical request data such as an IP address,
+        browser or user-agent string, requested URL, timestamps, and security signals. Cloudflare or
+        another hosting layer may use that information to deliver content, cache responses, prevent
+        abuse, and keep the site available. Public resources such as articles, RSS, sitemap data,
+        llms.txt, OpenAPI documents, structured data, and the public profile API are intentionally
+        available to browsers, search engines, and automated agents.
+      </p>
+      <p>
+        I do not sell personal information. If you subscribe, you can use the unsubscribe mechanism
+        in a newsletter message. If you leave a third-party comment, account and deletion controls
+        are managed by that provider. For a privacy question about data controlled directly through
+        this site, <EmailLink title="Email Rowland">contact me by email</EmailLink> and identify the
+        relevant interaction so I can understand the request.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
