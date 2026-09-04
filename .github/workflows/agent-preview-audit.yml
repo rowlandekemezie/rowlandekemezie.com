@@ -9,5 +9,15 @@ jobs:
     timeout-minutes: 15
 
     steps:
+      - name: Confirm latest Cloudflare preview
+        run: |
+          for attempt in {1..30}; do
+            if curl -fsS https://feat-agent-readiness.rowlandekemezie.pages.dev/openapi.json | grep -q 'A structured machine-readable error using application/problem+json'; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+
       - name: Audit Cloudflare branch preview
-        run: npx --yes is-agentic@latest https://feat-agent-readiness.rowlandekemezie.pages.dev --json
+        run: npx --yes is-agentic@latest 'https://feat-agent-readiness.rowlandekemezie.pages.dev/?agentic-audit=404-v2' --json
