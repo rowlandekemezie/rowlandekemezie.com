@@ -11,10 +11,11 @@
   },
   "servers": [
     {
-      "url": "https://rowlandekemezie.com",
-      "description": "Production"
+      "url": "/",
+      "description": "Same origin as this OpenAPI document"
     }
   ],
+  "security": [],
   "externalDocs": {
     "description": "Developer resources and usage guidance",
     "url": "https://rowlandekemezie.com/developers/"
@@ -24,7 +25,8 @@
       "get": {
         "operationId": "getPublicProfile",
         "summary": "Get the public profile",
-        "description": "Returns the canonical public identity, focus areas, and machine-readable resource links for Rowland I. Ekemezie. Use this operation when an agent needs verified site-owned profile data instead of inferring it from prose pages.",
+        "description": "Returns the canonical public identity, focus areas, and machine-readable resource links for Rowland I. Ekemezie. This operation is public and requires no authentication. Use it when an agent needs verified site-owned profile data instead of inferring it from prose pages.",
+        "security": [],
         "responses": {
           "200": {
             "description": "The public profile and canonical resource links.",
@@ -39,8 +41,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PublicProfile",
-                  "type": "object"
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["name", "description", "url", "location", "topics", "resources"],
+                  "properties": {
+                    "name": { "type": "string", "description": "Canonical public name." },
+                    "description": { "type": "string", "description": "Short public professional description." },
+                    "url": { "type": "string", "format": "uri", "description": "Canonical website URL." },
+                    "location": { "type": "string", "description": "Public location at city and region granularity." },
+                    "topics": {
+                      "type": "array",
+                      "description": "Technical and leadership topics represented by the site.",
+                      "items": { "type": "string" },
+                      "minItems": 1
+                    },
+                    "resources": { "$ref": "#/components/schemas/ResourceLinks" }
+                  }
                 }
               }
             }
