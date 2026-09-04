@@ -15,10 +15,11 @@
     "verify:content-assets": "node scripts/verify-content-image-paths.mjs",
     "verify:analytics": "node scripts/verify-analytics-integration.mjs",
     "verify:dist": "node scripts/verify-static-output.mjs",
+    "verify:agent-readiness": "node scripts/verify-agent-readiness.mjs",
     "verify:launch-gates": "node scripts/verify-launch-gates.mjs",
     "lighthouse:local": "node scripts/run-lighthouse.mjs",
     "lighthouse:preview": "node scripts/run-lighthouse.mjs https://concept-signal-desk.rowlandekemezie-com.pages.dev",
-    "verify:all": "pnpm lint && pnpm astro:check && pnpm verify:content-assets && pnpm build && pnpm verify:dist && pnpm verify:launch-gates",
+    "verify:all": "pnpm lint && pnpm astro:check && pnpm verify:content-assets && pnpm build && pnpm verify:dist && pnpm verify:agent-readiness && pnpm verify:launch-gates",
     "clean": "rimraf .astro dist"
   },
   "repository": "https://github.com/rowlandekemezie/rowlandekemezie.com",
