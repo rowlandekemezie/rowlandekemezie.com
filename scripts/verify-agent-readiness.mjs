@@ -27,6 +27,7 @@ function visibleText(html) {
 }
 
 const home = read('index.html');
+const notFoundHtml = read('404.html');
 const about = read('about/index.html');
 const contact = read('contact/index.html');
 const privacy = read('privacy/index.html');
@@ -60,6 +61,9 @@ assert('homepage links developer resources', home.includes('href="/developers/"'
 assert('homepage links canonical about page', home.includes('href="/about/"'));
 assert('homepage links contact page', home.includes('href="/contact/"'));
 assert('homepage links privacy page', home.includes('href="/privacy/"'));
+assert('browser 404 links the sitemap', notFoundHtml.includes('href="/sitemap.xml"'));
+assert('browser 404 links llms.txt', notFoundHtml.includes('href="/llms.txt"'));
+assert('browser 404 links developer resources', notFoundHtml.includes('href="/developers/"'));
 
 for (const [name, html] of [
   ['about', about],
@@ -130,6 +134,7 @@ assert('worker exposes text/markdown', workerSource.includes('text/markdown; cha
 assert('worker exposes problem+json', workerSource.includes('application/problem+json; charset=utf-8'));
 assert('worker exposes the versioned profile API', workerSource.includes("'/api/v1/profile'"));
 assert('worker exposes RateLimit-Limit', workerSource.includes("'RateLimit-Limit'"));
+assert('worker has agent-recovery 404 guidance', workerSource.includes('# Page not found'));
 
 const workerFactory = new Function(
   `${workerSource.replace('export default', 'const worker =')}\nreturn worker;`
@@ -148,8 +153,15 @@ const fakeEnv = {
         });
       }
 
-      return new Response(isHead ? null : home, {
-        status: 200,
+      if (path === '/') {
+        return new Response(isHead ? null : home, {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' }
+        });
+      }
+
+      return new Response(isHead ? null : notFoundHtml, {
+        status: 404,
         headers: { 'Content-Type': 'text/html; charset=utf-8' }
       });
     }
@@ -199,6 +211,38 @@ const unacceptableResponse = await worker.fetch(
   fakeEnv
 );
 assert('unsupported homepage representation returns 406', unacceptableResponse.status === 406);
+
+const agentNotFoundResponse = await worker.fetch(
+  new Request('https://rowlandekemezie.com/path-that-does-not-exist', {
+    headers: { 'User-Agent': 'ora-agent' }
+  }),
+  fakeEnv
+);
+const agentNotFound = await agentNotFoundResponse.text();
+assert('agent 404 keeps real HTTP 404 status', agentNotFoundResponse.status === 404);
+assert(
+  'agent 404 returns Markdown',
+  agentNotFoundResponse.headers.get('Content-Type') === 'text/markdown; charset=utf-8'
+);
+assert('agent 404 points to sitemap', agentNotFound.includes('[Sitemap](https://rowlandekemezie.com/sitemap.xml)'));
+assert('agent 404 points to llms.txt', agentNotFound.includes('[llms.txt](https://rowlandekemezie.com/llms.txt)'));
+assert('agent 404 points to developer resources', agentNotFound.includes('[Developer resources](https://rowlandekemezie.com/developers/)'));
+
+const wildcardNotFoundResponse = await worker.fetch(
+  new Request('https://rowlandekemezie.com/another-missing-path', {
+    headers: { Accept: '*/*' }
+  }),
+  fakeEnv
+);
+assert('wildcard 404 receives recoverable Markdown', wildcardNotFoundResponse.headers.get('Content-Type') === 'text/markdown; charset=utf-8');
+
+const browserNotFoundResponse = await worker.fetch(
+  new Request('https://rowlandekemezie.com/browser-missing-path', {
+    headers: { Accept: 'text/html,application/xhtml+xml,*/*;q=0.8' }
+  }),
+  fakeEnv
+);
+assert('browser 404 keeps the HTML design', browserNotFoundResponse.status === 404 && browserNotFoundResponse.headers.get('Content-Type')?.startsWith('text/html'));
 
 const profileResponse = await worker.fetch(
   new Request('https://rowlandekemezie.com/api/v1/profile', {
