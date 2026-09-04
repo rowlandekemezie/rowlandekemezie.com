@@ -30,22 +30,22 @@ jobs:
             echo "Production deployment is complete, but direct curl does not yet see the expected machine-readable surface. The Is Agentic rescan will measure the public edge behavior directly."
           fi
 
-      - name: Install browser automation
+      - name: Install browser automation client
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p /tmp/agent-rescan
           cd /tmp/agent-rescan
           npm init -y >/dev/null 2>&1
-          npm install --silent playwright@latest
-          npx playwright install chromium
+          npm install --silent playwright-core@latest
+          google-chrome --version
 
       - name: Trigger real Is Agentic rescan and wait for fresh report
         shell: bash
         run: |
           set -euo pipefail
           node <<'NODE'
-          const { chromium } = require('/tmp/agent-rescan/node_modules/playwright')
+          const { chromium } = require('/tmp/agent-rescan/node_modules/playwright-core')
 
           const target = 'https://rowlandekemezie.com'
           const reportApi = `https://is-agentic.com/api/v1/report?url=${encodeURIComponent(target)}`
@@ -71,7 +71,11 @@ jobs:
           const beforeTimestamp = scannedAt(before)
           console.log(`Before rescan: score=${before.score}, scanned_at=${beforeTimestamp}`)
 
-          const browser = await chromium.launch({ headless: true })
+          const browser = await chromium.launch({
+            headless: true,
+            channel: 'chrome'
+          })
+
           try {
             const page = await browser.newPage()
             await page.goto(reportPage, { waitUntil: 'domcontentloaded', timeout: 60_000 })
