@@ -19,5 +19,12 @@ jobs:
           done
           exit 1
 
-      - name: Audit Cloudflare branch preview
-        run: npx --yes is-agentic@latest 'https://feat-agent-readiness.rowlandekemezie.pages.dev/?agentic-audit=404-v2' --json
+      - name: Run fresh Ora essentials scan
+        run: |
+          curl --fail-with-body --silent --show-error \
+            --request POST \
+            'https://ora.ai/api/scan?include=essentials' \
+            --header 'content-type: application/json' \
+            --data '{"url":"https://feat-agent-readiness.rowlandekemezie.pages.dev"}' \
+            --output ora-scan.json
+          cat ora-scan.json
