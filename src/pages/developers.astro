@@ -64,12 +64,19 @@ import { site } from '../lib/site';
 
   <section class="section">
     <div class="section-stack">
-      <h2>Versioning and client behavior</h2>
+      <h2>Versioning and deprecation</h2>
       <p>
         Public API versions are encoded in the URL. Compatible additions can be made within v1;
-        breaking changes require a new major version. Clients should use the operation IDs and
-        schemas in the OpenAPI document, follow canonical URLs returned by the API, respect the
-        RateLimit headers, and avoid inventing actions that the documented API does not expose.
+        breaking changes require a new major version. If an operation is deprecated, it will remain
+        available for at least 90 days after the public deprecation announcement. Deprecated
+        responses will include a <code>Deprecation</code> header and a <code>Sunset</code> header with
+        the planned removal date. The OpenAPI document will also mark the operation as deprecated
+        during that migration window.
+      </p>
+      <p>
+        Clients should use the operation IDs and schemas in the OpenAPI document, follow canonical
+        URLs returned by the API, respect the RateLimit headers, and avoid inventing actions that the
+        documented API does not expose.
       </p>
     </div>
   </section>
