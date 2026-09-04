@@ -1,0 +1,134 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Rowland I. Ekemezie Public API",
+    "version": "1.0.0",
+    "description": "A small, read-only API for agents and developer tools that need a stable machine-readable description of Rowland I. Ekemezie, his technical focus, and the canonical resources on rowlandekemezie.com. The API is versioned in the URL. Breaking changes will use a new major URL version. If a v1 operation is retired, the site will announce deprecation before removal.",
+    "contact": {
+      "name": "Rowland I. Ekemezie",
+      "url": "https://rowlandekemezie.com/contact/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://rowlandekemezie.com",
+      "description": "Production"
+    }
+  ],
+  "externalDocs": {
+    "description": "Developer resources and usage guidance",
+    "url": "https://rowlandekemezie.com/developers/"
+  },
+  "paths": {
+    "/api/v1/profile": {
+      "get": {
+        "operationId": "getPublicProfile",
+        "summary": "Get the public profile",
+        "description": "Returns the canonical public identity, focus areas, and machine-readable resource links for Rowland I. Ekemezie. Use this operation when an agent needs verified site-owned profile data instead of inferring it from prose pages.",
+        "responses": {
+          "200": {
+            "description": "The public profile and canonical resource links.",
+            "headers": {
+              "RateLimit-Limit": { "$ref": "#/components/headers/RateLimitLimit" },
+              "RateLimit-Remaining": { "$ref": "#/components/headers/RateLimitRemaining" },
+              "RateLimit-Reset": { "$ref": "#/components/headers/RateLimitReset" },
+              "RateLimit-Policy": { "$ref": "#/components/headers/RateLimitPolicy" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PublicProfile" }
+              }
+            }
+          },
+          "405": { "$ref": "#/components/responses/ProblemResponse" }
+        }
+      }
+    }
+  },
+  "components": {
+    "headers": {
+      "RateLimitLimit": {
+        "description": "Advisory request budget for the current 60-second window.",
+        "schema": { "type": "integer", "minimum": 0, "example": 120 }
+      },
+      "RateLimitRemaining": {
+        "description": "Advisory requests remaining in the current window.",
+        "schema": { "type": "integer", "minimum": 0, "example": 120 }
+      },
+      "RateLimitReset": {
+        "description": "Seconds until the current request window resets.",
+        "schema": { "type": "integer", "minimum": 0, "example": 60 }
+      },
+      "RateLimitPolicy": {
+        "description": "Request budget and window expressed in the RateLimit policy format.",
+        "schema": { "type": "string", "example": "120;w=60" }
+      }
+    },
+    "responses": {
+      "ProblemResponse": {
+        "description": "A structured machine-readable error.",
+        "headers": {
+          "RateLimit-Limit": { "$ref": "#/components/headers/RateLimitLimit" },
+          "RateLimit-Remaining": { "$ref": "#/components/headers/RateLimitRemaining" },
+          "RateLimit-Reset": { "$ref": "#/components/headers/RateLimitReset" },
+          "RateLimit-Policy": { "$ref": "#/components/headers/RateLimitPolicy" }
+        },
+        "content": {
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "PublicProfile": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description", "url", "location", "topics", "resources"],
+        "properties": {
+          "name": { "type": "string", "description": "Canonical public name.", "example": "Rowland I. Ekemezie" },
+          "description": { "type": "string", "description": "Short public professional description." },
+          "url": { "type": "string", "format": "uri", "description": "Canonical website URL." },
+          "location": { "type": "string", "description": "Public location at city and region granularity." },
+          "topics": {
+            "type": "array",
+            "description": "Technical and leadership topics represented by the site.",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "resources": { "$ref": "#/components/schemas/ResourceLinks" }
+        }
+      },
+      "ResourceLinks": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["website", "about", "writing", "series", "developers", "openapi", "llms", "agentInstructions"],
+        "properties": {
+          "website": { "type": "string", "format": "uri" },
+          "about": { "type": "string", "format": "uri" },
+          "writing": { "type": "string", "format": "uri" },
+          "series": { "type": "string", "format": "uri" },
+          "developers": { "type": "string", "format": "uri" },
+          "openapi": { "type": "string", "format": "uri" },
+          "llms": { "type": "string", "format": "uri" },
+          "agentInstructions": { "type": "string", "format": "uri" }
+        }
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "title", "status", "code", "detail", "message", "hint", "instance"],
+        "properties": {
+          "type": { "type": "string", "format": "uri", "description": "Stable URI for the error category." },
+          "title": { "type": "string", "description": "Short error title." },
+          "status": { "type": "integer", "minimum": 400, "maximum": 599, "description": "HTTP status code." },
+          "code": { "type": "string", "description": "Stable programmatic error code." },
+          "detail": { "type": "string", "description": "Human-readable explanation of the error." },
+          "message": { "type": "string", "description": "Concise message equivalent to detail for clients that expect a message field." },
+          "hint": { "type": "string", "description": "Specific recovery guidance for an agent or API client." },
+          "instance": { "type": "string", "description": "Request path associated with the error." }
+        }
+      }
+    }
+  }
+}
