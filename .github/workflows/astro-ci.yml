@@ -43,5 +43,8 @@ jobs:
       - name: Verify generated output
         run: pnpm verify:dist
 
+      - name: Verify agent readiness
+        run: pnpm verify:agent-readiness
+
       - name: Verify launch gates
         run: pnpm verify:launch-gates
