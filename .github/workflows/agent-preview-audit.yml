@@ -11,8 +11,8 @@ jobs:
     steps:
       - name: Confirm immutable Cloudflare preview
         run: |
-          curl -fsS https://48c4ad76.rowlandekemezie.pages.dev/openapi.json \
-            | grep -q 'A structured machine-readable error using application/problem+json'
+          curl -fsS https://8e47b8ba.rowlandekemezie.pages.dev/openapi.json \
+            | grep -q '"security": \[\]'
 
       - name: Audit immutable Cloudflare preview
-        run: npx --yes is-agentic@latest https://48c4ad76.rowlandekemezie.pages.dev --json
+        run: npx --yes is-agentic@latest https://8e47b8ba.rowlandekemezie.pages.dev --json
