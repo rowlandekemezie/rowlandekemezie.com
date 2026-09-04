@@ -31,6 +31,31 @@ const PROFILE = {
   }
 };
 
+const AGENT_USER_AGENTS = [
+  'ChatGPT-User',
+  'GPTBot',
+  'ClaudeBot',
+  'Google-Extended',
+  'PerplexityBot',
+  'DeepSeekBot',
+  'Applebot-Extended',
+  'ora-agent'
+];
+
+const NOT_FOUND_MARKDOWN = `# Page not found
+
+The requested resource does not exist on rowlandekemezie.com.
+
+## Where to look next
+
+- [Homepage and writing](https://rowlandekemezie.com/)
+- [Sitemap](https://rowlandekemezie.com/sitemap.xml)
+- [llms.txt](https://rowlandekemezie.com/llms.txt)
+- [Developer resources](https://rowlandekemezie.com/developers/)
+- [OpenAPI specification](https://rowlandekemezie.com/openapi.json)
+- [Agent instructions](https://rowlandekemezie.com/agents.md)
+`;
+
 function json(body, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(body), {
     status,
@@ -182,6 +207,36 @@ function withNegotiationHeaders(response, contentType) {
     status: response.status,
     statusText: response.statusText,
     headers
+  });
+}
+
+function isAgentRequest(request) {
+  const userAgent = request.headers.get('User-Agent') ?? '';
+  return AGENT_USER_AGENTS.some(agent => userAgent.toLowerCase().includes(agent.toLowerCase()));
+}
+
+function shouldServeMarkdown404(request) {
+  const accept = request.headers.get('Accept');
+
+  if (!accept || accept.trim() === '*/*') {
+    return true;
+  }
+
+  if (isAgentRequest(request)) {
+    return true;
+  }
+
+  return preferredRepresentation(accept) === 'markdown';
+}
+
+function markdownNotFound(request) {
+  return new Response(request.method === 'HEAD' ? null : NOT_FOUND_MARKDOWN, {
+    status: 404,
+    headers: {
+      'Content-Type': 'text/markdown; charset=utf-8',
+      'Cache-Control': 'public, max-age=60',
+      Vary: 'Accept, Accept-Encoding, User-Agent'
+    }
   });
 }
 
@@ -393,6 +448,15 @@ export default {
     }
 
     const response = await env.ASSETS.fetch(request);
+
+    if (
+      response.status === 404 &&
+      (request.method === 'GET' || request.method === 'HEAD') &&
+      shouldServeMarkdown404(request)
+    ) {
+      return markdownNotFound(request);
+    }
+
     return withNegotiationHeaders(response);
   }
 };
