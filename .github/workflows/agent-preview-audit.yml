@@ -1,0 +1,13 @@
+name: Agent Preview Audit
+
+on:
+  pull_request:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Audit Cloudflare branch preview
+        run: npx --yes is-agentic@latest https://feat-agent-readiness.rowlandekemezie.pages.dev --json
