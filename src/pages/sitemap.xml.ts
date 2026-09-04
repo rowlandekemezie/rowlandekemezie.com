@@ -34,6 +34,10 @@ export const GET: APIRoute = async ({ site: contextSite }) => {
 
   const entries = [
     { path: '/', lastmod: latestPostDate },
+    { path: '/about/', lastmod: latestPostDate },
+    { path: '/contact/', lastmod: latestPostDate },
+    { path: '/privacy/', lastmod: latestPostDate },
+    { path: '/developers/', lastmod: latestPostDate },
     { path: aboutRoute(), lastmod: latestPostDate },
     { path: '/tags/', lastmod: latestPostDate },
     { path: '/categories/', lastmod: latestPostDate },

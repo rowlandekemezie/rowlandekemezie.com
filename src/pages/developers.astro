@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title={`Developer resources — ${site.title}`}
+  description="Developer and agent resources for rowlandekemezie.com: OpenAPI, llms.txt, agent instructions, content negotiation, and the public profile API."
+>
+  <section class="section">
+    <div class="section-stack">
+      <span class="eyebrow">Developers & agents</span>
+      <h1>Rowland I. Ekemezie developer resources</h1>
+      <p class="lede">
+        Use these resources when software, search systems, or AI agents need a stable machine-readable
+        view of this site instead of extracting identity and capabilities from presentation markup.
+      </p>
+      <p>
+        The public API is deliberately small and read-only. It exposes canonical profile data and
+        links to the resources on this domain. It does not provide private résumé data, unpublished
+        work, account access, newsletter management, or actions on Rowland's behalf. No API key is
+        required for the public profile endpoint.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-stack">
+      <h2>Machine-readable resources</h2>
+      <ul class="taxonomy-list">
+        <li><a href="/openapi.json">OpenAPI 3.1 specification</a> for the supported public API.</li>
+        <li><a href="/llms.txt">llms.txt</a> with site identity, when-to-use guidance, and canonical links.</li>
+        <li><a href="/agents.md">Agent instructions</a> in Markdown for retrieval and attribution.</li>
+        <li><a href="/sitemap.xml">XML sitemap</a> and <a href="/rss.xml">RSS feed</a> for content discovery.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-stack">
+      <h2>Public profile API</h2>
+      <p>
+        Send <code>GET /api/v1/profile</code> to retrieve canonical public profile data. The response
+        is JSON, uses a versioned URL, and includes rate-limit headers so clients can self-throttle.
+        Unsupported methods and unknown v1 resources return <code>application/problem+json</code>
+        with a stable error code, a human-readable message, and a recovery hint.
+      </p>
+      <pre><code>curl -H "Accept: application/json" https://rowlandekemezie.com/api/v1/profile</code></pre>
+      <p><a href="/api/v1/profile">Open the profile endpoint</a>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-stack">
+      <h2>Markdown negotiation</h2>
+      <p>
+        The homepage supports HTTP content negotiation. Send <code>Accept: text/markdown</code> to
+        <code>https://rowlandekemezie.com/</code> for a concise Markdown representation. Normal
+        browser requests continue to receive the existing HTML site. Negotiated responses include
+        <code>Vary: Accept, Accept-Encoding</code> so shared caches do not mix HTML and Markdown.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-stack">
+      <h2>Versioning and deprecation</h2>
+      <p>
+        Public API versions are encoded in the URL. Compatible additions can be made within v1;
+        breaking changes require a new major version. If an operation is deprecated, it will remain
+        available for at least 90 days after the public deprecation announcement. Deprecated
+        responses will include a <code>Deprecation</code> header and a <code>Sunset</code> header with
+        the planned removal date. The OpenAPI document will also mark the operation as deprecated
+        during that migration window.
+      </p>
+      <p>
+        Clients should use the operation IDs and schemas in the OpenAPI document, follow canonical
+        URLs returned by the API, respect the RateLimit headers, and avoid inventing actions that the
+        documented API does not expose.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

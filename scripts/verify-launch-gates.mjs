@@ -12,7 +12,7 @@ const routes = {
 
 const sizeBudgetBytes = {
   about: 12_000,
-  home: 18_000,
+  home: 20_000,
   percy: 35_000,
   topThirty: 35_000,
 };

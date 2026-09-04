@@ -19,6 +19,12 @@ function iconId(label: string) {
       <SubscribeModal />
     </div>
     <div class="site-footer-meta reveal reveal-delay">
+      <nav class="site-footer-links" aria-label="Site information">
+        <a href="/about/">About</a>
+        <a href="/developers/">Developer resources</a>
+        <a href="/contact/">Contact</a>
+        <a href="/privacy/">Privacy</a>
+      </nav>
       <ul class="site-footer-socials" aria-label="Social links">
         {
           site.author.links.map((link) => (
@@ -81,6 +87,23 @@ function iconId(label: string) {
     display: grid;
     gap: 1rem;
     align-content: center;
+  }
+
+  .site-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+  }
+
+  .site-footer-links a {
+    color: #c8ced5;
+    font-size: 0.875rem;
+    text-decoration-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .site-footer-links a:hover,
+  .site-footer-links a:focus-visible {
+    color: #fff;
   }
 
   .site-footer-socials {

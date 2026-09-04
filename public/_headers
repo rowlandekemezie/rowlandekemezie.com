@@ -4,6 +4,7 @@
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), geolocation=(), microphone=()
   Cache-Control: public, max-age=0, must-revalidate, no-transform
+  Vary: Accept, Accept-Encoding
 
 /sw.js
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
@@ -21,4 +22,13 @@
   Cache-Control: public, max-age=3600
 
 /robots.txt
+  Cache-Control: public, max-age=3600
+
+/openapi.json
+  Cache-Control: public, max-age=3600
+
+/llms.txt
+  Cache-Control: public, max-age=3600
+
+/agents.md
   Cache-Control: public, max-age=3600

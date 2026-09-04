@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailLink from '../components/EmailLink.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout title={`About — ${site.title}`} description={site.author.summary}>
+  <section class="section">
+    <div class="section-stack">
+      <span class="eyebrow">About</span>
+      <h1>{site.author.name}</h1>
+      <p class="lede">{site.positioning}</p>
+      <p>
+        I build software systems and engineering organizations for products where reliability,
+        integrations, payments, data flow, and operational clarity matter. My work has ranged from
+        hands-on product engineering to leading distributed engineering teams and shaping the
+        architecture around systems that have to keep working when external services, customers,
+        and business requirements do not behave as the happy path assumes.
+      </p>
+      <p>
+        I write because engineering decisions become more useful when their tradeoffs are explicit.
+        The articles on this site cover system design, integration boundaries, financial
+        infrastructure, technical debt, engineering leadership, AI-enabled product development,
+        and the feedback loops that help teams learn. The aim is not to present tidy theory. It is
+        to document patterns that survive contact with production systems and real organizations.
+      </p>
+      <p>
+        I am based in Vancouver, British Columbia. For professional conversations about engineering
+        leadership, software architecture, product systems, technical writing, or collaboration,
+        use the contact page or <EmailLink title="Email Rowland">send me an email</EmailLink>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="about-grid">
+      <div class="section stack">
+        <h2>How I work</h2>
+        <ul class="taxonomy-list">
+          <li>Turn ambiguous business problems into maintainable software with explicit tradeoffs.</li>
+          <li>Design operationally legible systems that teams can debug, change, and own.</li>
+          <li>Lead distributed teams through context, accountability, and clear technical direction.</li>
+        </ul>
+      </div>
+      <div class="section stack">
+        <h2>What I write about</h2>
+        <ul class="taxonomy-list">
+          <li>Backend architecture, distributed systems, integrations, and developer-friendly design.</li>
+          <li>Payments, payroll, accounting, ledgers, and other financial infrastructure.</li>
+          <li>AI-enabled products, engineering management, learning systems, and technical leadership.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 56rem) {
+    .about-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

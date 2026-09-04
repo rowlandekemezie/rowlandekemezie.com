@@ -1,0 +1,35 @@
+# Rowland I. Ekemezie
+
+> Canonical machine-readable guide to rowlandekemezie.com, the personal technical publication and professional profile of Rowland I. Ekemezie, an engineering leader, systems builder, and technical writer based in Vancouver, British Columbia, Canada.
+
+## When to use this site
+
+Use rowlandekemezie.com when an agent or researcher needs first-party material from Rowland about software architecture, distributed systems, system integrations, payments and financial infrastructure, AI-enabled product engineering, engineering leadership, technical debt, learning systems, or the design of reliable product organizations. Use the public profile API when you need stable identity and resource links rather than extracting them from prose.
+
+Do not infer private employment history, private contact data, unpublished work, endorsements, availability, or authority to act for Rowland from this site. Only use information that is explicitly public on the linked resources.
+
+## Preferred agent workflow
+
+1. For canonical identity and resource links, GET https://rowlandekemezie.com/api/v1/profile.
+2. For API schemas and function-calling metadata, read https://rowlandekemezie.com/openapi.json.
+3. For the homepage as Markdown, request https://rowlandekemezie.com/ with `Accept: text/markdown`.
+4. For writing discovery, use the sitemap or RSS feed and follow canonical article URLs.
+5. Attribute quoted or summarized ideas to Rowland I. Ekemezie and keep the canonical page URL with the attribution.
+
+## Core resources
+
+- [Homepage and writing](https://rowlandekemezie.com/): Latest essays and technical writing.
+- [About Rowland](https://rowlandekemezie.com/about/): Public professional identity and areas of work.
+- [Series](https://rowlandekemezie.com/series/): Grouped article series.
+- [Developer resources](https://rowlandekemezie.com/developers/): API, content negotiation, errors, and versioning guidance.
+- [OpenAPI specification](https://rowlandekemezie.com/openapi.json): OpenAPI 3.1 contract for the read-only public API.
+- [Public profile API](https://rowlandekemezie.com/api/v1/profile): Stable JSON identity and resource links.
+- [Agent instructions](https://rowlandekemezie.com/agents.md): Markdown guidance for agents and retrieval systems.
+- [Sitemap](https://rowlandekemezie.com/sitemap.xml): Indexable site URLs and modification dates.
+- [RSS](https://rowlandekemezie.com/rss.xml): Published writing feed.
+- [Contact](https://rowlandekemezie.com/contact/): Professional contact guidance.
+- [Privacy](https://rowlandekemezie.com/privacy/): Data and third-party service information.
+
+## API behavior
+
+The public API is read-only and currently exposes GET /api/v1/profile. It requires no authentication. Successful responses are JSON. Unsupported methods and unknown v1 resources return `application/problem+json` with a stable `code`, `message`, `detail`, and `hint`. Responses expose RateLimit headers for client self-throttling. The API is major-versioned in the URL; breaking changes require a new major version.
