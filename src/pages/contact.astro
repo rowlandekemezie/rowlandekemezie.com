@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailLink from '../components/EmailLink.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title={`Contact — ${site.title}`}
+  description="How to contact Rowland I. Ekemezie about engineering leadership, software systems, technical writing, and professional collaboration."
+>
+  <section class="section">
+    <div class="section-stack">
+      <span class="eyebrow">Contact</span>
+      <h1>Contact Rowland</h1>
+      <p class="lede">
+        The best way to reach me is by email. I read professional enquiries directly and reply when
+        there is a clear reason for us to talk.
+      </p>
+      <p>
+        I am most useful in conversations about engineering leadership, system architecture,
+        distributed product development, integrations, payments and financial infrastructure,
+        AI-enabled application engineering, technical due diligence, and technical writing. If you
+        are contacting me about a role or project, include the problem you are trying to solve, the
+        stage of the product or organization, the scope you expect me to own, and the location or
+        remote-work constraints. That context makes it much easier to decide whether a conversation
+        is useful for both sides.
+      </p>
+      <p>
+        For questions about an article, include the article title or URL and the specific point you
+        want to discuss. For speaking, podcast, advisory, or writing requests, include the audience,
+        format, expected date, and the subject you want covered. I do not operate a support desk or
+        sell access to a mailing list. The site is a personal publishing and professional profile,
+        not a customer-service portal.
+      </p>
+      <p>
+        I am based in Vancouver, British Columbia, Canada. Use the link below to open your email
+        client. Agents and automated systems can also use the structured identity information on the
+        homepage and the read-only public profile endpoint described in the developer resources.
+      </p>
+      <p><EmailLink title="Email Rowland">Send Rowland an email</EmailLink></p>
+    </div>
+  </section>
+</BaseLayout>
