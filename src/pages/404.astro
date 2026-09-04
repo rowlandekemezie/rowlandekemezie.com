@@ -7,7 +7,15 @@ import { site } from '../lib/site';
   <section class="panel stack">
     <span class="eyebrow">404</span>
     <h1>Page not found</h1>
-    <p class="muted">The page you requested does not exist on this build.</p>
-    <p><a href="/">Return to the posts index</a></p>
+    <p class="muted">
+      The page you requested does not exist. Use the writing index or the machine-readable resources
+      below to find a current route.
+    </p>
+    <ul class="taxonomy-list">
+      <li><a href="/">Writing index</a></li>
+      <li><a href="/sitemap.xml">XML sitemap</a></li>
+      <li><a href="/llms.txt">llms.txt</a></li>
+      <li><a href="/developers/">Developer resources</a></li>
+    </ul>
   </section>
 </BaseLayout>
