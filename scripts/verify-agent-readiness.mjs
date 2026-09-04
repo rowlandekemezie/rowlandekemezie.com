@@ -82,12 +82,18 @@ assert('developer page documents Markdown negotiation', developers.includes('Acc
 const openapi = JSON.parse(openapiText);
 const profileOperation = openapi.paths?.['/api/v1/profile']?.get;
 const successResponse = profileOperation?.responses?.['200'];
+const successSchema = successResponse?.content?.['application/json']?.schema;
 assert('OpenAPI uses version 3.1.0', openapi.openapi === '3.1.0');
+assert('OpenAPI uses the same origin as the served specification', openapi.servers?.[0]?.url === '/');
+assert('OpenAPI declares the API unauthenticated by default', Array.isArray(openapi.security) && openapi.security.length === 0);
 assert('OpenAPI publishes getPublicProfile operation', profileOperation?.operationId === 'getPublicProfile');
 assert('OpenAPI operation has a description', profileOperation?.description?.length > 40);
+assert('profile operation explicitly requires no authentication', Array.isArray(profileOperation?.security) && profileOperation.security.length === 0);
 assert(
-  'OpenAPI success response has a typed schema',
-  successResponse?.content?.['application/json']?.schema?.$ref === '#/components/schemas/PublicProfile'
+  'OpenAPI success response has an inline typed schema',
+  successSchema?.type === 'object' &&
+    Boolean(successSchema?.properties?.name) &&
+    Boolean(successSchema?.properties?.resources)
 );
 assert('OpenAPI documents RateLimit-Limit', Boolean(successResponse?.headers?.['RateLimit-Limit']));
 assert('OpenAPI documents RateLimit-Policy', Boolean(successResponse?.headers?.['RateLimit-Policy']));
