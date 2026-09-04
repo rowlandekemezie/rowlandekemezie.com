@@ -39,10 +39,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "allOf": [
-                    { "$ref": "#/components/schemas/PublicProfile" }
-                  ]
+                  "$ref": "#/components/schemas/PublicProfile",
+                  "type": "object"
                 }
               }
             }
@@ -58,10 +56,8 @@
             "content": {
               "application/problem+json": {
                 "schema": {
-                  "type": "object",
-                  "allOf": [
-                    { "$ref": "#/components/schemas/ProblemDetails" }
-                  ]
+                  "$ref": "#/components/schemas/ProblemDetails",
+                  "type": "object"
                 }
               }
             }
@@ -77,10 +73,8 @@
             "content": {
               "application/problem+json": {
                 "schema": {
-                  "type": "object",
-                  "allOf": [
-                    { "$ref": "#/components/schemas/ProblemDetails" }
-                  ]
+                  "$ref": "#/components/schemas/ProblemDetails",
+                  "type": "object"
                 }
               }
             }
@@ -114,6 +108,22 @@
       "Sunset": {
         "description": "Present only for deprecated operations. An HTTP-date at least 90 days after the public deprecation announcement, after which the operation can be removed.",
         "schema": { "type": "string", "example": "Thu, 01 Apr 2027 00:00:00 GMT" }
+      }
+    },
+    "responses": {
+      "ProblemResponse": {
+        "description": "A structured machine-readable error using application/problem+json.",
+        "headers": {
+          "RateLimit-Limit": { "$ref": "#/components/headers/RateLimitLimit" },
+          "RateLimit-Remaining": { "$ref": "#/components/headers/RateLimitRemaining" },
+          "RateLimit-Reset": { "$ref": "#/components/headers/RateLimitReset" },
+          "RateLimit-Policy": { "$ref": "#/components/headers/RateLimitPolicy" }
+        },
+        "content": {
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+          }
+        }
       }
     },
     "schemas": {
