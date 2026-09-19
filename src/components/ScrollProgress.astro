@@ -37,7 +37,13 @@
     height: 2px;
     width: 0;
     z-index: 40;
-    background: #206aff;
+    background: var(--accent);
     transition: width 0.2s ease-in-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-progress {
+      transition: none;
+    }
   }
 </style>

@@ -25,12 +25,9 @@
 
 <style is:global>
   .subscribe-card {
-    color: #fff;
     max-width: 21.875rem;
-    background: #206aff;
-    background-image: linear-gradient(-213deg, #5e31dc 0%, #3155dc 100%),
-      linear-gradient(32deg, rgba(255, 255, 255, 0.25) 33%, rgba(0, 0, 0, 0.25) 100%);
-    border-radius: 0.3125rem;
+    background: var(--card);
+    border: 1px solid var(--line);
   }
 
   .subscribe-form {
@@ -42,7 +39,7 @@
 
   .subscribe-header {
     margin: 0 0 0.0625rem;
-    color: #fff;
+    color: var(--heading);
   }
 
   .subscribe-inputwrapper {
@@ -61,26 +58,34 @@
     font-size: 1rem;
     padding: 0.625rem;
     box-sizing: border-box;
-    border: none;
-    border-radius: 0.1875rem;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    background: var(--bg);
+    color: var(--text);
   }
 
   .subscribe-button {
     margin-top: 1.25rem;
+    min-height: 2.75rem;
     font-size: 1rem;
-    border-radius: 0.1875rem;
+    border-radius: 0;
     padding: 0.625rem 1.875rem;
-    background-color: #b15e09;
-    color: #fff;
-    border: none;
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    border: 1px solid var(--accent);
     cursor: pointer;
   }
 
   .subscribe-button:hover,
   .subscribe-button:focus-visible {
-    background-color: #fff;
-    color: #b15e09;
-    border: 1px solid #b15e09;
+    background-color: transparent;
+    color: var(--accent);
+  }
+
+  .subscribe-button:focus-visible,
+  .subscribe-input:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
   }
 
   .kit-embed-shell {
@@ -92,7 +97,7 @@
     margin-top: 0.85rem;
     font-size: 0.875rem;
     line-height: 1.45;
-    color: rgba(255, 255, 255, 0.88);
+    color: var(--muted);
   }
 
   .subscribe-button:disabled,
@@ -111,8 +116,7 @@
     .subscribe-input,
     .subscribe-label {
       margin: 0.3125rem 0 0;
-      border-radius: 0.1875rem;
-      border: none;
+      border-radius: 0;
     }
   }
 </style>
