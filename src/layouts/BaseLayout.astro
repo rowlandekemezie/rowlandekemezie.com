@@ -174,14 +174,21 @@ const themeInitScript =
         justify-content: space-between;
         gap: 1rem;
         min-height: 2.75rem;
-        border-bottom: 1px solid var(--line);
       }
       .site-brand {
-        font-size: 0.85rem;
+        color: var(--heading);
+        font-family: var(--font-serif);
+        font-size: 1.1rem;
         font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
+        letter-spacing: -0.025em;
+        line-height: 1;
         text-decoration: none;
+      }
+      .site-brand:hover,
+      .site-brand:focus-visible { color: var(--accent); }
+      .site-brand:focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 3px;
       }
       .site-nav {
         display: flex;
