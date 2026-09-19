@@ -148,14 +148,14 @@ const assertions = [
     )
   ],
   [
-    'Top 30 article keeps the Disqus thread container',
-    topThirty.includes('id="disqus_thread"')
+    'Top 30 article offers a direct email reply',
+    topThirty.includes('data-article-reply') &&
+      topThirty.includes('data-email-link') &&
+      topThirty.includes('Reply by email')
   ],
   [
-    'Top 30 article keeps the slug-based Disqus identifier',
-    topThirty.includes(
-      'this.page.identifier = "/posts/top-30-things-i-learnt-at-gitstart/";'
-    )
+    'Top 30 article no longer loads Disqus',
+    !topThirty.includes('disqus.com') && !topThirty.includes('disqus_thread')
   ],
   [
     'Top 30 article does not leak raw frontmatter image paths',

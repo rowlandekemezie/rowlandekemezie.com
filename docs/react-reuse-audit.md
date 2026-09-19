@@ -13,8 +13,7 @@ The current Astro rebuild does not require `@astrojs/react`, and adding it now w
 - `src/components/Disqus/Disqus.js`
 
   - Gatsby-specific wrapper around `react-disqus-comments`.
-  - Replaced by `src/components/DisqusComments.astro`.
-  - Keep as Astro, not React.
+  - Retired after the migration. Article pages now use a direct email reply link.
 
 - `src/components/SEO/SEO.js`
 

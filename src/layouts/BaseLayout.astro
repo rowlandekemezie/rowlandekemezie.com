@@ -61,7 +61,7 @@ const jsonLd = JSON.stringify(
   structuredData ? [...defaultStructuredData, ...[structuredData].flat()] : defaultStructuredData
 );
 const emailLinkScript =
-  '(()=>{const i=()=>document.querySelectorAll("[data-email-link]").forEach((n)=>{if(!(n instanceof HTMLAnchorElement))return;const{eh,eu}=n.dataset;if(!eu||!eh)return;n.href="mai"+"lto:"+eu+"@"+eh});document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:true}):i()})();';
+  '(()=>{const i=()=>document.querySelectorAll("[data-email-link]").forEach((n)=>{if(!(n instanceof HTMLAnchorElement))return;const{eh,es,eu}=n.dataset;if(!eu||!eh)return;n.href="mai"+"lto:"+eu+"@"+eh+(es?"?subject="+es:"")});document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:true}):i()})();';
 const themeInitScript =
   "(()=>{let t;try{t=localStorage.getItem('rowland.theme')}catch{}document.documentElement.dataset.theme=t==='dark'||t==='light'?t:matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'})()";
 ---

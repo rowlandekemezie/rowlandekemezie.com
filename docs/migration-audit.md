@@ -131,20 +131,12 @@ Migration implications:
   - CodePen embedding
   - relative image handling
 
-### Comments
+### Legacy comments
 
-- Current provider: Disqus
-- Source: `src/components/Post/Comments/Comments.js`
-- Current thread configuration:
-  - `shortname` from `config.js`
-  - `identifier` = `postTitle`
-  - `title` = `postTitle`
-  - `url` = `siteMetadata.url + postSlug`
-
-Migration implications:
-
-- phase 1 keeps the existing provider
-- legacy thread continuity depends on keeping post URLs stable and confirming the title-based identifier behavior still maps correctly
+- The Gatsby site used Disqus through `src/components/Post/Comments/Comments.js`.
+- The Astro migration initially preserved it for thread continuity.
+- Disqus was retired after a live audit found 17 of 20 posts had no comments and the other three had one comment each.
+- Article pages now offer a direct email reply instead.
 
 ### Analytics
 
@@ -174,14 +166,13 @@ Present in repo:
 - Gatsby offline/PWA plugin
 - Gatsby feed and sitemap plugins
 - Gatsby image pipeline
-- Disqus comments
+- Disqus comments, retired after the migration
 - Google Analytics UA
 
 Phase 1 migration decisions:
 
 - keep:
   - Git-based content editing
-  - existing comments provider
   - route/content/SEO parity focus
 - replace:
   - Gatsby build/runtime with Astro
@@ -190,11 +181,11 @@ Phase 1 migration decisions:
 - defer or retire from phase 1:
   - broad redesign
   - CMS migration
+  - Disqus comments
   - SSR unless a concrete runtime need emerges
 
 ### Risks to Watch
 
-- title-based Disqus identifiers may be brittle if titles change
 - Gatsby image-derived Open Graph images need an Astro replacement strategy
 - taxonomy slugs must stay consistent with the live site
 - markdown rendering regressions are likely if remark compatibility is not tested against representative posts
@@ -206,7 +197,6 @@ This audit should be used as the source of truth for:
 - route parity work
 - content collection schema
 - markdown rendering parity
-- comment continuity validation
 - asset-path preservation
 - redirect planning
 - Cloudflare cutover verification

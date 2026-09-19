@@ -4,10 +4,11 @@ import { site } from '../lib/site';
 interface Props {
   ariaLabel?: string;
   class?: string;
+  subject?: string;
   title?: string;
 }
 
-const { ariaLabel, class: className, title } = Astro.props;
+const { ariaLabel, class: className, subject, title } = Astro.props;
 const [emailUser, emailHost] = site.author.email.split('@');
 ---
 
@@ -17,6 +18,7 @@ const [emailUser, emailHost] = site.author.email.split('@');
   data-email-link
   data-eu={emailUser}
   data-eh={emailHost}
+  data-es={subject ? encodeURIComponent(subject) : undefined}
   aria-label={ariaLabel}
   title={title}
 >
