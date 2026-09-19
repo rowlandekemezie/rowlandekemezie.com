@@ -88,10 +88,6 @@ export function getPostExcerpt(post: PostEntry, maxLength = 180) {
   return `${text.slice(0, maxLength).trimEnd()}...`;
 }
 
-export function getPostIdentifier(post: PostEntry) {
-  return post.data.slug ?? post.data.title;
-}
-
 export function getPostPath(post: PostEntry) {
   return postRouteFromSlug(postSlugFromEntry(post));
 }

@@ -1,13 +1,12 @@
 ---
 import { render } from 'astro:content';
 import ArticleTableOfContents from '../../components/ArticleTableOfContents.astro';
-import DisqusComments from '../../components/DisqusComments.astro';
+import EmailLink from '../../components/EmailLink.astro';
 import PostTags from '../../components/PostTags.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import {
   formatPostDate,
   getPostExcerpt,
-  getPostIdentifier,
   getPostPath,
   getPostReadingMinutes,
   getSeriesBySlug,
@@ -140,12 +139,22 @@ const articleStructuredData = {
             )
           }
 
-          <section style="margin-top: 3rem;">
-            <DisqusComments
-              identifier={getPostIdentifier(post)}
-              title={post.data.title}
-              url={canonical}
-            />
+          <section
+            class="article-reply reveal reveal-delay-2"
+            aria-labelledby="article-reply-heading"
+            data-article-reply
+          >
+            <p class="article-reply-kicker">Reader mail</p>
+            <h2 id="article-reply-heading">Have a thought?</h2>
+            <p>Send me a question or tell me what I missed. I read every message.</p>
+            <EmailLink
+              class="article-reply-link"
+              ariaLabel={`Reply to ${post.data.title} by email`}
+              subject={`Re: ${post.data.title}`}
+              title={`Email Rowland about ${post.data.title}`}
+            >
+              Reply by email <span aria-hidden="true">→</span>
+            </EmailLink>
           </section>
         </div>
 
@@ -321,5 +330,48 @@ const articleStructuredData = {
 
   .series-links span[aria-disabled='true'] {
     opacity: 0.55;
+  }
+
+  .article-reply {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .article-reply-kicker {
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .article-reply h2 {
+    margin: 0.55rem 0 0;
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+  }
+
+  .article-reply > p:not(.article-reply-kicker) {
+    max-width: 38rem;
+    margin: 0.65rem 0 0;
+    color: var(--muted);
+  }
+
+  .article-reply :global(.article-reply-link) {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+  }
+
+  .article-reply :global(.article-reply-link:focus-visible) {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
   }
 </style>

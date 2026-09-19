@@ -8,7 +8,6 @@ Personal site and writing archive built with Astro and deployed to Cloudflare Pa
 - TypeScript
 - Markdown/MDX content collections
 - Cloudflare Pages
-- Disqus comments
 
 ## Local development
 

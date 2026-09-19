@@ -35,11 +35,10 @@ These thresholds are enforced by `pnpm verify:launch-gates` against representati
 - Sitemap includes home, posts, taxonomies, series, pagination, and `/pages/about/`
 - The build output contains no Universal Analytics identifiers or Google Analytics embed assets
 
-## Comments
+## Article replies
 
-- Generated post pages include the Disqus thread container
-- Generated post pages emit the expected `page.url` and `page.identifier`
-- One known legacy post with comments is checked manually in a Cloudflare Pages preview
+- Generated post pages include the email reply link
+- Generated post pages do not load Disqus scripts or render its thread container
 
 ## Cloudflare readiness
 

@@ -58,7 +58,6 @@ The static response policy is defined in `public/_headers`.
 
 If a future phase adds a strict CSP, it must account for:
 
-- Disqus embed and asset domains
 - Cloudflare Web Analytics beacon domains
 - remote post cover images
 
@@ -81,7 +80,7 @@ Phase 1 replaces Universal Analytics with Cloudflare Web Analytics.
 
 1. Keep the existing site live while the migration branch is in preview.
 2. Verify route parity for `/`, `/posts/:slug/`, `/page/:number/`, `/pages/about/`, `/tags/*`, and `/categories/*`.
-3. Confirm RSS, sitemap, `robots.txt`, image assets, comment embeds, and analytics behavior in preview.
+3. Confirm RSS, sitemap, `robots.txt`, image assets, article email links, and analytics behavior in preview.
 4. Confirm the Cloudflare Pages project is configured for the custom domain and TLS is active.
 5. Change DNS only after parity sign-off:
    - move the apex from the current Netlify IPs to the Cloudflare-managed target
@@ -89,7 +88,7 @@ Phase 1 replaces Universal Analytics with Cloudflare Web Analytics.
 6. Validate the production domain after DNS propagation:
    - home, post, page, tag, and category routes
    - feed and sitemap endpoints
-   - comment embed load
+   - article email links
    - expected response-header policy from `_headers`
 7. Enable Cloudflare Web Analytics after the domain is proxied, or confirm the manual beacon token is set.
 

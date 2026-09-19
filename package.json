@@ -30,8 +30,7 @@
     "blog",
     "astro",
     "cloudflare",
-    "static-site",
-    "disqus"
+    "static-site"
   ],
   "dependencies": {
     "@astrojs/markdown-remark": "7.2.0",
