@@ -5,7 +5,7 @@
   };
 
   const requestFlowPattern = /^%%\s*request-flow:\s*(.+)$/m;
-  const getMermaidTheme = () => (document.body.classList.contains('dark') ? 'dark' : 'default');
+  const getMermaidTheme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default');
 
   const parseRequestFlowSteps = (source: string): Array<RequestFlowStep> => {
     const definition = source.match(requestFlowPattern)?.[1];

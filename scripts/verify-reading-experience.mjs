@@ -141,6 +141,15 @@ try {
     'home includes the enhanced reading summary'
   );
   assert(
+    home.indexOf('data-reading-summary') < home.indexOf('class="home-feed'),
+    'reading summary sits with the bio before the article feed'
+  );
+  assert(
+    home.includes('data-reading-count') &&
+      home.includes('data-reading-progress'),
+    'reading summary includes compact completion progress'
+  );
+  assert(
     home.includes('data-reading-catalog') &&
       home.includes('data-article-path='),
     'home has a safe canonical reading catalog'
