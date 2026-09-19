@@ -4,13 +4,14 @@ import HomeSidebar from '../../components/HomeSidebar.astro';
 import { getPublishedPosts, groupPostsBySeries } from '../../lib/content';
 import { seriesRoute, site } from '../../lib/site';
 
-const seriesList = groupPostsBySeries(await getPublishedPosts());
+const posts = await getPublishedPosts();
+const seriesList = groupPostsBySeries(posts);
 ---
 
 <BaseLayout title={`Series — ${site.title}`} description="Ordered groups of related essays and notes." layout="home">
   <div class="home-layout">
     <aside class="home-sidebar reveal">
-      <HomeSidebar current="series" />
+      <HomeSidebar posts={posts} />
     </aside>
 
     <section class="home-feed reveal reveal-delay">

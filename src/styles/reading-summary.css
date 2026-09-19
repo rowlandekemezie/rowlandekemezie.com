@@ -1,0 +1,87 @@
+.reading-summary {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.reading-summary-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.reading-summary h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+}
+
+.reading-summary-count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.reading-summary-progress {
+  height: 2px;
+  margin-top: 0.75rem;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.reading-summary-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.reading-summary-message {
+  margin: 0.8rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.reading-summary a,
+.reading-summary button {
+  color: var(--accent);
+  font: inherit;
+  font-weight: 650;
+}
+
+.reading-summary button {
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  white-space: nowrap;
+}
+
+.reading-summary-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.2rem;
+}
+
+.reading-summary-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.reading-summary a:focus-visible,
+.reading-summary button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}

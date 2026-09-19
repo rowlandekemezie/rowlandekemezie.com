@@ -127,6 +127,27 @@ function initializeReadingExperience() {
       const record = recordFor(candidate.path);
       if (record) records.set(candidate.path, record);
     });
+    const completed = catalog.reduce(
+      (count, candidate) => count + (records.get(candidate.path)?.kind === 'read' ? 1 : 0),
+      0
+    );
+    const count = summary.querySelector('[data-reading-count]');
+    if (count instanceof HTMLElement) {
+      count.textContent = `Read ${completed} / ${catalog.length}`;
+      count.hidden = false;
+    }
+    const progress = summary.querySelector('[data-reading-progress]');
+    if (progress instanceof HTMLElement) {
+      progress.setAttribute('aria-valuemax', String(catalog.length));
+      progress.setAttribute('aria-valuenow', String(completed));
+      progress.setAttribute('aria-valuetext', `${completed} of ${catalog.length} articles read`);
+      progress.hidden = false;
+    }
+    const progressFill = summary.querySelector('[data-reading-progress-fill]');
+    if (progressFill instanceof HTMLElement) {
+      const completion = catalog.length === 0 ? 0 : completed / catalog.length;
+      progressFill.style.transform = `scaleX(${completion})`;
+    }
     const choice = selectHomeReadingChoice(
       catalog,
       records
@@ -144,7 +165,7 @@ function initializeReadingExperience() {
     if (choice.kind === 'complete') message.prepend('All caught up. ');
 
     const reset = summary.querySelector('[data-reading-reset]');
-    if (reset instanceof HTMLButtonElement) reset.hidden = false;
+    if (reset instanceof HTMLButtonElement) reset.hidden = records.size === 0;
     const notice = summary.querySelector('[data-reading-storage-note]');
     if (notice instanceof HTMLElement) notice.hidden = storageMode === 'persistent';
     const savedNote = summary.querySelector('[data-reading-saved-note]');

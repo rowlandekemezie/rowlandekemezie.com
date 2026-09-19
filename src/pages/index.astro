@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeSidebar from '../components/HomeSidebar.astro';
 import PostCard from '../components/PostCard.astro';
-import ReadingSummary from '../components/ReadingSummary.astro';
 import { getPaginatedPosts, getPublishedPosts } from '../lib/content';
 import { pageRoute, site } from '../lib/site';
 
@@ -48,11 +47,10 @@ const organizationStructuredData = {
 >
   <div class="home-layout">
     <aside class="home-sidebar reveal">
-      <HomeSidebar />
+      <HomeSidebar posts={allPosts} />
     </aside>
 
     <section class="home-feed reveal reveal-delay">
-      <ReadingSummary posts={allPosts} />
       <div class="home-feed-list">
         {pagination.posts.map((post) => <PostCard post={post} />)}
       </div>

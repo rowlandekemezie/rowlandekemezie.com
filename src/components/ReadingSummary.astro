@@ -1,6 +1,7 @@
 ---
 import type { PostEntry } from '../lib/content';
 import { getPostPath } from '../lib/content';
+import '../styles/reading-summary.css';
 
 interface Props {
   posts: readonly PostEntry[];
@@ -14,12 +15,25 @@ const latest = posts[0];
   <section class="reading-summary" data-reading-summary aria-labelledby="reading-summary-heading">
     <div class="reading-summary-head">
       <h2 id="reading-summary-heading">Your reading</h2>
-      <button type="button" data-reading-reset hidden>Reset reading history</button>
+      <p class="reading-summary-count" data-reading-count hidden></p>
     </div>
-    <p data-reading-summary-message>
+    <div
+      class="reading-summary-progress"
+      data-reading-progress
+      role="progressbar"
+      aria-label="Articles read"
+      aria-valuemin="0"
+      hidden
+    >
+      <span data-reading-progress-fill></span>
+    </div>
+    <p class="reading-summary-message" data-reading-summary-message aria-live="polite">
       <a href={getPostPath(latest)}>Start with the latest essay</a>
     </p>
-    <p class="reading-summary-note" data-reading-saved-note>Saved on this device.</p>
+    <div class="reading-summary-meta">
+      <p class="reading-summary-note" data-reading-saved-note>Saved on this device.</p>
+      <button type="button" aria-label="Reset reading history" data-reading-reset hidden>Reset</button>
+    </div>
     <p class="reading-summary-note" data-reading-storage-note hidden>
       This browser blocked storage. Progress won’t be saved.
     </p>
@@ -28,55 +42,3 @@ const latest = posts[0];
     </ol>
   </section>
 )}
-
-<style>
-  .reading-summary {
-    padding-block: 1rem;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .reading-summary-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  .reading-summary h2 {
-    font-size: 1rem;
-    letter-spacing: -0.02em;
-  }
-
-  .reading-summary p {
-    margin: 0.5rem 0 0;
-  }
-
-  .reading-summary a,
-  .reading-summary button {
-    color: var(--accent);
-    font: inherit;
-    font-weight: 650;
-  }
-
-  .reading-summary button {
-    min-height: 2.75rem;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-
-  .reading-summary-note {
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
-
-  .reading-summary a:focus-visible,
-  .reading-summary button:focus-visible {
-    outline: 2px solid var(--focus);
-    outline-offset: 3px;
-  }
-</style>

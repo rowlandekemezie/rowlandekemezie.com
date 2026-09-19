@@ -1,7 +1,15 @@
 ---
 import avatar from '../assets/rowland-avatar.jpg';
+import type { PostEntry } from '../lib/content';
 import EmailLink from './EmailLink.astro';
+import ReadingSummary from './ReadingSummary.astro';
 import { site } from '../lib/site';
+
+interface Props {
+  posts: readonly PostEntry[];
+}
+
+const { posts } = Astro.props;
 
 function iconId(label: string) {
   if (label === 'Twitter') return 'twitter';
@@ -53,4 +61,5 @@ function iconId(label: string) {
       ))
     }
   </ul>
+  <ReadingSummary posts={posts} />
 </section>

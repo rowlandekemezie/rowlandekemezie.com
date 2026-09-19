@@ -26,7 +26,7 @@ const title = page === 1 ? site.title : `Page ${page} — ${site.title}`;
 <BaseLayout title={title} description={site.description} layout="home">
   <div class="home-layout">
     <aside class="home-sidebar reveal">
-      <HomeSidebar current="posts" />
+      <HomeSidebar posts={allPosts} />
     </aside>
 
     <section class="home-feed reveal reveal-delay">
