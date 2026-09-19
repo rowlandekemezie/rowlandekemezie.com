@@ -3,12 +3,6 @@ import avatar from '../assets/rowland-avatar.jpg';
 import EmailLink from './EmailLink.astro';
 import { site } from '../lib/site';
 
-interface Props {
-  current?: 'posts' | 'series' | 'about';
-}
-
-const { current = 'posts' } = Astro.props;
-
 function iconId(label: string) {
   if (label === 'Twitter') return 'twitter';
   if (label === 'GitHub') return 'github';
@@ -29,19 +23,9 @@ function iconId(label: string) {
       loading="eager"
       decoding="async"
     />
-    <button class="theme-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>
-      <span class="theme-knob"></span>
-      <span class="theme-icon theme-icon-moon" aria-hidden="true">🌙</span>
-      <span class="theme-icon theme-icon-sun" aria-hidden="true">☀️</span>
-    </button>
   </div>
   <h1>{site.author.name}</h1>
   <p>{site.description}</p>
-  <nav class="home-links" aria-label="Primary">
-    <a href="/" aria-current={current === 'posts' ? 'page' : undefined}>Posts</a>
-    <a href="/series/" aria-current={current === 'series' ? 'page' : undefined}>Series</a>
-    <a href="/pages/about/" aria-current={current === 'about' ? 'page' : undefined}>About me</a>
-  </nav>
   <ul class="home-socials" aria-label="Social links">
     {
       site.author.links.map((link) => (

@@ -13,7 +13,7 @@ const excerpt = post.data.description ?? getPostExcerpt(post, variant === 'case-
 const series = getSeriesForPost(post);
 ---
 
-<article class:list={['post-card', `post-card-${variant}`, 'reveal']}>
+<article class:list={['post-card', `post-card-${variant}`, 'reveal']} data-article-path={getPostPath(post)}>
   <p class="post-card-meta">
     <span>{formatPostMonthYear(post.data.date).toUpperCase()}</span>
     {post.data.category && <span>{post.data.category}</span>}
@@ -24,6 +24,7 @@ const series = getSeriesForPost(post);
         </span>
       )
     }
+    <span class="post-card-state"><span class="reading-dot" aria-hidden="true"></span><span data-reading-status>Unread</span></span>
   </p>
   <h2 class="post-card-title">
     <a href={getPostPath(post)}>{post.data.title}</a>
@@ -31,18 +32,14 @@ const series = getSeriesForPost(post);
   <p class="post-card-excerpt">{excerpt}</p>
   <p class="post-card-read">
     <a href={getPostPath(post)}>{variant === 'case-study' ? 'Read case study' : 'Read...'}</a>
+    <button type="button" data-reading-toggle hidden>Mark read</button>
   </p>
 </article>
 
 <style>
   .post-card {
-    padding: 1.625rem;
-    background: var(--card);
-    border-radius: 0.25rem;
-  }
-
-  :global(body.dark) .post-card {
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--line);
   }
 
   .post-card-case-study {
@@ -61,12 +58,31 @@ const series = getSeriesForPost(post);
     text-transform: uppercase;
   }
 
-  :global(body.dark) .post-card-meta {
-    color: #9ca7b5;
-  }
-
   .post-card-meta span:last-child {
     color: var(--accent);
+  }
+
+  .post-card-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--muted);
+  }
+
+  .reading-dot {
+    width: 0.42rem;
+    height: 0.42rem;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+  }
+
+  :global([data-reading-state='progress']) .reading-dot {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  :global([data-reading-state='read']) .reading-dot {
+    background: var(--muted);
   }
 
   .post-card-title {
@@ -94,11 +110,11 @@ const series = getSeriesForPost(post);
     line-height: 1.75;
   }
 
-  :global(body.dark) .post-card-excerpt {
-    color: #c8ced6;
-  }
-
   .post-card-read {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
     margin: 1rem 0 0;
   }
 
@@ -112,5 +128,29 @@ const series = getSeriesForPost(post);
   .post-card-read a:hover,
   .post-card-read a:focus-visible {
     text-decoration: underline;
+  }
+
+  .post-card-read button {
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+
+  .post-card-read button:hover,
+  .post-card-read button:focus-visible {
+    color: var(--accent);
+  }
+
+  .post-card-read button:focus-visible,
+  .post-card-title a:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
   }
 </style>

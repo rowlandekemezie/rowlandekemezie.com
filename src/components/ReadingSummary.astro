@@ -1,0 +1,82 @@
+---
+import type { PostEntry } from '../lib/content';
+import { getPostPath } from '../lib/content';
+
+interface Props {
+  posts: readonly PostEntry[];
+}
+
+const { posts } = Astro.props;
+const latest = posts[0];
+---
+
+{latest && (
+  <section class="reading-summary" data-reading-summary aria-labelledby="reading-summary-heading">
+    <div class="reading-summary-head">
+      <h2 id="reading-summary-heading">Your reading</h2>
+      <button type="button" data-reading-reset hidden>Reset reading history</button>
+    </div>
+    <p data-reading-summary-message>
+      <a href={getPostPath(latest)}>Start with the latest essay</a>
+    </p>
+    <p class="reading-summary-note" data-reading-saved-note>Saved on this device.</p>
+    <p class="reading-summary-note" data-reading-storage-note hidden>
+      This browser blocked storage. Progress won’t be saved.
+    </p>
+    <ol data-reading-catalog hidden>
+      {posts.map((post) => <li data-reading-candidate data-article-path={getPostPath(post)} data-article-title={post.data.title}></li>)}
+    </ol>
+  </section>
+)}
+
+<style>
+  .reading-summary {
+    padding-block: 1rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .reading-summary-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .reading-summary h2 {
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .reading-summary p {
+    margin: 0.5rem 0 0;
+  }
+
+  .reading-summary a,
+  .reading-summary button {
+    color: var(--accent);
+    font: inherit;
+    font-weight: 650;
+  }
+
+  .reading-summary button {
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .reading-summary-note {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .reading-summary a:focus-visible,
+  .reading-summary button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+</style>
