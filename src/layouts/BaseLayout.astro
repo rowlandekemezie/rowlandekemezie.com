@@ -92,25 +92,50 @@ const emailLinkScript =
     <style is:global>
       :root {
         color-scheme: light;
-        --bg: #f5f0e7;
-        --surface: rgba(255, 252, 247, 0.72);
-        --card: rgba(255, 255, 255, 0.55);
-        --text: #14110f;
-        --muted: #72675d;
-        --line: rgba(20, 17, 15, 0.12);
-        --accent: #b5641d;
-        --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --bg: #f4f0e5;
+        --surface: #ebe5d7;
+        --card: #f8f5ed;
+        --text: #25261d;
+        --heading: #171810;
+        --muted: #626456;
+        --line: #c9c5b7;
+        --accent: #9a5b24;
+        --accent-contrast: #f8f5ed;
+        --focus: #81501a;
+        --footer-bg: #2b2f23;
+        --footer-text: #f8f5ed;
+        --footer-muted: #d7d6c4;
+        --footer-line: #767968;
+        --theme-toggle-bg: #30342a;
+        --theme-toggle-ink: #f4f0e5;
+        --theme-knob-bg: #f4f0e5;
+        --code-bg: #26291f;
+        --code-ink: #f4f0e5;
+        --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
         --page-width: min(76rem, calc(100vw - 2rem));
       }
       body.dark {
-        --bg: #141618;
-        --surface: rgba(18, 22, 27, 0.86);
-        --card: #1d232b;
-        --text: #f3f5f7;
-        --muted: #c0c7d0;
-        --line: rgba(255, 255, 255, 0.12);
-        --accent: #b9833f;
+        color-scheme: dark;
+        --bg: #1b1e16;
+        --surface: #25291e;
+        --card: #202319;
+        --text: #f0eddd;
+        --heading: #fff9e8;
+        --muted: #b8baa6;
+        --line: #4b5040;
+        --accent: #d29a52;
+        --accent-contrast: #25261d;
+        --focus: #e7b66f;
+        --footer-bg: #12150e;
+        --footer-text: #f0eddd;
+        --footer-muted: #c7c8b6;
+        --footer-line: #666b58;
+        --theme-toggle-bg: #e2ddc9;
+        --theme-toggle-ink: #25261d;
+        --theme-knob-bg: #25261d;
+        --code-bg: #14170f;
+        --code-ink: #f0eddd;
       }
       * { box-sizing: border-box; }
       html {
@@ -125,14 +150,7 @@ const emailLinkScript =
         overflow-x: clip;
         color: var(--text);
         font-family: var(--font-sans);
-        background:
-          linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0)) 0 0 / 100% 14rem no-repeat,
-          var(--bg);
-      }
-      body.dark {
-        background:
-          linear-gradient(180deg, rgba(8, 11, 14, 0.78), rgba(8, 11, 14, 0)) 0 0 / 100% 14rem no-repeat,
-          var(--bg);
+        background: var(--bg);
       }
       a { color: inherit; text-decoration-color: rgba(181, 100, 29, 0.45); text-underline-offset: 0.18em; }
       img { max-width: 100%; height: auto; }
@@ -142,13 +160,13 @@ const emailLinkScript =
         min-width: 0;
         margin: 0 auto;
       }
-      .site-header { padding: 1.25rem 0 0; }
+      .site-header { padding: 0.7rem 0 0; }
       .site-header-bar {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
-        min-height: 3rem;
+        min-height: 2.75rem;
         border-bottom: 1px solid var(--line);
       }
       .site-brand {
@@ -164,7 +182,7 @@ const emailLinkScript =
         gap: 1rem;
         align-items: center;
       }
-      .site-nav a { color: var(--muted); font-size: 0.95rem; text-decoration: none; }
+      .site-nav a { color: var(--muted); font-size: 0.9rem; text-decoration: none; }
       .site-nav a:hover,
       .site-nav a:focus-visible { color: var(--text); }
       .site-main {
@@ -232,8 +250,8 @@ const emailLinkScript =
         justify-content: space-between;
         border: 1px solid var(--line);
         border-radius: 6.25rem;
-        background: #1e1f22;
-        color: #fff;
+        background: var(--theme-toggle-bg);
+        color: var(--theme-toggle-ink);
         padding: 0 0.55rem;
         cursor: pointer;
       }
@@ -244,7 +262,7 @@ const emailLinkScript =
         width: 2.5rem;
         height: 2.5rem;
         border-radius: 50%;
-        background: #fff;
+        background: var(--theme-knob-bg);
         transition: transform 0.25s ease;
       }
       body.dark .theme-knob {
@@ -258,43 +276,19 @@ const emailLinkScript =
       }
       .site-nav .theme-toggle {
         width: 3.7rem;
-        height: 2rem;
+        height: 2.75rem;
         padding: 0 0.35rem;
-        background: #25292e;
+        background: var(--theme-toggle-bg);
       }
       .site-nav .theme-toggle .theme-knob {
-        width: 2rem;
-        height: 2rem;
+        width: 2.75rem;
+        height: 2.75rem;
       }
       .site-nav .theme-toggle .theme-icon {
         font-size: 1rem;
       }
       body.dark .site-nav .theme-toggle .theme-knob {
-        transform: translateX(1.7rem);
-      }
-      .home-links {
-        margin-top: 1.25rem;
-        display: grid;
-        gap: 0.65rem;
-      }
-      .home-links a {
-        color: var(--text);
-        text-decoration: none;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.625;
-        border-bottom: 1px solid transparent;
-        width: fit-content;
-        cursor: pointer;
-      }
-      .home-links a:hover,
-      .home-links a:focus-visible {
-        color: var(--accent);
-        border-bottom-color: var(--accent);
-      }
-      .home-links a[aria-current='page'] {
-        color: var(--text);
-        border-bottom-color: var(--text);
+        transform: translateX(0.95rem);
       }
       .home-socials {
         margin: 2.5rem 0 0;
@@ -308,8 +302,8 @@ const emailLinkScript =
         margin: 0;
       }
       .home-socials a {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.75rem;
+        height: 2.75rem;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -698,11 +692,11 @@ const emailLinkScript =
       .taxonomy-list a:hover,
       .taxonomy-list a:focus-visible { color: var(--accent); }
       .prose {
-        max-width: 100%;
+        max-width: 68ch;
         min-width: 0;
-        font-family: var(--font-serif);
-        font-size: 1.08rem;
-        line-height: 1.85;
+        font-family: var(--font-sans);
+        font-size: 1.0625rem;
+        line-height: 1.78;
         color: var(--text);
         overflow-wrap: break-word;
       }
@@ -724,6 +718,7 @@ const emailLinkScript =
         font-weight: 700;
         letter-spacing: -0.03em;
         line-height: 1.2;
+        color: var(--heading);
       }
       .prose h2 { font-size: clamp(1.65rem, 3vw, 2.1rem); }
       .prose h3 { font-size: 1.25rem; }
@@ -750,20 +745,17 @@ const emailLinkScript =
       .prose code:not(pre code) {
         padding: 0.1rem 0.35rem;
         border-radius: 0.2rem;
-        background: rgba(20, 17, 15, 0.08);
+        background: var(--surface);
         font-size: 0.95em;
-      }
-      body.dark .prose code:not(pre code) {
-        background: rgba(255, 255, 255, 0.08);
       }
       .prose pre,
       .prose .astro-code {
         max-width: 100%;
         overflow-x: auto;
         padding: 14px !important;
-        background: #1f1f1f !important;
-        color: #f7f4ef;
-        border-top: 5px solid #2f2f2f;
+        background: var(--code-bg) !important;
+        color: var(--code-ink);
+        border-top: 5px solid var(--line);
         border-radius: 6px;
       }
       .prose pre code,
@@ -775,10 +767,6 @@ const emailLinkScript =
       .prose .astro-code span {
         line-height: 1.65;
       }
-      body.dark .prose pre,
-      body.dark .prose .astro-code {
-        border-top-color: #4a5563;
-      }
       .prose pre:has(code.language-txt),
       .prose pre:has(code.language-text),
       .prose pre[data-language="txt"],
@@ -787,10 +775,10 @@ const emailLinkScript =
       .prose .astro-code:has(code.language-text),
       .prose .astro-code[data-language="txt"],
       .prose .astro-code[data-language="text"] {
-        background: rgba(20, 17, 15, 0.06) !important;
+        background: var(--surface) !important;
         color: var(--text) !important;
-        border: 1px solid rgba(20, 17, 15, 0.1);
-        border-top: 1px solid rgba(20, 17, 15, 0.1);
+        border: 1px solid var(--line);
+        border-top: 1px solid var(--line);
       }
       .prose .mermaid-diagram {
         margin: 1.6rem 0;
@@ -815,17 +803,6 @@ const emailLinkScript =
         background: rgba(255, 255, 255, 0.08);
         border-color: rgba(255, 255, 255, 0.12);
       }*/
-      body.dark .prose pre:has(code.language-txt),
-      body.dark .prose pre:has(code.language-text),
-      body.dark .prose pre[data-language="txt"],
-      body.dark .prose pre[data-language="text"],
-      body.dark .prose .astro-code:has(code.language-txt),
-      body.dark .prose .astro-code:has(code.language-text),
-      body.dark .prose .astro-code[data-language="txt"],
-      body.dark .prose .astro-code[data-language="text"] {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border-color: rgba(255, 255, 255, 0.12);
-      }
       .prose .mermaid-diagram {
         display: grid;
         place-items: center;
@@ -853,7 +830,7 @@ const emailLinkScript =
       .reveal-delay { animation-delay: 100ms; }
       .reveal-delay-2 { animation-delay: 180ms; }
       @keyframes reveal-up { from { transform: translateY(18px); } to { transform: translateY(0); } }
-      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { animation: none; } }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { animation: none; } .theme-knob { transition: none; } }
       .dev-mode .reveal {
         animation: none;
       }
@@ -897,24 +874,22 @@ const emailLinkScript =
   </head>
   <body class:list={{ 'dev-mode': import.meta.env.DEV }}>
     <ScrollProgress />
-    {layout !== 'home' && (
-      <header class="site-header">
-        <div class="site-header-bar">
-          <a class="site-brand" href="/">{site.title}</a>
-          <nav class="site-nav" aria-label="Primary">
-            <a href="/">Writing</a>
-            <a href="/series/">Series</a>
-            <a href="/pages/about/">About</a>
-            <a href="/tags/">Tags</a>
-            <button class="theme-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>
-              <span class="theme-knob"></span>
-              <span class="theme-icon theme-icon-moon" aria-hidden="true">🌙</span>
-              <span class="theme-icon theme-icon-sun" aria-hidden="true">☀️</span>
-            </button>
-          </nav>
-        </div>
-      </header>
-    )}
+    <header class="site-header">
+      <div class="site-header-bar">
+        <a class="site-brand" href="/">{site.title}</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/">Writing</a>
+          <a href="/series/">Series</a>
+          <a href="/pages/about/">About</a>
+          <a href="/tags/">Tags</a>
+          <button class="theme-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>
+            <span class="theme-knob"></span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">◐</span>
+            <span class="theme-icon theme-icon-sun" aria-hidden="true">○</span>
+          </button>
+        </nav>
+      </div>
+    </header>
     <main class="site-main" data-layout={layout}>
       <slot />
     </main>
@@ -982,6 +957,9 @@ const emailLinkScript =
           init();
         }
       })();
+    </script>
+    <script>
+      import '../scripts/reading-experience';
     </script>
   </body>
 </html>

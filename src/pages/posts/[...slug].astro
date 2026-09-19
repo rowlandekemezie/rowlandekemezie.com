@@ -81,7 +81,7 @@ const articleStructuredData = {
   structuredData={articleStructuredData}
 >
   <div class="page-flow">
-    <section>
+    <section data-reading-article data-article-path={getPostPath(post)}>
       <div class="article-head reveal">
         <span class="eyebrow">{post.data.category ?? 'Essay'}</span>
         <h1>{post.data.title}</h1>
@@ -96,12 +96,14 @@ const articleStructuredData = {
         <p class="article-meta">
           <span>{formatPostDate(post.data.date)}</span>
           <span>{getPostReadingMinutes(post)} min read</span>
+          <span data-reading-status>Unread</span>
         </p>
+        <button class="reading-control" type="button" data-reading-toggle hidden>Mark read</button>
       </div>
 
       <div class="article-shell">
         <div class="article-main">
-          <article class="prose reveal reveal-delay-2">
+          <article class="prose reveal reveal-delay-2" data-reading-prose>
             <Content />
           </article>
 
@@ -161,6 +163,25 @@ const articleStructuredData = {
   .article-head h1 {
     min-width: 0;
     overflow-wrap: anywhere;
+  }
+
+  .reading-control {
+    min-height: 2.75rem;
+    margin-top: 0.75rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--accent);
+    font: inherit;
+    font-weight: 650;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+
+  .reading-control:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
   }
 
   .article-main :global(.prose h2),
