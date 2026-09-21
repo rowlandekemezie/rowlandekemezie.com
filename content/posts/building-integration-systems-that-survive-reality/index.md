@@ -7,10 +7,9 @@ date: '2026-06-06T00:00:00.000Z'
 description: Once integrations become business-critical, the work is no longer just calling APIs. Reliable integration systems need boundaries, state, failure handling, idempotency, observability, operations, and auditability.
 category: Software
 tags:
-  - integrations
-  - distributed systems
-  - software architecture
-  - backend systems
+  - Integrations
+  - Distributed Systems
+  - Software Architecture
 series:
   title: Building Integration Systems
   slug: building-integration-systems

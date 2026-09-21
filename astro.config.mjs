@@ -6,6 +6,9 @@ import rehypeSlug from "rehype-slug";
 
 export default defineConfig({
   integrations: [mdx()],
+  redirects: {
+    "/pages/about": "/about"
+  },
   devToolbar: {
     enabled: false
   },

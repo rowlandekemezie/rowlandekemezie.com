@@ -13,11 +13,12 @@ const requiredFiles = [
   'post-search.json',
   'page/1/index.html',
   'page/2/index.html',
+  'about/index.html',
   'pages/about/index.html',
   'series/index.html',
   'series/ai-and-professional-practice/index.html',
   'tags/index.html',
-  'tags/software-engineering/index.html',
+  'tags/software-architecture/index.html',
   'categories/index.html',
   'categories/software/index.html',
   'posts/top-30-things-i-learnt-at-gitstart/index.html',
@@ -42,9 +43,14 @@ const pageTwo = readFileSync(
   'utf8'
 );
 const about = readFileSync(
+  resolve(distDir, 'about', 'index.html'),
+  'utf8'
+);
+const legacyAbout = readFileSync(
   resolve(distDir, 'pages', 'about', 'index.html'),
   'utf8'
 );
+const tagIndex = readFileSync(resolve(distDir, 'tags', 'index.html'), 'utf8');
 const seriesIndex = readFileSync(
   resolve(distDir, 'series', 'index.html'),
   'utf8'
@@ -114,7 +120,12 @@ const assertions = [
   [
     'Home page includes client-side post search',
     home.includes('data-post-search') &&
-      home.includes('placeholder="Title, topic, or tag"')
+      home.includes('>Search writing</summary>') &&
+      home.includes('placeholder="Search all essays"')
+  ],
+  [
+    'Home page does not repeat a read call to action for every post',
+    !home.includes('class="post-card-read"') && !home.includes('>Read...</a>')
   ],
   [
     'Post search catalog includes article metadata',
@@ -130,10 +141,15 @@ const assertions = [
     pageTwo.includes('← Prev')
   ],
   [
-    'About page is published under /pages/about/',
+    'About page is published under /about/',
     about.includes(
       'Engineering leader, systems builder, and product-minded technologist'
     )
+  ],
+  [
+    'Legacy About URL redirects to the canonical page',
+    legacyAbout.includes('http-equiv="refresh"') &&
+      legacyAbout.includes('/about')
   ],
   [
     'About page keeps an email contact link placeholder',
@@ -225,7 +241,8 @@ const assertions = [
   ],
   [
     'Sitemap contains the about page URL',
-    sitemap.includes('<loc>https://rowlandekemezie.com/pages/about/</loc>')
+    sitemap.includes('<loc>https://rowlandekemezie.com/about/</loc>') &&
+      !sitemap.includes('<loc>https://rowlandekemezie.com/pages/about/</loc>')
   ],
   [
     'Sitemap contains the imported GitStart post URL',
@@ -234,10 +251,16 @@ const assertions = [
     )
   ],
   [
-    'Sitemap contains the software engineering tag URL',
+    'Sitemap contains the software architecture tag URL',
     sitemap.includes(
-      '<loc>https://rowlandekemezie.com/tags/software-engineering/</loc>'
+      '<loc>https://rowlandekemezie.com/tags/software-architecture/</loc>'
     )
+  ],
+  [
+    'Tag index exposes the curated ten-topic taxonomy',
+    (tagIndex.match(/href="\/tags\/[^"]+\/"/g) ?? []).length === 10 &&
+      tagIndex.includes('Engineering Leadership') &&
+      tagIndex.includes('Software Quality')
   ],
   [
     'Sitemap contains the AI series URL',

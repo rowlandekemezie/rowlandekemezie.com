@@ -7,10 +7,8 @@ date: '2026-06-03T00:00:00.000Z'
 description: Bidirectional sync turns integration into an authority problem. Reliable systems need field ownership, conflict detection, event history, reconciliation, and explainable state.
 category: Software
 tags:
-  - integrations
-  - distributed systems
-  - software architecture
-  - backend systems
+  - Integrations
+  - Distributed Systems
 series:
   title: Building Integration Systems
   slug: building-integration-systems

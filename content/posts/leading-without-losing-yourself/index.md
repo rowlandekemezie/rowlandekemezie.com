@@ -7,9 +7,7 @@ date: '2026-05-27T00:00:00.000Z'
 description: The hardest part of technical leadership is learning without losing yourself.
 category: Leadership
 tags:
-  - engineering management
-  - leadership
-  - software engineering
+  - Engineering Leadership
 images:
   - ./images/Leading_Without_Losing_Yourself_Hero.webp
 ---

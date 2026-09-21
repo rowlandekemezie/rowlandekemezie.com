@@ -7,10 +7,8 @@ date: '2026-09-01T00:00:00.000Z'
 description: Early-stage startups should keep a high engineering bar without copying the hiring process of the larger companies their founders came from.
 category: Leadership
 tags:
-  - engineering leadership
-  - hiring
-  - startups
-  - software engineering
+  - Engineering Leadership
+  - Startups
 ---
 
 I've seen this several times with founders who leave established companies, raise an early round, and then need to hire their first engineers. They remember the quality of people they worked with and the interview process those people went through, so they recreate some version of it.

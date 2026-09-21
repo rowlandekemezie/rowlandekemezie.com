@@ -7,10 +7,7 @@ date: '2016-07-22T22:40:32.169Z'
 description: I was inspired by the last post on The Effective Learner. The responses I got were mind blowing and my response was, I’m not in it alone but more importantly, we can make a difference.
 category: Education
 tags:
-  - learning
-  - life
-  - education
-  - school
+  - Learning
 image: ./images/ive-got-no-problem-with-education.jpeg
 ---
 

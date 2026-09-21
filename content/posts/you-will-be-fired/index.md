@@ -7,10 +7,8 @@ date: '2026-05-22T00:00:00.000Z'
 description: Why engineering leaders need a philosophy before the system chooses them as the problem.
 category: Software
 tags:
-  - engineering management
-  - leadership
-  - software engineering
-  - management
+  - Careers
+  - Engineering Leadership
 image: ./images/you-will-be-fired-hero.webp
 ---
 

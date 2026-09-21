@@ -7,10 +7,8 @@ date: '2026-05-31T00:00:00.000Z'
 description: API documentation gets you to the first request. Real integration engineering starts when your system has to own the boundary between external behavior and internal meaning.
 category: Software
 tags:
-  - integrations
-  - distributed systems
-  - software architecture
-  - backend systems
+  - Integrations
+  - Software Architecture
 series:
   title: Building Integration Systems
   slug: building-integration-systems

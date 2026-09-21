@@ -7,12 +7,9 @@ date: '2026-08-31T00:00:00.000Z'
 description: I built a small CDN data path around the S3-compatible contract shared by AWS S3, Cloudflare R2, and MinIO to explore cache identity, request collapsing, revalidation, byte ranges, and the line between a caching proxy and a CDN.
 category: Software
 tags:
-  - cdn
-  - caching
-  - object storage
-  - s3
-  - cloudflare r2
-  - distributed systems
+  - Distributed Systems
+  - Software Architecture
+  - Web Development
 ---
 
 I started this project after reading about systems that keep durable state in object storage and move active data into faster local tiers. Turbopuffer was one example, but the pattern is broader: keep the source of truth in durable storage, then use local disks or memory to make the active path fast.

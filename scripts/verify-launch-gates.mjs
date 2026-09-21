@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 const distDir = resolve(process.cwd(), 'dist');
 
 const routes = {
-  about: 'pages/about/index.html',
+  about: 'about/index.html',
   home: 'index.html',
   percy: 'posts/improving-your-visual-review-with-percy/index.html',
   searchCatalog: 'post-search.json',
@@ -39,7 +39,7 @@ const assertions = [
   ['Top 30 article HTML stays within the size budget', routeSize(routes.topThirty) <= sizeBudgetBytes.topThirty],
   ['Percy article HTML stays within the size budget', routeSize(routes.percy) <= sizeBudgetBytes.percy],
   ['Home emits a canonical URL', home.includes('<link rel="canonical" href="https://rowlandekemezie.com/">')],
-  ['About page emits a canonical URL', about.includes('<link rel="canonical" href="https://rowlandekemezie.com/pages/about/">')],
+  ['About page emits a canonical URL', about.includes('<link rel="canonical" href="https://rowlandekemezie.com/about/">')],
   ['Top 30 article emits article Open Graph type', topThirty.includes('<meta property="og:type" content="article">')],
   ['Top 30 article emits BlogPosting JSON-LD', topThirty.includes('"@type":"BlogPosting"')],
   ['Top 30 article emits a Twitter image', topThirty.includes('<meta name="twitter:image" content="https://rowlandekemezie.com/_astro/')],

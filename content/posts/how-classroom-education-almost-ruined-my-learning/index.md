@@ -7,10 +7,7 @@ date: '2017-02-02T22:40:32.169Z'
 description: Learning unarguably is one of the greatest assets in human capital development. Learning itself can be a rewarding experience. One of the questions I have faced often is how to learn. I don’t have all the answers. But I made some costly mistakes that are avoidable.
 category: Education
 tags:
-  - learning
-  - life
-  - education
-  - school
+  - Learning
 image: ./images/classroom-learning.png
 ---
 

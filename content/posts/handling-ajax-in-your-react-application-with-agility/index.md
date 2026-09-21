@@ -7,11 +7,8 @@ date: '2016-11-02T22:40:32.169Z'
 description: ReactJS ecosystem has become huge since Facebook made the API public. More so, great libraries have been built in the declarative style adopted by React. However, real life applications require making AJAX requests to servers. And this can pose a great challenge while using React. You need to know what library to use for your AJAX processes.
 category: Software
 tags:
-  - react
-  - redux
-  - redux-saga
-  - redux-thunk
-  - ajax
+  - Web Development
+  - Software Architecture
 image: ./images/handling-ajax.png
 ---
 
