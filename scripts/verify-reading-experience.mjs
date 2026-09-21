@@ -85,10 +85,16 @@ try {
     state.observeReading(progress, 4, true, 13)?.kind === 'read',
     'article end completes an article'
   );
+  const legacyManualRead = state.parseStoredReadingRecord({
+    kind: 'read',
+    source: 'manual',
+    updatedAt: 14
+  });
   assert(
-    state.markRead(14).source === 'manual' && state.markUnread() === undefined,
-    'manual read and unread transitions work'
+    legacyManualRead?.kind === 'read' && legacyManualRead.source === 'manual',
+    'existing manual read records remain compatible'
   );
+  assert(state.markUnread() === undefined, 'manual unread transition works');
 
   const candidates = [
     { path: first, title: 'First' },
@@ -96,7 +102,7 @@ try {
     { path: third, title: 'Third' }
   ];
   const records = new Map([
-    [first, state.markRead(1)],
+    [first, state.observeReading(undefined, 80, false, 1)],
     [second, state.observeReading(undefined, 35, false, 20)]
   ]);
   const continueChoice = state.selectHomeReadingChoice(candidates, records);
@@ -111,8 +117,8 @@ try {
     nextChoice?.kind === 'next' && nextChoice.article.path === second,
     'first unread follows completed work'
   );
-  records.set(second, state.markRead(2));
-  records.set(third, state.markRead(3));
+  records.set(second, state.observeReading(undefined, 80, false, 2));
+  records.set(third, state.observeReading(undefined, 80, false, 3));
   assert(
     state.selectHomeReadingChoice(candidates, records)?.kind === 'complete',
     'complete state uses the latest essay'
@@ -155,8 +161,8 @@ try {
     'home has a safe canonical reading catalog'
   );
   assert(
-    home.includes('data-reading-toggle'),
-    'feed rows include progressive reading controls'
+    !home.includes('data-reading-toggle'),
+    'feed rows do not include manual reading controls'
   );
   assert(
     article.includes('data-reading-article') &&
@@ -164,8 +170,10 @@ try {
     'article measures prose only'
   );
   assert(
-    article.includes('data-reading-toggle'),
-    'article has a manual reading control'
+    article.includes('data-reading-toggle') &&
+      article.includes('Mark unread') &&
+      !article.includes('Mark read'),
+    'article exposes only the unread recovery control'
   );
   console.log('Reading experience verification passed.');
 } finally {

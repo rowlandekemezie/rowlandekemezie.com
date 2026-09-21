@@ -157,10 +157,6 @@ export function observeReading(
   return { kind: 'progress', percent, updatedAt };
 }
 
-export function markRead(updatedAt: number): StoredReadingRecord {
-  return { kind: 'read', source: 'manual', updatedAt };
-}
-
 export function markUnread(): undefined {
   return undefined;
 }

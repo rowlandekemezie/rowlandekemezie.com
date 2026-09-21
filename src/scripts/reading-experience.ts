@@ -1,7 +1,6 @@
 import {
   createArticlePath,
   isReadingStorageKey,
-  markRead,
   markUnread,
   observeReading,
   parseStoredReadingRecordJson,
@@ -104,8 +103,8 @@ function initializeReadingExperience() {
     });
     element.querySelectorAll('[data-reading-toggle]').forEach((toggle) => {
       if (toggle instanceof HTMLButtonElement) {
-        toggle.hidden = false;
-        toggle.textContent = record?.kind === 'read' ? 'Mark unread' : 'Mark read';
+        toggle.hidden = record?.kind !== 'read';
+        toggle.textContent = 'Mark unread';
       }
     });
   }
@@ -234,12 +233,9 @@ function initializeReadingExperience() {
     const path = createArticlePath(article.dataset.articlePath);
     if (!path) return;
     const record = recordFor(path);
-    if (record?.kind === 'read') {
-      observationPaused = article.hasAttribute('data-reading-article');
-      saveRecord(path, markUnread());
-    } else {
-      saveRecord(path, markRead(Date.now()));
-    }
+    if (record?.kind !== 'read') return;
+    observationPaused = article.hasAttribute('data-reading-article');
+    saveRecord(path, markUnread());
   });
 
   window.addEventListener(changeEvent, renderAll);

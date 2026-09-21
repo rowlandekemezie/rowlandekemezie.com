@@ -32,7 +32,6 @@ const series = getSeriesForPost(post);
   <p class="post-card-excerpt">{excerpt}</p>
   <p class="post-card-read">
     <a href={getPostPath(post)}>{variant === 'case-study' ? 'Read case study' : 'Read...'}</a>
-    <button type="button" data-reading-toggle hidden>Mark read</button>
   </p>
 </article>
 
@@ -111,10 +110,6 @@ const series = getSeriesForPost(post);
   }
 
   .post-card-read {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem;
     margin: 1rem 0 0;
   }
 
@@ -130,25 +125,6 @@ const series = getSeriesForPost(post);
     text-decoration: underline;
   }
 
-  .post-card-read button {
-    min-height: 2.75rem;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: var(--muted);
-    font: inherit;
-    font-size: 0.9rem;
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-    cursor: pointer;
-  }
-
-  .post-card-read button:hover,
-  .post-card-read button:focus-visible {
-    color: var(--accent);
-  }
-
-  .post-card-read button:focus-visible,
   .post-card-title a:focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: 3px;
