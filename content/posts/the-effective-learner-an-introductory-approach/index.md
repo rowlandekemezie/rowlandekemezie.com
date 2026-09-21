@@ -7,10 +7,7 @@ date: '2016-07-27T22:40:32.169Z'
 description: It’s said that when one stops learning he starts dying. We all learn but what we learn and how we learn is key to success. The focus should be on behavioral patterns for learning.
 category: Education
 tags:
-  - learning
-  - life
-  - education
-  - school
+  - Learning
 image: ./images/effective-learner.jpeg
 ---
 

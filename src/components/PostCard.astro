@@ -30,9 +30,6 @@ const series = getSeriesForPost(post);
     <a href={getPostPath(post)}>{post.data.title}</a>
   </h2>
   <p class="post-card-excerpt">{excerpt}</p>
-  <p class="post-card-read">
-    <a href={getPostPath(post)}>{variant === 'case-study' ? 'Read case study' : 'Read...'}</a>
-  </p>
 </article>
 
 <style>
@@ -107,22 +104,6 @@ const series = getSeriesForPost(post);
     color: var(--muted);
     font-size: 1rem;
     line-height: 1.75;
-  }
-
-  .post-card-read {
-    margin: 1rem 0 0;
-  }
-
-  .post-card-read a {
-    color: var(--accent);
-    font-size: 0.96rem;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .post-card-read a:hover,
-  .post-card-read a:focus-visible {
-    text-decoration: underline;
   }
 
   .post-card-title a:focus-visible {

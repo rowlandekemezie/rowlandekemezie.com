@@ -7,10 +7,8 @@ date: '2026-05-19T00:00:00.000Z'
 description: As generation gets cheaper, engineering management shifts toward judgment, validation, and learning.
 category: Software
 tags:
-  - engineering management
-  - ai
-  - software engineering
-  - leadership
+  - AI
+  - Engineering Leadership
 series:
   title: AI and Professional Practice
   slug: ai-and-professional-practice

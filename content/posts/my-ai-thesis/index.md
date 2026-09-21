@@ -7,10 +7,9 @@ date: '2026-06-01T00:00:00.000Z'
 description: The lowest-regret response to technological change is learning enough to understand where it helps, where it fails, and how it changes your craft.
 category: Artificial Intelligence
 tags:
-  - ai
-  - learning
-  - technology
-  - career
+  - AI
+  - Learning
+  - Careers
 series:
   title: AI and Professional Practice
   slug: ai-and-professional-practice

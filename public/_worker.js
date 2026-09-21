@@ -31,6 +31,47 @@ const PROFILE = {
   }
 };
 
+const LEGACY_TAG_REDIRECTS = {
+  ajax: 'web-development',
+  'backend-systems': 'software-architecture',
+  caching: 'software-architecture',
+  career: 'careers',
+  cdn: 'distributed-systems',
+  'cloudflare-r2': 'web-development',
+  code: 'web-development',
+  'code-quality': 'software-quality',
+  'code-review': 'software-quality',
+  css: 'web-development',
+  culture: 'engineering-leadership',
+  'dark-theme': 'web-development',
+  education: 'learning',
+  'engineering-management': 'engineering-leadership',
+  expertise: 'careers',
+  hiring: 'engineering-leadership',
+  judgment: 'careers',
+  leadership: 'engineering-leadership',
+  life: 'learning',
+  management: 'engineering-leadership',
+  'object-storage': 'distributed-systems',
+  'professional-services': 'careers',
+  qa: 'software-quality',
+  react: 'web-development',
+  'react-hooks': 'web-development',
+  redux: 'web-development',
+  'redux-saga': 'web-development',
+  'redux-thunk': 'web-development',
+  'regression-testing': 'software-quality',
+  s3: 'distributed-systems',
+  sass: 'web-development',
+  school: 'learning',
+  'software-engineering': 'software-architecture',
+  'start-up': 'startups',
+  'technical-debt': 'software-quality',
+  technology: 'careers',
+  testing: 'software-quality',
+  'visual-testing': 'software-quality'
+};
+
 const AGENT_USER_AGENTS = [
   'ChatGPT-User',
   'GPTBot',
@@ -415,6 +456,22 @@ function notAcceptable() {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname === '/pages/about' || url.pathname === '/pages/about/') {
+      url.pathname = '/about/';
+      return Response.redirect(url.toString(), 301);
+    }
+
+    const tagMatch = url.pathname.match(/^\/tags\/([^/]+)\/?$/);
+    const canonicalTag =
+      tagMatch && Object.hasOwn(LEGACY_TAG_REDIRECTS, tagMatch[1])
+        ? LEGACY_TAG_REDIRECTS[tagMatch[1]]
+        : undefined;
+
+    if (canonicalTag) {
+      url.pathname = `/tags/${canonicalTag}/`;
+      return Response.redirect(url.toString(), 301);
+    }
 
     if (url.pathname === '/api/subscribe') {
       return handleSubscribe(request, env);

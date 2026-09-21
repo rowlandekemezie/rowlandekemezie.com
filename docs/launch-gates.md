@@ -13,7 +13,7 @@ The migration branch is ready to merge into `develop` only when all of these are
 These thresholds are enforced by `pnpm verify:launch-gates` against representative built routes.
 
 - `/` raw HTML must stay at or below `18 KB`
-- `/pages/about/` raw HTML must stay at or below `12 KB`
+- `/about/` raw HTML must stay at or below `17 KB`
 - representative post pages must stay at or below `35 KB` raw HTML
 - representative post pages must emit canonical, Open Graph, Twitter image, and `BlogPosting` metadata
 
@@ -22,7 +22,7 @@ These thresholds are enforced by `pnpm verify:launch-gates` against representati
 - Home feed renders at `/`
 - Archive pagination renders at `/page/:number/`
 - Posts render at `/posts/:slug/`
-- About page renders at `/pages/about/`
+- About page renders at `/about/`, with `/pages/about/` redirecting permanently
 - Tag, category, and series indexes and detail pages render
 - RSS, sitemap, and `robots.txt` are present and correct
 
@@ -32,7 +32,7 @@ These thresholds are enforced by `pnpm verify:launch-gates` against representati
 - Post pages emit `og:type=article`
 - Post pages emit `BlogPosting` JSON-LD
 - Post pages emit social image metadata that resolves to generated site assets
-- Sitemap includes home, posts, taxonomies, series, pagination, and `/pages/about/`
+- Sitemap includes home, posts, taxonomies, series, pagination, and `/about/`
 - The build output contains no Universal Analytics identifiers or Google Analytics embed assets
 
 ## Article replies

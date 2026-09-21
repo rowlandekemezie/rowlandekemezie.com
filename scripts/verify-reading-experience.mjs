@@ -165,6 +165,11 @@ try {
     'feed rows do not include manual reading controls'
   );
   assert(
+    !home.includes('class="post-card-read"') &&
+      !home.includes('>Read...</a>'),
+    'feed rows rely on linked titles instead of repeated read calls to action'
+  );
+  assert(
     article.includes('data-reading-article') &&
       article.includes('data-reading-prose'),
     'article measures prose only'

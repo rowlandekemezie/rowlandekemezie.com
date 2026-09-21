@@ -1,16 +1,19 @@
-<section class="post-search" data-post-search aria-labelledby="post-search-label">
-  <label id="post-search-label" for="post-search-input">Search writing</label>
-  <input
-    id="post-search-input"
-    type="search"
-    placeholder="Title, topic, or tag"
-    autocomplete="off"
-    aria-controls="post-search-results"
-    aria-describedby="post-search-status"
-  />
-  <p id="post-search-status" class="post-search-status" data-post-search-status aria-live="polite"></p>
-  <ul id="post-search-results" class="post-search-results" data-post-search-results hidden></ul>
-</section>
+<details class="post-search" data-post-search>
+  <summary>Search writing</summary>
+  <div class="post-search-panel">
+    <label for="post-search-input">Title, topic, or tag</label>
+    <input
+      id="post-search-input"
+      type="search"
+      placeholder="Search all essays"
+      autocomplete="off"
+      aria-controls="post-search-results"
+      aria-describedby="post-search-status"
+    />
+    <p id="post-search-status" class="post-search-status" data-post-search-status aria-live="polite"></p>
+    <ul id="post-search-results" class="post-search-results" data-post-search-results hidden></ul>
+  </div>
+</details>
 
 <script>
   import {
@@ -131,8 +134,48 @@
 
 <style>
   .post-search {
+    min-width: 0;
+  }
+
+  summary {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: '+';
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  details[open] summary::after {
+    content: '−';
+  }
+
+  summary:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  summary:active {
+    color: var(--text);
+  }
+
+  .post-search-panel {
     display: grid;
     gap: 0.5rem;
+    padding-top: 0.25rem;
   }
 
   label {
@@ -224,6 +267,11 @@
   }
 
   @media (hover: hover) {
+    summary:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
     input:hover {
       background: var(--surface);
     }

@@ -7,11 +7,9 @@ date: '2021-05-31T20:40:32.169Z'
 description: I have worked with GitStart for three years and two months and have seen low and aha moments in the short spell. I've interviewed candidates from different continents; worked with Engineers, CTO, and CEOs from various companies and product offerings. I've bootstrapped distributed Engineering teams and managed developer growth. I've experienced what it means to run lean operations and navigating through the path of customer success. I've seen client frustration.
 category: Startup
 tags:
-  - software engineering
-  - culture
-  - start up
-  - leadership
-  - hiring
+  - Startups
+  - Engineering Leadership
+  - Careers
 image: ./images/top-30-things-I-learnt-banner.png
 ---
 

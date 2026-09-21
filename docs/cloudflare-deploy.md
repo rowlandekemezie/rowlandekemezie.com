@@ -79,7 +79,7 @@ Phase 1 replaces Universal Analytics with Cloudflare Web Analytics.
 ## Cutover checklist
 
 1. Keep the existing site live while the migration branch is in preview.
-2. Verify route parity for `/`, `/posts/:slug/`, `/page/:number/`, `/pages/about/`, `/tags/*`, and `/categories/*`.
+2. Verify route parity for `/`, `/posts/:slug/`, `/page/:number/`, `/about/`, `/tags/*`, and `/categories/*`, including the `/pages/about/` redirect.
 3. Confirm RSS, sitemap, `robots.txt`, image assets, article email links, and analytics behavior in preview.
 4. Confirm the Cloudflare Pages project is configured for the custom domain and TLS is active.
 5. Change DNS only after parity sign-off:

@@ -7,9 +7,8 @@ date: '2019-04-23T22:40:32.169Z'
 description: Quality software development requires an efficient process for code reviews. Tech teams spend about ~15% of their time doing code review and handling the resultant effect. Whereas this is a great habit for tech team, not everything falls under the category of code reviews.
 category: Software
 tags:
-  - software engineering
-  - code review
-  - code quality
+  - Software Quality
+  - Engineering Leadership
 image: ./images/code-review-unsplash.jpg
 ---
 

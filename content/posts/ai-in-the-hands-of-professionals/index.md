@@ -7,10 +7,8 @@ date: '2026-05-26T00:00:00.000Z'
 description: Why expertise compounds when AI makes generation cheap.
 category: Artificial Intelligence
 tags:
-  - ai
-  - professional services
-  - expertise
-  - judgment
+  - AI
+  - Careers
 series:
   title: AI and Professional Practice
   slug: ai-and-professional-practice

@@ -137,7 +137,7 @@ export function seriesRoute(seriesSlug: string) {
 }
 
 export function aboutRoute() {
-  return '/pages/about/';
+  return '/about/';
 }
 
 export function tagRoute(tag: string) {

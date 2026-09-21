@@ -7,10 +7,8 @@ date: '2019-04-17T22:40:32.169Z'
 description: UI review is an integral part of software development cycle especially, mobile and web development. Finding a scalable way of integrating automated visual testing with immediate feedback cycle to improve the whole process and ship with confidence.
 category: Software
 tags:
-  - visual testing
-  - testing
-  - regression testing
-  - QA
+  - Software Quality
+  - Web Development
 image: ./images/ken-treloar-unsplash.jpg
 ---
 

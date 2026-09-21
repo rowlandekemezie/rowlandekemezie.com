@@ -7,10 +7,9 @@ date: '2026-06-02T00:00:00.000Z'
 description: External systems do not fail only during outages. They drift, evolve, and quietly violate the assumptions your product has turned into invariants.
 category: Software
 tags:
-  - integrations
-  - distributed systems
-  - software architecture
-  - backend systems
+  - Integrations
+  - Distributed Systems
+  - Software Architecture
 series:
   title: Building Integration Systems
   slug: building-integration-systems

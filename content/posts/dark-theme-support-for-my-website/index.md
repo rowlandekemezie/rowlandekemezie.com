@@ -7,11 +7,8 @@ date: '2019-05-31T22:40:32.169Z'
 description: Dark theme support is great judging by the fact that most people already use it. It seems reasonable to have my website support such use case.
 category: Software
 tags:
-  - dark theme
-  - code
-  - react-hooks
-  - Sass
-  - CSS
+  - Web Development
+  - Software Quality
 image: ./images/atanas-teodosiev-unsplash.jpg
 ---
 

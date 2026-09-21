@@ -62,6 +62,18 @@ assert('Organization schema has contactPoint', home.includes('"contactPoint"'));
 assert('Organization schema has PostalAddress', home.includes('"@type":"PostalAddress"'));
 assert('homepage links developer resources', home.includes('href="/developers/"'));
 assert('homepage links canonical about page', home.includes('href="/about/"'));
+assert(
+  'worker permanently redirects the legacy about path',
+  workerSource.includes("url.pathname === '/pages/about'") &&
+    workerSource.includes("url.pathname = '/about/'") &&
+    workerSource.includes('Response.redirect(url.toString(), 301)')
+);
+assert(
+  'worker preserves legacy tag links with canonical redirects',
+  workerSource.includes("'software-engineering': 'software-architecture'") &&
+    workerSource.includes("'visual-testing': 'software-quality'") &&
+    workerSource.includes('url.pathname = `/tags/${canonicalTag}/`')
+);
 assert('homepage links contact page', home.includes('href="/contact/"'));
 assert('homepage links privacy page', home.includes('href="/privacy/"'));
 assert('browser 404 links the sitemap', notFoundHtml.includes('href="/sitemap.xml"'));
