@@ -97,13 +97,17 @@ function initializeReadingExperience() {
   }
 
   function renderStatus(element: HTMLElement, record: StoredReadingRecord | undefined) {
+    const isRead = record?.kind === 'read';
     element.dataset.readingState = record?.kind ?? 'unread';
     element.querySelectorAll('[data-reading-status]').forEach((status) => {
       status.textContent = statusLabel(record);
     });
+    element.querySelectorAll('[data-reading-completion]').forEach((completion) => {
+      if (completion instanceof HTMLElement) completion.hidden = !isRead;
+    });
     element.querySelectorAll('[data-reading-toggle]').forEach((toggle) => {
       if (toggle instanceof HTMLButtonElement) {
-        toggle.hidden = record?.kind !== 'read';
+        toggle.hidden = !isRead;
         toggle.textContent = 'Mark unread';
       }
     });
