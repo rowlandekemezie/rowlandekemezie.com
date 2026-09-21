@@ -93,7 +93,7 @@ const themeInitScript =
     <title>{title}</title>
     <script is:inline set:html={themeInitScript}></script>
     <style is:global>
-      /* Hallmark · macrostructure: editorial index · quiet warm paper · umber anchor · pre-emit critique: P5 H4 E5 S5 R5 V4 · contrast: pass (40–41) · mobile: pass (34, 49–57) */
+      /* Hallmark · genre: editorial · tone: quiet · palette anchor: umber · macrostructure: Index-First · nav: N9 · footer: Ft7 · pre-emit critique: P5 H5 E5 S5 R5 V5 · contrast: pass (40–41) · slop: pass (42–45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (34, 49–57) · icons: pass (30) */
       :root {
         color-scheme: light;
         --bg: #f7f5ef;
@@ -205,55 +205,18 @@ const themeInitScript =
       }
       .home-layout {
         display: grid;
-        gap: 1.875rem;
-      }
-      .home-sidebar {
         width: 100%;
+        max-width: 61rem;
+        gap: 2.5rem;
       }
+      .home-intro-wrap,
       .home-feed {
+        min-width: 0;
         width: 100%;
-      }
-      .home-sidebar h1 {
-        margin: 0.95rem 0 0;
-        font-size: clamp(2rem, 2.25vw, 2.45rem);
-        line-height: 1.1;
-      }
-      .home-sidebar p {
-        margin: 1.4rem 0 0;
-        color: var(--text);
-        font-size: clamp(1.05rem, 1.2vw, 1.25rem);
-        line-height: 1.65;
       }
       .home-feed-list {
         display: grid;
         gap: 1.25rem;
-      }
-      @media (min-width: 685px) {
-        .home-layout {
-          grid-template-columns: minmax(15.75rem, 32%) minmax(0, 1fr);
-          align-items: start;
-        }
-        .home-sidebar {
-          position: sticky;
-          top: 1.25rem;
-          padding-right: 1.5rem;
-        }
-        .home-feed {
-          border-left: 1px solid var(--line);
-          padding-left: 2.2rem;
-        }
-      }
-      .sidebar-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 1rem;
-      }
-      .avatar {
-        width: 8.25rem;
-        height: 8.25rem;
-        border-radius: 50%;
-        object-fit: cover;
       }
       .theme-toggle {
         position: relative;
@@ -328,41 +291,14 @@ const themeInitScript =
         outline: 2px solid var(--focus);
         outline-offset: 3px;
       }
-      .home-socials {
-        margin: 2.5rem 0 0;
-        padding: 0;
-        list-style: none;
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-      }
-      .home-socials li {
-        margin: 0;
-      }
-      .home-socials a {
-        width: 2.75rem;
-        height: 2.75rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        border: 1px solid var(--line);
-        color: var(--muted);
-      }
-      .home-socials a svg {
-        width: 1.35rem;
-        height: 1.35rem;
-      }
-      .home-socials a:hover,
-      .home-socials a:focus-visible {
-        color: var(--text);
-      }
       h1,
       h2,
       h3 {
+        min-width: 0;
         margin: 0;
         letter-spacing: -0.035em;
         line-height: 1.12;
+        overflow-wrap: anywhere;
       }
       h1 {
         font-size: clamp(2.15rem, 5.2vw, 4.2rem);

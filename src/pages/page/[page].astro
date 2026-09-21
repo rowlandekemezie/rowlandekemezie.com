@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import HomeSidebar from '../../components/HomeSidebar.astro';
+import WritingIntro from '../../components/WritingIntro.astro';
 import PostCard from '../../components/PostCard.astro';
 import { getPaginatedPosts, getPublishedPosts } from '../../lib/content';
 import { pageRoute, site } from '../../lib/site';
@@ -25,11 +25,11 @@ const title = page === 1 ? site.title : `Page ${page} — ${site.title}`;
 
 <BaseLayout title={title} description={site.description} layout="home">
   <div class="home-layout">
-    <aside class="home-sidebar reveal">
-      <HomeSidebar posts={allPosts} />
-    </aside>
+    <div class="home-intro-wrap reveal">
+      <WritingIntro posts={allPosts} />
+    </div>
 
-    <section class="home-feed reveal reveal-delay">
+    <section class="home-feed reveal reveal-delay" aria-label={`Writing page ${pagination.currentPage}`}>
       <div class="home-feed-list">
         {pagination.posts.map((post) => <PostCard post={post} />)}
       </div>

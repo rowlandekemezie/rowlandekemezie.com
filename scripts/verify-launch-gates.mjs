@@ -7,13 +7,15 @@ const routes = {
   about: 'pages/about/index.html',
   home: 'index.html',
   percy: 'posts/improving-your-visual-review-with-percy/index.html',
+  searchCatalog: 'post-search.json',
   topThirty: 'posts/top-30-things-i-learnt-at-gitstart/index.html',
 };
 
 const sizeBudgetBytes = {
-  about: 12_500,
-  home: 28_000,
+  about: 17_000,
+  home: 31_000,
   percy: 35_000,
+  searchCatalog: 10_000,
   topThirty: 35_000,
 };
 
@@ -33,6 +35,7 @@ const percy = readRoute(routes.percy);
 const assertions = [
   ['Home HTML stays within the size budget', routeSize(routes.home) <= sizeBudgetBytes.home],
   ['About HTML stays within the size budget', routeSize(routes.about) <= sizeBudgetBytes.about],
+  ['Post search catalog stays within the size budget', routeSize(routes.searchCatalog) <= sizeBudgetBytes.searchCatalog],
   ['Top 30 article HTML stays within the size budget', routeSize(routes.topThirty) <= sizeBudgetBytes.topThirty],
   ['Percy article HTML stays within the size budget', routeSize(routes.percy) <= sizeBudgetBytes.percy],
   ['Home emits a canonical URL', home.includes('<link rel="canonical" href="https://rowlandekemezie.com/">')],

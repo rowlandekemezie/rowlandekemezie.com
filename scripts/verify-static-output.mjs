@@ -10,6 +10,7 @@ const requiredFiles = [
   'rss.xml',
   'robots.txt',
   'sitemap.xml',
+  'post-search.json',
   'page/1/index.html',
   'page/2/index.html',
   'pages/about/index.html',
@@ -68,6 +69,7 @@ const percy = readFileSync(
 const rss = readFileSync(resolve(distDir, 'rss.xml'), 'utf8');
 const sitemap = readFileSync(resolve(distDir, 'sitemap.xml'), 'utf8');
 const robots = readFileSync(resolve(distDir, 'robots.txt'), 'utf8');
+const postSearch = readFileSync(resolve(distDir, 'post-search.json'), 'utf8');
 const builtOutput = [
   home,
   pageOne,
@@ -104,6 +106,22 @@ const assertions = [
     home.includes('/_astro/')
   ],
   [
+    'Home page leads with the writing index',
+    home.includes('<h1 id="writing-heading"') &&
+      home.includes('>Writing</h1>') &&
+      !home.includes('class="about-avatar"')
+  ],
+  [
+    'Home page includes client-side post search',
+    home.includes('data-post-search') &&
+      home.includes('placeholder="Title, topic, or tag"')
+  ],
+  [
+    'Post search catalog includes article metadata',
+    postSearch.includes('Improving your Visual Review with Percy') &&
+      postSearch.includes('/posts/improving-your-visual-review-with-percy/')
+  ],
+  [
     'Page 1 archive includes pagination navigation',
     pageOne.includes('aria-label="Pagination"')
   ],
@@ -124,6 +142,11 @@ const assertions = [
   [
     'About page does not expose the raw contact email in HTML',
     !about.includes('hello@rowlandekemezie.com')
+  ],
+  [
+    'About page owns the profile portrait and social links',
+    about.includes('class="about-avatar"') &&
+      about.includes('class="about-socials"')
   ],
   [
     'Series index is published under /series/',

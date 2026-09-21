@@ -43,7 +43,10 @@ const headers = read('_headers');
 
 assert('homepage contains at least 500 visible characters', visibleText(home).length >= 500);
 assert('homepage has one clear H1', (home.match(/<h1\b/gi) ?? []).length === 1);
-assert('homepage H1 identifies Rowland', home.includes('<h1>Rowland I. Ekemezie</h1>'));
+assert(
+  'homepage H1 identifies the writing index',
+  home.includes('<h1 id="writing-heading"') && home.includes('>Writing</h1>')
+);
 assert('homepage declares lang=en', home.includes('<html lang="en">'));
 assert(
   'homepage has canonical metadata',
