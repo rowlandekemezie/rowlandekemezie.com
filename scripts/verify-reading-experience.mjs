@@ -148,7 +148,7 @@ try {
   );
   assert(
     home.indexOf('data-reading-summary') < home.indexOf('class="home-feed'),
-    'reading summary sits with the bio before the article feed'
+    'reading summary sits below the writing introduction before the article feed'
   );
   assert(
     home.includes('data-reading-count') &&

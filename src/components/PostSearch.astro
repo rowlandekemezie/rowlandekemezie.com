@@ -1,0 +1,235 @@
+<section class="post-search" data-post-search aria-labelledby="post-search-label">
+  <label id="post-search-label" for="post-search-input">Search writing</label>
+  <input
+    id="post-search-input"
+    type="search"
+    placeholder="Title, topic, or tag"
+    autocomplete="off"
+    aria-controls="post-search-results"
+    aria-describedby="post-search-status"
+  />
+  <p id="post-search-status" class="post-search-status" data-post-search-status aria-live="polite"></p>
+  <ul id="post-search-results" class="post-search-results" data-post-search-results hidden></ul>
+</section>
+
+<script>
+  import {
+    parsePostSearchCatalog,
+    type SearchPost,
+  } from '../lib/post-search';
+
+  let catalogPromise: Promise<SearchPost[]> | undefined;
+
+  function getCatalog() {
+    catalogPromise ??= fetch('/post-search.json')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Post search request failed with ${response.status}`);
+        }
+
+        return response.json();
+      })
+      .then((value: unknown) => parsePostSearchCatalog(value).posts);
+
+    return catalogPromise;
+  }
+
+  function createResult(post: SearchPost) {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    const title = document.createElement('span');
+    const date = document.createElement('small');
+
+    link.href = post.href;
+    title.textContent = post.title;
+    date.textContent = post.date;
+    link.append(title, date);
+    item.append(link);
+
+    return item;
+  }
+
+  function initializePostSearch(search: Element) {
+    if (!(search instanceof HTMLElement) || search.dataset.initialized === 'true') {
+      return;
+    }
+
+    const input = search.querySelector('input[type="search"]');
+    const status = search.querySelector('[data-post-search-status]');
+    const results = search.querySelector('[data-post-search-results]');
+    if (
+      !(input instanceof HTMLInputElement) ||
+      !(status instanceof HTMLElement) ||
+      !(results instanceof HTMLElement)
+    ) {
+      return;
+    }
+
+    search.dataset.initialized = 'true';
+
+    const updateResults = async () => {
+      const query = input.value.trim().toLowerCase();
+
+      if (!query) {
+        status.textContent = '';
+        results.hidden = true;
+        results.replaceChildren();
+        return;
+      }
+
+      if (query.length < 2) {
+        status.textContent = 'Type one more character.';
+        results.hidden = true;
+        results.replaceChildren();
+        return;
+      }
+
+      status.textContent = 'Searching...';
+
+      try {
+        const posts = await getCatalog();
+        if (input.value.trim().toLowerCase() !== query) return;
+
+        const matches = posts.filter((post) => post.text.includes(query));
+        results.replaceChildren(...matches.slice(0, 6).map(createResult));
+        results.hidden = matches.length === 0;
+        status.textContent = matches.length > 0
+          ? `${matches.length} ${matches.length === 1 ? 'essay' : 'essays'} found.`
+          : `No essays match "${input.value.trim()}".`;
+      } catch {
+        catalogPromise = undefined;
+        results.hidden = true;
+        results.replaceChildren();
+        status.textContent = 'Search is unavailable right now.';
+      }
+    };
+
+    input.addEventListener('input', () => {
+      void updateResults();
+    });
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && input.value) {
+        input.value = '';
+        void updateResults();
+      }
+
+      if (event.key === 'ArrowDown' && !results.hidden) {
+        const firstLink = results.querySelector('li:not([hidden]) a');
+        if (firstLink instanceof HTMLAnchorElement) {
+          event.preventDefault();
+          firstLink.focus();
+        }
+      }
+    });
+  }
+
+  document.querySelectorAll('[data-post-search]').forEach(initializePostSearch);
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('[data-post-search]').forEach(initializePostSearch);
+  });
+</script>
+
+<style>
+  .post-search {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  label {
+    color: var(--text);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  input {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    background: var(--card);
+    color: var(--text);
+    font: inherit;
+  }
+
+  input::placeholder {
+    color: var(--muted);
+    opacity: 1;
+  }
+
+  input:focus-visible {
+    border-color: var(--text);
+    outline-color: var(--focus);
+  }
+
+  input:active {
+    border-color: var(--text);
+  }
+
+  input:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .post-search-status {
+    min-height: 1.25rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .post-search-results {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+    list-style: none;
+  }
+
+  .post-search-results :global(li) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .post-search-results :global(a) {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0.25rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .post-search-results :global(span) {
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  .post-search-results :global(small) {
+    flex: none;
+    color: var(--muted);
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .post-search-results :global(a:focus-visible) {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .post-search-results :global(a:active) {
+    color: var(--accent);
+  }
+
+  @media (hover: hover) {
+    input:hover {
+      background: var(--surface);
+    }
+
+    .post-search-results :global(a:hover) {
+      color: var(--accent);
+    }
+  }
+</style>

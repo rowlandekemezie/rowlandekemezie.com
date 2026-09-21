@@ -1,0 +1,87 @@
+---
+import type { PostEntry } from '../lib/content';
+import PostSearch from './PostSearch.astro';
+import ReadingSummary from './ReadingSummary.astro';
+
+interface Props {
+  posts: readonly PostEntry[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section class="writing-intro" aria-labelledby="writing-heading">
+  <div class="writing-intro-copy">
+    <h1 id="writing-heading">Writing</h1>
+    <p>Essays on software systems, engineering leadership, technical debt, and the feedback loops that help teams learn.</p>
+    <a class="about-link" href="/pages/about/">
+      More about me <span aria-hidden="true">→</span>
+    </a>
+  </div>
+  <div class="writing-tools">
+    <ReadingSummary posts={posts} />
+    <PostSearch />
+  </div>
+</section>
+
+<style>
+  .writing-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    gap: 2.5rem;
+  }
+
+  .writing-intro-copy,
+  .writing-tools {
+    width: 100%;
+    max-width: 46rem;
+    min-width: 0;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+  }
+
+  p {
+    max-width: 42rem;
+    margin: 1rem 0 0;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+  }
+
+  .about-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+    color: var(--accent);
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .about-link:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .about-link:active {
+    color: var(--text);
+  }
+
+  .writing-tools {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (hover: hover) {
+    .about-link:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+  }
+</style>

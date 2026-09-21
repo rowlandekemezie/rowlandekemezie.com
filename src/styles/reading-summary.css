@@ -1,5 +1,5 @@
 .reading-summary {
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 .reading-summary-head {
@@ -50,6 +50,13 @@
   color: var(--accent);
   font: inherit;
   font-weight: 650;
+}
+
+.reading-summary-message a {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .reading-summary button {

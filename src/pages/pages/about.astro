@@ -1,19 +1,71 @@
 ---
+import avatar from '../../assets/rowland-avatar.jpg';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EmailLink from '../../components/EmailLink.astro';
 import { site } from '../../lib/site';
+
+function iconId(label: string) {
+  if (label === 'Twitter') return 'twitter';
+  if (label === 'GitHub') return 'github';
+  if (label === 'LinkedIn') return 'linkedin';
+  if (label === 'Email') return 'email';
+  return 'rss';
+}
 ---
 
 <BaseLayout title={`About — ${site.title}`} description={site.description}>
   <section class="section">
     <div class="about-shell">
-      <div class="section-stack">
-        <span class="eyebrow">About</span>
-        <h1>{site.author.name}</h1>
-        <p class="lede">{site.positioning}</p>
+      <div class="about-profile">
+        <img
+          class="about-avatar"
+          src={avatar.src}
+          alt={site.author.name}
+          width="300"
+          height="300"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="about-copy">
+          <h1>{site.author.name}</h1>
+          <p class="lede">{site.positioning}</p>
+          <p>{site.author.summary}</p>
+          <p>
+            I build software systems and engineering organizations for products where reliability,
+            integrations, payments, data flow, and operational clarity matter. I write to make the
+            tradeoffs behind that work explicit and useful.
+          </p>
+          <ul class="about-socials" aria-label="Social links">
+            {
+              site.author.links.map((link) => (
+                <li>
+                  {link.label === 'Email' ? (
+                    <EmailLink ariaLabel={link.label} title={link.label}>
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <use href={`/icons/social-sprite.svg#${iconId(link.label)}`}></use>
+                      </svg>
+                    </EmailLink>
+                  ) : (
+                    <a
+                      href={link.url}
+                      target={link.url.startsWith('http') ? '_blank' : undefined}
+                      rel={link.url.startsWith('http') ? 'noreferrer' : undefined}
+                      aria-label={link.label}
+                      title={link.label}
+                    >
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <use href={`/icons/social-sprite.svg#${iconId(link.label)}`}></use>
+                      </svg>
+                    </a>
+                  )}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
-      <aside class="section stack">
-        <span class="eyebrow">Details</span>
+      <aside class="about-details stack">
+        <h2>Details</h2>
         <dl>
           <dt>Location</dt>
           <dd>{site.author.location}</dd>
@@ -29,7 +81,7 @@ import { site } from '../../lib/site';
   <section class="section">
     <div class="about-grid">
       <div class="section stack">
-        <span class="eyebrow">How I work</span>
+        <h2>How I work</h2>
         <ul class="taxonomy-list">
           <li>Turn ambiguous business problems into maintainable software with clear architecture and explicit tradeoffs.</li>
           <li>Build systems that are boring in production, elegant under the hood, and easy for teams to operate.</li>
@@ -37,7 +89,7 @@ import { site } from '../../lib/site';
         </ul>
       </div>
       <div class="section stack">
-        <span class="eyebrow">What I write about</span>
+        <h2>What I write about</h2>
         <ul class="taxonomy-list">
           <li>Backend architecture, multi-tenant systems, and developer-friendly design.</li>
           <li>Financial infrastructure across payroll, accounting, and payments.</li>
@@ -51,7 +103,84 @@ import { site } from '../../lib/site';
 <style>
   .about-shell {
     display: grid;
-    gap: 1.25rem;
+    gap: 2.5rem;
+  }
+
+  .about-profile {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .about-avatar {
+    width: 8.25rem;
+    height: 8.25rem;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .about-copy {
+    max-width: 46rem;
+  }
+
+  .about-copy h1 {
+    font-family: var(--font-serif);
+  }
+
+  .about-copy p {
+    max-width: 65ch;
+    line-height: 1.7;
+  }
+
+  .about-copy .lede {
+    margin-top: 1rem;
+  }
+
+  .about-details {
+    padding: 1.25rem;
+    background: var(--surface);
+  }
+
+  .about-details h2 {
+    font-size: 1.2rem;
+  }
+
+  .about-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .about-socials li {
+    margin: 0;
+  }
+
+  .about-socials :global(a) {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--muted);
+  }
+
+  .about-socials :global(a svg) {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .about-socials :global(a:active) {
+    color: var(--accent);
+  }
+
+  .about-socials :global(a:focus-visible) {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
   }
 
   .about-grid {
@@ -66,12 +195,22 @@ import { site } from '../../lib/site';
 
   @media (min-width: 56rem) {
     .about-shell {
-      grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 0.9fr);
+      grid-template-columns: minmax(0, 1.8fr) minmax(14rem, 0.7fr);
       align-items: start;
+    }
+
+    .about-profile {
+      grid-template-columns: 8.25rem minmax(0, 1fr);
     }
 
     .about-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (hover: hover) {
+    .about-socials :global(a:hover) {
+      color: var(--text);
     }
   }
 </style>
