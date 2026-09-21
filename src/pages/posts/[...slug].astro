@@ -97,7 +97,6 @@ const articleStructuredData = {
           <span>{getPostReadingMinutes(post)} min read</span>
           <span data-reading-status>Unread</span>
         </p>
-        <button class="reading-control" type="button" data-reading-toggle hidden>Mark unread</button>
       </div>
 
       <div class="article-shell">
@@ -105,6 +104,23 @@ const articleStructuredData = {
           <article class="prose reveal reveal-delay-2" data-reading-prose>
             <Content />
           </article>
+
+          <section
+            class="reading-completion"
+            data-reading-completion
+            aria-label="Reading progress"
+            aria-live="polite"
+            hidden
+          >
+            <div class="reading-completion-status">
+              <span class="reading-completion-mark" aria-hidden="true">✓</span>
+              <div>
+                <p class="reading-completion-label">Reading complete</p>
+                <p class="reading-completion-note">Saved on this device.</p>
+              </div>
+            </div>
+            <button class="reading-control" type="button" data-reading-toggle hidden>Mark unread</button>
+          </section>
 
           <section class="post-tags-section reveal reveal-delay-2">
             <PostTags tags={post.data.tags} />
@@ -165,6 +181,7 @@ const articleStructuredData = {
 </BaseLayout>
 
 <style>
+  /* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V4 */
   .article-main {
     min-width: 0;
   }
@@ -174,9 +191,58 @@ const articleStructuredData = {
     overflow-wrap: anywhere;
   }
 
+  .reading-completion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.25rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+  }
+
+  .reading-completion[hidden] {
+    display: none;
+  }
+
+  .reading-completion-status {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .reading-completion-mark {
+    display: inline-grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+
+  .reading-completion-label,
+  .reading-completion-note {
+    margin: 0;
+  }
+
+  .reading-completion-label {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .reading-completion-note {
+    margin-top: 0.25rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
   .reading-control {
     min-height: 2.75rem;
-    margin-top: 0.75rem;
     padding: 0;
     border: 0;
     background: transparent;
@@ -186,11 +252,26 @@ const articleStructuredData = {
     text-decoration: underline;
     text-underline-offset: 0.2em;
     cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .reading-control:hover {
+    color: var(--text);
   }
 
   .reading-control:focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: 3px;
+  }
+
+  .reading-control:active {
+    color: var(--text);
+    text-decoration-thickness: 2px;
+  }
+
+  .reading-control:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
   }
 
   .article-main :global(.prose h2),
@@ -373,5 +454,17 @@ const articleStructuredData = {
   .article-reply :global(.article-reply-link:focus-visible) {
     outline: 2px solid var(--focus);
     outline-offset: 3px;
+  }
+
+  @media (max-width: 30rem) {
+    .reading-completion {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .reading-control {
+      margin-left: 2.5rem;
+    }
   }
 </style>

@@ -175,6 +175,16 @@ try {
       !article.includes('Mark read'),
     'article exposes only the unread recovery control'
   );
+  assert(
+    article.includes('data-reading-completion') &&
+      article.includes('Reading complete') &&
+      article.includes('Saved on this device.'),
+    'article includes an end-of-reading completion indicator'
+  );
+  assert(
+    article.indexOf('data-reading-toggle') > article.indexOf('data-reading-prose'),
+    'unread recovery control follows the article prose'
+  );
   console.log('Reading experience verification passed.');
 } finally {
   rmSync(compiledDir, { recursive: true, force: true });
