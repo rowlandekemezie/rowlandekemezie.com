@@ -30,19 +30,19 @@ The difficult thing about the alignment tax is that almost every individual step
 
 Growing companies need those perspectives. The mistake is assuming that because some alignment creates value, more alignment must create more value.
 
-McKinsey's 2018 global decision-making survey points the same way. Among 1,259 participants in 91 countries, respondents at organizations with fewer reporting layers were more likely to say decisions were both high quality and quick. Seventy percent of respondents in organizations with one to three reporting layers said decisions were high quality, compared with 53% at organizations with four to six layers and 45% with seven or more. The corresponding numbers for quick decisions were 61%, 47%, and 38%.[1]
+Alignment has diminishing returns. Early on, it exposes dependencies, clarifies the customer problem, and stops teams from moving in opposite directions. Past a certain point, each new participant brings less new information and one more opportunity for delay, disagreement, context switching, and rework.
+
+![Conceptual alignment value curve](./images/alignment-value-curve.svg)
+
+Where that point sits depends on the decision. A payment migration, an A/B test, a pricing change, and a new internal tool deserve different amounts of attention. Give them all the same treatment and the low-risk work ends up paying for scrutiny it never needed.
+
+There is some evidence for this at the organizational level. McKinsey's 2018 global survey on decision-making covered 1,259 participants in 91 countries. Respondents at organizations with fewer reporting layers were more likely to say decisions were both high quality and quick. Seventy percent of respondents in organizations with one to three layers said decisions were high quality, compared with 53% at four to six layers and 45% at seven or more. For quick decisions, the numbers were 61%, 47%, and 38%.[1]
 
 ![Decision quality and speed by reporting layers](./images/decision-speed-quality.svg)
 
 *McKinsey's result is correlational, not proof that layers alone caused slower or weaker decisions. It still shows why adding decision distance should not be treated as free.*
 
-The same survey found that respondents spent an average of 37% of their time making decisions, while 61% said most of their decision-making time was used ineffectively.[1] The point is not that companies should stop making decisions together. Decision-making itself consumes real capacity, and organizations rarely account for that cost when they add another review, another stakeholder, or another layer of approval.
-
-Alignment has diminishing returns. Early alignment can expose dependencies, clarify the customer problem, and prevent teams from moving in opposite directions. Past a certain point, each additional participant contributes less new information while adding another opportunity for delay, disagreement, context switching, and rework.
-
-![Conceptual alignment value curve](./images/alignment-value-curve.svg)
-
-The useful point on that curve will be different for a payment migration, an A/B test, a pricing change, or a new internal tool, which is why applying the same amount of organizational attention to all of them creates unnecessary cost.
+The same survey found that respondents spent an average of 37% of their time making decisions, and 61% said most of their decision-making time was used ineffectively.[1] Companies still need to decide things together. But deciding consumes real capacity, and organizations rarely count that cost when they add another review, another stakeholder, or another layer of approval.
 
 ## When input becomes permission
 
@@ -50,43 +50,43 @@ Many alignment problems start with loose language. We use alignment, consultatio
 
 An approver should exist because they own a specific risk or responsibility, not because they were invited into the discussion early and gradually acquired veto power.
 
-The difference matters more as the stakeholder list grows. With two people there is one possible pairwise communication path. Five people create ten. Ten people create 45. Fifteen create 105. Twenty create 190.
+The difference matters more as the stakeholder list grows. Two people have one possible communication path between them. Five people have ten. Ten have 45. Fifteen have 105. Twenty have 190.
 
 ![Possible communication paths as stakeholder count grows](./images/coordination-paths.svg)
 
-Those numbers do not mean every possible relationship becomes a meeting. They show why "let's just include these three people" changes the coordination problem faster than it appears to. A well-designed organization prevents all those possible relationships from becoming required approval paths by giving one person ownership, defining which people have relevant input, and making it clear when a decision is closed.
+Those numbers do not mean every possible relationship becomes a meeting. They show why "let's just include these three people" changes the coordination problem faster than it appears to. A well-designed organization stops those paths from turning into required approvals. It gives one person ownership, names the people whose input matters, and makes it clear when a decision is closed.
 
-Without that structure, the safest behaviour is predictable. People copy more stakeholders, teams socialize decisions before the real decision meeting, Product managers learn who must be comfortable before something can move, and engineers learn which changes attract organizational attention and start avoiding them. Nobody created the bureaucracy in one step, but everyone has an incentive to keep feeding it.
+Without that structure, the safest behaviour is predictable. People copy more stakeholders. Teams socialize decisions before the real decision meeting. Product managers learn who must be comfortable before anything can move, and engineers learn which changes attract organizational attention and start avoiding them. Nobody built the bureaucracy in one step, but everyone has a reason to keep feeding it.
 
 ## The hidden cost is waiting
 
-Engineering teams tend to measure effort more easily than elapsed time. A security review may take thirty minutes of actual work but sit in a queue for four days. A platform team might need one hour to confirm an integration constraint but cannot look at it until next week. Product updates the proposal, then waits for another calendar slot to get everyone back together. A release can contain five days of engineering effort and still take a month to reach a customer.
+Engineering teams find it easier to measure effort than elapsed time. A security review may take thirty minutes of work and sit in a queue for four days. A platform team might need one hour to confirm an integration constraint but cannot get to it until next week. Product updates the proposal, then waits for another calendar slot to get everyone back in the room. A release can hold five days of engineering effort and still take a month to reach a customer.
 
-DORA's research on change approval challenges the assumption that more approval necessarily makes software safer. DORA reports that heavyweight external approvals, such as change advisory boards or senior-management gates, have a negative impact on software delivery performance. It also found no evidence that these formal external reviews were associated with lower change failure rates.[2]
+DORA's research on change approval challenges the assumption that more approval makes software safer. DORA reports that heavyweight external approvals, such as change advisory boards or senior-management gates, hurt software delivery performance. It also found no evidence that these formal reviews were associated with lower change failure rates.[2]
 
-DORA describes the mechanism clearly: slower approval processes encourage teams to release less often and in larger batches. Larger batches increase the impact of each release and can increase the risk the approval process was supposed to reduce.[2]
+DORA also describes the mechanism. Slower approvals push teams to release less often and in larger batches. Larger batches raise the impact of each release, which can increase the very risk the approval process was meant to reduce.[2]
 
 ![The approval paradox](./images/approval-loop.svg)
 
-This loop matters more than the usual debate about whether a company has too much process. The question is whether a control actually reduces risk, or whether it creates waiting that causes teams to batch more work, increase the blast radius, and then ask for even more control.
+That loop is a better test than the usual argument about whether a company has too much process. Ask whether a control reduces risk, or whether it creates waiting that makes teams batch more work, widen the blast radius, and then ask for even more control.
 
 ## The alignment tax becomes a product tax
 
 Too much alignment is usually discussed as an employee problem: engineers complain about meetings, Product managers complain about stakeholder management, and leaders complain that decisions take too long. The more expensive part is that the customer eventually pays the tax.
 
-Imagine that a team can implement an experiment in four days, but internal discussion and approval take three weeks. The experiment then needs another two weeks in production before the team learns anything useful. The company does not have a two-week learning cycle; it has a cycle closer to six weeks.
+Imagine a team that can build an experiment in four days, but internal discussion and approval take three weeks. The experiment then needs two weeks in production before the team learns anything. On paper, the company runs two-week experiments. In practice, each learning cycle takes closer to six weeks.
 
-A competitor that makes the same reversible decision in two days finishes a loop in about three weeks. Over a year, that is roughly eighteen loops against nine. The difference is not only how many features each company shipped. They have accumulated different amounts of knowledge about what customers want, what they ignore, what they will pay for, and which assumptions were wrong, and that accumulated knowledge compounds.
+A competitor that makes the same reversible decision in two days finishes a loop in about three weeks. Over a year, that is roughly eighteen loops against nine. The gap is not only in features shipped. The two companies now know different amounts about what customers want, what they ignore, what they will pay for, and which assumptions were wrong. That knowledge compounds.
+
+DORA's research on user focus backs this up. Teams with a strong user focus were associated with 40% higher organizational performance, and the research emphasizes short feedback loops, visible user metrics, and reprioritizing work based on what teams learn.[3]
 
 Release speed matters because every release can be a question asked of the market. Does this workflow reduce drop-off? Will customers use the new capability? Does the pricing make sense? Did the change improve conversion? Can we remove a step completely? Every unnecessary week before a safe experiment reaches customers is another week before the company can know the answer.
-
-DORA's research on user focus makes the connection more direct. Teams with a strong user focus were associated with 40% higher organizational performance, with the research emphasizing short feedback loops, visible user metrics, and reprioritizing work based on what teams learn.[3] Seen from that angle, the alignment tax is also a learning tax.
 
 ## The customer can disappear from the room
 
 An organization teaches people what to optimize for, even when nobody writes those incentives down. If getting a small change in front of customers is expensive, but internal agreement is mandatory, people become good at internal agreement. They learn who should see the proposal before a meeting, which objections are likely to stop it, and how to write documents that solve the customer problem while also reducing the political risk of moving forward.
 
-None of this requires bad people or bad intentions; it is a rational response to the system. The danger is that internal confidence starts replacing external evidence. Instead of asking, "How cheaply can we test whether customers want this?" teams spend their energy asking, "How do we get everyone comfortable with this direction?" The questions sound related, but they produce different behaviours.
+None of this requires bad people or bad intentions. It is a rational response to the system. The danger is that internal confidence starts to replace external evidence. Instead of asking, "How cheaply can we test whether customers want this?" teams spend their energy asking, "How do we get everyone comfortable with this direction?" The questions sound related, but they produce different behaviours.
 
 The customer never sees the alignment work. They only experience what eventually ships, what arrives too late, what gets diluted on the way through the organization, and what never survives long enough to be tested.
 
@@ -96,7 +96,7 @@ The obvious comparison is a startup where five people can make a product decisio
 
 Some startup speed is deferred cost. Teams can move quickly while accumulating security problems, weak controls, undocumented decisions, duplicated infrastructure, architectural fragmentation, and founder bottlenecks that become painful later.
 
-Large companies cannot solve their alignment problem by pretending they are ten-person startups. A better question is how to preserve decision speed while adding the controls that scale genuinely requires, which makes this an organizational design problem rather than a meeting problem.
+Large companies cannot fix this by pretending to be ten-person startups. The better question is how to keep decision speed while adding the controls that scale requires. That is an organizational design problem, not a meeting problem.
 
 ## Alignment should buy autonomy
 
@@ -104,7 +104,7 @@ The purpose of alignment should be to reduce the amount of coordination a team n
 
 Netflix describes a similar idea as "context, not control." Its culture memo says managers should give teams enough context and clarity to make good decisions, while significant decisions have an "informed captain" rather than being made by committee.[4] GitLab makes the ownership principle even more explicit by pushing decisions to the lowest possible level and assigning a directly responsible individual, or DRI.[5]
 
-The details will not transfer perfectly to every company, but the pattern is useful because broad input does not require broad decision authority. A scalable decision system should answer a few questions before the discussion becomes large:
+The details will not transfer perfectly to every company, but the pattern holds. Broad input does not require broad decision authority. Before a discussion gets large, a scalable decision system should answer a few questions:
 
 - What decision are we actually making?
 - Who owns it?
@@ -130,27 +130,27 @@ A practical version looks something like this:
 | Difficult to reverse | Formal review with clearly named approvers and one final decider |
 | Regulated, security-sensitive, or financially material | Mandatory specialist controls, automated where possible |
 
-The goal is not fewer controls everywhere. It is spending alignment where a wrong decision is expensive to undo and using experimentation where the organization can learn safely.
+Spend alignment where a wrong decision is expensive to undo, and use experiments where the organization can learn safely.
 
 ## Move recurring alignment into the system
 
-Engineering already has a good mental model for this problem because if every service had to understand the implementation details of every other service before making a change, software would become almost impossible to evolve. We create interfaces, contracts, ownership boundaries, automated tests, observability, and deployment controls so parts of the system can change independently without coordinating with everything around them.
+Engineering already has a mental model for this. If every service had to understand the implementation details of every other service before changing, software would be almost impossible to evolve. So we create interfaces, contracts, ownership boundaries, automated tests, observability, and deployment controls, and parts of the system can change without coordinating with everything around them.
 
-Organizations can apply the same idea. If every team must remember the same security requirements, logging standards, deployment steps, rollback expectations, access controls, and service metadata before shipping, those requirements do not all need to remain conversations. Some belong in templates, CI checks, platform tooling, policies, feature flags, automated rollbacks, and paved roads.
+Organizations can apply the same idea. If every team must remember the same security requirements, logging standards, deployment steps, rollback expectations, access controls, and service metadata before shipping, those requirements do not all need to stay conversations. Some belong in templates, CI checks, platform tooling, policies, feature flags, automated rollbacks, and paved roads.
 
 Spotify's experience with Golden Paths is a good example. As autonomous teams grew, Spotify found that fragmented developer tooling and what it called "rumour-driven development" no longer scaled. Golden Paths provided opinionated, supported routes for common engineering work without removing the ability to leave the path when a team had a good reason.[7]
 
 DORA makes a similar recommendation for change management: move validation into peer review, continuous testing, monitoring, and the development platform rather than relying on people far from the change to manually inspect every release.[2]
 
-Regulated environments make the distinction more important, not less. A payments, banking, healthcare, or insurance team cannot treat compliance, privacy, segregation of duties, or auditability as an implementation preference, and some changes will genuinely require specialist review or explicit sign-off. But many requirements define controls, evidence, and accountability without requiring every change to pass through the same manual sequence. Teams can pre-approve common architectures, encode policy checks into CI and infrastructure, generate audit evidence automatically, and reserve additional human review for changes that leave the approved path or materially change the risk profile.
+Regulated environments make the distinction more important, not less. A payments, banking, healthcare, or insurance team cannot treat compliance, privacy, segregation of duties, or auditability as an implementation preference. Some changes will genuinely require specialist review or explicit sign-off. But many requirements define controls, evidence, and accountability without requiring every change to pass through the same manual sequence. Teams can pre-approve common architectures, encode policy checks into CI and infrastructure, generate audit evidence automatically, and reserve additional human review for changes that leave the approved path or materially change the risk profile.
 
-The organization keeps the control but changes its form. Instead of asking a person for permission every time, it encodes repeatable knowledge into the system and saves human attention for cases that actually require judgment. In engineering organizations, some of the most scalable alignment will therefore look less like another meeting and more like better infrastructure.
+The organization keeps the control but changes its form. Instead of asking a person for permission every time, it encodes repeatable knowledge into the system and saves human attention for cases that require judgment. In engineering organizations, some of the most scalable alignment will look less like another meeting and more like better infrastructure.
 
 ## Measure the wait, not only the build
 
 Companies often have detailed engineering metrics while decision friction remains mostly invisible. If a feature takes five engineering days but forty calendar days to reach production, something consumed the other thirty-five. Without measuring that gap, the organization can keep pushing engineering teams to move faster while leaving the real bottleneck untouched.
 
-Standard delivery measures such as lead time for changes and cycle time are still useful, but they can miss part of this problem when the largest delay happens before implementation starts or while work is waiting outside the engineering workflow. I would pair them with a small set of measures that expose where elapsed time is actually going:
+Standard delivery measures such as lead time for changes and cycle time are still useful, but they can miss part of this problem when the largest delay happens before implementation starts or while work is waiting outside the engineering workflow. I would pair them with a small set of measures that show where the elapsed time goes:
 
 | Metric | What it reveals |
 | --- | --- |
@@ -161,19 +161,17 @@ Standard delivery measures such as lead time for changes and cycle time are stil
 | Decision reopen rate | How often closed decisions are reopened without material new evidence |
 | Wait share | Calendar days with no active work, as a share of total elapsed days |
 
-These do not need to become another dashboard that teams optimize for. They are diagnostic measures. Count a day as active if anyone was working on the change; parallel work does not add extra days. In the earlier example, five active days out of forty gives a wait share of nearly 90%. That tells a very different story from a change where most of the forty days went into building and testing the product.
+These do not need to become another dashboard that teams optimize for. They are diagnostic measures. Count a day as active if anyone worked on the change that day. Parallel work does not add extra days. In the earlier example, five active days out of forty gives a wait share of nearly 90%. That tells a very different story from a change where most of the forty days went into building and testing the product.
 
 Those measures tell you whether the organization is becoming easier or harder to move through, and they change the conversation. Instead of "Engineering needs to deliver faster," leaders can ask why a five-day implementation took forty days to reach customers. Sometimes the answer will be a legitimate constraint. Other times it will expose approval queues, unclear ownership, serial reviews, or a control that exists because nobody has revisited why it was created.
 
 ## A better definition of alignment
 
-As companies grow, alignment becomes more important because the consequences of independent decisions grow with them. I do not think the answer is fewer conversations for the sake of fewer conversations, and I do not think every company should copy startup informality. The better goal is to make alignment produce autonomy.
+As companies grow, alignment matters more, because independent decisions carry bigger consequences. I do not think the answer is fewer conversations for their own sake, and I do not think every company should copy startup informality. The better goal is to make alignment produce autonomy.
 
-Teams should share the mission, customer problem, constraints, interfaces, and measures of success. People with relevant expertise should be able to challenge assumptions and surface risks, and decisions with large or irreversible consequences should receive the scrutiny they deserve. Once that context is in place, the organization should be able to let people act.
+Teams should share the mission, the customer problem, the constraints, the interfaces, and the measures of success. People with relevant expertise should challenge assumptions and surface risks. Decisions with large or irreversible consequences should get the scrutiny they deserve. Once that context is in place, let people act.
 
-Alignment has done its job when it makes the next decision easier to make without everybody being present. When every decision creates another round of alignment, the company has not reduced uncertainty; it has distributed decision authority so widely that nobody can move without permission.
-
-The change at the start of this piece should take about a week. If it takes six, the extra five weeks are the tax, and the customer is the one paying it.
+Alignment has done its job when the next decision can be made without everyone in the room. If every decision needs another round of alignment, the company has not reduced uncertainty. It has spread decision authority so widely that nobody can move without permission.
 
 ## References
 
