@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="value-title value-desc">
+  <title id="value-title">Alignment has diminishing returns</title>
+  <desc id="value-desc">Conceptual chart showing that value from shared context rises quickly and then levels off, while coordination cost keeps increasing. The useful alignment zone is between under-alignment and the point where coordination cost overtakes value.</desc>
+
+  <rect x="1" y="1" width="1198" height="718" rx="24" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="64" y="62" font-size="32" font-weight="700" fill="#0f172a">Alignment has diminishing returns</text>
+    <text x="64" y="97" font-size="17" fill="#475569">Shared context rises quickly, while coordination cost keeps increasing</text>
+
+    <rect x="64" y="121" width="16" height="16" rx="4" fill="#2563eb"/>
+    <text x="90" y="135" font-size="15" fill="#334155">Value from shared context</text>
+    <rect x="302" y="121" width="16" height="16" rx="4" fill="#dc2626"/>
+    <text x="328" y="135" font-size="15" fill="#334155">Coordination cost</text>
+
+    <rect x="375" y="165" width="285" height="425" fill="#dcfce7" opacity="0.65"/>
+    <text x="517" y="190" font-size="15" font-weight="700" fill="#166534" text-anchor="middle">Useful alignment zone</text>
+
+    <line x1="120" y1="165" x2="120" y2="590" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="120" y1="590" x2="1140" y2="590" stroke="#94a3b8" stroke-width="2"/>
+
+    <path d="M130 550 C255 345 385 250 525 215 C700 178 905 174 1120 172" fill="none" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+    <path d="M130 575 C300 570 445 520 595 430 C750 335 900 220 1120 120" fill="none" stroke="#dc2626" stroke-width="6" stroke-linecap="round"/>
+
+    <line x1="930" y1="165" x2="930" y2="590" stroke="#64748b" stroke-width="2" stroke-dasharray="8 8"/>
+    <text x="945" y="205" font-size="14" font-weight="700" fill="#475569">Cost begins to dominate</text>
+
+    <g font-size="15" fill="#334155">
+      <text x="150" y="530" font-weight="700">Under-aligned</text>
+      <text x="150" y="552" font-size="13" fill="#64748b">Missed context and dependencies</text>
+      <text x="770" y="525" font-weight="700">Alignment tax</text>
+      <text x="770" y="547" font-size="13" fill="#64748b">More permission, little new context</text>
+    </g>
+
+    <text x="630" y="635" font-size="15" fill="#475569" text-anchor="middle">Amount of coordination and approval</text>
+    <text x="45" y="380" transform="rotate(-90 45 380)" font-size="15" fill="#475569" text-anchor="middle">Relative value and cost</text>
+    <text x="64" y="684" font-size="13" fill="#64748b">Conceptual model. The crossover changes with risk, reversibility, dependencies, and regulation.</text>
+  </g>
+</svg>
