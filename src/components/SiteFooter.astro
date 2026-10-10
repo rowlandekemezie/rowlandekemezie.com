@@ -92,10 +92,13 @@ function iconId(label: string) {
   .site-footer-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.55rem 1rem;
+    gap: 0 1rem;
   }
 
   .site-footer-links a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
     color: var(--footer-muted);
     font-size: 0.875rem;
     text-decoration-color: var(--footer-line);

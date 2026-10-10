@@ -42,8 +42,8 @@ import { site } from '../lib/site';
       <p>
         Send <code>GET /api/v1/profile</code> to retrieve canonical public profile data. The response
         is JSON, uses a versioned URL, and includes rate-limit headers so clients can self-throttle.
-        Unsupported methods and unknown v1 resources return <code>application/problem+json</code>
-        with a stable error code, a human-readable message, and a recovery hint.
+        Unsupported methods and unknown v1 resources return <code>application/problem+json</code> with
+        a stable error code, a human-readable message, and a recovery hint.
       </p>
       <pre><code>curl -H "Accept: application/json" https://rowlandekemezie.com/api/v1/profile</code></pre>
       <p><a href="/api/v1/profile">Open the profile endpoint</a>.</p>
@@ -54,10 +54,10 @@ import { site } from '../lib/site';
     <div class="section-stack">
       <h2>Markdown negotiation</h2>
       <p>
-        The homepage supports HTTP content negotiation. Send <code>Accept: text/markdown</code> to
-        <code>https://rowlandekemezie.com/</code> for a concise Markdown representation. Normal
-        browser requests continue to receive the existing HTML site. Negotiated responses include
-        <code>Vary: Accept, Accept-Encoding</code> so shared caches do not mix HTML and Markdown.
+        The homepage supports HTTP content negotiation. Send <code>Accept: text/markdown</code> to the
+        homepage, <code>https://rowlandekemezie.com/</code>, for a concise Markdown representation. Normal browser requests continue to receive the existing
+        HTML site. Negotiated responses include <code>Vary: Accept, Accept-Encoding</code> so shared
+        caches do not mix HTML and Markdown.
       </p>
     </div>
   </section>

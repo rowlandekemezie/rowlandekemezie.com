@@ -54,6 +54,13 @@ const series = getSeriesForPost(post);
     text-transform: uppercase;
   }
 
+  /* Enlarge the series link's tap area without changing the meta row's height. */
+  .post-card-meta a {
+    display: inline-block;
+    padding-block: 0.5rem;
+    margin-block: -0.5rem;
+  }
+
   .post-card-meta span:last-child {
     color: var(--accent);
   }

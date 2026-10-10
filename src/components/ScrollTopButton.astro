@@ -1,5 +1,6 @@
 <button type="button" class="scroll-top-button" data-scroll-top hidden>
-  Scroll to Top
+  <span class="scroll-top-icon" aria-hidden="true">↑</span>
+  <span class="scroll-top-label">Scroll to top</span>
 </button>
 
 <script is:inline>
@@ -60,11 +61,41 @@
     outline-offset: 3px;
   }
 
+  .scroll-top-icon {
+    display: none;
+  }
+
+  /* On phones a text button covers the reading column, so collapse it to a small round icon. */
   @media (max-width: 47.9375rem) {
     .scroll-top-button {
-      right: 1rem;
-      bottom: 1rem;
-      padding-inline: 0.9rem;
+      right: 0.75rem;
+      bottom: 0.75rem;
+      display: inline-grid;
+      width: 2.75rem;
+      height: 2.75rem;
+      place-items: center;
+      padding: 0;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+    }
+
+    .scroll-top-button[hidden] {
+      display: none;
+    }
+
+    .scroll-top-icon {
+      display: block;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .scroll-top-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
     }
   }
 </style>

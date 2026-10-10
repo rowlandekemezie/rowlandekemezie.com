@@ -199,6 +199,9 @@ const themeInitScript =
         min-height: 2.75rem;
       }
       .site-brand {
+        display: inline-flex;
+        min-height: 2.75rem;
+        align-items: center;
         color: var(--heading);
         font-family: var(--font-serif);
         font-size: 1.1rem;
@@ -219,7 +222,14 @@ const themeInitScript =
         gap: 1rem;
         align-items: center;
       }
-      .site-nav a { color: var(--muted); font-size: 0.9rem; text-decoration: none; }
+      .site-nav a {
+        display: inline-flex;
+        min-height: 2.75rem;
+        align-items: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
       .site-nav a:hover,
       .site-nav a:focus-visible,
       .site-nav a[aria-current='page'] { color: var(--text); }
@@ -492,8 +502,17 @@ const themeInitScript =
         font-weight: 700;
         letter-spacing: 0.01em;
       }
-      .taxonomy-list { display: grid; gap: 0.75rem; padding-left: 1rem; }
-      .taxonomy-list a { text-decoration: none; }
+      .taxonomy-list { display: grid; gap: 0.25rem; padding-left: 1rem; }
+      .taxonomy-list a { display: inline-flex; min-height: 2.75rem; align-items: center; text-decoration: none; }
+      pre { max-width: 100%; overflow-x: auto; }
+      .section pre {
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+        background: var(--code-bg);
+        color: var(--code-ink);
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
       .taxonomy-list a:hover,
       .taxonomy-list a:focus-visible { color: var(--accent); }
       .prose {
@@ -663,7 +682,7 @@ const themeInitScript =
         }
       }
       @media (max-width: 40rem) {
-        .site-header-bar { align-items: flex-start; flex-direction: column; padding-bottom: 0.9rem; }
+        .site-header-bar { align-items: flex-start; flex-direction: column; gap: 0; padding-bottom: 0.5rem; }
         .site-nav { width: 100%; gap: 0.75rem; }
         .site-nav a { white-space: nowrap; }
         .site-nav .theme-toggle { flex: 0 0 auto; margin-inline-start: auto; }
