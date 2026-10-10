@@ -19,23 +19,21 @@ I was inspired by the last post on [The Effective Learner](https://rowlandekemez
 
 You might have passed through the college, dropped out, at the brink of dropping out; your expectations might have been trampled and you’re frustrated and bored about the whole idea of schooling. Let’s walk through on why it’s so and how to probably focus on what matters most — _Education and Learning._
 
-### My experience with Academic seminars and Career talk
+## My experience with Academic seminars and Career talk
 
 A couple of academic seminars I’ve organized and the ones I spoke in gave me a sense of how education has been misunderstood. The focus during such programs was answering some of the questions I receive daily on how I scaled the hurdle of running two courses concurrently and still came out with excellent result. I feel a great sense of respect in the air after such events and some would want to be my friend whereas some bow out with a feeling that I must be extraordinary.
 
 In an attempt to provide genuine guidance having missed the whole essence of education in some aspects, the common question among participants was how to make best grades and maybe come out top of their class. They want a rule to nail it; an Almighty formula to perform the magic for them. I scarcely hear someone asking me how to learn these hard subjects — how to ensure I relate what I’m learning with what is obtainable in real life. This is terrible for our brain, educational system and the world at large. It’s heartbreaking that such has been allowed to almost perpetuate. Rather than ask real questions, people’s thoughts are centered on passing tests probably set by an individual. The truth is, <em>learn some tricks about passing exams without interest in the main purpose of learning, you become clueless afterwards.</em> This approach is myopic, ineffective, and obtrusive for learning.
 
-### **Understanding the premise of the problem**
+## **Understanding the premise of the problem**
 
-> We cannot solve our problems with the same thinking we used when we created them. — [Albert Einstein](http://www.brainyquote.com/quotes/quotes/a/alberteins121993.html?src=t_problems).
+> We cannot solve our problems with the same thinking we used when we created them. — [Albert Einstein](https://www.brainyquote.com/quotes/quotes/a/alberteins121993.html?src=t_problems).
 
 The premise of our problem is in comparing and contrasting education and schooling. Over the past couple of years, the wave of education surged like a tsunami across all nations. Whether we understand what we want and the essence of education is a great concern. Schooling was synonymous with education. If you went to school, you’re certified educated by the society. School system became the de facto standard of grading people’s level of education. The interest of every parent was to see their children go to school. We’ve a clue of what education could make out of any individual but the process was coaxed along the line.
 
 Can schooling be said to be same as being educated? What could be fundamentally wrong with such thought? I would want to share my thoughts on two counts — the problem as well as recommendations.
 
 ![Schooling vs Education](./images/schooling-vs-education.png)
-
-[http://www.mrprintables.com/images/printable-quote-twain.jpg](http://www.mrprintables.com/images/printable-quote-twain.jpg)
 
 **Creativity is the climax of learning**. Creativity is a clear demonstration of foundational knowledge and mastery of a craft. It’s the most crucial factor for future success. Doing something differently should be the learning outcome. The illusion of competence is in its climax if it’s about doing the same thing the same way. What gain is it to the student to give back an examiner the same thing, the same way it’s in a textbook during an examination?
 
@@ -51,9 +49,9 @@ Could it be the reason why some people who attended the supposedly prestigious i
 
 **The school system needs a redefinition:** School system was meant to be the hallmark of education and learning. There’s no problem with education. The problem is with the current system we largely operate. People have been educated without the system and we study about them in our schools these days.
 
-[Newton](http://www.biography.com/people/isaac-newton-9422656#early-life) graduated with no honors or distinctions but his efforts won him the title of a scholar and four years of financial support for future education.
+[Newton](https://www.biography.com/people/isaac-newton-9422656#early-life) graduated with no honors or distinctions but his efforts won him the title of a scholar and four years of financial support for future education.
 
-[Thomas Edison](http://www.biography.com/people/thomas-edison-9284349#synopsis), the inventor with the highest number of patents — 1100, had his formal education stopped at the age of 12, but his whole life was consumed by a passion for self-education.
+[Thomas Edison](https://www.biography.com/people/thomas-edison-9284349#synopsis), the inventor with the highest number of patents — 1100, had his formal education stopped at the age of 12, but his whole life was consumed by a passion for self-education.
 
 Arguably, the most certified academically are usually not the game changers; one thing is constant, though — _education_. Some resounding impact has been made by some people who dropped out of school or just completed the basic educational curriculum. It’s a clear indication that there’s nothing wrong with education as it remains constant, but the school system needs reformation to meet her goals for learning.
 
@@ -73,7 +71,7 @@ Prefer <em>walking the walk</em> to <em>talking the walk.</em> Theories can not 
 
 ## **Key Takeaways**
 
-> The function of education is to teach one to think intensively and to think critically. Intelligence plus character — that is the goal of true education. — [Martin Luther King, Jr](http://www.brainyquote.com/quotes/quotes/m/martinluth402936.html?src=t_education.).
+> The function of education is to teach one to think intensively and to think critically. Intelligence plus character — that is the goal of true education. — [Martin Luther King, Jr](https://www.brainyquote.com/quotes/quotes/m/martinluth402936.html?src=t_education.).
 
 I’ve got no problem with education, neither do you. Learning is part of human existence. Definitely, educational institutions need restructuring but education must be pursued with the right perception.
 

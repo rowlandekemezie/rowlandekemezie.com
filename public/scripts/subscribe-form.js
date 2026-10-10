@@ -5,6 +5,7 @@
     if (!(form instanceof HTMLFormElement)) continue;
 
     const emailInput = form.querySelector('input[name="email"]');
+    const honeypotInput = form.querySelector('input[name="website"]');
     const submitButton = form.querySelector('button[type="submit"]');
     const status = form.querySelector('.subscribe-status');
 
@@ -16,14 +17,20 @@
       continue;
     }
 
-    const setPending = pending => {
-      emailInput.disabled = pending;
-      submitButton.disabled = pending;
-      submitButton.textContent = pending ? 'Subscribing...' : 'Subscribe';
+    // Use aria-busy/aria-disabled instead of the disabled attribute: disabling
+    // the focused button would drop keyboard focus back to the page body.
+    let pending = false;
+    const setPending = value => {
+      pending = value;
+      form.setAttribute('aria-busy', String(value));
+      emailInput.readOnly = value;
+      submitButton.setAttribute('aria-disabled', String(value));
+      submitButton.textContent = value ? 'Subscribing...' : 'Subscribe';
     };
 
     form.addEventListener('submit', async event => {
       event.preventDefault();
+      if (pending) return;
       status.textContent = '';
 
       if (!emailInput.value.trim()) {
@@ -41,6 +48,8 @@
           },
           body: JSON.stringify({
             email: emailInput.value.trim(),
+            website:
+              honeypotInput instanceof HTMLInputElement ? honeypotInput.value : '',
             referrer: window.location.href
           })
         });

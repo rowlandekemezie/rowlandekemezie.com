@@ -15,7 +15,9 @@ series:
   slug: building-integration-systems
   order: 2
 image: ./images/external-systems-lie.webp
----![External Systems Lie Image](./images/external-systems-lie.webp)
+---
+
+![External Systems Lie Image](./images/external-systems-lie.webp)
 
 [In the first article of this series,](https://rowlandekemezie.com/posts/integrations-start-where-api-documentation-ends/) I argued that integrations begin at the point where API documentation ends. Once your product depends on a third‑party system, the work becomes less about making API calls and more about owning the boundary between your domain and theirs. This second installment expands on that idea. It is about what happens when external systems quietly diverge from the world your code believes in.
 

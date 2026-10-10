@@ -11,8 +11,6 @@ const requiredFiles = [
   'robots.txt',
   'sitemap.xml',
   'post-search.json',
-  'page/1/index.html',
-  'page/2/index.html',
   'about/index.html',
   'pages/about/index.html',
   'series/index.html',
@@ -34,12 +32,13 @@ for (const relativePath of requiredFiles) {
 }
 
 const home = readFileSync(resolve(distDir, 'index.html'), 'utf8');
-const pageOne = readFileSync(
-  resolve(distDir, 'page', '1', 'index.html'),
+const notFound = readFileSync(resolve(distDir, '404.html'), 'utf8');
+const cdnPost = readFileSync(
+  resolve(distDir, 'posts', 'building-a-cdn-on-s3-compatible-object-storage', 'index.html'),
   'utf8'
 );
-const pageTwo = readFileSync(
-  resolve(distDir, 'page', '2', 'index.html'),
+const ajaxPost = readFileSync(
+  resolve(distDir, 'posts', 'handling-ajax-in-your-react-application-with-agility', 'index.html'),
   'utf8'
 );
 const about = readFileSync(
@@ -78,8 +77,6 @@ const robots = readFileSync(resolve(distDir, 'robots.txt'), 'utf8');
 const postSearch = readFileSync(resolve(distDir, 'post-search.json'), 'utf8');
 const builtOutput = [
   home,
-  pageOne,
-  pageTwo,
   about,
   seriesIndex,
   aiSeries,
@@ -133,12 +130,50 @@ const assertions = [
       postSearch.includes('/posts/improving-your-visual-review-with-percy/')
   ],
   [
-    'Page 1 archive includes pagination navigation',
-    pageOne.includes('aria-label="Pagination"')
+    'Home page lists earlier writing in a year-grouped archive',
+    home.includes('id="post-archive-heading"') &&
+      home.includes('/posts/improving-your-visual-review-with-percy/')
   ],
   [
-    'Page 2 archive renders the previous-page navigation',
-    pageTwo.includes('← Prev')
+    'Paginated archive pages are no longer generated',
+    !existsSync(resolve(distDir, 'page')) && !sitemap.includes('/page/')
+  ],
+  [
+    'Pages include a skip link to the main content',
+    home.includes('class="skip-link" href="#main"') && home.includes('id="main"')
+  ],
+  [
+    'Primary navigation marks the current page',
+    home.includes('href="/" aria-current="page"') && about.includes('href="/about/" aria-current="page"')
+  ],
+  [
+    'Posts without their own image fall back to the logo with a summary card',
+    cdnPost.includes('<meta property="og:image" content="https://rowlandekemezie.com/logos/logo-1024.png">') &&
+      cdnPost.includes('<meta name="twitter:card" content="summary">')
+  ],
+  [
+    'Article end links to newer and older essays',
+    percy.includes('id="keep-reading-heading"')
+  ],
+  [
+    'Archived posts show an archived note',
+    ajaxPost.includes('class="archived-note"') && !topThirty.includes('class="archived-note"')
+  ],
+  [
+    'Article dates use machine-readable time elements',
+    topThirty.includes('<time datetime="')
+  ],
+  [
+    '404 page is noindex and has no canonical URL',
+    notFound.includes('<meta name="robots" content="noindex">') && !notFound.includes('rel="canonical"')
+  ],
+  [
+    'Sitemap lists the about page exactly once',
+    sitemap.split('<loc>https://rowlandekemezie.com/about/</loc>').length === 2
+  ],
+  [
+    'Build output contains no Google Tag Manager script',
+    !builtOutput.includes('googletagmanager.com')
   ],
   [
     'About page is published under /about/',

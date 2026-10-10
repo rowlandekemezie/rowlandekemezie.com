@@ -1,0 +1,126 @@
+---
+import type { PostEntry } from '../lib/content';
+import { getPostPath, parsePostDate } from '../lib/content';
+
+interface Props {
+  posts: readonly PostEntry[];
+}
+
+const { posts } = Astro.props;
+
+const years = new Map<number, PostEntry[]>();
+
+for (const post of posts) {
+  const year = parsePostDate(post.data.date).getUTCFullYear();
+  years.set(year, [...(years.get(year) ?? []), post]);
+}
+
+function formatMonthDay(value: string) {
+  return parsePostDate(value).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+---
+
+{
+  posts.length > 0 && (
+    <section class="post-archive" aria-labelledby="post-archive-heading">
+      <h2 id="post-archive-heading">Earlier writing</h2>
+      {[...years.entries()].map(([year, yearPosts]) => (
+        <section class="post-archive-year" aria-labelledby={`archive-${year}`}>
+          <h3 id={`archive-${year}`}>{year}</h3>
+          <ol>
+            {yearPosts.map((post) => (
+              <li data-article-path={getPostPath(post)}>
+                <a href={getPostPath(post)}>{post.data.title}</a>
+                <time datetime={parsePostDate(post.data.date).toISOString()}>{formatMonthDay(post.data.date)}</time>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+    </section>
+  )
+}
+
+<style>
+  .post-archive {
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .post-archive h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.45rem, 2.2vw, 2rem);
+  }
+
+  .post-archive-year {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .post-archive-year h3 {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1.9;
+  }
+
+  ol {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 46rem;
+  }
+
+  li a {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    text-decoration: none;
+  }
+
+  li a:hover,
+  li a:focus-visible {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  li a:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  time {
+    flex: 0 0 auto;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 40rem) {
+    .post-archive-year {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.5rem;
+    }
+
+    li {
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+  }
+</style>

@@ -1,6 +1,5 @@
 ---
 import CloudflareAnalytics from '../components/CloudflareAnalytics.astro';
-import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import MermaidRenderer from '../components/MermaidRenderer.astro';
 import ScrollProgress from '../components/ScrollProgress.astro';
 import ScrollTopButton from '../components/ScrollTopButton.astro';
@@ -13,7 +12,9 @@ interface Props {
   footerVariant?: 'default' | 'article';
   hideFooter?: boolean;
   image?: string;
+  imageAlt?: string;
   layout?: 'default' | 'home' | 'article';
+  noindex?: boolean;
   publishedTime?: string;
   socialType?: 'article' | 'website';
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
@@ -26,30 +27,46 @@ const {
   footerVariant = 'default',
   hideFooter = false,
   image,
+  imageAlt,
   layout = 'default',
+  noindex = false,
   publishedTime,
   socialType = 'website',
   structuredData,
   title = site.title,
 } = Astro.props;
 
-const socialImage = image
-  ? image.startsWith('http')
-    ? image
-    : new URL(image, site.url).toString()
-  : undefined;
+// Pages without their own image fall back to the square site logo, which only
+// suits the small "summary" card rather than "summary_large_image".
+const hasOwnImage = Boolean(image);
+const socialImageSource = image ?? site.logo;
+const socialImage = socialImageSource.startsWith('http')
+  ? socialImageSource
+  : new URL(socialImageSource, site.url).toString();
+const socialImageAlt = hasOwnImage ? (imageAlt ?? title) : `${site.title} logo`;
+const twitterCard = hasOwnImage ? 'summary_large_image' : 'summary';
+
+const navItems = [
+  { href: '/', label: 'Writing', match: (path: string) => path === '/' || path.startsWith('/posts/') },
+  { href: '/series/', label: 'Series', match: (path: string) => path.startsWith('/series/') },
+  { href: '/about/', label: 'About', match: (path: string) => path.startsWith('/about/') },
+  { href: '/tags/', label: 'Tags', match: (path: string) => path.startsWith('/tags/') || path.startsWith('/categories/') },
+];
+const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 
 const defaultStructuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${site.url}/#website`,
     name: site.title,
-    description,
+    description: site.description,
     url: site.url,
   },
   {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': `${site.url}/#person`,
     name: site.author.name,
     description: site.author.summary,
     url: site.url,
@@ -62,6 +79,8 @@ const jsonLd = JSON.stringify(
 );
 const emailLinkScript =
   '(()=>{const i=()=>document.querySelectorAll("[data-email-link]").forEach((n)=>{if(!(n instanceof HTMLAnchorElement))return;const{eh,es,eu}=n.dataset;if(!eu||!eh)return;n.href="mai"+"lto:"+eu+"@"+eh+(es?"?subject="+es:"")});document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:true}):i()})();';
+const readingHistoryInitScript =
+  "(()=>{try{for(let i=0;i<localStorage.length;i++){if((localStorage.key(i)||'').startsWith('rowland.reading.v1:article:')){document.documentElement.dataset.readingHistory='true';return}}}catch{}})()";
 const themeInitScript =
   "(()=>{let t;try{t=localStorage.getItem('rowland.theme')}catch{}document.documentElement.dataset.theme=t==='dark'||t==='light'?t:matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'})()";
 ---
@@ -72,7 +91,7 @@ const themeInitScript =
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title={`${site.title} RSS Feed`} href="/rss.xml" />
     <meta property="og:type" content={socialType} />
@@ -80,18 +99,22 @@ const themeInitScript =
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={site.title} />
+    <meta property="og:locale" content="en_US" />
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
-    {socialImage && <meta property="og:image" content={socialImage} />}
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    <meta name="twitter:card" content={twitterCard} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:creator" content={`@${site.author.twitter}`} />
-    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
     <script is:inline type="application/ld+json" set:html={jsonLd}></script>
     <script is:inline set:html={emailLinkScript}></script>
-    <script src="/scripts/pwa-cache-reset.js" defer></script>
+    <script is:inline src="/scripts/pwa-cache-reset.js" defer></script>
     <title>{title}</title>
     <script is:inline set:html={themeInitScript}></script>
+    <script is:inline set:html={readingHistoryInitScript}></script>
     <style is:global>
       /* Hallmark · genre: editorial · tone: quiet · palette anchor: umber · macrostructure: Index-First · nav: N9 · footer: Ft7 · pre-emit critique: P5 H5 E5 S5 R5 V5 · contrast: pass (40–41) · slop: pass (42–45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (34, 49–57) · icons: pass (30) */
       :root {
@@ -198,7 +221,32 @@ const themeInitScript =
       }
       .site-nav a { color: var(--muted); font-size: 0.9rem; text-decoration: none; }
       .site-nav a:hover,
-      .site-nav a:focus-visible { color: var(--text); }
+      .site-nav a:focus-visible,
+      .site-nav a[aria-current='page'] { color: var(--text); }
+      .site-nav a[aria-current='page'] {
+        text-decoration: underline;
+        text-decoration-color: var(--accent);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 0.4em;
+      }
+      .skip-link {
+        position: absolute;
+        z-index: 100;
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 0.6rem 1rem;
+        background: var(--heading);
+        color: var(--bg);
+        font-weight: 700;
+        text-decoration: none;
+        transform: translateY(-200%);
+      }
+      .skip-link:focus { transform: translateY(0); outline: 2px solid var(--focus); outline-offset: 2px; }
+      .site-main:focus { outline: none; }
+      /* Reading progress UI only appears once this browser has some reading history. */
+      :root:not([data-reading-history='true']) [data-reading-summary],
+      :root:not([data-reading-history='true']) .post-card-state,
+      :root:not([data-reading-history='true']) .article-meta [data-reading-status] { display: none; }
       .site-main {
         flex: 1 0 auto;
         padding: 2rem 0 4rem;
@@ -301,6 +349,7 @@ const themeInitScript =
         overflow-wrap: anywhere;
       }
       h1 {
+        font-family: var(--font-serif);
         font-size: clamp(2.15rem, 5.2vw, 4.2rem);
       }
       h2 {
@@ -311,133 +360,22 @@ const themeInitScript =
         gap: clamp(2.8rem, 4vw, 4.4rem);
       }
       .page-flow > *,
-      .hero-grid > *,
-      .archive-grid > *,
-      .home-section > *,
-      .article-shell > *,
-      .split-line > *,
-      .page-grid > * {
+      .article-shell > * {
         min-width: 0;
       }
-      .grid-rule {
-        position: relative;
-      }
-      .grid-rule::before {
-        content: '';
-        position: absolute;
-        top: -1rem;
-        left: 0;
-        width: 100%;
-        border-top: 1px solid var(--line);
-      }
-      .section-anchor {
-        scroll-margin-top: 5rem;
-      }
-      .hero-grid,
-      .archive-grid,
-      .home-section,
-      .article-shell,
-      .split-line,
-      .page-grid {
-        display: grid;
-        gap: clamp(1.2rem, 2vw, 2rem);
-      }
-      .hero-grid {
-        grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 0.95fr);
-        align-items: start;
-      }
-      .archive-grid,
-      .home-section {
-        grid-template-columns: minmax(0, 1.75fr) minmax(16rem, 0.9fr);
-        align-items: start;
-      }
       .article-shell {
+        display: grid;
         grid-template-columns: minmax(0, 1.85fr) minmax(16rem, 0.78fr);
+        gap: clamp(1.2rem, 2vw, 2rem);
         align-items: start;
-      }
-      .split-line {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .page-grid {
-        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      }
-      .home-section {
-        padding-top: clamp(1.35rem, 2vw, 2rem);
-        border-top: 1px solid var(--line);
-      }
-      .section-header {
-        max-width: 46rem;
-      }
-      .section-label {
-        display: inline-block;
-        margin-bottom: 0.7rem;
-        color: var(--accent);
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-      }
-      .section-title {
-        margin: 0;
-        line-height: 1.08;
-      }
-      .section-blurb {
-        max-width: 40rem;
-        margin: 0.95rem 0 0;
-        color: var(--muted);
-        line-height: 1.7;
-      }
-      .small-meta {
-        display: flex;
-        gap: 0.85rem;
-        flex-wrap: wrap;
-        margin-top: 1rem;
-        color: var(--muted);
-        font-size: 0.76rem;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .small-meta span {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-      }
-      .small-meta span + span::before {
-        content: '•';
-        margin-right: 0.45rem;
-        color: rgba(114, 103, 93, 0.72);
       }
       .paper,
-      .section,
-      .micro-panel,
-      .section-note,
-      .hero-note {
+      .section {
+        border: 1px solid var(--line);
         background: var(--surface);
       }
-      .paper,
-      .section,
-      .micro-panel,
-      .section-note {
-        border: 1px solid var(--line);
-      }
-      .paper-inner,
-      .section,
-      .micro-panel,
-      .section-note,
-      .hero-note {
+      .section {
         padding: clamp(1.1rem, 2vw, 1.6rem);
-      }
-      .hero-note {
-        margin-top: 1.1rem;
-        border-left: 2px solid rgba(181, 100, 29, 0.5);
-        color: var(--muted);
-      }
-      .hero-note p {
-        margin: 0;
-      }
-      .hero-note p + p {
-        margin-top: 0.45rem;
       }
       .section-stack > * + * {
         margin-top: 0.85rem;
@@ -462,69 +400,8 @@ const themeInitScript =
         letter-spacing: 0.13em;
         text-transform: uppercase;
       }
-      .link-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.45rem 0.9rem;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-      .link-list a {
-        color: var(--muted);
-        text-decoration: none;
-      }
-      .link-list a:hover,
-      .link-list a:focus-visible {
-        color: var(--text);
-      }
-      .nav-strip {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.65rem 1rem;
-      }
-      .nav-strip a {
-        text-decoration: none;
-      }
-      .essay-list,
-      .work-list,
-      .archive-list {
-        display: grid;
-        gap: 0.35rem;
-        margin-top: 1.2rem;
-      }
-      .section-note {
-        color: var(--muted);
-      }
-      .section-note p {
-        margin: 0;
-      }
-      .section-note p + p {
-        margin-top: 0.55rem;
-      }
-      .section-note strong {
-        color: var(--text);
-        font-size: 0.78rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .list-link {
-        color: var(--accent);
-        font-weight: 600;
-        text-decoration: none;
-      }
-      .list-link:hover,
-      .list-link:focus-visible {
-        text-decoration: underline;
-      }
       .article-head h1 {
         line-height: 1.04;
-      }
-      .article-lede {
-        max-width: 48rem;
-        margin: 1rem 0 0;
-        color: var(--muted);
-        line-height: 1.72;
       }
       .article-meta {
         display: flex;
@@ -536,26 +413,6 @@ const themeInitScript =
         font-weight: 700;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-      }
-      .article-cover {
-        margin: 1.65rem 0;
-      }
-      .article-cover img {
-        display: block;
-        width: 100%;
-        border: 1px solid var(--line);
-      }
-      .article-rail {
-        position: sticky;
-        top: 1.3rem;
-        align-self: start;
-        display: grid;
-        gap: 0.95rem;
-      }
-      .pillar-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
       }
       dl {
         margin: 0;
@@ -594,29 +451,6 @@ const themeInitScript =
         line-height: 1.7;
         color: var(--muted);
       }
-      .button-link {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 2.85rem;
-        padding: 0.65rem 1rem;
-        border: 1px solid var(--accent);
-        background: var(--accent);
-        color: #fff;
-        text-decoration: none;
-      }
-      .button-link:hover,
-      .button-link:focus-visible { background: #985111; }
-      .subtle-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        color: var(--muted);
-        text-decoration: none;
-      }
-      .subtle-link:hover,
-      .subtle-link:focus-visible { color: var(--text); }
-      .section-jumps,
       .tag-list {
         display: flex;
         flex-wrap: wrap;
@@ -625,7 +459,6 @@ const themeInitScript =
         margin: 0;
         list-style: none;
       }
-      .section-jumps a,
       .tag-list a {
         display: inline-flex;
         align-items: center;
@@ -636,8 +469,6 @@ const themeInitScript =
         text-decoration: none;
         border-bottom: 1px solid transparent;
       }
-      .section-jumps a:hover,
-      .section-jumps a:focus-visible,
       .tag-list a:hover,
       .tag-list a:focus-visible { color: var(--text); border-bottom-color: var(--accent); }
       .posts { display: grid; gap: 1.75rem; }
@@ -696,6 +527,18 @@ const themeInitScript =
       }
       .prose h2 { font-size: clamp(1.65rem, 3vw, 2.1rem); }
       .prose h3 { font-size: 1.25rem; }
+      .prose .icon-link {
+        margin-left: 0.4em;
+        color: var(--muted);
+        font-weight: 400;
+        text-decoration: none;
+        opacity: 0;
+        transition: opacity 120ms ease;
+      }
+      .prose .icon-link::before { content: '#'; }
+      /* rehype-autolink-headings anchors are aria-hidden and unfocusable; reveal them on hover for copying links. */
+      .prose :is(h2, h3, h4):hover .icon-link { opacity: 1; }
+      @media (hover: none) { .prose .icon-link { display: none; } }
       .prose p,
       .prose ul,
       .prose ol,
@@ -800,7 +643,7 @@ const themeInitScript =
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
         font-size: 0.9rem;
       }
-      .reveal { animation: reveal-up 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; will-change: transform; }
+      .reveal { animation: reveal-up 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
       .reveal-delay { animation-delay: 100ms; }
       .reveal-delay-2 { animation-delay: 180ms; }
       @keyframes reveal-up { from { transform: translateY(18px); } to { transform: translateY(0); } }
@@ -809,20 +652,7 @@ const themeInitScript =
         animation: none;
       }
       @media (max-width: 70rem) {
-        .hero-grid,
-        .archive-grid,
-        .home-section,
         .article-shell {
-          grid-template-columns: minmax(0, 1fr);
-        }
-        .article-rail {
-          position: static;
-        }
-      }
-      @media (max-width: 58rem) {
-        .page-grid,
-        .split-line,
-        .pillar-grid {
           grid-template-columns: minmax(0, 1fr);
         }
       }
@@ -838,110 +668,40 @@ const themeInitScript =
         .site-nav a { white-space: nowrap; }
         .site-nav .theme-toggle { flex: 0 0 auto; margin-inline-start: auto; }
         .site-main { padding-top: 1.5rem; }
-        .paper-inner,
-        .section,
-        .micro-panel,
-        .section-note,
-        .hero-note {
+        .section {
           padding: 1rem;
         }
       }
     </style>
   </head>
   <body class:list={{ 'dev-mode': import.meta.env.DEV }}>
+    <a class="skip-link" href="#main">Skip to content</a>
     <ScrollProgress />
     <header class="site-header">
       <div class="site-header-bar">
         <a class="site-brand" href="/">{site.title}</a>
         <nav class="site-nav" aria-label="Primary">
-          <a href="/">Writing</a>
-          <a href="/series/">Series</a>
-          <a href="/about/">About</a>
-          <a href="/tags/">Tags</a>
+          {
+            navItems.map((item) => (
+              <a href={item.href} aria-current={item.match(currentPath) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
           <button class="theme-toggle" type="button" role="switch" aria-label="Dark theme" aria-checked="false" data-theme-toggle>
             <span class="theme-knob" aria-hidden="true"></span>
           </button>
         </nav>
       </div>
     </header>
-    <main class="site-main" data-layout={layout}>
+    <main class="site-main" id="main" tabindex="-1" data-layout={layout}>
       <slot />
     </main>
     {!hideFooter && <SiteFooter variant={footerVariant} />}
     <ScrollTopButton />
     <MermaidRenderer />
-    <GoogleAnalytics />
     <CloudflareAnalytics />
-    <script is:inline>
-      (() => {
-        const KEY = 'rowland.theme';
-        const DARK = 'dark';
-        const LIGHT = 'light';
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
-
-        const getStoredTheme = () => {
-          try {
-            const value = window.localStorage.getItem(KEY);
-            return value === DARK || value === LIGHT ? value : null;
-          } catch {
-            return null;
-          }
-        };
-
-        const resolveTheme = () => {
-          const stored = getStoredTheme();
-          if (stored) return stored;
-          return systemTheme.matches ? DARK : LIGHT;
-        };
-
-        const applyTheme = (theme) => {
-          document.documentElement.dataset.theme = theme;
-          document.querySelectorAll('[data-theme-toggle]').forEach((el) => {
-            if (el instanceof HTMLButtonElement) {
-              el.setAttribute('aria-checked', theme === DARK ? 'true' : 'false');
-            }
-          });
-          window.dispatchEvent(new CustomEvent('rowland:theme-change', { detail: { theme } }));
-        };
-
-        const saveTheme = (theme) => {
-          try {
-            window.localStorage.setItem(KEY, theme);
-          } catch {
-            // no-op
-          }
-        };
-
-        const init = () => {
-          applyTheme(resolveTheme());
-
-          document.querySelectorAll('[data-theme-toggle]').forEach((el) => {
-            if (!(el instanceof HTMLButtonElement)) return;
-
-            el.addEventListener('click', () => {
-              const nextTheme = document.documentElement.dataset.theme === DARK ? LIGHT : DARK;
-              applyTheme(nextTheme);
-              saveTheme(nextTheme);
-            });
-          });
-
-          systemTheme.addEventListener('change', (event) => {
-            if (getStoredTheme()) return;
-            applyTheme(event.matches ? DARK : LIGHT);
-          });
-
-          window.addEventListener('storage', (event) => {
-            if (event.key === KEY) applyTheme(resolveTheme());
-          });
-        };
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', init, { once: true });
-        } else {
-          init();
-        }
-      })();
-    </script>
+    <script is:inline src="/scripts/theme-toggle.js" defer></script>
     <script>
       import '../scripts/reading-experience';
     </script>

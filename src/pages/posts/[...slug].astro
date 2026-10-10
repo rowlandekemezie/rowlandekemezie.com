@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import { render } from 'astro:content';
 import ArticleTableOfContents from '../../components/ArticleTableOfContents.astro';
 import EmailLink from '../../components/EmailLink.astro';
@@ -37,10 +38,19 @@ const nextInSeries =
   seriesGroup && seriesPosition >= 0 && seriesPosition < seriesGroup.posts.length - 1
     ? seriesGroup.posts[seriesPosition + 1]
     : undefined;
+// Newer and older essays for the end-of-article "Keep reading" links.
+const postIndex = allPosts.findIndex((candidate) => getPostPath(candidate) === getPostPath(post));
+const newerPost = postIndex > 0 ? allPosts[postIndex - 1] : undefined;
+const olderPost = postIndex >= 0 && postIndex < allPosts.length - 1 ? allPosts[postIndex + 1] : undefined;
 const title = `${post.data.title} — ${site.title}`;
 const canonical = new URL(getPostPath(post), site.url).toString();
 const publishedTime = parsePostDate(post.data.date).toISOString();
-const socialImage = post.data.image ? new URL(post.data.image.src, site.url).toString() : undefined;
+const modifiedTime = post.data.updated ? parsePostDate(post.data.updated).toISOString() : publishedTime;
+// Social networks reject very large images, so share a resized JPEG rather than the original.
+const socialImagePath = post.data.image
+  ? (await getImage({ src: post.data.image, width: Math.min(1200, post.data.image.width), format: 'jpeg', quality: 80 })).src
+  : undefined;
+const socialImage = socialImagePath ? new URL(socialImagePath, site.url).toString() : undefined;
 const description = post.data.description ?? getPostExcerpt(post);
 const articleStructuredData = {
   '@context': 'https://schema.org',
@@ -48,11 +58,17 @@ const articleStructuredData = {
   headline: post.data.title,
   description,
   datePublished: publishedTime,
-  dateModified: publishedTime,
+  dateModified: modifiedTime,
   author: {
     '@type': 'Person',
+    '@id': `${site.url}/#person`,
     name: site.author.name,
+    url: new URL('/about/', site.url).toString(),
   },
+  publisher: {
+    '@id': `${site.url}/#person`,
+  },
+  inLanguage: 'en',
   ...(seriesGroup
     ? {
         isPartOf: {
@@ -80,7 +96,7 @@ const articleStructuredData = {
   structuredData={articleStructuredData}
 >
   <div class="page-flow">
-    <section data-reading-article data-article-path={getPostPath(post)}>
+    <article data-reading-article data-article-path={getPostPath(post)}>
       <div class="article-head reveal">
         <span class="eyebrow">{post.data.category ?? 'Essay'}</span>
         <h1>{post.data.title}</h1>
@@ -93,17 +109,26 @@ const articleStructuredData = {
           )
         }
         <p class="article-meta">
-          <span>{formatPostDate(post.data.date)}</span>
+          <time datetime={publishedTime}>{formatPostDate(post.data.date)}</time>
+          {post.data.updated && <span>Updated <time datetime={modifiedTime}>{formatPostDate(post.data.updated)}</time></span>}
           <span>{getPostReadingMinutes(post)} min read</span>
           <span data-reading-status>Unread</span>
         </p>
+        {
+          post.data.archived && (
+            <p class="archived-note">
+              <strong>Archived.</strong> I wrote this in {parsePostDate(post.data.date).getUTCFullYear()} and haven't
+              updated it since. Some tools, links, and advice may be out of date.
+            </p>
+          )
+        }
       </div>
 
       <div class="article-shell">
         <div class="article-main">
-          <article class="prose reveal reveal-delay-2" data-reading-prose>
+          <div class="prose reveal reveal-delay-2" data-reading-prose>
             <Content />
-          </article>
+          </div>
 
           <section
             class="reading-completion"
@@ -114,9 +139,13 @@ const articleStructuredData = {
           >
             <div class="reading-completion-status">
               <span class="reading-completion-mark" aria-hidden="true">✓</span>
-              <div>
+              <div class="reading-completion-done">
                 <p class="reading-completion-label">Reading complete</p>
                 <p class="reading-completion-note">Saved on this device.</p>
+              </div>
+              <div class="reading-completion-cleared">
+                <p class="reading-completion-label">Marked unread</p>
+                <p class="reading-completion-note">Your progress on this essay was cleared.</p>
               </div>
             </div>
             <button class="reading-control" type="button" data-reading-toggle hidden>Mark unread</button>
@@ -155,6 +184,28 @@ const articleStructuredData = {
             )
           }
 
+          {
+            (newerPost || olderPost) && (
+              <nav class="keep-reading reveal reveal-delay-2" aria-labelledby="keep-reading-heading">
+                <h2 id="keep-reading-heading">Keep reading</h2>
+                <ul>
+                  {newerPost && (
+                    <li>
+                      <span class="keep-reading-label">Newer</span>
+                      <a href={getPostPath(newerPost)}>{newerPost.data.title}</a>
+                    </li>
+                  )}
+                  {olderPost && (
+                    <li>
+                      <span class="keep-reading-label">Older</span>
+                      <a href={getPostPath(olderPost)}>{olderPost.data.title}</a>
+                    </li>
+                  )}
+                </ul>
+              </nav>
+            )
+          }
+
           <section
             class="article-reply reveal reveal-delay-2"
             aria-labelledby="article-reply-heading"
@@ -176,7 +227,7 @@ const articleStructuredData = {
 
         <ArticleTableOfContents headings={headings} />
       </div>
-    </section>
+    </article>
   </div>
 </BaseLayout>
 
@@ -203,6 +254,87 @@ const articleStructuredData = {
 
   .reading-completion[hidden] {
     display: none;
+  }
+
+  .reading-completion:focus {
+    outline: none;
+  }
+
+  .reading-completion:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .reading-completion-cleared,
+  .reading-completion[data-reading-marked-unread] .reading-completion-done,
+  .reading-completion[data-reading-marked-unread] .reading-completion-mark {
+    display: none;
+  }
+
+  .reading-completion[data-reading-marked-unread] .reading-completion-cleared {
+    display: block;
+  }
+
+  .archived-note {
+    max-width: 46rem;
+    margin: 0 0 1.35rem;
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .keep-reading {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .keep-reading h2 {
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+  }
+
+  .keep-reading ul {
+    display: grid;
+    gap: 1rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .keep-reading li {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .keep-reading-label {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .keep-reading a {
+    color: var(--heading);
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-decoration: none;
+  }
+
+  .keep-reading a:hover,
+  .keep-reading a:focus-visible {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .keep-reading a:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
   }
 
   .reading-completion-status {

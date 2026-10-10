@@ -6,7 +6,10 @@ import { categoryRoute, site } from '../../lib/site';
 const categories = groupPostsByCategory(await getPublishedPosts());
 ---
 
-<BaseLayout title={`Categories — ${site.title}`} description={site.description}>
+<BaseLayout
+  title={`Categories — ${site.title}`}
+  description={`Browse Rowland Ekemezie's writing by category: ${categories.map(([category]) => category).join(', ')}.`}
+>
   <section class="panel stack">
     <span class="eyebrow">Taxonomy</span>
     <h1>Categories</h1>

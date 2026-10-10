@@ -13,15 +13,12 @@ Phase 1 targets a static Astro deploy on Cloudflare Pages.
 
 ## Current production state
 
-As verified on `2026-05-03`, the live site is still served by Netlify.
+As verified on `2026-10-09`, the apex domain is served by Cloudflare Pages (`server: cloudflare`).
 
-- Response headers show `server: Netlify`
-- Edge cache headers show `cache-status: "Netlify Edge"`
-- Current apex DNS resolves to:
-  - `52.52.192.191`
-  - `13.52.188.95`
-- Current `www` DNS resolves to:
-  - `rowlandbits.netlify.com.`
+Outstanding DNS work:
+
+- `www.rowlandekemezie.com` still resolves to `rowlandbits.netlify.com.`, so HTTPS on `www` fails with a certificate mismatch.
+- Fix: in the Cloudflare dashboard, point `www` at the Pages project (add it as a custom domain, or use a proxied CNAME to `rowlandekemezie.com`). `public/_worker.js` already 301-redirects any `www` request it receives to the apex domain.
 
 ## Repository wiring
 

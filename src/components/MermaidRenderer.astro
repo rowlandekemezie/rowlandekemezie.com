@@ -42,6 +42,44 @@
       }
     });
 
+    // Screen readers get the diagram type plus the section it illustrates,
+    // e.g. "Sequence diagram: Freshness comes from object metadata".
+    const diagramKinds: Record<string, string> = {
+      flowchart: 'Flowchart',
+      graph: 'Flowchart',
+      sequenceDiagram: 'Sequence diagram',
+      stateDiagram: 'State diagram',
+      'stateDiagram-v2': 'State diagram',
+      classDiagram: 'Class diagram',
+      erDiagram: 'Entity relationship diagram',
+      gantt: 'Timeline chart',
+      pie: 'Pie chart',
+      timeline: 'Timeline',
+      mindmap: 'Mind map',
+      architecture: 'Architecture diagram',
+      'architecture-beta': 'Architecture diagram',
+    };
+
+    const describeDiagram = (block: HTMLElement, source: string, animated: boolean) => {
+      const keyword = source.split(/\s/, 1)[0] ?? '';
+      const kind = animated ? 'Animated request flow diagram' : (diagramKinds[keyword] ?? 'Diagram');
+      let node: Element | null = block;
+
+      while (node) {
+        let sibling = node.previousElementSibling;
+        while (sibling) {
+          if (/^H[2-4]$/.test(sibling.tagName)) {
+            const heading = sibling.textContent?.replace(/#\s*$/, '').trim();
+            return heading ? `${kind}: ${heading}` : kind;
+          }
+          sibling = sibling.previousElementSibling;
+        }
+        node = node.parentElement?.closest('.prose') ? node.parentElement : null;
+      }
+
+      return kind;
+    };
+
     blocks.forEach((block) => {
       if (!(block instanceof HTMLElement)) return;
 
@@ -56,10 +94,7 @@
       diagram.className = 'mermaid-diagram';
       diagram.dataset.mermaidSource = source;
       diagram.setAttribute('role', 'img');
-      diagram.setAttribute(
-        'aria-label',
-        requestFlowSteps.length > 0 ? 'Animated request flow diagram' : 'Architecture diagram'
-      );
+      diagram.setAttribute('aria-label', describeDiagram(block, source, requestFlowSteps.length > 0));
 
       if (requestFlowSteps.length === 0) {
         block.replaceWith(diagram);

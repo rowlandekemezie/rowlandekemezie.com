@@ -16,6 +16,7 @@
 </details>
 
 <script>
+  const maxResults = 6;
   import {
     parsePostSearchCatalog,
     type SearchPost,
@@ -94,11 +95,14 @@
         if (input.value.trim().toLowerCase() !== query) return;
 
         const matches = posts.filter((post) => post.text.includes(query));
-        results.replaceChildren(...matches.slice(0, 6).map(createResult));
+        const shown = matches.slice(0, maxResults);
+        results.replaceChildren(...shown.map(createResult));
         results.hidden = matches.length === 0;
-        status.textContent = matches.length > 0
-          ? `${matches.length} ${matches.length === 1 ? 'essay' : 'essays'} found.`
-          : `No essays match "${input.value.trim()}".`;
+        status.textContent = matches.length === 0
+          ? `No essays match "${input.value.trim()}".`
+          : shown.length < matches.length
+            ? `Showing ${shown.length} of ${matches.length} essays. Keep typing to narrow the results.`
+            : `${matches.length} ${matches.length === 1 ? 'essay' : 'essays'} found.`;
       } catch {
         catalogPromise = undefined;
         results.hidden = true;
@@ -127,9 +131,6 @@
   }
 
   document.querySelectorAll('[data-post-search]').forEach(initializePostSearch);
-  document.addEventListener('astro:page-load', () => {
-    document.querySelectorAll('[data-post-search]').forEach(initializePostSearch);
-  });
 </script>
 
 <style>
@@ -188,7 +189,7 @@
     width: 100%;
     min-height: 2.75rem;
     padding: 0.75rem;
-    border: 1px solid var(--line);
+    border: 1px solid var(--muted);
     border-radius: 0;
     outline: 2px solid transparent;
     outline-offset: 2px;

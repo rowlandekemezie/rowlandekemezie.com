@@ -32,8 +32,6 @@
             "description": "The public profile and canonical resource links.",
             "headers": {
               "RateLimit-Limit": { "$ref": "#/components/headers/RateLimitLimit" },
-              "RateLimit-Remaining": { "$ref": "#/components/headers/RateLimitRemaining" },
-              "RateLimit-Reset": { "$ref": "#/components/headers/RateLimitReset" },
               "RateLimit-Policy": { "$ref": "#/components/headers/RateLimitPolicy" },
               "Deprecation": { "$ref": "#/components/headers/Deprecation" },
               "Sunset": { "$ref": "#/components/headers/Sunset" }
@@ -65,8 +63,6 @@
             "description": "The method is not supported by this read-only endpoint.",
             "headers": {
               "RateLimit-Limit": { "$ref": "#/components/headers/RateLimitLimit" },
-              "RateLimit-Remaining": { "$ref": "#/components/headers/RateLimitRemaining" },
-              "RateLimit-Reset": { "$ref": "#/components/headers/RateLimitReset" },
               "RateLimit-Policy": { "$ref": "#/components/headers/RateLimitPolicy" }
             },
             "content": {
@@ -82,8 +78,6 @@
             "description": "A structured machine-readable API error.",
             "headers": {
               "RateLimit-Limit": { "$ref": "#/components/headers/RateLimitLimit" },
-              "RateLimit-Remaining": { "$ref": "#/components/headers/RateLimitRemaining" },
-              "RateLimit-Reset": { "$ref": "#/components/headers/RateLimitReset" },
               "RateLimit-Policy": { "$ref": "#/components/headers/RateLimitPolicy" }
             },
             "content": {
@@ -105,14 +99,6 @@
         "description": "Advisory request budget for the current 60-second window.",
         "schema": { "type": "integer", "minimum": 0, "example": 120 }
       },
-      "RateLimitRemaining": {
-        "description": "Advisory requests remaining in the current window.",
-        "schema": { "type": "integer", "minimum": 0, "example": 120 }
-      },
-      "RateLimitReset": {
-        "description": "Seconds until the current request window resets.",
-        "schema": { "type": "integer", "minimum": 0, "example": 60 }
-      },
       "RateLimitPolicy": {
         "description": "Request budget and window expressed in the RateLimit policy format.",
         "schema": { "type": "string", "example": "120;w=60" }
@@ -131,8 +117,6 @@
         "description": "A structured machine-readable error using application/problem+json.",
         "headers": {
           "RateLimit-Limit": { "$ref": "#/components/headers/RateLimitLimit" },
-          "RateLimit-Remaining": { "$ref": "#/components/headers/RateLimitRemaining" },
-          "RateLimit-Reset": { "$ref": "#/components/headers/RateLimitReset" },
           "RateLimit-Policy": { "$ref": "#/components/headers/RateLimitPolicy" }
         },
         "content": {

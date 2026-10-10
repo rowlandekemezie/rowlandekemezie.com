@@ -96,6 +96,24 @@ function initializeReadingExperience() {
     });
   }
 
+  function hasReadingHistory(): boolean {
+    if (memory.size > 0) return true;
+    if (storageMode !== 'persistent') return false;
+    try {
+      for (let index = 0; index < window.localStorage.length; index += 1) {
+        if (isReadingStorageKey(window.localStorage.key(index))) return true;
+      }
+    } catch {
+      return false;
+    }
+    return false;
+  }
+
+  function renderHistoryFlag() {
+    if (hasReadingHistory()) document.documentElement.dataset.readingHistory = 'true';
+    else delete document.documentElement.dataset.readingHistory;
+  }
+
   function renderStatus(element: HTMLElement, record: StoredReadingRecord | undefined) {
     const isRead = record?.kind === 'read';
     element.dataset.readingState = record?.kind ?? 'unread';
@@ -103,7 +121,9 @@ function initializeReadingExperience() {
       status.textContent = statusLabel(record);
     });
     element.querySelectorAll('[data-reading-completion]').forEach((completion) => {
-      if (completion instanceof HTMLElement) completion.hidden = !isRead;
+      if (!(completion instanceof HTMLElement)) return;
+      completion.hidden = !isRead;
+      if (isRead) delete completion.dataset.readingMarkedUnread;
     });
     element.querySelectorAll('[data-reading-toggle]').forEach((toggle) => {
       if (toggle instanceof HTMLButtonElement) {
@@ -178,6 +198,19 @@ function initializeReadingExperience() {
   function renderAll() {
     renderArticleStates();
     renderSummary();
+    renderHistoryFlag();
+  }
+
+  // Marking an essay unread hides the button that was just pressed. Keep the
+  // completion panel visible with a confirmation and move focus onto it, so
+  // keyboard and screen reader users are not dropped back to the top of the page.
+  function confirmMarkedUnread(article: HTMLElement) {
+    const completion = article.querySelector('[data-reading-completion]');
+    if (!(completion instanceof HTMLElement)) return;
+    completion.dataset.readingMarkedUnread = 'true';
+    completion.hidden = false;
+    completion.tabIndex = -1;
+    completion.focus({ preventScroll: true });
   }
 
   function measureArticle() {
@@ -240,6 +273,7 @@ function initializeReadingExperience() {
     if (record?.kind !== 'read') return;
     observationPaused = article.hasAttribute('data-reading-article');
     saveRecord(path, markUnread());
+    if (observationPaused) confirmMarkedUnread(article);
   });
 
   window.addEventListener(changeEvent, renderAll);

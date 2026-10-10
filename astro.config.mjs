@@ -1,6 +1,6 @@
 import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
-import { defineConfig, passthroughImageService } from "astro/config";
+import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 
@@ -11,9 +11,6 @@ export default defineConfig({
   },
   devToolbar: {
     enabled: false
-  },
-  image: {
-    service: passthroughImageService()
   },
   markdown: {
     processor: unified({

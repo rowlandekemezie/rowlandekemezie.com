@@ -37,3 +37,8 @@ lib-cov
 gatsby-starter-lumen.iml
 content/.DS_Store
 content/**/.DS_Store
+
+# Local secrets
+.env
+.env.*
+.dev.vars

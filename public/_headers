@@ -3,20 +3,29 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), geolocation=(), microphone=()
-  Cache-Control: public, max-age=0, must-revalidate, no-transform
+  Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
+
+/
   Vary: Accept, Accept-Encoding
 
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /sw.js
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+  Cache-Control: no-store, max-age=0
 
 /service-worker.js
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
-
-/workbox-*.js
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+  Cache-Control: no-store, max-age=0
 
 /logos/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400
+
+/icons/*
+  Cache-Control: public, max-age=86400
+
+/scripts/*
+  Cache-Control: public, max-age=3600, must-revalidate
 
 /*.xml
   Cache-Control: public, max-age=3600

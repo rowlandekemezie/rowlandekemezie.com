@@ -37,6 +37,12 @@ pnpm lighthouse:preview
 - `scripts/`: verification and audit scripts
 - `docs/`: migration and deployment notes
 
+## Local secrets
+
+The newsletter endpoint in `public/_worker.js` needs `KIT_API_KEY` and `KIT_FORM_ID`. Put them in
+`.dev.vars` for local Wrangler runs and in the Cloudflare Pages dashboard for deployments. Never commit
+them; `.env*` and `.dev.vars` are git-ignored.
+
 ## Deployment
 
 Cloudflare Pages builds the site from `dist` using:

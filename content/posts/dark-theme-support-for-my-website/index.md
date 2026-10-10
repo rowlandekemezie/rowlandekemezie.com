@@ -3,6 +3,7 @@ template: post
 title: Dark theme support for my website(CSS variables, React hooks, and sass variables)
 slug: /posts/dark-theme-support-for-my-website/
 draft: false
+archived: true
 date: '2019-05-31T22:40:32.169Z'
 description: Dark theme support is great judging by the fact that most people already use it. It seems reasonable to have my website support such use case.
 category: Software

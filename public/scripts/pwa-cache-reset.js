@@ -5,11 +5,16 @@
 
   const resetKey = 'pwa-cache-reset-v1';
 
-  if (sessionStorage.getItem(resetKey)) {
+  try {
+    if (sessionStorage.getItem(resetKey)) {
+      return;
+    }
+
+    sessionStorage.setItem(resetKey, '1');
+  } catch {
+    // Storage is blocked (e.g. strict privacy settings). Skip the one-time reset.
     return;
   }
-
-  sessionStorage.setItem(resetKey, '1');
 
   const unregisterServiceWorkers = navigator.serviceWorker
     .getRegistrations()
