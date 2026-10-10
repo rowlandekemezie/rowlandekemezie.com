@@ -190,6 +190,38 @@
     });
   };
 
+  // Wide diagrams (left-to-right flowcharts) shrink until their labels are
+  // unreadable on phones. Keep them at a legible minimum scale and let the
+  // container scroll sideways instead.
+  const minimumDiagramScale = 0.7;
+
+  const fitDiagram = (diagram: HTMLElement) => {
+    const svg = diagram.querySelector('svg');
+    if (!(svg instanceof SVGSVGElement)) return;
+    const naturalWidth = svg.viewBox.baseVal?.width ?? 0;
+    const style = getComputedStyle(diagram);
+    const available =
+      diagram.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    const tooSmall = naturalWidth > 0 && available > 0 && available / naturalWidth < minimumDiagramScale;
+
+    svg.style.minWidth = tooSmall ? `${Math.round(naturalWidth * minimumDiagramScale)}px` : '';
+    diagram.classList.toggle('is-scrollable', tooSmall);
+    if (tooSmall) diagram.tabIndex = 0;
+    else diagram.removeAttribute('tabindex');
+  };
+
+  const fitAllDiagrams = () => {
+    document.querySelectorAll('.mermaid-diagram').forEach((diagram) => {
+      if (diagram instanceof HTMLElement) fitDiagram(diagram);
+    });
+  };
+
+  let resizeFrame = 0;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(fitAllDiagrams);
+  });
+
   let renderIndex = 0;
   let mermaidModulePromise;
 
@@ -228,6 +260,7 @@
           diagram.innerHTML = svg;
           bindFunctions?.(diagram);
           diagram.removeAttribute('data-mermaid-error');
+          fitDiagram(diagram);
           addRequestFlowControls(diagram);
         } catch (error) {
           diagram.closest('.mermaid-figure')?.querySelector('.mermaid-flow-controls')?.remove();
@@ -255,6 +288,21 @@
 
   .prose .mermaid-figure .mermaid-diagram {
     margin: 0;
+  }
+
+  .prose .mermaid-diagram.is-scrollable {
+    place-items: start;
+    /* Edge shadows hint that the diagram continues off-screen. */
+    background:
+      linear-gradient(to right, var(--bg) 30%, transparent) left / 2rem 100% no-repeat local,
+      linear-gradient(to left, var(--bg) 30%, transparent) right / 2rem 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--heading) 28%, transparent), transparent) left / 0.75rem 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--heading) 28%, transparent), transparent) right / 0.75rem 100% no-repeat scroll;
+  }
+
+  .prose .mermaid-diagram.is-scrollable:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
   }
 
   .mermaid-flow-controls {

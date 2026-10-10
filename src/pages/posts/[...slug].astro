@@ -423,6 +423,12 @@ const articleStructuredData = {
     font-size: 0.94rem;
     line-height: 1.55;
     -webkit-overflow-scrolling: touch;
+    /* Edge shadows appear only when the table is wider than the column and can scroll. */
+    background:
+      linear-gradient(to right, var(--bg) 30%, transparent) left / 2rem 100% no-repeat local,
+      linear-gradient(to left, var(--bg) 30%, transparent) right / 2rem 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--heading) 28%, transparent), transparent) left / 0.75rem 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--heading) 28%, transparent), transparent) right / 0.75rem 100% no-repeat scroll;
   }
 
   .article-main :global(.prose th),
@@ -583,9 +589,21 @@ const articleStructuredData = {
     text-underline-offset: 0.22em;
   }
 
+  .article-reply :global(.article-reply-link span) {
+    display: inline-block;
+  }
+
   .article-reply :global(.article-reply-link:focus-visible) {
     outline: 2px solid var(--focus);
     outline-offset: 3px;
+  }
+
+  @media (max-width: 40rem) {
+    /* Wider cells keep rows short; the table scrolls sideways with edge shadows as the cue. */
+    .article-main :global(.prose th),
+    .article-main :global(.prose td) {
+      min-width: 13rem;
+    }
   }
 
   @media (max-width: 30rem) {
