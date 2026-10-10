@@ -312,4 +312,41 @@ assert(
   typeof subscribeCompatibility.error === 'string'
 );
 
+const subscribeCrossOriginResponse = await worker.fetch(
+  new Request('https://rowlandekemezie.com/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Origin: 'https://evil.example' },
+    body: JSON.stringify({ email: 'person@example.com' })
+  }),
+  fakeEnv
+);
+assert('newsletter API rejects cross-origin posts', subscribeCrossOriginResponse.status === 403);
+
+const subscribeHoneypotResponse = await worker.fetch(
+  new Request('https://rowlandekemezie.com/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Origin: 'https://rowlandekemezie.com' },
+    body: JSON.stringify({ email: 'person@example.com', website: 'https://spam.example' })
+  }),
+  { ...fakeEnv, KIT_API_KEY: 'test', KIT_FORM_ID: '1' }
+);
+assert('newsletter API silently accepts honeypot submissions', subscribeHoneypotResponse.status === 200);
+assert('newsletter API creates subscribers as inactive for double opt-in', workerSource.includes("state: 'inactive'"));
+
+for (const [from, to] of [
+  ['https://www.rowlandekemezie.com/about/', 'https://rowlandekemezie.com/about/'],
+  ['https://rowlandekemezie.com/page/2/', 'https://rowlandekemezie.com/'],
+  ['https://rowlandekemezie.com/tag/react/', 'https://rowlandekemezie.com/tags/web-development/'],
+  ['https://rowlandekemezie.com/tag/react/page/2/', 'https://rowlandekemezie.com/tags/web-development/'],
+  ['https://rowlandekemezie.com/category/software/', 'https://rowlandekemezie.com/categories/software/']
+]) {
+  const redirect = await worker.fetch(new Request(from), fakeEnv);
+  assert(`${from} redirects permanently`, redirect.status === 301 && redirect.headers.get('Location') === to);
+}
+
+const htmlAssetResponse = await worker.fetch(new Request('https://rowlandekemezie.com/missing-page/', {
+  headers: { Accept: 'text/html' }
+}), fakeEnv);
+assert('non-negotiated routes do not add Vary: Accept', !htmlAssetResponse.headers.get('Vary')?.includes('Accept'));
+
 console.log('Agent readiness verification passed.');

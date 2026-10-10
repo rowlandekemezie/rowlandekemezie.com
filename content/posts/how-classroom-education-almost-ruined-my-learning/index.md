@@ -67,7 +67,7 @@ I found lots of amazing stuff on how to learn. Let me share a couple of them.
 
 1. [How people learn](https://www.nap.edu/read/9853/chapter/1).
 
-1. [The Lesson You Never Got Taught in School: How to Learn!](http://bigthink.com/neurobonkers/assessing-the-evidence-for-the-one-thing-you-never-get-taught-in-school-how-to-learn)
+1. [The Lesson You Never Got Taught in School: How to Learn!](https://bigthink.com/neurobonkers/assessing-the-evidence-for-the-one-thing-you-never-get-taught-in-school-how-to-learn)
 
 ## **Some gleanings from my mistakes**
 
@@ -81,7 +81,7 @@ My major problem was learning just to scale through assessments. Unfortunately, 
 
 > Our obligation is to give meaning to life and in doing so to overcome the passive, indifferent life. - [Elie Wiesel](https://www.brainyquote.com/quotes/quotes/e/eliewiesel386793.html).
 
-Every invention came out of curiosity and maybe challenging the current status quo. My approach was to swallow everything I was given in class and that was it. The cons of passive learning outweigh the pros. The result of passive learning is [surface processing](http://www2.rgu.ac.uk/celt/pgcerttlt/how/how5a.htm). It doesn’t engage the use of high-level [cognitive skills](http://sharpbrains.com/blog/2006/12/18/what-are-cognitive-abilities/).
+Every invention came out of curiosity and maybe challenging the current status quo. My approach was to swallow everything I was given in class and that was it. The cons of passive learning outweigh the pros. The result of passive learning is [surface processing](http://www2.rgu.ac.uk/celt/pgcerttlt/how/how5a.htm). It doesn’t engage the use of high-level [cognitive skills](https://sharpbrains.com/blog/2006/12/18/what-are-cognitive-abilities/).
 
 Passive learning is learning without real world application in view. It’s not an optimal style of learning to be productive in a dynamic world like ours.
 
@@ -93,9 +93,9 @@ As explained in [Einstein: The Life and Times](https://www.amazon.com/Einstein-T
 
 Skepticism, keeping faith with the norm, always being realistic, procrastination, etc are killer viruses. They block your mind from endless possibilities and creative insights.
 
-Consider some of the habits killing your creativity in [21 Ways to Kill Your Creativity.](http://www.creativitypost.com/create/21_ways_to_kill_your_creativity)
+Consider some of the habits killing your creativity in [21 Ways to Kill Your Creativity.](https://www.creativitypost.com/create/21_ways_to_kill_your_creativity)
 
-When it comes to learning, I go with [Clark Terry’s 3 steps to learning improvisation](http://www.jazzadvice.com/clark-terrys-3-steps-to-learning-improvisation/).
+When it comes to learning, I go with [Clark Terry’s 3 steps to learning improvisation](https://www.jazzadvice.com/clark-terrys-3-steps-to-learning-improvisation/).
 
 ![Guiding principle for mastery](./images/learning-improv.png)
 _Guiding principle for mastery_

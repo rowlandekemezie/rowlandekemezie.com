@@ -1,6 +1,5 @@
 import type { APIRoute } from 'astro';
 import {
-  getPaginatedPosts,
   getPostPath,
   getPublishedPosts,
   groupPostsByCategory,
@@ -8,7 +7,7 @@ import {
   groupPostsByTag,
   parsePostDate,
 } from '../lib/content';
-import { aboutRoute, categoryRoute, pageRoute, seriesRoute, site, tagRoute } from '../lib/site';
+import { categoryRoute, seriesRoute, site, tagRoute } from '../lib/site';
 
 function escapeXml(value: string) {
   return value
@@ -30,25 +29,21 @@ export const GET: APIRoute = async ({ site: contextSite }) => {
   const tags = groupPostsByTag(posts);
   const categories = groupPostsByCategory(posts);
   const seriesList = groupPostsBySeries(posts);
-  const pagination = getPaginatedPosts(posts, 1, 5);
 
-  const entries = [
+  // Static pages have no reliable modification date, so they omit <lastmod>
+  // rather than claiming they changed with the latest post.
+  const entries: { path: string; lastmod?: Date }[] = [
     { path: '/', lastmod: latestPostDate },
-    { path: '/about/', lastmod: latestPostDate },
-    { path: '/contact/', lastmod: latestPostDate },
-    { path: '/privacy/', lastmod: latestPostDate },
-    { path: '/developers/', lastmod: latestPostDate },
-    { path: aboutRoute(), lastmod: latestPostDate },
+    { path: '/about/' },
+    { path: '/contact/' },
+    { path: '/privacy/' },
+    { path: '/developers/' },
     { path: '/tags/', lastmod: latestPostDate },
     { path: '/categories/', lastmod: latestPostDate },
     { path: '/series/', lastmod: latestPostDate },
-    ...Array.from({ length: pagination.totalPages }, (_, index) => ({
-      path: pageRoute(index + 1),
-      lastmod: latestPostDate,
-    })),
     ...posts.map((post) => ({
       path: getPostPath(post),
-      lastmod: parsePostDate(post.data.date),
+      lastmod: parsePostDate(post.data.updated ?? post.data.date),
     })),
     ...tags.map(([tag]) => ({
       path: tagRoute(tag),
@@ -67,7 +62,8 @@ export const GET: APIRoute = async ({ site: contextSite }) => {
   const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries
     .map(({ path, lastmod }) => {
       const loc = new URL(path, origin).toString();
-      return `  <url>\n    <loc>${escapeXml(loc)}</loc>\n    <lastmod>${toIsoDate(lastmod)}</lastmod>\n  </url>`;
+      const lastmodTag = lastmod ? `\n    <lastmod>${toIsoDate(lastmod)}</lastmod>` : '';
+      return `  <url>\n    <loc>${escapeXml(loc)}</loc>${lastmodTag}\n  </url>`;
     })
     .join('\n')}\n</urlset>\n`;
 

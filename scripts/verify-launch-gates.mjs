@@ -16,7 +16,8 @@ const sizeBudgetBytes = {
   home: 31_000,
   percy: 35_000,
   searchCatalog: 10_000,
-  topThirty: 35_000,
+  // Top 30's thirty items are h2 sections, so its table of contents lists all of them.
+  topThirty: 48_000,
 };
 
 function readRoute(route) {

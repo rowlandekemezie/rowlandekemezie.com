@@ -3,6 +3,7 @@ template: post
 title: Handling Ajax in Your React Application
 slug: /posts/handling-ajax-in-your-react-application-with-agility/
 draft: false
+archived: true
 date: '2016-11-02T22:40:32.169Z'
 description: ReactJS ecosystem has become huge since Facebook made the API public. More so, great libraries have been built in the declarative style adopted by React. However, real life applications require making AJAX requests to servers. And this can pose a great challenge while using React. You need to know what library to use for your AJAX processes.
 category: Software
@@ -30,7 +31,7 @@ It’s good to know that there are different ways to handle AJAX with React. Thi
 
 ## 1. Within React Component
 
-This is the simplest and the most common approach for AJAX requests. Here, the AJAX request is issued directly in the [componentDidMount](http://www.tutorialspoint.com/reactjs/reactjs_component_life_cycle.htm) lifecycle method of your component. Things can get messed up this way as your application grows.
+This is the simplest and the most common approach for AJAX requests. Here, the AJAX request is issued directly in the [componentDidMount](https://www.tutorialspoint.com/reactjs/reactjs_component_life_cycle.htm) lifecycle method of your component. Things can get messed up this way as your application grows.
 
 _A request to Github API to get user details looks like this:_
 
@@ -107,16 +108,16 @@ _A sample relay flow could look thus:_
 
 ## **3. Delegate Redux**
 
-[Redux](http://redux.js.org/) is built off of [Flux architecture](https://facebook.github.io/flux/docs/overview.html) for managing React application’s state. With Redux, you move your application data and AJAX processes away from your components.
+[Redux](https://redux.js.org/) is built off of [Flux architecture](https://facebook.github.io/flux/docs/overview.html) for managing React application’s state. With Redux, you move your application data and AJAX processes away from your components.
 
 ![Redux workflow example](./images/redux-github-workflow.png)
 _Redux workflow example_
 
 From the diagram, you can see how the application state and asynchronous processes are moved to the store.
 
-[Store](http://redux.js.org/docs/api/Store.html#dispatch) is an object that holds the complete state of your app. Note that in Redux, all application states are stored as a single object. The only way to change its state is by [dispatching actions](http://redux.js.org/docs/api/Store.html#dispatch). With this implementation, you maintain a single source of truth across your application.
+[Store](https://redux.js.org/docs/api/Store.html#dispatch) is an object that holds the complete state of your app. Note that in Redux, all application states are stored as a single object. The only way to change its state is by [dispatching actions](https://redux.js.org/docs/api/Store.html#dispatch). With this implementation, you maintain a single source of truth across your application.
 
-[Reducers](http://redux.js.org/docs/basics/Reducers.html) are just pure functions that take the previous state and an action and then return the new state. It does not mutate state; it makes a copy of the previous state, transforms it, and returns a new state to the store. The store then updates the view with the new state if there are changes.
+[Reducers](https://redux.js.org/docs/basics/Reducers.html) are just pure functions that take the previous state and an action and then return the new state. It does not mutate state; it makes a copy of the previous state, transforms it, and returns a new state to the store. The store then updates the view with the new state if there are changes.
 
 > **Reducers**, given the same arguments, should calculate the next state and return it. No surprises. No side effects. No API calls. No mutations. Reducers are synchronous and passive, thus not the ideal place for async actions.
 
@@ -144,11 +145,11 @@ A **thunk** is a function that is created, often automatically, to assist a call
 
 When an action creator returns a function, that function will get executed by the Redux Thunk middleware. This function doesn’t need to be pure; thus, it is allowed to have side effects, including executing asynchronous API calls or router transition. The function can also dispatch actions.
 
-To enable Redux Thunk, we use [applyMiddleware()](http://redux.js.org/docs/api/applyMiddleware.html).
+To enable Redux Thunk, we use [applyMiddleware()](https://redux.js.org/docs/api/applyMiddleware.html).
 
 > If Redux Thunk middleware is enabled, any time you attempt to dispatch a function instead of an action object, the middleware will call that function with dispatch method as the first argument.
 
-Check [here](http://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559) as [Dan Abramov](https://www.codementor.io/gaearon), the creator of Redux, and Redux-thunk gives a detailed explanation of use cases.
+Check [here](https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559) as [Dan Abramov](https://www.codementor.io/gaearon), the creator of Redux, and Redux-thunk gives a detailed explanation of use cases.
 
 We can dispatch both plain object actions and other thunks, which lets us compose the asynchronous actions in a single flow.
 
@@ -346,7 +347,7 @@ const store = createStore(userReducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(watchRequest);
 ```
 
-To make the store’s state and functions available to the React component, [React-redux](http://redux.js.org/docs/basics/UsageWithReact.html) provides:
+To make the store’s state and functions available to the React component, [React-redux](https://redux.js.org/docs/basics/UsageWithReact.html) provides:
 
 1. **connect** function — connects a React component to a Redux store.
 

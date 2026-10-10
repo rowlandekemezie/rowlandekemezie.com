@@ -18,7 +18,7 @@ image: ./images/effective-learner.jpeg
 
 It’s said that when one stops learning he starts dying. We all learn but what we learn and how we learn is key to success. The focus should be on behavioral patterns for learning.
 
-### Where did it go wrong?
+## Where did it go wrong?
 
 In 2009, [a study conducted by](http://learninglab.psych.purdue.edu/downloads/2012_Karpicke_CDPS.pdf) Purdue University asked 177 college students:
 
@@ -34,13 +34,13 @@ Life is a learning process and whether people know it or not, they’re learning
 
 A mid-level developer once said to me that he gets his work done using Stack Overflow. Whereas ESME(Eliminating Stupid Mental Effort) is key in life, learning must not be compromised under the guise of any.
 
-### My story
+## My story
 
 After graduating with first class in computer science and distinction in Electrical/Electronics Engineering(9 years in the college), I found something missing in my arsenal. What could that be? Was it an M.Sc? Far from it. You could say I’m an ingrate and might wish to believe it’s a joke. The irony of it is that I failed. Whereas end products are what people celebrate, what is most important for personal development is how success was gotten — the process. Processes could be maneuvered in an attempt for quick results. Unfortunately, this approach would haunt any man latter on. The way I see success is being able to succeed in succession and that makes it critical that the path to success be clean and proper.
 
 In my adventure for learning and excellence, I channeled my quest towards getting the job done thinking that was all there was to it. Far from it. What I observed after all the supposed academic successes was that I forgot whatever I thought I’ve learnt in the process and never made meaning out of it. That’s what I call the labour of foolishness. I was celebrated and considered a genius but I was basically in the path of doom without realizing. This was as a result of gambling with the content without understanding the rudiments for effective learning and productivity. I wish I knew earlier than now.
 
-### **Three school of thought about learning**
+## **Three school of thought about learning**
 
 I observed three versions of learning as a summary when I try to see how people actually learn. I may categorize them as three schools of thoughts. Whereas two are distinct, the third is a conglomerate of both. The thought that we **_learn by doing_** is practically oriented and the thought that we **_learn to do_** is theoretically oriented but the conglomerate of both could be termed “isomorphically oriented”.
 
@@ -48,7 +48,7 @@ For the practically-oriented folks, they are productive and almost always delive
 
 Let’s get down into some of the basic factors for learning.
 
-### LEARNING: THE WHY FACTOR
+## LEARNING: THE WHY FACTOR
 
 ![Why factor](./images/learning-why-factor.jpeg)
 
@@ -57,7 +57,7 @@ Let’s get down into some of the basic factors for learning.
 
 Making proper connections around the premise of the new material you’re learning and how they interleave with each other involves understanding. It’s usually easy to resort to cookie-cutter, do-as-you-see, and do-as-you-are-told mindless approach when following a worked out tutorial. It’s easy to focus on what worked and mindlessly forgetting the connections they make with the next step. It is the understanding of the interconnectedness between steps that guarantees the creative use of the material and it’s mastery forthwith. Understanding is principal in learning any material or art effectively.
 
-### LEARNING: THE HABIT FACTOR
+## LEARNING: THE HABIT FACTOR
 
 ![Habit factor](./images/learning-habit-factor.jpeg)
 
@@ -65,7 +65,7 @@ Making proper connections around the premise of the new material you’re learni
 
 Focus on goals rather than habits might be the easiest way to abort passion and love for a new material you’re learning. Goals are met when habits are formed. Habits connect all resources to meet a goal. Habits help build processes that you can leverage subconsciously to deliver a product. Habit is the operation manager that coordinates and brings every tiny piece together into actualizing a goal. When learning is the reason, setting goals is not a priority.
 
-### LEARNING: THE COMMUNITY FACTOR
+## LEARNING: THE COMMUNITY FACTOR
 
 ![Community factor](./images/learning-community-factor.jpeg)
 
@@ -74,13 +74,13 @@ Focus on goals rather than habits might be the easiest way to abort passion and 
 
 The supposedly intelligent and the so-called geniuses usually think that joining a community or building a community to learn with is a waste of time. Isolation from the force of a community is deadly for learning. Most people would usually not reach the zenith of their dreams because of divorce with community factor and unfortunate friendship with isolation. Those that fall into this category quickly grasp materials more than any one else but lack the cutting edge that community forces brings with it. This is usually the separating line between the intelligent and the brilliant.
 
-### LEARNING: THE PRACTICE FACTOR
+## LEARNING: THE PRACTICE FACTOR
 
 ![Practice factor](./images/learning-practice-factor.jpeg)
 
 > For the things we have to learn before we can do them, we learn by doing them. ― [Aristotle](https://www.goodreads.com/author/show/2192.Aristotle).
 
-### **Pros of practice testing**
+## **Pros of practice testing**
 
 1. Ensures memory retention and comprehension.
 

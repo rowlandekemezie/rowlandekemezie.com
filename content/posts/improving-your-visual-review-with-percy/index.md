@@ -3,6 +3,7 @@ template: post
 title: Improving your Visual Review with Percy
 slug: /posts/improving-your-visual-review-with-percy/
 draft: false
+archived: true
 date: '2019-04-17T22:40:32.169Z'
 description: UI review is an integral part of software development cycle especially, mobile and web development. Finding a scalable way of integrating automated visual testing with immediate feedback cycle to improve the whole process and ship with confidence.
 category: Software
@@ -15,24 +16,24 @@ image: ./images/ken-treloar-unsplash.jpg
 ![Hero image](./images/ken-treloar-unsplash.jpg)
 <i>Photo by Ken Treloar on Unsplash.</i>
 
-### The problem
+## The problem
 
 Your development team delivers lots of changes to client facing application. For the most part, developers don't know when they've broken anything on the UI. You ship UI changes with less confidence not knowing if something broke. Whereas there are decent code review, manual QA and test coverage, they are still not enough to catch all UI bugs. One option is to go all out to engage more manual QA personnel. Alternatively, find a scalable way of integrating automated visual reviews with immediate feedback cycle to improve the whole process and ship with confidence.
 
-### There're a few reasons for visual reviews:
+## There're a few reasons for visual reviews:
 
 - Manual QA is not scalable
 - Visual regression testing is a life saver
 - Automated feedback is a great gain
 - Cross browser compatibility issues still live
 
-### Why Percy
+## Why Percy
 
 I think [percy](https://percy.io/) does a great job on the above issues. It integrates with your existing CI workflow, highlights visual diffs across browsers, screens and snapshots. The icing on the cake is the ability to review and approve these changes. Basically, Percy combines visual testings and review platform in one which is pretty cool.
 
 > As, at the time of this writing, Percy is free for up to 5k snapshots monthly.
 
-#### Let's walk through how to use Percy
+### Let's walk through how to use Percy
 
 I'd be integrating this to the [repository](https://github.com/rowlandekemezie/rowlandekemezie.com) that powers my personal website. It's made with [Gatsby](https://gatsbyjs.com) and deployed to [Netlify](https://netlify.com).
 
@@ -42,7 +43,7 @@ So, let's first clone the repository
 git clone https://github.com/rowlandekemezie/rowlandekemezie.com.git
 ```
 
-### Run Percy locally
+## Run Percy locally
 
 You can configure percy-cli for testing locally
 
@@ -76,7 +77,7 @@ Click on the link generated below to review it on Percy platform.
 
 > The left column is blank because there's no snapshot to compare against yet.
 
-### Integrate Percy with your CI workflow
+## Integrate Percy with your CI workflow
 
 We'll love to integrate percy to our CI workflow. It should run on every commit.
 
@@ -157,7 +158,7 @@ Now, we can head to percy.io to see the snapshots created by the build.
 
 > Percy automatically detects that there's no change hence, "All changes approved automatically on this branch".
 
-### Link up Percy to your repository
+## Link up Percy to your repository
 
 The final part of this setup is to link Percy to our repository to get immediate feedback after each build.
 
@@ -174,7 +175,7 @@ With the source code integration enabled, we can manage our pull request statuse
 Now you can select the repository to link to each project
 ![Select project](./images/select-repository.png)
 
-### End to end test
+## End to end test
 
 Now, let's test everything together. Let's create a test branch and increase the _font-size_ of the content's title in _/components/Post/Content/Content.module.scss_. Commit the change and create a pull request.
 
@@ -206,7 +207,7 @@ We can approve the changes by clicking _Approve all_ and boom all checks passed 
 
 Percy gives you and your team the power to review and approve UI changes with confidence. You can build toolings around the capabilities it provides.
 
-#### Further reading
+### Further reading
 
 - [Visual testing for storybook](https://docs.percy.io/docs/storybook).
 

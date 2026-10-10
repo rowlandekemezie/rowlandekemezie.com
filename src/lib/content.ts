@@ -1,7 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { kebabCase, postRouteFromSlug, postSlugFromEntry } from './site';
 
-export type PageEntry = CollectionEntry<'pages'>;
 export type PostEntry = CollectionEntry<'posts'>;
 export type PostSeries = NonNullable<PostEntry['data']['series']>;
 
@@ -17,22 +16,18 @@ export async function getPublishedPosts() {
   );
 }
 
-export async function getPages() {
-  return getCollection('pages');
-}
-
-export async function getPageBySlug(slug: string) {
-  const pages = await getPages();
-  return pages.find((page) => page.id.replace(/\.mdx?$/, '') === slug);
-}
-
 export function parsePostDate(value: string) {
-  if (value.includes('T')) {
-    return new Date(value);
+  // Legacy posts use DD/MM/YYYY; everything else is ISO 8601 (YYYY-MM-DD or a full timestamp).
+  const legacy = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  const date = legacy
+    ? new Date(Date.UTC(Number(legacy[3]), Number(legacy[2]) - 1, Number(legacy[1])))
+    : new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`Invalid post date: "${value}"`);
   }
 
-  const [day, month, year] = value.split('/').map((part) => Number.parseInt(part, 10));
-  return new Date(Date.UTC(year, month - 1, day));
+  return date;
 }
 
 export function formatPostDate(value: string) {
@@ -106,19 +101,6 @@ export function getSeriesForPost(post: PostEntry) {
   return {
     ...series,
     slug: getSeriesSlug(series),
-  };
-}
-
-export function getPaginatedPosts(posts: PostEntry[], page: number, perPage: number) {
-  const totalPages = Math.max(1, Math.ceil(posts.length / perPage));
-  const currentPage = Math.min(Math.max(page, 1), totalPages);
-  const start = (currentPage - 1) * perPage;
-
-  return {
-    currentPage,
-    perPage,
-    posts: posts.slice(start, start + perPage),
-    totalPages,
   };
 }
 

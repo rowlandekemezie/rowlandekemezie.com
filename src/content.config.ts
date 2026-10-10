@@ -10,7 +10,9 @@ const posts = defineCollection({
       title: z.string(),
       slug: z.string().optional(),
       draft: z.boolean().default(false),
+      archived: z.boolean().default(false),
       date: z.string(),
+      updated: z.string().optional(),
       description: z.string().optional(),
       category: z.string().optional(),
       tags: z.array(z.string()).default([]),
@@ -25,16 +27,6 @@ const posts = defineCollection({
     }),
 });
 
-const pages = defineCollection({
-  loader: glob({ base: './content/pages', pattern: '**/*.{md,mdx}' }),
-  schema: z.object({
-    title: z.string(),
-    template: z.string().optional(),
-    description: z.string().optional(),
-  }),
-});
-
 export const collections = {
-  pages,
   posts,
 };

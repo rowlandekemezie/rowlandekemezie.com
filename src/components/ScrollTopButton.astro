@@ -12,8 +12,13 @@
         button.hidden = window.scrollY < 560;
       };
 
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
       button.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+        // Move keyboard focus with the scroll, so the next Tab starts at the top of the content.
+        const main = document.getElementById('main');
+        if (main instanceof HTMLElement) main.focus({ preventScroll: true });
       });
 
       window.addEventListener('scroll', sync, { passive: true });

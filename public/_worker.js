@@ -1,9 +1,12 @@
+// Advisory request budget for API clients. The worker does not count requests,
+// so it publishes the policy without pretending to report live remaining quota.
 const RATE_LIMIT_HEADERS = {
   'RateLimit-Limit': '120',
-  'RateLimit-Policy': '120;w=60',
-  'RateLimit-Remaining': '120',
-  'RateLimit-Reset': '60'
+  'RateLimit-Policy': '120;w=60'
 };
+
+const CANONICAL_HOST = 'rowlandekemezie.com';
+const SUBSCRIBE_ERROR = 'Unable to subscribe right now. Please try again later.';
 
 const PROFILE = {
   name: 'Rowland I. Ekemezie',
@@ -281,21 +284,48 @@ function markdownNotFound(request) {
   });
 }
 
-async function readErrorPayload(response) {
-  const payload = await response.json().catch(() => null);
+function isSameOriginRequest(request) {
+  const origin = request.headers.get('Origin');
 
-  if (payload) {
-    return payload;
+  if (!origin) {
+    return false;
   }
 
-  return {
-    errors: ['Unable to subscribe right now.']
-  };
+  try {
+    return new URL(origin).host === new URL(request.url).host;
+  } catch {
+    return false;
+  }
+}
+
+async function kitRequest(env, path, body) {
+  const response = await fetch(`https://api.kit.com/v4/${path}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Kit-Api-Key': env.KIT_API_KEY
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (!response.ok) {
+    console.error('Kit request failed', {
+      path,
+      status: response.status,
+      payload: await response.json().catch(() => null)
+    });
+  }
+
+  return response;
 }
 
 async function handleSubscribe(request, env) {
   if (request.method !== 'POST') {
     return json({ error: 'Method Not Allowed' }, 405, { Allow: 'POST' });
+  }
+
+  if (!isSameOriginRequest(request)) {
+    return json({ error: 'Forbidden' }, 403);
   }
 
   if (!env.KIT_API_KEY || !env.KIT_FORM_ID) {
@@ -309,88 +339,39 @@ async function handleSubscribe(request, env) {
       ? body.referrer.trim()
       : null;
 
+  // Honeypot: real visitors never see or fill this field. Report success so
+  // bots get no signal, but never forward the address to Kit.
+  if (typeof body?.website === 'string' && body.website.trim()) {
+    return json({ message: 'Check your inbox to confirm your subscription.' });
+  }
+
   if (!email) {
     return json({ error: 'Email address is required.' }, 400);
   }
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
+  if (email.length > 254 || !emailPattern.test(email)) {
     return json({ error: 'Enter a valid email address.' }, 400);
   }
 
-  const createSubscriberResponse = await fetch(
-    'https://api.kit.com/v4/subscribers',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Kit-Api-Key': env.KIT_API_KEY
-      },
-      body: JSON.stringify({
-        email_address: email,
-        state: 'active'
-      })
-    }
-  );
+  // Create the subscriber as inactive so Kit's double opt-in confirmation
+  // email (sent when they are added to the form) is what activates them.
+  const createSubscriberResponse = await kitRequest(env, 'subscribers', {
+    email_address: email,
+    state: 'inactive'
+  });
 
   if (!createSubscriberResponse.ok) {
-    const payload = await readErrorPayload(createSubscriberResponse);
-
-    console.error('Kit subscriber create failed', {
-      status: createSubscriberResponse.status,
-      payload
-    });
-
-    const firstError =
-      Array.isArray(payload.errors) && typeof payload.errors[0] === 'string'
-        ? payload.errors[0]
-        : 'Unable to subscribe right now.';
-
-    return json(
-      {
-        error: firstError,
-        kit_status: createSubscriberResponse.status
-      },
-      createSubscriberResponse.status
-    );
+    return json({ error: SUBSCRIBE_ERROR }, 502);
   }
 
-  const subscribeResponse = await fetch(
-    `https://api.kit.com/v4/forms/${env.KIT_FORM_ID}/subscribers`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Kit-Api-Key': env.KIT_API_KEY
-      },
-      body: JSON.stringify({
-        email_address: email,
-        referrer
-      })
-    }
-  );
+  const subscribeResponse = await kitRequest(env, `forms/${env.KIT_FORM_ID}/subscribers`, {
+    email_address: email,
+    referrer
+  });
 
   if (!subscribeResponse.ok) {
-    const payload = await readErrorPayload(subscribeResponse);
-
-    console.error('Kit subscribe failed', {
-      status: subscribeResponse.status,
-      formId: env.KIT_FORM_ID,
-      payload
-    });
-
-    const firstError =
-      Array.isArray(payload.errors) && typeof payload.errors[0] === 'string'
-        ? payload.errors[0]
-        : 'Unable to subscribe right now.';
-
-    return json(
-      {
-        error: firstError,
-        kit_status: subscribeResponse.status
-      },
-      subscribeResponse.status
-    );
+    return json({ error: SUBSCRIBE_ERROR }, 502);
   }
 
   return json({
@@ -457,8 +438,30 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.hostname === `www.${CANONICAL_HOST}`) {
+      url.hostname = CANONICAL_HOST;
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (url.pathname === '/pages/about' || url.pathname === '/pages/about/') {
       url.pathname = '/about/';
+      return Response.redirect(url.toString(), 301);
+    }
+
+    // The archive now lives on the homepage, so old paginated URLs go there.
+    if (/^\/page\/\d+\/?$/.test(url.pathname)) {
+      url.pathname = '/';
+      return Response.redirect(url.toString(), 301);
+    }
+
+    // Legacy Gatsby taxonomy URLs: /tag/<x>/, /tag/<x>/page/<n>/ and /category/<x>/.
+    const legacyTaxonomyMatch = url.pathname.match(/^\/(tag|category)\/([^/]+)(?:\/page\/\d+)?\/?$/);
+
+    if (legacyTaxonomyMatch) {
+      const [, kind, name] = legacyTaxonomyMatch;
+      const slug =
+        kind === 'tag' && Object.hasOwn(LEGACY_TAG_REDIRECTS, name) ? LEGACY_TAG_REDIRECTS[name] : name;
+      url.pathname = kind === 'tag' ? `/tags/${slug}/` : `/categories/${slug}/`;
       return Response.redirect(url.toString(), 301);
     }
 
@@ -514,6 +517,6 @@ export default {
       return markdownNotFound(request);
     }
 
-    return withNegotiationHeaders(response);
+    return url.pathname === '/' ? withNegotiationHeaders(response) : response;
   }
 };
