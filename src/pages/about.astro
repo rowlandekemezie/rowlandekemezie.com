@@ -2,6 +2,7 @@
 import avatar from '../assets/rowland-avatar.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EmailLink from '../components/EmailLink.astro';
+import { aboutIntro, howIWork, whatIWriteAbout } from '../lib/about';
 import { site } from '../lib/site';
 
 function iconId(label: string) {
@@ -13,7 +14,11 @@ function iconId(label: string) {
 }
 ---
 
-<BaseLayout title={`About — ${site.title}`} description={`About ${site.author.name}: ${site.positioning}`}>
+<BaseLayout
+  title={`About — ${site.title}`}
+  description={`About ${site.author.name}: ${site.positioning}`}
+  markdownAlternate="/about.md"
+>
   <section class="section">
     <div class="about-shell">
       <div class="about-profile">
@@ -30,11 +35,7 @@ function iconId(label: string) {
           <h1>{site.author.name}</h1>
           <p class="lede">{site.positioning}</p>
           <p>{site.author.summary}</p>
-          <p>
-            I build software systems and engineering organizations for products where reliability,
-            integrations, payments, data flow, and operational clarity matter. I write to make the
-            tradeoffs behind that work explicit and useful.
-          </p>
+          <p>{aboutIntro}</p>
           <ul class="about-socials" aria-label="Social links">
             {
               site.author.links.map((link) => (
@@ -83,17 +84,13 @@ function iconId(label: string) {
       <div class="section stack">
         <h2>How I work</h2>
         <ul class="taxonomy-list">
-          <li>Turn ambiguous business problems into maintainable software with clear architecture and explicit tradeoffs.</li>
-          <li>Build systems that are boring in production, elegant under the hood, and easy for teams to operate.</li>
-          <li>Lead distributed teams with ownership, clarity, and leverage over busyness.</li>
+          {howIWork.map((item) => <li>{item}</li>)}
         </ul>
       </div>
       <div class="section stack">
         <h2>What I write about</h2>
         <ul class="taxonomy-list">
-          <li>Backend architecture, multi-tenant systems, and developer-friendly design.</li>
-          <li>Financial infrastructure across payroll, accounting, and payments.</li>
-          <li>AI-enabled operations, workflow automation, and engineering leadership.</li>
+          {whatIWriteAbout.map((item) => <li>{item}</li>)}
         </ul>
       </div>
     </div>

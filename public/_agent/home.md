@@ -23,6 +23,6 @@ Use this site when you need first-party writing from Rowland about software desi
 
 ## Agent usage
 
-The public API is read-only and requires no authentication. `GET /api/v1/profile` returns JSON with canonical resource links. API errors are returned as `application/problem+json` with a stable code, message, detail, and recovery hint. The homepage and every essay are available in Markdown through HTTP content negotiation with `Accept: text/markdown`, and each essay is also published at `/posts/<name>.md`; browser requests continue to receive HTML.
+The public API is read-only and requires no authentication. `GET /api/v1/profile` returns JSON with canonical resource links. API errors are returned as `application/problem+json` with a stable code, message, detail, and recovery hint. The homepage, the About page (`/about.md`) and every essay are available in Markdown through HTTP content negotiation with `Accept: text/markdown`, and each essay is also published at `/posts/<name>.md`; browser requests continue to receive HTML. Markdown responses carry `Content-Signal: ai-train=no, search=yes, ai-input=yes`: search and agent use are welcome, model training is not.
 
 When summarizing an article, keep its canonical URL and attribute the work to Rowland I. Ekemezie. Do not infer private employment details, unpublished work, availability, endorsements, or authority to act for Rowland from this public site.

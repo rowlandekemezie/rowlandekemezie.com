@@ -22,6 +22,8 @@ export const GET: APIRoute = ({ site: contextSite }) => {
   const robots = [
     ...agentRules,
     'User-agent: *',
+    // Same AI-use terms the worker sends with Markdown (https://contentsignals.org).
+    'Content-Signal: ai-train=no, search=yes, ai-input=yes',
     'Allow: /',
     '',
     `Sitemap: ${new URL('/sitemap.xml', origin).toString()}`,

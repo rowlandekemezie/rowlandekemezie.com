@@ -12,6 +12,9 @@
 /posts/*
   Vary: Accept, Accept-Encoding
 
+/about/
+  Vary: Accept, Accept-Encoding
+
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
