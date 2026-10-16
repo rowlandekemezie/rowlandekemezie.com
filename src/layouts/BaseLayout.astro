@@ -14,6 +14,7 @@ interface Props {
   image?: string;
   imageAlt?: string;
   layout?: 'default' | 'home' | 'article';
+  markdownAlternate?: string;
   noindex?: boolean;
   publishedTime?: string;
   socialType?: 'article' | 'website';
@@ -29,6 +30,7 @@ const {
   image,
   imageAlt,
   layout = 'default',
+  markdownAlternate,
   noindex = false,
   publishedTime,
   socialType = 'website',
@@ -94,6 +96,7 @@ const themeInitScript =
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title={`${site.title} RSS Feed`} href="/rss.xml" />
+    {markdownAlternate && <link rel="alternate" type="text/markdown" href={markdownAlternate} />}
     <meta property="og:type" content={socialType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

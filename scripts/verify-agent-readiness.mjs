@@ -36,6 +36,9 @@ const openapiText = read('openapi.json');
 const llms = read('llms.txt');
 const agents = read('agents.md');
 const markdownHome = read('_agent/home.md');
+const samplePostSlug = 'external-systems-lie';
+const samplePostHtml = read(`posts/${samplePostSlug}/index.html`);
+const samplePostMarkdown = read(`posts/${samplePostSlug}.md`);
 const robots = read('robots.txt');
 const sitemap = read('sitemap.xml');
 const workerSource = read('_worker.js');
@@ -174,6 +177,20 @@ const fakeEnv = {
         });
       }
 
+      if (path === `/posts/${samplePostSlug}.md`) {
+        return new Response(isHead ? null : samplePostMarkdown, {
+          status: 200,
+          headers: { 'Content-Type': 'text/markdown; charset=utf-8' }
+        });
+      }
+
+      if (path === `/posts/${samplePostSlug}/`) {
+        return new Response(isHead ? null : samplePostHtml, {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' }
+        });
+      }
+
       if (path === '/') {
         return new Response(isHead ? null : home, {
           status: 200,
@@ -232,6 +249,51 @@ const unacceptableResponse = await worker.fetch(
   fakeEnv
 );
 assert('unsupported homepage representation returns 406', unacceptableResponse.status === 406);
+
+assert('essay Markdown starts with its title', samplePostMarkdown.startsWith('# External Systems Lie'));
+assert(
+  'essay Markdown names its canonical URL',
+  samplePostMarkdown.includes(`Canonical URL: https://rowlandekemezie.com/posts/${samplePostSlug}/`)
+);
+assert('essay Markdown carries the article body', samplePostMarkdown.includes('## The payment that moved backwards'));
+assert('essay Markdown has no page chrome', !/<(nav|script|form)\b/i.test(samplePostMarkdown));
+assert('essay Markdown has no unresolved local image paths', !/\]\(\.\//.test(samplePostMarkdown));
+assert(
+  'essay HTML advertises its Markdown alternate',
+  samplePostHtml.includes(`<link rel="alternate" type="text/markdown" href="/posts/${samplePostSlug}.md">`)
+);
+assert('static headers vary essays on Accept', headers.includes('/posts/*\n  Vary: Accept, Accept-Encoding'));
+
+const postMarkdownResponse = await worker.fetch(
+  new Request(`https://rowlandekemezie.com/posts/${samplePostSlug}/`, {
+    headers: { Accept: 'text/markdown' }
+  }),
+  fakeEnv
+);
+assert('essay Accept: text/markdown returns 200', postMarkdownResponse.status === 200);
+assert(
+  'essay Accept: text/markdown returns Markdown content type',
+  postMarkdownResponse.headers.get('Content-Type') === 'text/markdown; charset=utf-8'
+);
+assert('negotiated essay Vary includes Accept', postMarkdownResponse.headers.get('Vary')?.includes('Accept'));
+assert('negotiated essay body is the essay', (await postMarkdownResponse.text()).startsWith('# External Systems Lie'));
+
+const postBrowserResponse = await worker.fetch(
+  new Request(`https://rowlandekemezie.com/posts/${samplePostSlug}/`, {
+    headers: { Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' }
+  }),
+  fakeEnv
+);
+assert('essay browser request receives HTML', postBrowserResponse.headers.get('Content-Type')?.startsWith('text/html'));
+assert('essay HTML response Vary includes Accept', postBrowserResponse.headers.get('Vary')?.includes('Accept'));
+
+const missingPostResponse = await worker.fetch(
+  new Request('https://rowlandekemezie.com/posts/essay-that-does-not-exist/', {
+    headers: { Accept: 'text/markdown' }
+  }),
+  fakeEnv
+);
+assert('missing essay in Markdown keeps HTTP 404', missingPostResponse.status === 404);
 
 const agentNotFoundResponse = await worker.fetch(
   new Request('https://rowlandekemezie.com/path-that-does-not-exist', {

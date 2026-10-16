@@ -16,6 +16,7 @@ import {
   getPublishedPosts,
   parsePostDate,
 } from '../../lib/content';
+import { getPostMarkdownPath } from '../../lib/post-markdown';
 import { seriesRoute, site, trimSlashes } from '../../lib/site';
 
 export async function getStaticPaths() {
@@ -91,6 +92,7 @@ const articleStructuredData = {
   canonical={canonical}
   image={socialImage}
   layout="article"
+  markdownAlternate={getPostMarkdownPath(post)}
   socialType="article"
   publishedTime={publishedTime}
   structuredData={articleStructuredData}

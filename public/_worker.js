@@ -421,6 +421,31 @@ async function markdownHomepage(request, env) {
   );
 }
 
+// /posts/<name>/ (or without the trailing slash) maps to the Markdown file the
+// build emits at /posts/<name>.md.
+const POST_PATH = /^\/posts\/([a-z0-9][a-z0-9-]*)\/?$/;
+
+async function markdownPost(request, env, name) {
+  const url = new URL(request.url);
+  url.pathname = `/posts/${name}.md`;
+  url.search = '';
+
+  const response = await env.ASSETS.fetch(
+    new Request(url.toString(), {
+      method: request.method === 'HEAD' ? 'HEAD' : 'GET',
+      headers: request.headers
+    })
+  );
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const negotiated = withNegotiationHeaders(response, 'text/markdown; charset=utf-8');
+  negotiated.headers.set('Content-Location', url.pathname);
+  return negotiated;
+}
+
 function notAcceptable() {
   return new Response(
     'This route can be served as text/html or text/markdown. Send Accept: text/html or Accept: text/markdown.\n',
@@ -507,6 +532,24 @@ export default {
       }
     }
 
+    const postMatch = url.pathname.match(POST_PATH);
+
+    if (postMatch && (request.method === 'GET' || request.method === 'HEAD')) {
+      const representation = preferredRepresentation(request.headers.get('Accept'));
+
+      if (representation === 'markdown') {
+        const markdown = await markdownPost(request, env, postMatch[1]);
+
+        if (markdown) {
+          return markdown;
+        }
+      }
+
+      if (representation === 'not-acceptable') {
+        return notAcceptable();
+      }
+    }
+
     const response = await env.ASSETS.fetch(request);
 
     if (
@@ -517,6 +560,6 @@ export default {
       return markdownNotFound(request);
     }
 
-    return url.pathname === '/' ? withNegotiationHeaders(response) : response;
+    return url.pathname === '/' || postMatch ? withNegotiationHeaders(response) : response;
   }
 };
