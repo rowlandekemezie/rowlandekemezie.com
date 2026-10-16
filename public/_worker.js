@@ -86,6 +86,10 @@ const AGENT_USER_AGENTS = [
   'ora-agent'
 ];
 
+// AI-use terms sent with every Markdown response (https://contentsignals.org):
+// no model training, yes to search indexing and to agents using the content.
+const CONTENT_SIGNAL = 'ai-train=no, search=yes, ai-input=yes';
+
 const NOT_FOUND_MARKDOWN = `# Page not found
 
 The requested resource does not exist on rowlandekemezie.com.
@@ -247,6 +251,10 @@ function withNegotiationHeaders(response, contentType) {
     headers.set('Content-Type', contentType);
   }
 
+  if (contentType?.startsWith('text/markdown')) {
+    headers.set('Content-Signal', CONTENT_SIGNAL);
+  }
+
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
@@ -278,6 +286,7 @@ function markdownNotFound(request) {
     status: 404,
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
+      'Content-Signal': CONTENT_SIGNAL,
       'Cache-Control': 'public, max-age=60',
       Vary: 'Accept, Accept-Encoding, User-Agent'
     }
@@ -421,13 +430,13 @@ async function markdownHomepage(request, env) {
   );
 }
 
-// /posts/<name>/ (or without the trailing slash) maps to the Markdown file the
-// build emits at /posts/<name>.md.
-const POST_PATH = /^\/posts\/([a-z0-9][a-z0-9-]*)\/?$/;
+// Pages with a Markdown version the build emits next to them:
+// /posts/<name>/ -> /posts/<name>.md and /about/ -> /about.md (trailing slash optional).
+const NEGOTIATED_PATH = /^\/(posts\/[a-z0-9][a-z0-9-]*|about)\/?$/;
 
-async function markdownPost(request, env, name) {
+async function markdownPage(request, env, name) {
   const url = new URL(request.url);
-  url.pathname = `/posts/${name}.md`;
+  url.pathname = `/${name}.md`;
   url.search = '';
 
   const response = await env.ASSETS.fetch(
@@ -532,13 +541,13 @@ export default {
       }
     }
 
-    const postMatch = url.pathname.match(POST_PATH);
+    const pageMatch = url.pathname.match(NEGOTIATED_PATH);
 
-    if (postMatch && (request.method === 'GET' || request.method === 'HEAD')) {
+    if (pageMatch && (request.method === 'GET' || request.method === 'HEAD')) {
       const representation = preferredRepresentation(request.headers.get('Accept'));
 
       if (representation === 'markdown') {
-        const markdown = await markdownPost(request, env, postMatch[1]);
+        const markdown = await markdownPage(request, env, pageMatch[1]);
 
         if (markdown) {
           return markdown;
@@ -560,6 +569,19 @@ export default {
       return markdownNotFound(request);
     }
 
-    return url.pathname === '/' || postMatch ? withNegotiationHeaders(response) : response;
+    if (url.pathname === '/' || pageMatch) {
+      return withNegotiationHeaders(response);
+    }
+
+    // Direct requests for a Markdown file (/posts/<name>.md, /about.md, /agents.md)
+    // carry the same AI-use terms as negotiated ones.
+    if (url.pathname.endsWith('.md') && response.ok) {
+      const headers = new Headers(response.headers);
+      headers.set('Content-Type', 'text/markdown; charset=utf-8');
+      headers.set('Content-Signal', CONTENT_SIGNAL);
+      return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+    }
+
+    return response;
   }
 };

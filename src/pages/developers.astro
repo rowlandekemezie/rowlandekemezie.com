@@ -54,13 +54,17 @@ import { site } from '../lib/site';
     <div class="section-stack">
       <h2>Markdown negotiation</h2>
       <p>
-        The homepage and every essay support HTTP content negotiation. Send <code>Accept: text/markdown</code> to the
+        The homepage, the About page and every essay support HTTP content negotiation. Send <code>Accept: text/markdown</code> to the
         homepage, <code>https://rowlandekemezie.com/</code>, for a concise Markdown representation, or to any essay URL
         such as <code>https://rowlandekemezie.com/posts/external-systems-lie/</code> for the article as Markdown. Each
         essay is also published at a stable <code>.md</code> URL, linked from its page with
         <code>&lt;link rel="alternate" type="text/markdown"&gt;</code>. Normal browser requests continue to receive the existing
         HTML site. Negotiated responses include <code>Vary: Accept, Accept-Encoding</code> so shared
-        caches do not mix HTML and Markdown.
+        caches do not mix HTML and Markdown. The About page is also at <code>/about.md</code>.
+      </p>
+      <p>
+        Markdown responses carry <code>Content-Signal: ai-train=no, search=yes, ai-input=yes</code>: the writing may
+        be indexed for search and used by agents answering a request, but not used to train models.
       </p>
     </div>
   </section>

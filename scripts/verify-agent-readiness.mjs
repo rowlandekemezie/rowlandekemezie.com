@@ -39,6 +39,8 @@ const markdownHome = read('_agent/home.md');
 const samplePostSlug = 'external-systems-lie';
 const samplePostHtml = read(`posts/${samplePostSlug}/index.html`);
 const samplePostMarkdown = read(`posts/${samplePostSlug}.md`);
+const aboutMarkdown = read('about.md');
+const CONTENT_SIGNAL = 'ai-train=no, search=yes, ai-input=yes';
 const robots = read('robots.txt');
 const sitemap = read('sitemap.xml');
 const workerSource = read('_worker.js');
@@ -184,6 +186,20 @@ const fakeEnv = {
         });
       }
 
+      if (path === '/about.md') {
+        return new Response(isHead ? null : aboutMarkdown, {
+          status: 200,
+          headers: { 'Content-Type': 'text/markdown; charset=utf-8' }
+        });
+      }
+
+      if (path === '/about/') {
+        return new Response(isHead ? null : about, {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' }
+        });
+      }
+
       if (path === `/posts/${samplePostSlug}/`) {
         return new Response(isHead ? null : samplePostHtml, {
           status: 200,
@@ -287,6 +303,48 @@ const postBrowserResponse = await worker.fetch(
 assert('essay browser request receives HTML', postBrowserResponse.headers.get('Content-Type')?.startsWith('text/html'));
 assert('essay HTML response Vary includes Accept', postBrowserResponse.headers.get('Vary')?.includes('Accept'));
 
+assert('robots.txt states the AI-use terms', robots.includes(`Content-Signal: ${CONTENT_SIGNAL}`));
+assert('negotiated homepage Markdown carries Content-Signal', markdownResponse.headers.get('Content-Signal') === CONTENT_SIGNAL);
+assert('negotiated essay Markdown carries Content-Signal', postMarkdownResponse.headers.get('Content-Signal') === CONTENT_SIGNAL);
+assert('essay HTML does not carry Content-Signal', !postBrowserResponse.headers.has('Content-Signal'));
+
+const directPostMarkdownResponse = await worker.fetch(
+  new Request(`https://rowlandekemezie.com/posts/${samplePostSlug}.md`),
+  fakeEnv
+);
+assert(
+  'direct essay .md request carries Content-Signal',
+  directPostMarkdownResponse.status === 200 && directPostMarkdownResponse.headers.get('Content-Signal') === CONTENT_SIGNAL
+);
+
+assert('About Markdown starts with the author name', aboutMarkdown.startsWith('# Rowland I. Ekemezie'));
+assert('About Markdown carries the How I work section', aboutMarkdown.includes('## How I work'));
+assert('About Markdown does not expose the email address', !aboutMarkdown.includes('@'));
+assert('About HTML advertises its Markdown alternate', about.includes('<link rel="alternate" type="text/markdown" href="/about.md">'));
+assert('static headers vary About on Accept', headers.includes('/about/\n  Vary: Accept, Accept-Encoding'));
+
+const aboutMarkdownResponse = await worker.fetch(
+  new Request('https://rowlandekemezie.com/about/', { headers: { Accept: 'text/markdown' } }),
+  fakeEnv
+);
+assert(
+  'About Accept: text/markdown returns Markdown',
+  aboutMarkdownResponse.status === 200 &&
+    aboutMarkdownResponse.headers.get('Content-Type') === 'text/markdown; charset=utf-8' &&
+    aboutMarkdownResponse.headers.get('Content-Signal') === CONTENT_SIGNAL
+);
+const aboutBrowserResponse = await worker.fetch(
+  new Request('https://rowlandekemezie.com/about/', {
+    headers: { Accept: 'text/html,application/xhtml+xml,*/*;q=0.8' }
+  }),
+  fakeEnv
+);
+assert(
+  'About browser request receives HTML that varies on Accept',
+  aboutBrowserResponse.headers.get('Content-Type')?.startsWith('text/html') &&
+    aboutBrowserResponse.headers.get('Vary')?.includes('Accept')
+);
+
 const missingPostResponse = await worker.fetch(
   new Request('https://rowlandekemezie.com/posts/essay-that-does-not-exist/', {
     headers: { Accept: 'text/markdown' }
@@ -303,6 +361,7 @@ const agentNotFoundResponse = await worker.fetch(
 );
 const agentNotFound = await agentNotFoundResponse.text();
 assert('agent 404 keeps real HTTP 404 status', agentNotFoundResponse.status === 404);
+assert('agent 404 Markdown carries Content-Signal', agentNotFoundResponse.headers.get('Content-Signal') === CONTENT_SIGNAL);
 assert(
   'agent 404 returns Markdown',
   agentNotFoundResponse.headers.get('Content-Type') === 'text/markdown; charset=utf-8'

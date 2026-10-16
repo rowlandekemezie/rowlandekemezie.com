@@ -12,7 +12,7 @@ Do not infer private employment history, private contact data, unpublished work,
 
 1. For canonical identity and resource links, GET https://rowlandekemezie.com/api/v1/profile.
 2. For API schemas and function-calling metadata, read https://rowlandekemezie.com/openapi.json.
-3. For Markdown, request the homepage or any essay URL with `Accept: text/markdown`, or fetch an essay's `.md` URL directly (for example https://rowlandekemezie.com/posts/external-systems-lie.md).
+3. For Markdown, request the homepage, /about/ or any essay URL with `Accept: text/markdown`, or fetch a `.md` URL directly (for example https://rowlandekemezie.com/posts/external-systems-lie.md or https://rowlandekemezie.com/about.md). Content-Signal: ai-train=no, search=yes, ai-input=yes.
 4. For writing discovery, use the sitemap or RSS feed and follow canonical article URLs.
 5. Attribute quoted or summarized ideas to Rowland I. Ekemezie and keep the canonical page URL with the attribution.
 
