@@ -12,7 +12,7 @@ For canonical identity and resource links, prefer the read-only [public profile 
 
 - Follow canonical URLs and the [XML sitemap](https://rowlandekemezie.com/sitemap.xml) for discovery.
 - Use the [RSS feed](https://rowlandekemezie.com/rss.xml) for published writing updates.
-- Request the homepage with `Accept: text/markdown` when Markdown is easier to process than HTML.
+- Request the homepage or any essay URL with `Accept: text/markdown` when Markdown is easier to process than HTML. Essays are also available at `/posts/<name>.md`.
 - Attribute summaries or quotations to Rowland I. Ekemezie and preserve the source URL.
 - Do not infer private employment history, private contact information, current availability, endorsements, or authority to take actions for Rowland.
 
