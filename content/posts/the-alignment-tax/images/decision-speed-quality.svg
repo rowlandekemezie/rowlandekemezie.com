@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="decision-title decision-desc">
+  <title id="decision-title">Decision performance by reporting layers</title>
+  <desc id="decision-desc">Grouped bar chart based on a McKinsey survey. Respondents in organizations with one to three reporting layers reported 70 percent high-quality decisions and 61 percent quick decisions. Four to six layers reported 53 and 47 percent. Seven or more layers reported 45 and 38 percent.</desc>
+
+  <rect x="1" y="1" width="1198" height="718" rx="24" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="64" y="62" font-size="32" font-weight="700" fill="#0f172a">Decision performance by reporting layers</text>
+    <text x="64" y="97" font-size="17" fill="#475569">Share of respondents who described decisions as high quality or quick</text>
+
+    <rect x="64" y="121" width="16" height="16" rx="4" fill="#2563eb"/>
+    <text x="90" y="135" font-size="15" fill="#334155">High-quality decisions</text>
+    <rect x="284" y="121" width="16" height="16" rx="4" fill="#0f766e"/>
+    <text x="310" y="135" font-size="15" fill="#334155">Quick decisions</text>
+
+    <g stroke="#e2e8f0" stroke-width="1">
+      <line x1="120" y1="180" x2="1140" y2="180"/>
+      <line x1="120" y1="285" x2="1140" y2="285"/>
+      <line x1="120" y1="390" x2="1140" y2="390"/>
+      <line x1="120" y1="495" x2="1140" y2="495"/>
+      <line x1="120" y1="600" x2="1140" y2="600"/>
+    </g>
+    <line x1="120" y1="180" x2="120" y2="600" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="120" y1="600" x2="1140" y2="600" stroke="#94a3b8" stroke-width="2"/>
+
+    <g font-size="14" fill="#64748b" text-anchor="end">
+      <text x="103" y="185">80%</text>
+      <text x="103" y="290">60%</text>
+      <text x="103" y="395">40%</text>
+      <text x="103" y="500">20%</text>
+      <text x="103" y="605">0%</text>
+    </g>
+
+    <g>
+      <rect x="205" y="232.5" width="90" height="367.5" rx="8" fill="#2563eb"/>
+      <rect x="307" y="279.75" width="90" height="320.25" rx="8" fill="#0f766e"/>
+      <rect x="525" y="321.75" width="90" height="278.25" rx="8" fill="#2563eb"/>
+      <rect x="627" y="353.25" width="90" height="246.75" rx="8" fill="#0f766e"/>
+      <rect x="845" y="363.75" width="90" height="236.25" rx="8" fill="#2563eb"/>
+      <rect x="947" y="400.5" width="90" height="199.5" rx="8" fill="#0f766e"/>
+    </g>
+
+    <g font-size="19" font-weight="700" fill="#0f172a" text-anchor="middle">
+      <text x="250" y="219">70%</text>
+      <text x="352" y="266">61%</text>
+      <text x="570" y="308">53%</text>
+      <text x="672" y="340">47%</text>
+      <text x="890" y="350">45%</text>
+      <text x="992" y="387">38%</text>
+    </g>
+
+    <g font-size="17" font-weight="600" fill="#334155" text-anchor="middle">
+      <text x="301" y="638">1–3 layers</text>
+      <text x="621" y="638">4–6 layers</text>
+      <text x="941" y="638">7+ layers</text>
+    </g>
+
+    <text x="64" y="684" font-size="13" fill="#64748b">Source: McKinsey Global Survey, 2018. Survey result; correlation does not establish causation.</text>
+  </g>
+</svg>
